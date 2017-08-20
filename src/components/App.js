@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
 import Grid from 'react-bootstrap/lib/Grid';
-
-import { Switch, Route } from 'react-router-dom';
 
 import Greeting from './layout/Greeting';
 import NotFound from './layout/NotFound';
