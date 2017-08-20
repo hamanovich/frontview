@@ -15,6 +15,8 @@ import NavbarMenu from './layout/NavbarMenu';
 import Footer from './layout/Footer';
 import FlashList from './flash/FlashList';
 
+import requireAuth from '../utils/requireAuth';
+
 class App extends Component {
   render() {
     return (
@@ -28,7 +30,7 @@ class App extends Component {
               <Route path='/login' component={LoginPage} />
               <Route path='/forgot' component={ForgotPage} />
               <Route path='/signup' component={SignupPage} />
-              <Route path='/account' component={AccountPage} />
+              <Route path='/account' component={requireAuth(AccountPage)} />
               <Route path='/reset/:token' component={ResetPage} />
               <Route path="*" name="not-found" component={NotFound} />
             </Switch>
