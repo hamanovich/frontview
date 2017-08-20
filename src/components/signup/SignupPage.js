@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { userSignupRequest, isUserExists } from '../../actions/signup';
-import { addFlashMessage } from '../../actions/flashMessages';
-
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
+
+import { userSignupRequest, isUserExists } from '../../actions/signup';
+import { addFlashMessage } from '../../actions/flashMessages';
 
 import SignupForm from './SignupForm';
 

@@ -6,7 +6,6 @@ export const userGot = () => ({
   type: USER_SIGNUP
 });
 
-
 export const userSignupRequest = userData =>
   dispatch => axios.post('/api/users/', userData)
     .then(() => dispatch(userGot()));

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Field, reduxForm, SubmissionError } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
@@ -86,11 +86,6 @@ class SignupForm extends Component {
         },
         err => this.setState({ errors: err.response.data, isLoading: false })
       );
-    } else {
-      return new SubmissionError({
-        username: 'User does not exist',
-        _error: 'Login failed!',
-      });
     }
   }
 
