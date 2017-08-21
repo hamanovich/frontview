@@ -31,17 +31,19 @@ class ResetForm extends Component {
   componentDidMount() {
     const { router } = this.context;
     const { getReset, addFlashMessage } = this.props;
+    const failure = () => {
+      addFlashMessage({
+        type: 'error',
+        text: 'Password reset is invalid or expired'
+      });
+      router.history.push('/login');
+    };
 
     getReset(router.route.match.params.token)
       .then((res) => {
-        if (!res) {
-          addFlashMessage({
-            type: 'error',
-            text: 'Password reset is invalid or expired'
-          });
-          router.history.push('/login');
-        }
-      });
+        if (!res) failure();
+      })
+      .catch(err => failure());
   }
 
   onChange = (e) => {
@@ -70,7 +72,7 @@ class ResetForm extends Component {
 
       resetToken(router.route.match.params.token, { password, passwordConfirmation }).then(
         res => router.history.push('/'),
-        err => this.setState({ errors: err.response.data.error, isLoading: false }) 
+        err => this.setState({ errors: err.response.data.error, isLoading: false })
       );
     }
   };

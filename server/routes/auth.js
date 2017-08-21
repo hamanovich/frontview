@@ -59,7 +59,7 @@ exports.getResetPassword = (req, res) => {
     resetPasswordExpires: { $gt: Date.now() }
   }).then((user) => {
     if (!user) {
-      res.status(401).json({ errors: { reset: 'Password reset is invalid or expired' } });
+      res.status(401).json({ errors: { form: 'Password reset is invalid or expired' } });
       return;
     }
   })
@@ -86,6 +86,6 @@ exports.postResetPassword = (req, res) => {
     })
       .catch(error => res.status(500).json({ error }));
   } else {
-    res.status(401).json({ errors: { reset: 'Passwords do not match!' } });
+    res.status(401).json({ errors: { form: 'Passwords do not match!' } });
   }
 };
