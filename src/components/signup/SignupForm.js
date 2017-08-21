@@ -11,7 +11,7 @@ import validate from '../../validations/signup';
 
 class SignupForm extends Component {
   static propTypes = {
-    userSignupRequest: PropTypes.func.isRequired,
+    userSignup: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
     isUserExists: PropTypes.func.isRequired
   };
@@ -71,12 +71,12 @@ class SignupForm extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const { addFlashMessage, userSignupRequest } = this.props;
+    const { addFlashMessage, userSignup } = this.props;
 
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
 
-      userSignupRequest(this.state).then(
+      userSignup(this.state).then(
         () => {
           addFlashMessage({
             type: 'success',

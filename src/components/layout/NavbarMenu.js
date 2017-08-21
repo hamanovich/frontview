@@ -28,8 +28,8 @@ class NavbarMenu extends Component {
     const userLinks = (
       <Nav pullRight>
         <NavDropdown title={username} id="account-dropdown">
-          <LinkContainer to="/account"><MenuItem>Account</MenuItem></LinkContainer>
-          <LinkContainer to="/account/edit"><MenuItem>Edit profile</MenuItem></LinkContainer>
+          <LinkContainer to="/me"><MenuItem>Account</MenuItem></LinkContainer>
+          <LinkContainer to="/me/edit"><MenuItem>Edit profile</MenuItem></LinkContainer>
           <MenuItem divider />
           <MenuItem onClick={logout}><Glyphicon glyph="lock" /> Logout</MenuItem>
         </NavDropdown>

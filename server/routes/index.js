@@ -8,9 +8,8 @@ const usersController = require('./users');
 
 router.post('/users', usersController.createUser);
 router.get('/users/:identifier', usersController.getUser);
-// router.get('/users/id/:id', usersController.getUserById);
-// router.put('/users/:id', usersController.updateUser);
-// router.delete('/users/:id', usersController.deleteUser);
+router.put('/users/:username', usersController.updateUser);
+router.delete('/users/:username', usersController.remove);
 
 router.post('/auth', authController.auth);
 router.post('/auth/forgot', catchErrors(authController.forgot));

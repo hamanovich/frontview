@@ -29,7 +29,7 @@ class App extends Component {
               <Route path='/login' component={LoginPage} />
               <Route path='/forgot' component={ForgotPage} />
               <Route path='/signup' component={SignupPage} />
-              <Route path='/account' component={requireAuth(AccountPage)} />
+              <Route path='/me' component={requireAuth(AccountPage)} />
               <Route path='/reset/:token' component={ResetPage} />
               <Route path="*" name="not-found" component={NotFound} />
             </Switch>
