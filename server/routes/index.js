@@ -12,8 +12,8 @@ router.get('/users/:identifier', usersController.getUser);
 // router.delete('/users/:id', usersController.deleteUser);
 
 router.post('/auth', authController.authUser);
-// router.post('/auth/forgot', authController.forgotUser);
-// router.get('/auth/reset/:token', authController.getResetPassword);
-// router.post('/auth/reset/:token', authController.postResetPassword);
+router.post('/auth/forgot', authController.forgotUser);
+router.get('/auth/reset/:token', authController.getResetPassword);
+router.post('/auth/reset/:token', authController.postResetPassword);
 
 module.exports = router;

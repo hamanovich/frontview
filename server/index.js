@@ -6,9 +6,9 @@ import mongoose from 'mongoose';
 
 import routes from './routes';
 
-require('dotenv').config({ path: path.join(__dirname, '../variables.env') });
-
 const app = express();
+
+app.set('trust proxy', 'loopback');
 
 app.use(morgan('":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
 
