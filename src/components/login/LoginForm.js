@@ -53,7 +53,7 @@ class LoginForm extends Component {
 
       login(this.state).then(
         () => this.context.router.history.push('/'),
-        err => {console.log('E', err, err.response.data); this.setState({ errors: err.response.data.errors, isLoading: false })}
+        err => this.setState({ errors: err.response.data.errors, isLoading: false })
       );
     }
   };

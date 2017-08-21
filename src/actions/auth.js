@@ -31,3 +31,16 @@ export const logout = () =>
     setAuthorizationToken(false);
     dispatch(logoutUser());
   };
+
+export const forgot = email =>
+  () => axios.post('/api/auth/forgot', email)
+    .then(res => res.data);
+
+export const getReset = token =>
+  () => axios.get(`/api/auth/reset/${token}`)
+    .then(res => res.data);
+
+export const resetToken = (token, passwords) =>
+  () => axios.post(`/api/auth/reset/${token}`, passwords)
+    .then(res => res.data);
+
