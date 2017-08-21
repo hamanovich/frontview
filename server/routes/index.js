@@ -2,6 +2,7 @@ import express from 'express';
 
 const router = express.Router();
 
+const { catchErrors } = require('../handlers/errors');
 const authController = require('./auth');
 const usersController = require('./users');
 
@@ -11,9 +12,9 @@ router.get('/users/:identifier', usersController.getUser);
 // router.put('/users/:id', usersController.updateUser);
 // router.delete('/users/:id', usersController.deleteUser);
 
-router.post('/auth', authController.authUser);
-router.post('/auth/forgot', authController.forgotUser);
-router.get('/auth/reset/:token', authController.getResetPassword);
-router.post('/auth/reset/:token', authController.postResetPassword);
+router.post('/auth', authController.auth);
+router.post('/auth/forgot', catchErrors(authController.forgot));
+router.get('/auth/reset/:token', catchErrors(authController.reset));
+router.post('/auth/reset/:token', authController.confirmedPasswords, catchErrors(authController.update));
 
 module.exports = router;

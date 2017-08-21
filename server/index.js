@@ -8,6 +8,8 @@ import routes from './routes';
 
 const app = express();
 
+const { notFound } = require('./handlers/errors');
+
 app.set('trust proxy', 'loopback');
 
 app.use(morgan('":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
@@ -34,5 +36,6 @@ mongoose.connect(process.env.DATABASE, {
 });
 
 app.use('/api', routes);
+app.use(notFound);
 
 app.listen(process.env.PORT, () => console.log(`Running on ${process.env.PORT}`));

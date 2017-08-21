@@ -64,4 +64,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { logout })(NavbarMenu);
+export default connect(mapStateToProps, { logout }, null, { pure: false })(NavbarMenu);

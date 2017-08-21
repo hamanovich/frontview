@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
+import isEmpty from 'lodash/isEmpty';
 
 import Alert from 'react-bootstrap/lib/Alert';
 import Button from 'react-bootstrap/lib/Button';
@@ -89,7 +90,6 @@ class LoginForm extends Component {
             <Link to="/forgot">Forgot password?</Link>
           </FormControl.Static>
         </FormGroup>
-
         <Button type="submit" bsStyle="primary" bsSize="large" disabled={isLoading}>Login</Button>
       </Form>
     );

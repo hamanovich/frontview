@@ -1,29 +1,43 @@
 import bcrypt from 'bcrypt';
+import isEmpty from 'lodash/isEmpty';
 
 import User from '../models/user';
 
 import validate from '../../src/validations/signup';
 import validateUser from '../validations/user';
 
-exports.createUser = (req, res) => {
-  validateUser(req.body, validate).then(({ errors, isValid }) => {
-    if (isValid) {
-      const { username, email, password } = req.body;
-      const password_digest = bcrypt.hashSync(password, 10);
-      
-      User.create({ username, email, password_digest })
-        .then(user => res.send(user))
-        .catch(error => res.status(500).json({ error }));
-    } else {
-      res.status(400).json(errors);
-    }
-  });
+exports.createUser = async (req, res) => {
+  const { errors, isValid } = await validateUser(req.body, validate);
+  const { username, email, password } = req.body;
+  const password_digest = bcrypt.hashSync(password, 10);
+  let user;
+  
+  if (!isValid) {
+    res.status(400).json(errors);
+  }
+  
+  user = await User.create({ username, email, password_digest });
+
+  if (user) {
+    res.send(user);
+    return;
+  }
 };
 
-exports.getUser = (req, res) => {
-  User.findOne({ $or: [{ username: req.params.identifier }, { email: req.params.identifier }] })
-    .then(user => res.json({ user }))
-    .catch(error => res.status(500).json({ error }));
+exports.getUser = async (req, res) => {
+  const user = await User.findOne({
+    $or: [
+      { username: req.params.identifier },
+      { email: req.params.identifier }
+    ]
+  });
+
+  if (user) {
+    res.json({ user });
+    return;
+  }
+
+  res.json({ success: true });
 };
 
 // exports.getUserById = (req, res) => {
