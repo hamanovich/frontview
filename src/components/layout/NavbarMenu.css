@@ -1,7 +1,7 @@
-.navbar{
-  margin-bottom: 0;
+#frontview .navbar{
+  border-radius: 0;
 }
 
-.navbar-right{
+#frontview .navbar-right{
   margin-right: 0;
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Field, reduxForm, SubmissionError } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
@@ -11,7 +11,7 @@ import validate from '../../validations/signup';
 
 class SignupForm extends Component {
   static propTypes = {
-    userSignupRequest: PropTypes.func.isRequired,
+    userSignup: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
     isUserExists: PropTypes.func.isRequired
   };
@@ -71,12 +71,12 @@ class SignupForm extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const { addFlashMessage, userSignupRequest } = this.props;
+    const { addFlashMessage, userSignup } = this.props;
 
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
 
-      userSignupRequest(this.state).then(
+      userSignup(this.state).then(
         () => {
           addFlashMessage({
             type: 'success',
@@ -86,11 +86,6 @@ class SignupForm extends Component {
         },
         err => this.setState({ errors: err.response.data, isLoading: false })
       );
-    } else {
-      return new SubmissionError({
-        username: 'User does not exist',
-        _error: 'Login failed!',
-      });
     }
   }
 

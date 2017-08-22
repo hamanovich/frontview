@@ -1,27 +1,37 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
-
-import './NavbarMenu.css';
+import { connect } from 'react-redux';
+import FontAwesome from 'react-fontawesome';
 
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+
+import { logout } from '../../actions/auth';
+
+import './NavbarMenu.css';
 
 class NavbarMenu extends Component {
+  static propTypes = {
+    auth: PropTypes.object.isRequired,
+    logout: PropTypes.func.isRequired
+  };
+
   render() {
-    const TRUE_OR_FALSE = false;
+    const { auth, logout } = this.props;
+    const username = auth.user.username || '';
 
     const userLinks = (
       <Nav pullRight>
-        <NavDropdown title="Username" id="account-dropdown">
-          <LinkContainer to="/account"><MenuItem>Account</MenuItem></LinkContainer>
-          <LinkContainer to="/edit"><MenuItem>Edit profile</MenuItem></LinkContainer>
+        <NavDropdown title={username} id="account-dropdown">
+          <LinkContainer to="/me"><MenuItem><FontAwesome name="user" /> Account</MenuItem></LinkContainer>
+          <LinkContainer to="/me/edit"><MenuItem>Edit profile</MenuItem></LinkContainer>
           <MenuItem divider />
-          <MenuItem><Glyphicon glyph="lock" /> Logout</MenuItem>
+          <MenuItem onClick={logout}><FontAwesome name="lock" /> Logout</MenuItem>
         </NavDropdown>
       </Nav>
     );
@@ -29,10 +39,10 @@ class NavbarMenu extends Component {
     const guestLinks = (
       <Nav pullRight>
         <LinkContainer to="/signup">
-          <NavItem>Sign Up</NavItem>
+          <NavItem><FontAwesome name="user-plus" /> Sign Up</NavItem>
         </LinkContainer>
         <LinkContainer to="/login">
-          <NavItem>Login</NavItem>
+          <NavItem><FontAwesome name="user-circle" /> Login</NavItem>
         </LinkContainer>
       </Nav>
     );
@@ -44,11 +54,14 @@ class NavbarMenu extends Component {
             <Link to="/">Frontview</Link>
           </Navbar.Brand>
         </Navbar.Header>
-        {TRUE_OR_FALSE ? userLinks : guestLinks}
+        {auth.isAuthenticated ? userLinks : guestLinks}
       </Navbar>
-
     );
   }
 }
 
-export default NavbarMenu;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, { logout }, null, { pure: false })(NavbarMenu);

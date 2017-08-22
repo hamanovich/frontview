@@ -3,9 +3,8 @@ import pug from 'pug';
 import juice from 'juice';
 import htmlToText from 'html-to-text';
 import promisify from 'es6-promisify';
-import path from 'path';
 
-require('dotenv').config({ path: path.join(__dirname, '../../variables.env') });
+require('dotenv').config({ path: 'variables.env' });
 
 export const transport = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
@@ -16,11 +15,7 @@ export const transport = nodemailer.createTransport({
   }
 });
 
-const generateHTML = (filename, options = {}) => {
-  const html = pug.renderFile(`${__dirname}/../views/email/${filename}.pug`, options);
-
-  return juice(html);
-};
+const generateHTML = (filename, options = {}) => juice(pug.renderFile(`${__dirname}/../views/email/${filename}.pug`, options));
 
 export function send(options) {
   const html = generateHTML(options.filename, options);
@@ -33,6 +28,6 @@ export function send(options) {
     text
   };
   const sendMail = promisify(transport.sendMail, transport);
-
+  
   return sendMail(mailOptions);
 }

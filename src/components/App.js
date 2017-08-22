@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
 import Grid from 'react-bootstrap/lib/Grid';
-
-import { Switch, Route } from 'react-router-dom';
 
 import Greeting from './layout/Greeting';
 import NotFound from './layout/NotFound';
@@ -14,6 +13,8 @@ import AccountPage from './account/AccountPage';
 import NavbarMenu from './layout/NavbarMenu';
 import Footer from './layout/Footer';
 import FlashList from './flash/FlashList';
+
+import { User } from '../utils/helpers';
 
 class App extends Component {
   render() {
@@ -28,7 +29,7 @@ class App extends Component {
               <Route path='/login' component={LoginPage} />
               <Route path='/forgot' component={ForgotPage} />
               <Route path='/signup' component={SignupPage} />
-              <Route path='/account' component={AccountPage} />
+              <Route path='/me' component={User(AccountPage)} />
               <Route path='/reset/:token' component={ResetPage} />
               <Route path="*" name="not-found" component={NotFound} />
             </Switch>
