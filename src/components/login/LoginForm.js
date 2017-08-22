@@ -15,7 +15,8 @@ import validate from '../../validations/login';
 
 class LoginForm extends Component {
   static propTypes = {
-    login: PropTypes.func.isRequired
+    login: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired
   };
 
   static contextTypes = {
@@ -23,46 +24,27 @@ class LoginForm extends Component {
   };
 
   state = {
-    identifier: '',
-    password: '',
     errors: {},
     isLoading: false
   };
 
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  isValid = () => {
-    const errors = validate(this.state);
-
-    if (!errors.isValid) {
-      this.setState({ errors });
-    }
-
-    return errors.isValid;
-  };
-
-  onSubmit = (e) => {
-    e.preventDefault();
-
+  onSubmit = (values) => {
     const { login } = this.props;
 
-    if (this.isValid()) {
-      this.setState({ errors: {}, isLoading: true });
+    this.setState({ errors: {}, isLoading: true });
 
-      login(this.state).then(
-        () => this.context.router.history.push('/'),
-        err => this.setState({ errors: err.response.data.errors, isLoading: false })
-      );
-    }
+    login(values).then(
+      () => this.context.router.history.push('/'),
+      err => this.setState({ errors: err.response.data.errors, isLoading: false })
+    );
   };
 
   render() {
+    const { handleSubmit } = this.props;
     const { isLoading, errors } = this.state;
 
     return (
-      <Form onSubmit={this.onSubmit} noValidate>
+      <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
         {errors.form && <Alert bsStyle="danger">{errors.form}</Alert>}
 
         <Field
@@ -72,7 +54,6 @@ class LoginForm extends Component {
           htmlFor="identifier"
           name="identifier"
           placeholder="Type your Username or Email"
-          onChange={this.onChange}
         />
 
         <Field
@@ -81,7 +62,6 @@ class LoginForm extends Component {
           type="password"
           name="password"
           placeholder="Come up with a password"
-          onChange={this.onChange}
         />
 
         <FormGroup>

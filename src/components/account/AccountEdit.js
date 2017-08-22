@@ -19,18 +19,10 @@ import { addFlashMessage } from '../../actions/flashMessages';
 
 class AccountEdit extends Component {
   static propTypes = {
-    user: PropTypes.shape({
-      username: PropTypes.string,
-      email: PropTypes.string,
-      job_function: PropTypes.string,
-      primary_skill: PropTypes.string,
-      notes: PropTypes.string,
-      first_name: PropTypes.string,
-      last_name: PropTypes.string
-    }).isRequired,
     getUser: PropTypes.func.isRequired,
     updateUser: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired
+    addFlashMessage: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired
   };
 
   static contextTypes = {
@@ -38,82 +30,52 @@ class AccountEdit extends Component {
   };
 
   state = {
-    username: '',
-    email: '',
-    first_name: '',
-    last_name: '',
-    primary_skill: '',
-    job_function: '',
-    skype: '',
-    phone: '',
-    notes: '',
-    password: '',
-    passwordConfirmation: '',
     errors: {},
     isLoading: false
   };
 
   componentWillMount() {
-    const { getUser, user, initialize } = this.props;
+    const { getUser, initialValues, initialize } = this.props;
 
-    getUser(user.username)
+    getUser(initialValues.username)
       .then(res => {
         const { username, email, first_name, last_name, primary_skill, job_function, skype, phone, notes } = res.user;
         initialize({ username, email, first_name, last_name, primary_skill, job_function, skype, phone, notes });
-        this.setState({ username, email, first_name, last_name, primary_skill, job_function, skype, phone, notes });
       });
   }
 
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  isValid = () => {
-    const errors = validate(this.state);
-
-    if (!errors.isValid) {
-      this.setState({ errors });
-    }
-
-    return errors.isValid;
-  };
-
-  onSubmit = (e) => {
-    e.preventDefault();
-
+  onSubmit = (values) => {
     const { updateUser, addFlashMessage } = this.props;
 
-    if (this.isValid()) {
-      this.setState({ errors: {}, isLoading: true });
-      
-      updateUser(this.state).then(
-        () => {
-          addFlashMessage({
-            type: 'success',
-            text: 'You have updated profile successfully.'
-          });
-          this.context.router.history.push('/me');
-        },
-        err => this.setState({ errors: err.response.data, isLoading: false })
-      );
-    }
+    this.setState({ errors: {}, isLoading: true });
+
+    updateUser(values).then(
+      () => {
+        addFlashMessage({
+          type: 'success',
+          text: 'You have updated profile successfully.'
+        });
+        this.context.router.history.push('/me');
+      },
+      err => this.setState({ errors: err.response.data, isLoading: false })
+    );
   };
 
   render() {
     const { isLoading } = this.state;
+    const { handleSubmit } = this.props;
 
     return (
       <div>
         <h1>Edit your account</h1>
 
-        <Form onSubmit={this.onSubmit} noValidate>
+        <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
           <Field
             label="Username:"
             component={TextField}
             type="text"
             name="username"
             placeholder="Type your nickname"
-            onChange={this.onChange}
             readonly
           />
 
@@ -123,7 +85,6 @@ class AccountEdit extends Component {
             type="email"
             name="email"
             placeholder="Type your email"
-            onChange={this.onChange}
             readonly
           />
 
@@ -135,7 +96,6 @@ class AccountEdit extends Component {
                 type="text"
                 name="first_name"
                 placeholder="Type your first name"
-                onChange={this.onChange}
               />
             </Col>
 
@@ -146,7 +106,6 @@ class AccountEdit extends Component {
                 type="text"
                 name="last_name"
                 placeholder="Type your surname"
-                onChange={this.onChange}
               />
             </Col>
           </Row>
@@ -159,7 +118,6 @@ class AccountEdit extends Component {
                 type="text"
                 name="primary_skill"
                 placeholder="Type your primary skill"
-                onChange={this.onChange}
               />
             </Col>
 
@@ -170,7 +128,6 @@ class AccountEdit extends Component {
                 type="text"
                 name="job_function"
                 placeholder="Type your job function"
-                onChange={this.onChange}
               />
             </Col>
           </Row>
@@ -183,7 +140,6 @@ class AccountEdit extends Component {
                 type="text"
                 name="skype"
                 placeholder="Add skype nickname"
-                onChange={this.onChange}
               />
             </Col>
 
@@ -194,7 +150,6 @@ class AccountEdit extends Component {
                 type="tel"
                 name="phone"
                 placeholder="code-##-###-##-##"
-                onChange={this.onChange}
               />
             </Col>
           </Row>
@@ -204,7 +159,6 @@ class AccountEdit extends Component {
             name="notes"
             component={TextareaField}
             placeholder="Add some notes, if needed"
-            onChange={this.onChange}
           />
 
           <Field
@@ -213,7 +167,6 @@ class AccountEdit extends Component {
             type="password"
             name="password"
             placeholder="Come up with a password"
-            onChange={this.onChange}
           />
 
           <Field
@@ -222,7 +175,6 @@ class AccountEdit extends Component {
             type="password"
             name="passwordConfirmation"
             placeholder="Repeat your password"
-            onChange={this.onChange}
           />
 
           <Button type="submit" bsStyle="primary" bsSize="large" disabled={isLoading}>Update profile</Button>
@@ -235,8 +187,7 @@ class AccountEdit extends Component {
 function mapStateToProps(state, props) {
   if (props.match.url === '/me/edit') {
     return {
-      initialValues: selectUser(state),
-      user: selectUser(state)
+      initialValues: selectUser(state)
     };
   }
 

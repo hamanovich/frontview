@@ -6,3 +6,12 @@ export const USER_SIGNUP = '[USER] SIGNUP';
 export const SET_CURRENT_USER = '[USER] SET';
 export const CLEANUP_CURRENT_USER = '[USER] CLEAN';
 export const USER_GET = '[USER] GET';
+
+export const ADD_QUESTIONS = '[QUESTIONS] ADD_ALL';
+export const FILTER_QUESTIONS = '[QUESTIONS] FILTER';
+export const GET_QUESTIONS = '[QUESTIONS] GET_ALL';
+export const QUESTION_ADDED = '[QUESTION] ADDED';
+export const QUESTION_UPDATED = '[QUESTION] UPDATED';
+export const QUESTION_GOT = '[QUESTION] GOT';
+export const REMOVE_QUESTION = '[QUESTION] REMOVE';
+export const EDIT_QUESTION = '[QUESTION] EDIT';

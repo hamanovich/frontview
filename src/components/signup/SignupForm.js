@@ -13,7 +13,8 @@ class SignupForm extends Component {
   static propTypes = {
     userSignup: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
-    isUserExists: PropTypes.func.isRequired
+    isUserExists: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired
   };
 
   static contextTypes = {
@@ -21,26 +22,8 @@ class SignupForm extends Component {
   };
 
   state = {
-    username: '',
-    email: '',
-    password: '',
-    passwordConfirmation: '',
     errors: {},
     isLoading: false
-  };
-
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  isValid = () => {
-    const errors = validate(this.state);
-
-    if (!errors.isValid) {
-      this.setState({ errors });
-    }
-
-    return errors.isValid;
   };
 
   checkUserExists = (e) => {
@@ -68,39 +51,35 @@ class SignupForm extends Component {
     }
   };
 
-  onSubmit = (e) => {
-    e.preventDefault();
-
+  onSubmit = (values) => {
     const { addFlashMessage, userSignup } = this.props;
 
-    if (this.isValid()) {
-      this.setState({ errors: {}, isLoading: true });
+    this.setState({ errors: {}, isLoading: true });
 
-      userSignup(this.state).then(
-        () => {
-          addFlashMessage({
-            type: 'success',
-            text: 'You have signed up successfully'
-          });
-          this.context.router.history.push('/');
-        },
-        err => this.setState({ errors: err.response.data, isLoading: false })
-      );
-    }
+    userSignup(values).then(
+      () => {
+        addFlashMessage({
+          type: 'success',
+          text: 'You have signed up successfully'
+        });
+        this.context.router.history.push('/');
+      },
+      err => this.setState({ errors: err.response.data, isLoading: false })
+    );
   }
 
   render() {
     const { errors, isLoading, invalid } = this.state;
+    const { handleSubmit } = this.props;
 
     return (
-      <Form onSubmit={this.onSubmit} noValidate>
+      <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
         <Field
           label="Username*:"
           component={TextField}
           type="text"
           name="username"
           placeholder="Type your nickname"
-          onChange={this.onChange}
           handleBlur={this.checkUserExists}
           errorState={errors.username}
         />
@@ -113,7 +92,6 @@ class SignupForm extends Component {
           type="email"
           name="email"
           placeholder="Type your email"
-          onChange={this.onChange}
           handleBlur={this.checkUserExists}
           errorState={errors.email}
         />
@@ -124,7 +102,6 @@ class SignupForm extends Component {
           type="password"
           name="password"
           placeholder="Come up with a password"
-          onChange={this.onChange}
         />
 
         <Field
@@ -133,7 +110,6 @@ class SignupForm extends Component {
           type="password"
           name="passwordConfirmation"
           placeholder="Repeat your password"
-          onChange={this.onChange}
         />
 
         <Button type="submit" bsStyle="primary" bsSize="large" disabled={isLoading || invalid}>Register</Button>

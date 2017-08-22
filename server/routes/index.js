@@ -5,6 +5,7 @@ const router = express.Router();
 const { catchErrors } = require('../handlers/errors');
 const authController = require('./auth');
 const usersController = require('./users');
+// const questionsController = require('./questions');
 
 router.post('/users', usersController.createUser);
 router.get('/users/:identifier', usersController.getUser);

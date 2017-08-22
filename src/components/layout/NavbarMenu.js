@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { LinkContainer } from 'react-router-bootstrap';
+import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 
@@ -27,8 +27,13 @@ class NavbarMenu extends Component {
 
     const userLinks = (
       <Nav pullRight>
+        <NavDropdown title="Questions" id="questions-dropdown">
+          <IndexLinkContainer to="/questions"><MenuItem>Show All</MenuItem></IndexLinkContainer>
+          <MenuItem divider />
+          <LinkContainer to="/questions/add"><MenuItem><FontAwesome name="question-circle-o" /> Add new</MenuItem></LinkContainer>
+        </NavDropdown>
         <NavDropdown title={username} id="account-dropdown">
-          <LinkContainer to="/me"><MenuItem><FontAwesome name="user" /> Account</MenuItem></LinkContainer>
+          <IndexLinkContainer to="/me"><MenuItem><FontAwesome name="user" /> Account</MenuItem></IndexLinkContainer>
           <LinkContainer to="/me/edit"><MenuItem>Edit profile</MenuItem></LinkContainer>
           <MenuItem divider />
           <MenuItem onClick={logout}><FontAwesome name="lock" /> Logout</MenuItem>
@@ -60,8 +65,6 @@ class NavbarMenu extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth
-});
+const mapStateToProps = state => ({ auth: state.auth });
 
 export default connect(mapStateToProps, { logout }, null, { pure: false })(NavbarMenu);

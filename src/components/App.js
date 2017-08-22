@@ -10,6 +10,7 @@ import ForgotPage from './forgot/ForgotPage';
 import ResetPage from './reset/ResetPage';
 import SignupPage from './signup/SignupPage';
 import AccountPage from './account/AccountPage';
+import AddQuestionsPage from './addQuestion/AddQuestionPage';
 import NavbarMenu from './layout/NavbarMenu';
 import Footer from './layout/Footer';
 import FlashList from './flash/FlashList';
@@ -30,6 +31,8 @@ class App extends Component {
               <Route path='/forgot' component={ForgotPage} />
               <Route path='/signup' component={SignupPage} />
               <Route path='/me' component={User(AccountPage)} />
+              <Route exact path='/questions' component={Greeting} />
+              <Route path='/questions/add' component={User(AddQuestionsPage)} />
               <Route path='/reset/:token' component={ResetPage} />
               <Route path="*" name="not-found" component={NotFound} />
             </Switch>

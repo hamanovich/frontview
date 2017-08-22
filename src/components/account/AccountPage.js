@@ -27,13 +27,13 @@ class AccountPage extends Component {
         <Col md={3} sm={4}>
           <ListGroup style={{ marginTop: 25 }}>
             <Link to="/questions" className="list-group-item">Questions</Link>
-            <Link to="/add-question" className="list-group-item">Add question</Link>
+            <Link to="/questions/add" className="list-group-item">Add question</Link>
             <Button block bsStyle="danger" onClick={logout}>Logout</Button>
           </ListGroup>
         </Col>
         <Col md={9} sm={8}>
           <Switch>
-            <Route exact path='/me' component={Account} />
+            <Route exact path='/me' component={Account}/>
             <Route path='/me/edit' component={AccountEdit} />
           </Switch>
         </Col>
