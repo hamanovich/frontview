@@ -43,6 +43,7 @@ exports.getUser = async (req, res) => {
       skype: user.skype,
       phone: user.phone,
       notes: user.notes,
+      role: user.role,
       gravatar: user.gravatar
     };
 

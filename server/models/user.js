@@ -31,6 +31,11 @@ const userSchema = new Schema({
     type: String,
     default: 'Please add some notes about yourself'
   },
+  role: {
+    type: String,
+    enum: ['user', 'owner', 'admin'],
+    default: 'user'
+  },
   resetPasswordToken: String,
   resetPasswordExpires: Date
 });

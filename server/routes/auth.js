@@ -17,7 +17,8 @@ exports.auth = async (req, res) => {
     const token = jwt.sign({
       _id: user._id,
       username: user.username,
-      email: user.email
+      email: user.email,
+      role: user.role
     }, process.env.SECRET);
 
     res.json({ token });
