@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { connect } from 'react-redux';
+import FontAwesome from 'react-fontawesome';
 
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 import { logout } from '../../actions/auth';
 
@@ -28,10 +28,10 @@ class NavbarMenu extends Component {
     const userLinks = (
       <Nav pullRight>
         <NavDropdown title={username} id="account-dropdown">
-          <LinkContainer to="/me"><MenuItem>Account</MenuItem></LinkContainer>
+          <LinkContainer to="/me"><MenuItem><FontAwesome name="user" /> Account</MenuItem></LinkContainer>
           <LinkContainer to="/me/edit"><MenuItem>Edit profile</MenuItem></LinkContainer>
           <MenuItem divider />
-          <MenuItem onClick={logout}><Glyphicon glyph="lock" /> Logout</MenuItem>
+          <MenuItem onClick={logout}><FontAwesome name="lock" /> Logout</MenuItem>
         </NavDropdown>
       </Nav>
     );
@@ -39,10 +39,10 @@ class NavbarMenu extends Component {
     const guestLinks = (
       <Nav pullRight>
         <LinkContainer to="/signup">
-          <NavItem>Sign Up</NavItem>
+          <NavItem><FontAwesome name="user-plus" /> Sign Up</NavItem>
         </LinkContainer>
         <LinkContainer to="/login">
-          <NavItem>Login</NavItem>
+          <NavItem><FontAwesome name="user-circle" /> Login</NavItem>
         </LinkContainer>
       </Nav>
     );

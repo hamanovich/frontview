@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import FontAwesome from 'react-fontawesome';
 
 import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
 import Modal from 'react-bootstrap/lib/Modal';
+import Image from 'react-bootstrap/lib/Image';
+import Well from 'react-bootstrap/lib/Well';
 
 import { removeUser, getUser } from '../../actions/signup';
 import { addFlashMessage } from '../../actions/flashMessages';
@@ -20,7 +23,8 @@ class Account extends Component {
       primary_skill: PropTypes.string,
       notes: PropTypes.string,
       first_name: PropTypes.string,
-      last_name: PropTypes.string
+      last_name: PropTypes.string,
+      gravatar: PropTypes.string
     }).isRequired,
     logout: PropTypes.func.isRequired,
     removeUser: PropTypes.func.isRequired,
@@ -66,11 +70,17 @@ class Account extends Component {
 
     return (
       <div>
-        <h1>{user.first_name && user.last_name ? <span>{user.first_name} {user.last_name}</span> : 'Your account'}</h1>
+        <h1>{user.first_name && user.last_name ?
+          <span>{user.first_name} {user.last_name}</span> :
+          'Your account'}</h1>
+
+        <Image src={user.gravatar} thumbnail />
+
+        <hr />
 
         <dl>
           <dt>Email:</dt>
-          <dd>{user.email}</dd>
+          <dd><FontAwesome name="envelope-open-o" /> <a href={"mailto:" + user.email}>{user.email}</a></dd>
           {user.primary_skill &&
             <div>
               <dt>Primary Skill:</dt>
@@ -81,15 +91,25 @@ class Account extends Component {
               <dt>Job Function:</dt>
               <dd>{user.job_function}</dd>
             </div>}
+          {user.skype &&
+            <div>
+              <dt>Skype nickname:</dt>
+              <dd><FontAwesome name="skype" /> {user.skype}</dd>
+            </div>}
+          {user.phone &&
+            <div>
+              <dt>Mobile phone:</dt>
+              <dd><FontAwesome name="phone" /> {user.phone}</dd>
+            </div>}
         </dl>
 
-        <p className="lead">{user.notes}</p>
+        <Well>{user.notes}</Well>
 
         <hr />
 
         <ButtonGroup bsSize="small" className="pull-right">
-          <Link to="/me/edit" className="btn btn-warning">Edit profile</Link>
-          <Button bsStyle="danger" onClick={() => { this.open() }}>Remove profile</Button>
+          <Link to="/me/edit" className="btn btn-warning"><FontAwesome name="pencil" /> Edit profile</Link>
+          <Button bsStyle="danger" onClick={() => { this.open() }}><FontAwesome name="times" /> Remove</Button>
         </ButtonGroup>
 
         <Modal bsSize="sm" show={this.state.modal} onHide={this.close}>

@@ -11,7 +11,7 @@ import Form from 'react-bootstrap/lib/Form';
 import TextField from '../formElements/TextField';
 import TextareaField from '../formElements/TextareaField';
 
-import validate from '../../validations/accountEdit';
+import validate from '../../validations/account';
 
 import { selectUser } from '../../selectors';
 import { getUser, updateUser } from '../../actions/signup';
@@ -44,6 +44,8 @@ class AccountEdit extends Component {
     last_name: '',
     primary_skill: '',
     job_function: '',
+    skype: '',
+    phone: '',
     notes: '',
     password: '',
     passwordConfirmation: '',
@@ -56,9 +58,9 @@ class AccountEdit extends Component {
 
     getUser(user.username)
       .then(res => {
-        const { username, email, first_name, last_name, primary_skill, job_function, notes } = res.user;
-        initialize({ username, email, first_name, last_name, primary_skill, job_function, notes });
-        this.setState({ username, email, first_name, last_name, primary_skill, job_function, notes });
+        const { username, email, first_name, last_name, primary_skill, job_function, skype, phone, notes } = res.user;
+        initialize({ username, email, first_name, last_name, primary_skill, job_function, skype, phone, notes });
+        this.setState({ username, email, first_name, last_name, primary_skill, job_function, skype, phone, notes });
       });
   }
 
@@ -168,6 +170,30 @@ class AccountEdit extends Component {
                 type="text"
                 name="job_function"
                 placeholder="Type your job function"
+                onChange={this.onChange}
+              />
+            </Col>
+          </Row>
+
+          <Row>
+            <Col sm={6}>
+              <Field
+                label="Skype:"
+                component={TextField}
+                type="text"
+                name="skype"
+                placeholder="Add skype nickname"
+                onChange={this.onChange}
+              />
+            </Col>
+
+            <Col sm={6}>
+              <Field
+                label="Phone number:"
+                component={TextField}
+                type="tel"
+                name="phone"
+                placeholder="code-##-###-##-##"
                 onChange={this.onChange}
               />
             </Col>

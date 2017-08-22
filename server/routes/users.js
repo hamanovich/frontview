@@ -40,7 +40,10 @@ exports.getUser = async (req, res) => {
       last_name: user.last_name,
       primary_skill: user.primary_skill,
       job_function: user.job_function,
-      notes: user.notes
+      skype: user.skype,
+      phone: user.phone,
+      notes: user.notes,
+      gravatar: user.gravatar
     };
 
     res.json({ user: userData });
@@ -52,7 +55,7 @@ exports.getUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   const { errors, isValid } = await validateUser(req.body, validate);
-  const { username, email, password, first_name, last_name, primary_skill, job_function, notes } = req.body;
+  const { username, email, password, first_name, last_name, primary_skill, job_function, skype, phone, notes } = req.body;
   const password_digest = bcrypt.hashSync(password, 10);
   let userOne;
   let user;
@@ -68,6 +71,8 @@ exports.updateUser = async (req, res) => {
   userOne.last_name = last_name;
   userOne.job_function = job_function;
   userOne.primary_skill = primary_skill;
+  userOne.skype = skype;
+  userOne.phone = phone;
   userOne.notes = notes;
   userOne.password_digest = password_digest;
 

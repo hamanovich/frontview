@@ -25,6 +25,8 @@ const userSchema = new Schema({
   last_name: String,
   primary_skill: String,
   job_function: String,
+  skype: String,
+  phone: String,
   notes: {
     type: String,
     default: 'Please add some notes about yourself'
@@ -33,9 +35,9 @@ const userSchema = new Schema({
   resetPasswordExpires: Date
 });
 
-userSchema.virtual('gravatar').get(() => {
+userSchema.virtual('gravatar').get(function () {
   const hash = md5(this.email);
-  return `https://gravatar.com/avatar/${hash}?s=200`;
+  return `https://gravatar.com/avatar/${hash}?s=100`;
 });
 
 export default mongoose.model('user', userSchema);

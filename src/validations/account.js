@@ -1,4 +1,5 @@
 import isEmail from 'validator/lib/isEmail';
+import isMobilePhone from 'validator/lib/isMobilePhone';
 import equals from 'validator/lib/equals';
 import isEmpty from 'lodash/isEmpty';
 
@@ -15,6 +16,10 @@ export default (values) => {
 
   if (values.email && !isEmail(values.email)) {
     errors.email = 'Email is invalid';
+  }
+
+  if (values.phone && !isMobilePhone(values.phone, 'any')){
+    errors.phone = 'Mobile phone is invalid';
   }
 
   if (!values.password) {
