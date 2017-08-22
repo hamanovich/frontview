@@ -16,7 +16,7 @@ class LoginPage extends Component {
 
   render() {
     const { login } = this.props;
-
+    
     return (
       <Row>
         <Col md={6} mdOffset={3}>

@@ -5,4 +5,4 @@ export const DELETE_FLASH_MESSAGES = '[MESSAGE] DELETE_ALL';
 export const USER_SIGNUP = '[USER] SIGNUP';
 export const SET_CURRENT_USER = '[USER] SET';
 export const CLEANUP_CURRENT_USER = '[USER] CLEAN';
-export const USER_GOT = '[USER] GOT';
+export const USER_GET = '[USER] GET';

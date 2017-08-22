@@ -64,14 +64,25 @@ class ResetForm extends Component {
     e.preventDefault();
 
     const { router } = this.context;
-    const { resetToken } = this.props;
+    const { resetToken, addFlashMessage } = this.props;
     const { password, passwordConfirmation } = this.state;
 
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
 
       resetToken(router.route.match.params.token, { password, passwordConfirmation }).then(
-        res => router.history.push('/'),
+        (res) => {
+          if (res.errors) {
+            this.setState({ errors: res.errors, isLoading: false })
+            return;
+          } 
+          
+          addFlashMessage({
+            type: 'success',
+            text: 'Password successfully updated. Please login'
+          });
+          router.history.push('/');
+        },
         err => this.setState({ errors: err.response.data.error, isLoading: false })
       );
     }

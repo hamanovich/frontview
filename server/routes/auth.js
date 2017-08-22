@@ -4,88 +4,94 @@ import jwt from 'jsonwebtoken';
 import User from '../models/user';
 import { send } from '../handlers/mail';
 
-exports.authUser = (req, res) => {
+exports.auth = async (req, res) => {
   const { identifier, password } = req.body;
+  const user = await User.findOne({ $or: [{ username: identifier }, { email: identifier }] });
 
-  User.findOne({ $or: [{ username: identifier }, { email: identifier }] })
-    .then((user) => {
-      if (user) {
-        if (bcrypt.compareSync(password, user.password_digest)) {
-          const token = jwt.sign({
-            _id: user._id,
-            username: user.username,
-            email: user.email
-          }, process.env.SECRET);
+  if (!user) {
+    res.status(401).json({ errors: { form: 'Invalid Credentials' } });
+    return;
+  }
 
-          res.json({ token });
-        } else {
-          res.status(401).json({ errors: { form: 'Invalid Credentials' } });
-        }
-      } else {
-        res.status(401).json({ errors: { form: 'Invalid Credentials' } });
-      }
-    });
+  if (bcrypt.compareSync(password, user.password_digest)) {
+    const token = jwt.sign({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      role: user.role
+    }, process.env.SECRET);
+
+    res.json({ token });
+  } else {
+    res.status(401).json({ errors: { form: 'Invalid Credentials' } });
+  }
 };
 
-exports.forgotUser = (req, res) => {
-  User.findOne({ email: req.body.email })
-    .then((user) => {
-      if (!user) {
-        res.status(401).json({ errors: { form: 'No account with that email exists' } });
-        return;
-      }
+exports.forgot = async (req, res) => {
+  const user = await User.findOne({ email: req.body.email });
+  let resetURL;
 
-      user.resetPasswordToken = bcrypt.hashSync(process.env.SECRET, 10).replace(/\//g, '');
-      user.resetPasswordExpires = Date.now() + 36000000;
+  if (!user) {
+    res.status(401).json({ errors: { form: 'No account with that email exists' } });
+    return;
+  }
 
-      user.save();
+  user.resetPasswordToken = bcrypt.hashSync(process.env.SECRET, 10).replace(/\//g, '');
+  user.resetPasswordExpires = Date.now() + 36000000;
 
-      const resetURL = `http://${req.headers['x-forwarded-host']}/reset/${user.resetPasswordToken}`;
+  await user.save();
 
-      send({
-        user,
-        filename: 'password-reset',
-        subject: 'Password Reset',
-        resetURL
-      }).then(() => res.json({ emailed: 'You have been emailed a password reset link. Please, check your email.' }))
-        .catch(error => res.status(500).json({ error }));
-    })
-    .catch(error => res.status(500).json({ error }));
+  resetURL = `http://${req.headers['x-forwarded-host']}/reset/${user.resetPasswordToken}`;
+
+  await send({
+    user,
+    filename: 'password-reset',
+    subject: 'Password Reset',
+    resetURL
+  });
+
+  res.json({ emailed: 'You have been emailed a password reset link. Please, check your email.' })
 };
 
-exports.getResetPassword = (req, res) => {
-  User.findOne({
+exports.reset = async (req, res) => {
+  const user = await User.findOne({
     resetPasswordToken: req.params.token,
     resetPasswordExpires: { $gt: Date.now() }
-  }).then((user) => {
-    if (!user) {
-      res.status(401).json({ errors: { form: 'Password reset is invalid or expired' } });
-      return;
-    }
-  })
-    .catch(error => res.status(500).json({ error }));
+  });
+
+  if (!user) {
+    res.status(401).json({ errors: { form: 'Password reset is invalid or expired' } });
+    return;
+  }
+
+  res.json({ success: true });
 };
 
-exports.postResetPassword = (req, res) => {
+exports.confirmedPasswords = (req, res, next) => {
   if (req.body.password === req.body.passwordConfirmation) {
-    User.findOne({
-      resetPasswordToken: req.params.token,
-      resetPasswordExpires: { $gt: Date.now() }
-    }).then((user) => {
-      if (!user) {
-        res.json({ errors: { form: 'Password reset is invalid or expired' } });
-        return;
-      }
-
-      user.password_digest = bcrypt.hashSync(req.body.password, 10);
-      user.resetPasswordToken = undefined;
-      user.resetPasswordExpires = undefined;
-
-      user.save();
-      res.json({ user });
-    })
-      .catch(error => res.status(500).json({ error }));
-  } else {
-    res.status(401).json({ errors: { form: 'Passwords do not match!' } });
+    next();
+    return;
   }
+
+  res.json({ errors: { form: 'Passwords do not match!' } });
+};
+
+exports.update = async (req, res) => {
+  const user = await User.findOne({
+    resetPasswordToken: req.params.token,
+    resetPasswordExpires: { $gt: Date.now() }
+  });
+
+  if (!user) {
+    res.json({ errors: { form: 'Password reset is invalid or expired' } });
+    return;
+  }
+
+  user.password_digest = bcrypt.hashSync(req.body.password, 10);
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpires = undefined;
+
+  await user.save();
+
+  res.json({ user });
 };
