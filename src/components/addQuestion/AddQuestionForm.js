@@ -18,12 +18,20 @@ import validate from '../../validations/question';
 
 class AddQuestionForm extends Component {
   static propTypes = {
-    handleSubmit: PropTypes.func.isRequired
-    // params: PropTypes.object.isRequired
+    handleSubmit: PropTypes.func.isRequired,
+    addQuestion: PropTypes.func.isRequired,
+    editQuestion: PropTypes.func.isRequired,
+    addFlashMessage: PropTypes.func.isRequired,
+    userId: PropTypes.string,
+    _id: PropTypes.string
   };
 
   static contextTypes = {
     router: PropTypes.object.isRequired
+  };
+
+  static defaultProps = {
+    _id: ''
   };
 
   state = {
@@ -32,32 +40,31 @@ class AddQuestionForm extends Component {
   };
 
   onSubmit = (values) => {
-    // const { userId, addQuestion, updateQuestion, addFlashMessage } = this.props;
-    // const query = { ...values, userId, lastModified: new Date() };
+    const { userId, _id, addQuestion, editQuestion, addFlashMessage } = this.props;
+    const query = { ...values, userId, lastModified: new Date() };
+    
+    if (_id) {
+      editQuestion(query)
+        .then(() => addFlashMessage({
+          type: 'success',
+          text: 'Question updated successfully.'
+        }));
+    } else {
+      addQuestion(query)
+        .then(() => {
+          addFlashMessage({
+            type: 'success',
+            text: 'New question created successfully.'
+          });
+        });
+    }
 
-    console.log(values);
-
-    // if (values._id) {
-    //   updateQuestion(query)
-    //     .then(() => addFlashMessage({
-    //       type: 'success',
-    //       text: 'Question updated successfully.'
-    //     }));
-    // } else {
-    //   addQuestion(query)
-    //     .then(() => addFlashMessage({
-    //       type: 'success',
-    //       text: 'New question created successfully.'
-    //     }));
-    // }
-
-    // this.context.router.push('/questions');
+    this.context.router.history.push('/questions');
   }
 
   render() {
     const { isLoading } = this.state;
-    // const { params } = this.props;
-    const { handleSubmit } = this.props;
+    const { _id, handleSubmit } = this.props;
 
     return (
       <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
@@ -150,18 +157,19 @@ class AddQuestionForm extends Component {
           bsStyle="info"
           bsSize="large"
           disabled={isLoading}
-        >Add new question</Button>
+        >{_id ? 'Update question' : 'Add new question'}</Button>
       </Form>
     );
   }
 }
 
 function mapStateToProps(state, props) {
-  // if (props.params._id && typeof state.questions !== 'undefined') {
-  //   return {
-  //     initialValues: state.questions.find(question => question._id === props.params._id)
-  //   };
-  // }
+  if (props._id && typeof state.questions !== 'undefined') {
+    const question = state.questions.find(question => question._id === props._id);
+    return {
+      initialValues: question
+    };
+  }
 
   return { initialValues: {} };
 }

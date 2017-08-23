@@ -37,7 +37,12 @@ const userSchema = new Schema({
     default: 'user'
   },
   resetPasswordToken: String,
-  resetPasswordExpires: Date
+  resetPasswordExpires: Date,
+  questions: [{
+    type: Schema.Types.ObjectId,
+    ref: 'question',
+    required: 'You must supply a question'
+  }]
 });
 
 userSchema.virtual('gravatar').get(function () {

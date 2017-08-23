@@ -9,7 +9,10 @@ const questionSchema = new Schema({
     trim: true,
     required: 'Question field is required'
   },
-  slug: String,
+  slug: {
+    type: String,
+    lowercase: true
+  },
   skill: {
     type: [String],
     required: 'Skill field is required'
@@ -19,8 +22,7 @@ const questionSchema = new Schema({
     required: 'Level field is required'
   },
   practice: {
-    type: Boolean,
-    default: false,
+    type: String,
     required: 'Practice field is required'
   },
   answer: {
@@ -57,22 +59,14 @@ questionSchema.index({
   answer: 'text'
 });
 
-questionSchema.pre('save', async function (next) {
-  if (!this.isModified('question')) {
-    next();
-    return;
-  }
-
+questionSchema.pre('save', async function(next) {
   this.slug = slug(this.question);
-  
   const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i');
-  const questionsWithSlug = await this.constructor.find({ slug: slugRegEx });
-
-  if (questionsWithSlug.length) {
-    this.slug = `${this.slug}-${questionsWithSlug.length + 1}`;
+  const questionWithSlug = await this.constructor.find({ slug: slugRegEx });
+  if (questionWithSlug.length) {
+    this.slug = `${this.slug}-${questionWithSlug.length + 1}`;
   }
-
-  next(); 
+  next();
 });
 
 questionSchema.statics.getSkillList = function () {

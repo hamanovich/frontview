@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -33,8 +33,9 @@ class AccountPage extends Component {
         </Col>
         <Col md={9} sm={8}>
           <Switch>
-            <Route exact path='/me' component={Account}/>
-            <Route path='/me/edit' component={AccountEdit} />
+            <Route exact path="/me" component={Account}/>
+            <Route exact path="/me/edit" component={AccountEdit} />
+            <Redirect to="/me" />
           </Switch>
         </Col>
       </Row>

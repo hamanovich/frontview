@@ -10,7 +10,7 @@ import ForgotPage from './forgot/ForgotPage';
 import ResetPage from './reset/ResetPage';
 import SignupPage from './signup/SignupPage';
 import AccountPage from './account/AccountPage';
-import AddQuestionsPage from './addQuestion/AddQuestionPage';
+import AddQuestionPage from './addQuestion/AddQuestionPage';
 import NavbarMenu from './layout/NavbarMenu';
 import Footer from './layout/Footer';
 import FlashList from './flash/FlashList';
@@ -26,14 +26,15 @@ class App extends Component {
           <FlashList />
           <main>
             <Switch>
-              <Route exact path='/' component={Greeting} />
-              <Route path='/login' component={LoginPage} />
-              <Route path='/forgot' component={ForgotPage} />
-              <Route path='/signup' component={SignupPage} />
-              <Route path='/me' component={User(AccountPage)} />
-              <Route exact path='/questions' component={Greeting} />
-              <Route path='/questions/add' component={User(AddQuestionsPage)} />
-              <Route path='/reset/:token' component={ResetPage} />
+              <Route exact path="/" component={Greeting} />
+              <Route path="/login" component={LoginPage} />
+              <Route path="/forgot" component={ForgotPage} />
+              <Route path="/signup" component={SignupPage} />
+              <Route path="/me" component={User(AccountPage)} />
+              <Route exact path="/questions" component={Greeting} />
+              <Route exact path="/questions/add" component={User(AddQuestionPage)} />
+              <Route path="/question/:_id/edit" component={User(AddQuestionPage)} />
+              <Route path="/reset/:token" component={ResetPage} />
               <Route path="*" name="not-found" component={NotFound} />
             </Switch>
           </main>

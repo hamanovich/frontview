@@ -6,50 +6,63 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 
 import AddQuestionForm from './AddQuestionForm';
-// import { addQuestion, updateQuestion, getQuestion } from '../../actions/questionActions';
+import { selectUser } from '../../selectors';
+import { addQuestion, editQuestion, getQuestionById } from '../../actions/questions';
 import { addFlashMessage } from '../../actions/flashMessages';
 
 class AddQuestionPage extends Component {
   static propTypes = {
-    // addQuestion: PropTypes.func.isRequired,
-    // updateQuestion: PropTypes.func.isRequired,
+    addQuestion: PropTypes.func.isRequired,
+    editQuestion: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
-    // getQuestion: PropTypes.func.isRequired,
-    // params: PropTypes.object.isRequired,
-    userId: PropTypes.string
+    getQuestionById: PropTypes.func.isRequired,
+    userId: PropTypes.string.isRequired
   };
 
   static contextTypes = {
     router: PropTypes.object.isRequired
   };
 
-  static defaultProps = {
-    userId: ''
-  };
-
   componentDidMount = () => {
-    // const { params, getQuestion } = this.props;
+    const { route, history } = this.context.router;
+    const { getQuestionById, addFlashMessage } = this.props;
 
-    // if (params._id) {
-    //   getQuestion(params._id);
-    // }
+    if (route.match.params._id) {
+      getQuestionById(route.match.params._id).then(
+        () => {},
+        (err) => {
+          addFlashMessage({
+            type: 'error',
+            text: err.response.data.error
+          });
+
+          history.push('/questions/add');
+        }
+      );
+    }
   };
 
   render() {
+    const { addQuestion, addFlashMessage, editQuestion, userId } = this.props;
+    const { _id } = this.context.router.route.match.params;
+
     return (
       <Row>
         <Col md={6} mdOffset={3}>
-          <h1>Add new question</h1>
-          <AddQuestionForm {...this.props} />
+          <h1>{_id ? 'Edit question' : 'Add new question'}</h1>
+          <AddQuestionForm
+            addFlashMessage={addFlashMessage}
+            addQuestion={addQuestion}
+            editQuestion={editQuestion}
+            userId={userId}
+            _id={_id}
+          />
         </Col>
       </Row>
     );
   }
 }
 
-// const mapStateToProps = state => ({
-//   userId: selectUser(state)._id
-// });
+const mapStateToProps = state => ({ userId: selectUser(state)._id });
 
-
-export default connect(null, { /*getQuestion, addQuestion, updateQuestion,*/ addFlashMessage })(AddQuestionPage);
+export default connect(mapStateToProps, { addQuestion, getQuestionById, editQuestion, addFlashMessage })(AddQuestionPage);

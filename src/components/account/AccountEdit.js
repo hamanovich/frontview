@@ -184,15 +184,7 @@ class AccountEdit extends Component {
   }
 }
 
-function mapStateToProps(state, props) {
-  if (props.match.url === '/me/edit') {
-    return {
-      initialValues: selectUser(state)
-    };
-  }
-
-  return { initialValues: {} };
-}
+const mapStateToProps = state => ({ initialValues: selectUser(state) });
 
 export default connect(mapStateToProps, {
   getUser,
