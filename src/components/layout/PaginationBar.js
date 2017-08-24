@@ -3,23 +3,25 @@ import PropTypes from 'prop-types';
 
 import Pagination from 'react-bootstrap/lib/Pagination';
 
-const PaginationBar = ({ activePage, pages, pageContent }) => (
+const PaginationBar = ({ activePage, pages, onSelect }) => (
   <Pagination
     prev
     next
+    first
+    last
     ellipsis
     boundaryLinks
     items={pages}
-    maxButtons={5}
+    maxButtons={4}
     activePage={activePage}
-    onSelect={pageContent}
+    onSelect={onSelect}
   />
 );
 
 PaginationBar.propTypes = {
   activePage: PropTypes.number.isRequired,
   pages: PropTypes.number.isRequired,
-  pageContent: PropTypes.func.isRequired
+  onSelect: PropTypes.func.isRequired
 };
 
 export default PaginationBar;

@@ -7,11 +7,10 @@ export const SET_CURRENT_USER = '[USER] SET';
 export const CLEANUP_CURRENT_USER = '[USER] CLEAN';
 export const USER_GET = '[USER] GET';
 
-export const ADD_QUESTIONS = '[QUESTIONS] ADD_ALL';
-export const FILTER_QUESTIONS = '[QUESTIONS] FILTER';
-export const GET_QUESTIONS = '[QUESTIONS] GET_ALL';
+export const QUESTIONS_ADD = '[QUESTIONS] ADD';
+export const QUESTIONS_GET = '[QUESTIONS] GET';
 export const QUESTION_ADD = '[QUESTION] ADD';
 export const QUESTION_EDIT = '[QUESTION] EDIT';
 export const QUESTION_GET = '[QUESTION] GET';
-export const REMOVE_QUESTION = '[QUESTION] REMOVE';
-export const EDIT_QUESTION = '[QUESTION] EDIT';
+export const QUESTION_REMOVE = '[QUESTION] REMOVE';
+export const FILTER_QUESTIONS = '[QUESTIONS] FILTER';

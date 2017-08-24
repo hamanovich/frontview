@@ -6,8 +6,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 
 import AddQuestionForm from './AddQuestionForm';
-import { selectUser } from '../../selectors';
-import { addQuestion, editQuestion, getQuestionById } from '../../actions/questions';
+import { addQuestion, removeQuestion, editQuestion, getQuestionById } from '../../actions/questions';
 import { addFlashMessage } from '../../actions/flashMessages';
 
 class AddQuestionPage extends Component {
@@ -16,6 +15,7 @@ class AddQuestionPage extends Component {
     editQuestion: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
     getQuestionById: PropTypes.func.isRequired,
+    removeQuestion: PropTypes.func.isRequired,
     userId: PropTypes.string.isRequired
   };
 
@@ -29,7 +29,7 @@ class AddQuestionPage extends Component {
 
     if (route.match.params._id) {
       getQuestionById(route.match.params._id).then(
-        () => {},
+        () => { },
         (err) => {
           addFlashMessage({
             type: 'error',
@@ -40,6 +40,13 @@ class AddQuestionPage extends Component {
         }
       );
     }
+  };
+
+  remove = (id) => {
+    const { removeQuestion } = this.props;
+
+    removeQuestion(id).then(
+      () => this.context.router.history.push('/questions'));
   };
 
   render() {
@@ -54,6 +61,7 @@ class AddQuestionPage extends Component {
             addFlashMessage={addFlashMessage}
             addQuestion={addQuestion}
             editQuestion={editQuestion}
+            removeQuestion={this.remove}
             userId={userId}
             _id={_id}
           />
@@ -63,6 +71,6 @@ class AddQuestionPage extends Component {
   }
 }
 
-const mapStateToProps = state => ({ userId: selectUser(state)._id });
+const mapStateToProps = state => ({ userId: state.auth.user._id });
 
-export default connect(mapStateToProps, { addQuestion, getQuestionById, editQuestion, addFlashMessage })(AddQuestionPage);
+export default connect(mapStateToProps, { addQuestion, getQuestionById, removeQuestion, editQuestion, addFlashMessage })(AddQuestionPage);

@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, FieldArray, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import FontAwesome from 'react-fontawesome';
 
 import Button from 'react-bootstrap/lib/Button';
+import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
 import Form from 'react-bootstrap/lib/Form';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
+import Modal from 'react-bootstrap/lib/Modal';
 
 import AnswerFields from './AnswerFields';
 import TextField from '../formElements/TextField';
@@ -22,6 +25,7 @@ class AddQuestionForm extends Component {
     addQuestion: PropTypes.func.isRequired,
     editQuestion: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
+    removeQuestion: PropTypes.func.isRequired,
     userId: PropTypes.string,
     _id: PropTypes.string
   };
@@ -36,13 +40,22 @@ class AddQuestionForm extends Component {
 
   state = {
     errors: {},
-    isLoading: false
+    isLoading: false,
+    showModal: false
+  };
+
+  openModel = () => {
+    this.setState({ showModal: true });
+  };
+
+  closeModal = () => {
+    this.setState({ showModal: false });
   };
 
   onSubmit = (values) => {
     const { userId, _id, addQuestion, editQuestion, addFlashMessage } = this.props;
     const query = { ...values, userId, lastModified: new Date() };
-    
+
     if (_id) {
       editQuestion(query)
         .then(() => addFlashMessage({
@@ -64,7 +77,7 @@ class AddQuestionForm extends Component {
 
   render() {
     const { isLoading } = this.state;
-    const { _id, handleSubmit } = this.props;
+    const { _id, handleSubmit, removeQuestion } = this.props;
 
     return (
       <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
@@ -157,7 +170,34 @@ class AddQuestionForm extends Component {
           bsStyle="info"
           bsSize="large"
           disabled={isLoading}
-        >{_id ? 'Update question' : 'Add new question'}</Button>
+        >{_id ? 'Update' : 'Add new question'}</Button>
+
+        {_id && <div className="pull-right">
+          <Button bsStyle="danger" onClick={this.openModel}>
+            <FontAwesome name="trash-o" /> Remove
+          </Button>
+
+          <Modal bsSize="sm" show={this.state.showModal} onHide={this.closeModal}>
+            <Modal.Header closeButton>
+              <Modal.Title>Are you sure?</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <p>If so, you will not be able to restore this question.</p>
+            </Modal.Body>
+            <Modal.Footer>
+              <ButtonGroup>
+                <Button
+                  bsStyle="default"
+                  onClick={this.closeModal}
+                >Cancel</Button>
+                <Button
+                  bsStyle="danger"
+                  onClick={() => removeQuestion(_id)}
+                >Remove</Button>
+              </ButtonGroup>
+            </Modal.Footer>
+          </Modal>
+        </div>}
       </Form>
     );
   }

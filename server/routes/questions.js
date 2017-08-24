@@ -1,27 +1,22 @@
 import Question from '../models/question';
 import User from '../models/user';
 
-// exports.getQuestions = (req, res) => {
-//   const page = req.params.page || 1;
-//   const limit = 2;
-//   const skip = (page * limit) - limit;
-//   const countPrimise = Question.count();
-//   const questionsPromise = Question
-//     .find()
-//     .skip(skip)
-//     .limit(limit);
+exports.getQuestions = async (req, res) => {
+  const page = req.params.page || 1;
+  const limit = 2;
+  const skip = (page * limit) - limit;
+  const countPromise = Question.count();
+  const questionsPromise = Question.find().skip(skip).limit(limit);
+  const [questions, count] = await Promise.all([questionsPromise, countPromise]);
+  const pages = Math.ceil(count / limit);
 
-//   Promise.all([questionsPromise, countPrimise]).then((result) => {
-//     const [ans, count] = result;
-//     const pages = Math.ceil(count / limit);
+  if (!questions.length && skip) {
+    res.status(500).json({ error: `You asked for page ${page}. But that doesn't exist. Maximum page is ${pages}` });
+    return;
+  }
 
-//     if (!ans.length && skip) {
-//       res.status(500).json({ error: `You asked for page ${page}. But that doesn't exist. Maximum page is ${pages}` });
-//     }
-
-//     res.json({ ans, count, pages });
-//   }).catch(error => res.status(500).json({ error }));
-// };
+  res.json({ questions, count, pages });
+};
 
 exports.getQuestionById = async (req, res) => {
   const question = await Question.findOne({ _id: req.params.id });
@@ -43,8 +38,8 @@ exports.add = async (req, res) => {
     { safe: true, upsert: true, new: true }
   );
 
-  if (user) {
-    res.json({ success: true });
+  if (newQuestion && user ) {
+    res.json({ question: newQuestion });
     return;
   }
 
@@ -67,43 +62,29 @@ exports.edit = async (req, res) => {
   res.status(500).json({ error: 'Question didn\'t update' });
 };
 
-// exports.updateQuestionField = (req, res) => {
-//   Question.findByIdAndUpdate({ _id: req.params.id }, { $set: { [req.body.field]: req.body.value, lastModified: req.body.lastModified } })
-//     .then(() => Question.findOne({ _id: req.params.id })
-//       .then(que => res.json({ que }))
-//       .catch(error => res.status(500).json({ error })));
-// };
+exports.editField = async (req, res) => {
+  const question = await Question.findById({ _id: req.params.id });
+  if (!question) {
+    res.json({ errors: { form: `Question by ${req.params.id} didn't find`}});
+    return;
+  }
 
-// exports.voteQuestion = (req, res) => {
-//   Question.findByIdAndUpdate({ _id: req.params.id }, { $push: { [req.body.field]: req.body.value } })
-//     .then(() => Question.findOne({ _id: req.params.id })
-//       .then((que) => {
-//         User.findByIdAndUpdate({ _id: req.body.value }, { $push: { [req.body.field]: que._id } })
-//           .then(() => res.json({ que }))
-//           .catch(err => res.status(500).json({ error: err }));
-//       }))
-//     .catch(error => res.status(500).json({ error }));
-// };
+  question.lastModified = req.body.lastModified;
+  question[req.body.field] = req.body.value;
 
-// exports.deleteQuestion = (req, res) => {
-//   Question.findByIdAndRemove({ _id: req.params.id })
-//     .then((ans) => {
-//       User.findByIdAndUpdate({ _id: ans.author }, { $pull: { questions: ans._id } })
-//         .then(() => res.json({ ans }))
-//         .catch(error => res.status(500).json({ error }));
-//     })
-//     .catch(error => res.status(500).json({ error }));
-// };
+  await question.save();
 
-// exports.getQuestionsBySkills = (req, res) => {
-//   const skills = req.params.tag;
-//   const skillQuery = skills || { $exists: true };
+  res.json({ question });
+};
 
-//   const skillsPromise = Question.getSkillList();
-//   const questionsPromise = Question.find({ skill: skillQuery });
+exports.remove = async (req, res) => {
+  const question = await Question.findByIdAndRemove({ _id: req.params.id });
+  const user = await User.findByIdAndUpdate({ _id: question.author }, { $pull: { questions: question._id } });
 
-//   Promise.all([skillsPromise, questionsPromise]).then((result) => {
-//     const [skills, questions] = result;
-//     res.json({ skills, questions });
-//   }).catch(error => res.status(500).json({ error }));
-// };
+  if (question && user) {
+    res.json({ question });
+    return;
+  }
+
+  res.status(500).res({ error: 'Question didn\'t remove' });
+};

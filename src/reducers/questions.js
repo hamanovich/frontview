@@ -1,15 +1,16 @@
 import map from 'lodash/map';
 
 import {
-  ADD_QUESTIONS,
+  QUESTIONS_ADD,
   QUESTION_ADD,
   QUESTION_EDIT,
-  QUESTION_GET
+  QUESTION_GET,
+  QUESTION_REMOVE
 } from '../actions/types';
 
 export default (state = [], action) => {
   switch (action.type) {
-    case ADD_QUESTIONS:
+    case QUESTIONS_ADD:
       return action.questions;
 
     case QUESTION_ADD:
@@ -44,6 +45,18 @@ export default (state = [], action) => {
       }
 
       return [action.question];
+
+    case QUESTION_REMOVE:
+      const removeIndex = state.findIndex(question => question._id === action.question._id);
+      
+      if (removeIndex > -1) {
+        return [
+          ...state.slice(0, removeIndex),
+          ...state.slice(removeIndex + 1)
+        ];
+      }
+
+      return state;
 
     default:
       return state;

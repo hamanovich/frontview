@@ -13,7 +13,6 @@ import TextareaField from '../formElements/TextareaField';
 
 import validate from '../../validations/account';
 
-import { selectUser } from '../../selectors';
 import { getUser, updateUser } from '../../actions/signup';
 import { addFlashMessage } from '../../actions/flashMessages';
 
@@ -184,7 +183,7 @@ class AccountEdit extends Component {
   }
 }
 
-const mapStateToProps = state => ({ initialValues: selectUser(state) });
+const mapStateToProps = state => ({ initialValues: state.auth.user });
 
 export default connect(mapStateToProps, {
   getUser,

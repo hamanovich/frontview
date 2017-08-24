@@ -11,6 +11,7 @@ import ResetPage from './reset/ResetPage';
 import SignupPage from './signup/SignupPage';
 import AccountPage from './account/AccountPage';
 import AddQuestionPage from './addQuestion/AddQuestionPage';
+import QuestionPage from './questions/QuestionPage';
 import NavbarMenu from './layout/NavbarMenu';
 import Footer from './layout/Footer';
 import FlashList from './flash/FlashList';
@@ -31,7 +32,8 @@ class App extends Component {
               <Route path="/forgot" component={ForgotPage} />
               <Route path="/signup" component={SignupPage} />
               <Route path="/me" component={User(AccountPage)} />
-              <Route exact path="/questions" component={Greeting} />
+              <Route exact path="/questions" component={QuestionPage} />
+              <Route path="/questions/page/:page" component={QuestionPage} />
               <Route exact path="/questions/add" component={User(AddQuestionPage)} />
               <Route path="/question/:_id/edit" component={User(AddQuestionPage)} />
               <Route path="/reset/:token" component={ResetPage} />

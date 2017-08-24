@@ -2,72 +2,32 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Row from 'react-bootstrap/lib/Row';
+import Questions from './Questions';
 
-// import QuestionsList from './QuestionsList';
-import PaginationBar from '../layout/PaginationBar';
-
-// import { getQuestions } from '../../actions/questionActions';
-// import { addFlashMessage } from '../../actions/flashMessages';
+import { getQuestions, editQuestionField } from '../../actions/questions';
+import { addFlashMessage } from '../../actions/flashMessages';
 
 class QuestionsPage extends Component {
   static propTypes = {
-    // getQuestions: PropTypes.func.isRequired,
-    // addFlashMessage: PropTypes.func.isRequired,
-    // params: PropTypes.object.isRequired
+    getQuestions: PropTypes.func.isRequired,
+    addFlashMessage: PropTypes.func.isRequired,
+    editQuestionField: PropTypes.func.isRequired
   };
-
-  static contextTypes = {
-    router: PropTypes.object.isRequired
-  };
-
-  state = {
-    active: '',
-    activePage: 1,
-    pages: 1,
-    skills: [],
-    ans: []
-  };
-
-  // componentDidMount() {
-  //   this.pageContent(this.props.params.page || 1);
-  // }
-
-  // pageContent = (eventKey) => {
-  //   const { addFlashMessage, getQuestions } = this.props;
-
-  //   getQuestions(eventKey)
-  //     .then(
-  //     ({ pages, ans }) => {
-  //       this.setState({ ans, pages, activePage: Number(eventKey) });
-  //       this.context.router.push(`${this.context.router.routes[1].path}/page/${eventKey}`);
-  //     },
-  //     (err) => {
-  //       addFlashMessage({
-  //         type: 'error',
-  //         text: err.response.data.error
-  //       });
-
-  //       this.setState({
-  //         questions: false
-  //       });
-  //     }
-  //     );
-  // };
 
   render() {
-    return (
-      <Row>
-        <QuestionsList questions={this.state.ans} />
+    const { getQuestions, editQuestionField, addFlashMessage } = this.props;
 
-        {this.state.ans.length && <PaginationBar
-          activePage={this.state.activePage}
-          pageContent={this.pageContent}
-          pages={this.state.pages}
-        />}
-      </Row>
+    return (
+      <div>
+        <h1>Questions</h1>
+        <Questions
+          getQuestions={getQuestions}
+          addFlashMessage={addFlashMessage}
+          editQuestionField={editQuestionField}
+        />
+      </div>
     );
   }
 }
 
-export default connect(null, { getQuestions, addFlashMessage })(QuestionsPage);
+export default connect(null, { getQuestions, editQuestionField, addFlashMessage })(QuestionsPage);

@@ -19,7 +19,10 @@ router.post('/auth/reset/:token', authController.confirmedPasswords, catchErrors
 
 router.post('/questions/add', questionsController.add);
 router.put('/question/:id/edit', catchErrors(questionsController.edit));
+router.patch('/question/:id/edit', catchErrors(questionsController.editField));
 router.get('/question/:id', catchErrors(questionsController.getQuestionById));
-// router.get('/question/:slug', catchErrors(questionsController.getQuestionBySlug));
+router.get('/questions', catchErrors(questionsController.getQuestions));
+router.get('/questions/page/:page', catchErrors(questionsController.getQuestions));
+router.delete('/question/:id', questionsController.remove);
 
 module.exports = router;

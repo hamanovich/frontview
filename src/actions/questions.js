@@ -1,28 +1,19 @@
 import axios from 'axios';
 
 import {
-  ADD_QUESTIONS,
+  QUESTIONS_ADD,
   QUESTION_ADD,
   QUESTION_EDIT,
-  QUESTION_GET
-  // FILTER_QUESTIONS,
-  // REMOVE_QUESTION,
-  // EDIT_QUESTION,
-  // VOTE_LIKE,
-  // VOTE_DISLIKE
+  QUESTION_GET,
+  QUESTION_REMOVE
 } from './types';
 
 export const addQuestions = (questions, count, pages) => ({
-  type: ADD_QUESTIONS,
+  type: QUESTIONS_ADD,
   questions,
   count,
   pages
 });
-
-// export const filterQuestions = filter => ({
-//   type: FILTER_QUESTIONS,
-//   filter
-// });
 
 export const questionGot = question => ({
   type: QUESTION_GET,
@@ -39,44 +30,19 @@ export const questionEdited = question => ({
   question
 });
 
-// export const removeQuestion = question => ({
-//   type: REMOVE_QUESTION,
-//   question
-// });
-
-// export const editQuestion = question => ({
-//   type: EDIT_QUESTION,
-//   question
-// });
-
-// export const voteLike = question => ({
-//   type: VOTE_LIKE,
-//   question
-// });
-
-// export const voteDislike = question => ({
-//   type: VOTE_DISLIKE,
-//   question
-// });
+export const questionRemoved = question => ({
+  type: QUESTION_REMOVE,
+  question
+});
 
 export const getQuestions = (page = 1) =>
   dispatch => axios.get(`/api/questions/page/${page}`)
     .then((res) => {
-      const { ans, count, pages } = res.data;
-      dispatch(addQuestions(ans, count, pages));
+      const { questions, count, pages } = res.data;
+      dispatch(addQuestions(questions, count, pages));
 
-      return { ans, count, pages };
+      return { questions, count, pages };
     });
-
-
-// export const getQuestionsBySkill = tag =>
-//   dispatch => axios.get(`/api/questions/tags/${tag}`)
-//     .then((res) => {
-//       const { questions, skills } = res.data;
-//       dispatch(addQuestions(questions));
-
-//       return { questions, skills };
-//     });
 
 export const getQuestionById = id =>
   dispatch => axios.get(`/api/question/${id}`)
@@ -84,27 +50,19 @@ export const getQuestionById = id =>
 
 export const addQuestion = question =>
   dispatch => axios.post('/api/questions/add', question)
-    .then(res => dispatch(questionAdded(res.data)));
+    .then(res => dispatch(questionAdded(res.data.question)));
 
 export const editQuestion = data =>
   dispatch => axios.put(`/api/question/${data._id}/edit`, data)
     .then(res => dispatch(questionEdited(res.data.question)));
-// export const removeQuestionById = id =>
-//   dispatch => axios.delete(`/api/questions/${id}`)
-//     .then(res => dispatch(removeQuestion(res.data.ans)));
 
-// export const changeQuestionField = (id, field, value, lastModified) =>
-//   dispatch => axios.put(`/api/questions/one/${id}`, { field, value, lastModified: lastModified || new Date() })
-//     .then(res => dispatch(editQuestion(res.data.que)));
+export const editQuestionField = (id, field, value, lastModified) =>
+  dispatch => axios.patch(`/api/question/${id}/edit`, { field, value, lastModified: new Date() })
+    .then((res) => {
+      dispatch(questionEdited(res.data.question));
+      return res.data.question;
+    });
 
-// export const voteQuestion = (id, field, value) =>
-//   dispatch => axios.put(`/api/questions/vote/${id}`, { field, value })
-//     .then((res) => {
-//       const like = field.split('.')[1];
-
-//       return like === 'like'
-//         ? dispatch(voteLike(res.data.que))
-//         : dispatch(voteDislike(res.data.que));
-//     });
-
-
+export const removeQuestion = id =>
+  dispatch => axios.delete(`/api/question/${id}`)
+    .then(res => dispatch(questionRemoved(res.data.question)));
