@@ -115,7 +115,7 @@ class Question extends Component {
 
         {user.username === question.author.username &&
           <ButtonGroup bsSize="small" className="pull-right">
-            <Link to={`/question/${question._id}/edit`} className="btn btn-warning">Edit</Link>
+            <Link to={`/questions/${question._id}/edit`} className="btn btn-warning">Edit</Link>
           </ButtonGroup>
         }
 

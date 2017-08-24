@@ -41,7 +41,7 @@ exports.forgot = async (req, res) => {
 
   await user.save();
 
-  resetURL = `http://${req.headers['x-forwarded-host']}/reset/${user.resetPasswordToken}`;
+  resetURL = `http://${req.headers['x-forwarded-host']}/login/reset/${user.resetPasswordToken}`;
 
   await send({
     user,

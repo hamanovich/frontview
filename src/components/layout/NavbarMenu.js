@@ -23,7 +23,7 @@ class NavbarMenu extends Component {
 
   render() {
     const { auth, logout } = this.props;
-    const username = auth.user.username || '';
+    const username = auth.user && (auth.user.username || '');
 
     const userLinks = (
       <Nav pullRight>
