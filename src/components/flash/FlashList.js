@@ -20,9 +20,7 @@ class FlashList extends Component {
     );
 
     return (
-      <div>
-        {flashMessages}
-      </div>
+      <div>{flashMessages}</div>
     );
   }
 }

@@ -14,7 +14,8 @@ class ResetForm extends Component {
   static propTypes = {
     resetToken: PropTypes.func.isRequired,
     getReset: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired
+    addFlashMessage: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired
   };
 
   static contextTypes = {
@@ -22,8 +23,6 @@ class ResetForm extends Component {
   };
 
   state = {
-    password: '',
-    passwordConfirmation: '',
     errors: {},
     isLoading: false
   };
@@ -46,53 +45,35 @@ class ResetForm extends Component {
       .catch(err => failure());
   }
 
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  isValid = () => {
-    const errors = validate(this.state);
-
-    if (!errors.isValid) {
-      this.setState({ errors });
-    }
-
-    return errors.isValid;
-  };
-
-  onSubmit = (e) => {
-    e.preventDefault();
-
+  onSubmit = (values) => {
     const { router } = this.context;
     const { resetToken, addFlashMessage } = this.props;
-    const { password, passwordConfirmation } = this.state;
 
-    if (this.isValid()) {
-      this.setState({ errors: {}, isLoading: true });
+    this.setState({ errors: {}, isLoading: true });
 
-      resetToken(router.route.match.params.token, { password, passwordConfirmation }).then(
-        (res) => {
-          if (res.errors) {
-            this.setState({ errors: res.errors, isLoading: false })
-            return;
-          } 
-          
-          addFlashMessage({
-            type: 'success',
-            text: 'Password successfully updated. Please login'
-          });
-          router.history.push('/');
-        },
-        err => this.setState({ errors: err.response.data.error, isLoading: false })
-      );
-    }
+    resetToken(router.route.match.params.token, values).then(
+      (res) => {
+        if (res.errors) {
+          this.setState({ errors: res.errors, isLoading: false })
+          return;
+        }
+
+        addFlashMessage({
+          type: 'success',
+          text: 'Password successfully updated. Please login'
+        });
+        router.history.push('/');
+      },
+      err => this.setState({ errors: err.response.data.error, isLoading: false })
+    );
   };
 
   render() {
     const { errors, isLoading } = this.state;
+    const { handleSubmit } = this.props;
 
     return (
-      <Form onSubmit={this.onSubmit} noValidate>
+      <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
         {errors.form && <Alert bsStyle="danger">{errors.form}</Alert>}
 
         <Field
@@ -101,7 +82,6 @@ class ResetForm extends Component {
           type="password"
           name="password"
           placeholder="Enter a new password"
-          onChange={this.onChange}
         />
 
         <Field
@@ -110,7 +90,6 @@ class ResetForm extends Component {
           type="password"
           name="passwordConfirmation"
           placeholder="Repeat your mad password"
-          onChange={this.onChange}
         />
 
         <Button type="submit" bsStyle="warning" bsSize="large" disabled={isLoading}>Reset</Button>

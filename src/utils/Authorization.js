@@ -22,20 +22,27 @@ export default (allowed) =>
       componentWillMount() {
         const { addFlashMessage, auth } = this.props;
         const { router } = this.context;
-        
+        const include = allowed && allowed.includes(auth.user.role);
+
         if (!auth.isAuthenticated) {
           addFlashMessage({
             type: 'error',
             text: 'To see this page you have to login. Please do it'
           });
           router.history.push('/login');
-        } else if (allowed && !allowed.includes(auth.user.role)) {
+        } else if (!allowed) {
+          addFlashMessage({
+            type: 'warn',
+            text: 'You have already logged in. No need to do it again'
+          });
+          router.history.push('/');
+        } else if (!include) {
           addFlashMessage({
             type: 'error',
             text: 'You have no access to this page'
           });
           router.history.push('/');
-        }
+        } 
       }
 
       componentWillUpdate(nextProps) {

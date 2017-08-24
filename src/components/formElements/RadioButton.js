@@ -5,45 +5,41 @@ import map from 'lodash/map';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import Radio from 'react-bootstrap/lib/Radio';
 
-const SelectField = ({
-  id,
+const RadioButton = ({
   input,
   label,
-  multiple,
   options,
   meta: { touched, error, warning }
 }) => (
     <FormGroup
-      controlId={input.name}
-      validationState={touched && error ? 'error' :
-        touched && !error ? 'success' : null}>
+      validationState={touched && error ? 'error' : touched && !error ? 'success' : null}>
       <ControlLabel>{label}</ControlLabel>
-      <select
-        {...input}
-        id={id}
-        multiple={multiple}
-        className="form-control"
-      >
-        {map(options, o =>
-          <option value={o.value} key={o.value}>{o.title}</option>
-        )}
-      </select>
+      {map(options, o =>
+        <Radio
+          {...input}
+          id={o.value}
+          key={o.value}
+          value={o.value}
+          checked={input.value === o.value}
+        >
+          {o.title}
+        </Radio>
+      )}
       {touched &&
         ((error && <HelpBlock>{error}</HelpBlock>) ||
           (warning && <span>{warning}</span>))}
     </FormGroup>
   );
 
-SelectField.propTypes = {
+RadioButton.propTypes = {
+  options: PropTypes.array.isRequired,
   input: PropTypes.shape({
     name: PropTypes.string,
-    value: PropTypes.array
+    value: PropTypes.string
   }).isRequired,
-  id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  multiple: PropTypes.bool.isRequired,
-  options: PropTypes.array.isRequired,
   meta: PropTypes.shape({
     touched: PropTypes.bool,
     error: PropTypes.string,
@@ -51,4 +47,4 @@ SelectField.propTypes = {
   }).isRequired
 };
 
-export default SelectField;
+export default RadioButton;

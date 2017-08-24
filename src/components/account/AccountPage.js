@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Switch, Route } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Button from 'react-bootstrap/lib/Button';
@@ -27,14 +26,15 @@ class AccountPage extends Component {
         <Col md={3} sm={4}>
           <ListGroup style={{ marginTop: 25 }}>
             <Link to="/questions" className="list-group-item">Questions</Link>
-            <Link to="/add-question" className="list-group-item">Add question</Link>
+            <Link to="/questions/add" className="list-group-item">Add question</Link>
             <Button block bsStyle="danger" onClick={logout}>Logout</Button>
           </ListGroup>
         </Col>
         <Col md={9} sm={8}>
           <Switch>
-            <Route exact path='/me' component={Account} />
-            <Route path='/me/edit' component={AccountEdit} />
+            <Route exact path="/me" component={Account}/>
+            <Route exact path="/me/edit" component={AccountEdit} />
+            <Redirect to="/me" />
           </Switch>
         </Col>
       </Row>

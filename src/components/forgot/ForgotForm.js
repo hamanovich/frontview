@@ -12,51 +12,33 @@ import validate from '../../validations/forgot';
 
 class ForgotForm extends Component {
   static propTypes = {
-    forgot: PropTypes.func.isRequired
+    forgot: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired
   };
 
   state = {
-    email: '',
     emailed: '',
     errors: {},
     isLoading: false
   };
 
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  isValid = () => {
-    const errors = validate(this.state);
-
-    if (!errors.isValid) {
-      this.setState({ errors });
-    }
-
-    return errors.isValid;
-  };
-
-  onSubmit = (e) => {
-    e.preventDefault();
-
+  onSubmit = (email) => {
     const { forgot } = this.props;
-    const { email } = this.state;
 
-    if (this.isValid()) {
-      this.setState({ errors: {}, isLoading: true });
+    this.setState({ errors: {}, isLoading: true });
 
-      forgot({ email }).then(
-        res => this.setState({ emailed: res.emailed, isLoading: false }),
-        err => this.setState({ errors: err.response.data.errors, isLoading: false })
-      );
-    }
+    forgot(email).then(
+      res => this.setState({ emailed: res.emailed, isLoading: false }),
+      err => this.setState({ errors: err.response.data.errors, isLoading: false })
+    );
   };
 
   render() {
     const { isLoading, emailed, errors } = this.state;
-    
+    const { handleSubmit } = this.props;
+
     return (
-      <Form onSubmit={this.onSubmit} noValidate>
+      <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
         {emailed && <Alert bsStyle="success">{emailed}</Alert>}
         {errors.form && <Alert bsStyle="danger">{errors.form}</Alert>}
 
@@ -66,7 +48,6 @@ class ForgotForm extends Component {
           type="email"
           name="email"
           placeholder="Type your email"
-          onChange={this.onChange}
         />
 
         <Button type="submit" bsStyle="warning" bsSize="large" disabled={isLoading}>Send a reset</Button>

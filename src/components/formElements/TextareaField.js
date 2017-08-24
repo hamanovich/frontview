@@ -27,6 +27,7 @@ const TextareaField = ({
         rows={rows}
         readOnly={readonly}
       />
+      <FormControl.Feedback />
       {touched && 
       ((error && <HelpBlock>{error}</HelpBlock>) || 
       (warning && <span>{warning}</span>))}
