@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import axios from 'axios';
 
 import Authorization from '../utils/Authorization';
 
@@ -13,3 +14,11 @@ export const PropsRoute = ({ component, ...rest }) => (
     routeProps => React.createElement(component, Object.assign({}, routeProps, rest))
   } />
 );
+
+export const setAuthorizationToken = (token) => {
+  if (token) {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  } else {
+    delete axios.defaults.headers.common.Authorization;
+  }
+};

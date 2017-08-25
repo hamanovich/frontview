@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import map from 'lodash/map';
 
 import Flash from './Flash';
-import { deleteFlashMessage, deleteFlashMessages } from '../../actions/flashMessages';
+import { deleteFlashMessage, deleteFlashMessages } from '../../actions/flash';
 
 class FlashList extends Component {
   static propTypes = {
@@ -25,6 +25,6 @@ class FlashList extends Component {
   }
 }
 
-const mapStateToProps = state => ({ messages: state.flashMessages });
+const mapStateToProps = state => ({ messages: state.flash });
 
 export default connect(mapStateToProps, { deleteFlashMessage, deleteFlashMessages })(FlashList);

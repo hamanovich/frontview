@@ -9,9 +9,10 @@ import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
 import Modal from 'react-bootstrap/lib/Modal';
 import Image from 'react-bootstrap/lib/Image';
 import Well from 'react-bootstrap/lib/Well';
+import PageHeader from 'react-bootstrap/lib/PageHeader';
 
 import { removeUser, getUser } from '../../actions/signup';
-import { addFlashMessage } from '../../actions/flashMessages';
+import { addFlashMessage } from '../../actions/flash';
 import { logout } from '../../actions/auth';
 
 class Account extends Component {
@@ -70,9 +71,9 @@ class Account extends Component {
 
     return (
       <div>
-        <h1>{user.first_name && user.last_name ?
+        <PageHeader>{user.first_name && user.last_name ?
           <span>{user.first_name} {user.last_name}</span> :
-          'Your account'}</h1>
+          'Your account'}</PageHeader>
 
         <Image src={user.gravatar} thumbnail />
 

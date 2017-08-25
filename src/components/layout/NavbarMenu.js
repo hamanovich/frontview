@@ -13,8 +13,6 @@ import MenuItem from 'react-bootstrap/lib/MenuItem';
 
 import { logout } from '../../actions/auth';
 
-import './NavbarMenu.css';
-
 class NavbarMenu extends Component {
   static propTypes = {
     auth: PropTypes.object.isRequired,
@@ -23,8 +21,7 @@ class NavbarMenu extends Component {
 
   render() {
     const { auth, logout } = this.props;
-    const username = auth.user && (auth.user.username || '');
-
+    const username = auth.user ? (auth.user.username || '') : '';
     const userLinks = (
       <Nav pullRight>
         <NavDropdown title="Questions" id="questions-dropdown">

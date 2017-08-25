@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 import Alert from 'react-bootstrap/lib/Alert';
+import PageHeader from 'react-bootstrap/lib/PageHeader';
 
-import TextField from '../formElements/TextField';
+import { TextField } from '../formElements';
 
 import validate from '../../validations/forgot';
 
-class ForgotForm extends Component {
+import { forgot } from '../../actions/auth';
+
+class Forgot extends Component {
   static propTypes = {
     forgot: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired
@@ -39,6 +43,9 @@ class ForgotForm extends Component {
 
     return (
       <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
+        <PageHeader>Forgot your password? <br /> Don't worry!</PageHeader>
+        <p>Just put your email and we will send you instructions.</p>
+
         {emailed && <Alert bsStyle="success">{emailed}</Alert>}
         {errors.form && <Alert bsStyle="danger">{errors.form}</Alert>}
 
@@ -56,7 +63,8 @@ class ForgotForm extends Component {
   }
 }
 
-export default reduxForm({
-  form: 'forgot',
-  validate
-})(ForgotForm);
+export default connect(null, { forgot })(
+  reduxForm({
+    form: 'forgot',
+    validate
+  })(Forgot));

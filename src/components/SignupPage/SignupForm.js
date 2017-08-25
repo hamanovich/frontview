@@ -5,7 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 
-import TextField from '../formElements/TextField';
+import { TextField } from '../formElements';
 
 import validate from '../../validations/signup';
 

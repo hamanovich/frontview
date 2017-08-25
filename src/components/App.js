@@ -3,15 +3,15 @@ import { Switch, Route } from 'react-router-dom';
 
 import Grid from 'react-bootstrap/lib/Grid';
 
-import Greeting from './layout/Greeting';
+import HomePage from './HomePage';
 import NotFound from './layout/NotFound';
-import LoginPage from './login/LoginPage';
-import SignupPage from './signup/SignupPage';
-import AccountPage from './account/AccountPage';
-import QuestionsPage from './questions/QuestionsPage';
 import NavbarMenu from './layout/NavbarMenu';
 import Footer from './layout/Footer';
 import FlashList from './flash/FlashList';
+import LoginPage from './LoginPage';
+import SignupPage from './SignupPage';
+import AccountPage from './AccountPage';
+import QuestionsPage from './QuestionsPage';
 
 import { isLoggedIn, User } from '../utils/helpers';
 
@@ -22,7 +22,7 @@ const App = () => (
       <FlashList />
       <main>
         <Switch>
-          <Route exact path="/" component={Greeting} />
+          <Route exact path="/" component={HomePage} />
           <Route path="/login" component={isLoggedIn(LoginPage)} />
           <Route path="/signup" component={isLoggedIn(SignupPage)} />
           <Route path="/me" component={User(AccountPage)} />

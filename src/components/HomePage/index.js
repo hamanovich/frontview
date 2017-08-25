@@ -3,7 +3,7 @@ import React from 'react';
 import Jumbotron from 'react-bootstrap/lib/Jumbotron';
 import Button from 'react-bootstrap/lib/Button';
 
-const Greeting = () => {
+const HomePage = () => {
   return (
     <div>
       <Jumbotron>
@@ -19,4 +19,4 @@ const Greeting = () => {
   );
 };
 
-export default Greeting;
+export default HomePage;

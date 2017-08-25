@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 
-import TextareaField from '../formElements/TextareaField';
+import { TextareaField } from '../../formElements';
 
 const AnswerFields = ({ fields, meta: { touched, error, submitFailed } }) => (
   <div>

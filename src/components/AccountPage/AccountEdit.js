@@ -8,13 +8,12 @@ import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 
-import TextField from '../formElements/TextField';
-import TextareaField from '../formElements/TextareaField';
+import { TextField, TextareaField } from '../formElements';
 
 import validate from '../../validations/account';
 
 import { getUser, updateUser } from '../../actions/signup';
-import { addFlashMessage } from '../../actions/flashMessages';
+import { addFlashMessage } from '../../actions/flash';
 
 class AccountEdit extends Component {
   static propTypes = {

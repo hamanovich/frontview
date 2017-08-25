@@ -9,7 +9,7 @@ import Questions from './Questions';
 import PaginationBar from '../layout/PaginationBar';
 
 import { getQuestions, editQuestionField } from '../../actions/questions';
-import { addFlashMessage } from '../../actions/flashMessages';
+import { addFlashMessage } from '../../actions/flash';
 
 class QuestionsAll extends Component {
   static propTypes = {

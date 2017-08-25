@@ -1,6 +1,6 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import setAuthorizationToken from '../utils/setAuthorizationToken';
+import { setAuthorizationToken } from '../utils/helpers';
 
 import { SET_CURRENT_USER, CLEANUP_CURRENT_USER } from './types';
 

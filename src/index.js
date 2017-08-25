@@ -8,7 +8,7 @@ import jwtDecode from 'jwt-decode';
 import createHistory from 'history/createBrowserHistory';
 
 import rootReducer from './reducers';
-import setAuthorizationToken from './utils/setAuthorizationToken';
+import { setAuthorizationToken } from './utils/helpers';
 import { setCurrentUser } from './actions/auth';
 
 import App from './components/App';

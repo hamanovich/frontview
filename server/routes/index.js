@@ -1,4 +1,5 @@
 import express from 'express';
+import authenticate from '../middlewares/authenticate';
 
 const router = express.Router();
 
@@ -17,9 +18,9 @@ router.post('/auth/forgot', catchErrors(authController.forgot));
 router.get('/auth/reset/:token', catchErrors(authController.reset));
 router.post('/auth/reset/:token', authController.confirmedPasswords, catchErrors(authController.update));
 
-router.post('/questions/add', questionsController.add);
-router.put('/question/:id/edit', catchErrors(questionsController.edit));
-router.patch('/question/:id/edit', catchErrors(questionsController.editField));
+router.post('/questions/add', authenticate, questionsController.add);
+router.put('/question/:id/edit', authenticate, catchErrors(questionsController.edit));
+router.patch('/question/:id/edit', authenticate, catchErrors(questionsController.editField));
 router.get('/question/:id', catchErrors(questionsController.getQuestionById));
 router.get('/questions', catchErrors(questionsController.getQuestions));
 router.get('/questions/page/:page', catchErrors(questionsController.getQuestions));

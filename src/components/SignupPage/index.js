@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
+import PageHeader from 'react-bootstrap/lib/PageHeader';
 
 import { userSignup, isUserExists } from '../../actions/signup';
-import { addFlashMessage } from '../../actions/flashMessages';
+import { addFlashMessage } from '../../actions/flash';
 
 import SignupForm from './SignupForm';
 
@@ -23,7 +24,7 @@ class SignupPage extends Component {
     return (
       <Row>
         <Col md={6} mdOffset={3}>
-          <h1>Register. Welcome</h1>
+          <PageHeader>Register. Welcome</PageHeader>
           <SignupForm
             userSignup={userSignup}
             addFlashMessage={addFlashMessage}

@@ -1,5 +1,4 @@
 import React from 'react';
-import './Footer.css';
 
 import Grid from 'react-bootstrap/lib/Grid';
 

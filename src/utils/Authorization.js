@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { addFlashMessage } from '../actions/flashMessages';
+import { addFlashMessage } from '../actions/flash';
 
 export default (allowed) =>
   (WrappedComponent) => {
@@ -24,7 +24,7 @@ export default (allowed) =>
         const { router } = this.context;
         const include = allowed && allowed.includes(auth.user.role);
 
-        if (!allowed && auth.isAuthenticated) {
+        if (!allowed && auth.isAuthenticated) { console.log('!');
           addFlashMessage({
             type: 'warn',
             text: 'You have already logged in. No need to do it again'
