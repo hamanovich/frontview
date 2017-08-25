@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
+import { connect } from 'react-redux';
 
 import './NavbarMenu.css';
 
@@ -11,17 +13,25 @@ import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
+import { logout } from '../../actions/auth';
+
 class NavbarMenu extends Component {
+  static propTypes = {
+    auth: PropTypes.object.isRequired,
+    logout: PropTypes.func.isRequired
+  };
+
   render() {
-    const TRUE_OR_FALSE = false;
+    const { auth, logout } = this.props;
+    const username = auth.user.username || '';
 
     const userLinks = (
       <Nav pullRight>
-        <NavDropdown title="Username" id="account-dropdown">
+        <NavDropdown title={username} id="account-dropdown">
           <LinkContainer to="/account"><MenuItem>Account</MenuItem></LinkContainer>
           <LinkContainer to="/edit"><MenuItem>Edit profile</MenuItem></LinkContainer>
           <MenuItem divider />
-          <MenuItem><Glyphicon glyph="lock" /> Logout</MenuItem>
+          <MenuItem onClick={logout}><Glyphicon glyph="lock" /> Logout</MenuItem>
         </NavDropdown>
       </Nav>
     );
@@ -44,11 +54,14 @@ class NavbarMenu extends Component {
             <Link to="/">Frontview</Link>
           </Navbar.Brand>
         </Navbar.Header>
-        {TRUE_OR_FALSE ? userLinks : guestLinks}
+        {auth.isAuthenticated ? userLinks : guestLinks}
       </Navbar>
-
     );
   }
 }
 
-export default NavbarMenu;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, { logout })(NavbarMenu);

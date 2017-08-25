@@ -24,13 +24,13 @@ export default (ComposedComponent) => {
           text: 'You need to login to access this page'
         });
 
-        this.context.router.push('/login');
+        this.context.router.history.push('/login');
       }
     }
 
     componentWillUpdate(nextProps) {
       if (!nextProps.isAuthenticated) {
-        this.context.router.push('/');
+        this.context.router.history.push('/login');
       }
     }
 
@@ -41,13 +41,9 @@ export default (ComposedComponent) => {
     }
   }
 
-  const mapStateToProps = (state, props) => {
-    const question = state.questions.find(question => question._id === props.params._id);
-
-    return {
-      isAuthenticated: state.auth.isAuthenticated
-    };
-  };
+  const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+  });
 
   return connect(mapStateToProps, { addFlashMessage })(Authenticate);
 };
