@@ -19,7 +19,12 @@ exports.getQuestions = async (req, res) => {
 };
 
 exports.getQuestionById = async (req, res) => {
-  const question = await Question.findOne({ _id: req.params.id });
+  const question = await Question.findById({ _id: req.params.id })
+    .exec((err) => {
+      if (err) {
+        res.status(500).json({ error: `Question with id='${req.params.id}' didn't find` });
+      }
+    });
 
   if (question) {
     res.json({ question });
@@ -38,7 +43,7 @@ exports.add = async (req, res) => {
     { safe: true, upsert: true, new: true }
   );
 
-  if (newQuestion && user ) {
+  if (newQuestion && user) {
     res.json({ question: newQuestion });
     return;
   }
@@ -65,7 +70,7 @@ exports.edit = async (req, res) => {
 exports.editField = async (req, res) => {
   const question = await Question.findById({ _id: req.params.id });
   if (!question) {
-    res.json({ errors: { form: `Question by ${req.params.id} didn't find`}});
+    res.json({ errors: { form: `Question by ${req.params.id} didn't find` } });
     return;
   }
 
@@ -87,4 +92,14 @@ exports.remove = async (req, res) => {
   }
 
   res.status(500).res({ error: 'Question didn\'t remove' });
+};
+
+exports.getQuestionsByFilter = async (req, res) => {
+  const { type, tag } = req.params;
+  const tagQuery = tag || { $exists: true };
+  const typePromise = Question.getListByType(type);
+  const questionsPromise = Question.find({ [type]: tagQuery });
+  const [tags, questions] = await Promise.all([typePromise, questionsPromise]);
+
+  res.json({ tags, questions });
 };

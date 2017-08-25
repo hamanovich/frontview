@@ -44,9 +44,21 @@ export const getQuestions = (page = 1) =>
       return { questions, count, pages };
     });
 
+export const getQuestionsByFilter = (filter, tag = '') =>
+  dispatch => axios.get(`/api/questions/${filter}/${tag}`)
+    .then((res) => {
+      const { tags, questions } = res.data;
+      dispatch(addQuestions(questions));
+
+      return { tags, questions };
+    });
+
 export const getQuestionById = id =>
   dispatch => axios.get(`/api/question/${id}`)
-    .then(res => dispatch(questionGot(res.data.question)));
+    .then(
+    res => dispatch(questionGot(res.data.question)),
+    err => err.response
+    );
 
 export const addQuestion = question =>
   dispatch => axios.post('/api/questions/add', question)

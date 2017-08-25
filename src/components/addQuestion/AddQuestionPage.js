@@ -24,12 +24,20 @@ class AddQuestionPage extends Component {
   };
 
   componentDidMount = () => {
-    const { route, history } = this.context.router;
-    const { getQuestionById, addFlashMessage } = this.props;
+    const { history } = this.context.router;
+    const { getQuestionById, addFlashMessage, match } = this.props;
+    if (match.params._id) {
+      getQuestionById(match.params._id).then(
+        (res) => {
+          if (res.status === 500) {
+            addFlashMessage({
+              type: 'error',
+              text: res.data.error
+            });
 
-    if (route.match.params._id) {
-      getQuestionById(route.match.params._id).then(
-        () => { },
+            history.push('/questions/add');
+          }
+        },
         (err) => {
           addFlashMessage({
             type: 'error',

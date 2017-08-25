@@ -69,10 +69,10 @@ questionSchema.pre('save', async function(next) {
   next();
 });
 
-questionSchema.statics.getSkillList = function () {
+questionSchema.statics.getListByType = function (type) {
   return this.aggregate([
-    { $unwind: '$skill' },
-    { $group: { _id: '$skill', count: { $sum: 1 } } }
+    { $unwind: `$${type}` },
+    { $group: { _id: `$${type}`, count: { $sum: 1 } } }
   ]);
 };
 
@@ -84,5 +84,4 @@ function autopopulate(next) {
 questionSchema.pre('find', autopopulate);
 questionSchema.pre('findOne', autopopulate);
  
-
 export default mongoose.model('question', questionSchema);

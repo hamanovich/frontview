@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import shortid from 'shortid';
 import { Link } from 'react-router-dom';
 import MarkdownRenderer from 'react-markdown-renderer';
 import map from 'lodash/map';
@@ -62,11 +61,12 @@ class Question extends Component {
         </h3>
         <div className="pull-right">
           {question.level && map(question.level, level => (
-            <Label
-              style={{ margin: '0 3px' }}
-              bsStyle="primary"
-              key={shortid.generate()}
-            >{level}</Label>
+            <Link to={`/questions/level/${level}`} key={level}>
+              <Label
+                style={{ margin: '0 3px' }}
+                bsStyle="primary"
+              >{level}</Label>
+            </Link>
           ))}
         </div>
       </div>
@@ -77,13 +77,12 @@ class Question extends Component {
         <h5 className="pull-left">
           <strong>Skill</strong>:
             {question.skill && map(question.skill, skill => (
-            <a href={`/tags/${skill}`} key={shortid.generate()}>{' '}{skill}</a>
+            <Link to={`/questions/skill/${skill}`} key={skill}>{' '}{skill}</Link>
           ))}
         </h5>
-        <Label
-          bsStyle="warning"
-          className="pull-right"
-        >{question.theory}</Label>
+        <Link to={`/questions/practice/${question.practice}`}>
+          <Label bsStyle="warning" className="pull-right">{question.practice}</Label>
+        </Link>
       </div>
     );
 
@@ -96,7 +95,7 @@ class Question extends Component {
             </ListGroupItem>}
           {question.answers && map(question.answers, (question, index) => (
             <ListGroupItem
-              key={shortid.generate()}
+              key={`question[${index}]`}
               style={{ whiteSpace: 'pre-wrap' }}
               onClick={() => this.open(question, `answers.${index}.text`)}
             >

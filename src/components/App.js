@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Grid from 'react-bootstrap/lib/Grid';
@@ -15,28 +15,24 @@ import FlashList from './flash/FlashList';
 
 import { isLoggedIn, User } from '../utils/helpers';
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <NavbarMenu />
-        <Grid>
-          <FlashList />
-          <main>
-            <Switch>
-              <Route exact path="/" component={Greeting} />
-              <Route path="/login" component={isLoggedIn(LoginPage)} />
-              <Route path="/signup" component={isLoggedIn(SignupPage)} />
-              <Route path="/me" component={User(AccountPage)} />
-              <Route path="/questions" component={QuestionsPage} />
-              <Route component={NotFound} />
-            </Switch>
-          </main>
-        </Grid>
-        <Footer />
-      </div>
-    );
-  }
-}
+const App = () => (
+  <div>
+    <NavbarMenu />
+    <Grid>
+      <FlashList />
+      <main>
+        <Switch>
+          <Route exact path="/" component={Greeting} />
+          <Route path="/login" component={isLoggedIn(LoginPage)} />
+          <Route path="/signup" component={isLoggedIn(SignupPage)} />
+          <Route path="/me" component={User(AccountPage)} />
+          <Route path="/questions" component={QuestionsPage} />
+          <Route component={NotFound} />
+        </Switch>
+      </main>
+    </Grid>
+    <Footer />
+  </div>
+);
 
 export default App;

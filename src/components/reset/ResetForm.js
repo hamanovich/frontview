@@ -29,7 +29,7 @@ class ResetForm extends Component {
 
   componentDidMount() {
     const { router } = this.context;
-    const { getReset, addFlashMessage } = this.props;
+    const { getReset, addFlashMessage, match } = this.props;
     const failure = () => {
       addFlashMessage({
         type: 'error',
@@ -38,7 +38,7 @@ class ResetForm extends Component {
       router.history.push('/login');
     };
 
-    getReset(router.route.match.params.token)
+    getReset(match.params.token)
       .then((res) => {
         if (!res) failure();
       })
@@ -47,11 +47,11 @@ class ResetForm extends Component {
 
   onSubmit = (values) => {
     const { router } = this.context;
-    const { resetToken, addFlashMessage } = this.props;
+    const { resetToken, addFlashMessage, match } = this.props;
 
     this.setState({ errors: {}, isLoading: true });
 
-    resetToken(router.route.match.params.token, values).then(
+    resetToken(match.params.token, values).then(
       (res) => {
         if (res.errors) {
           this.setState({ errors: res.errors, isLoading: false })
