@@ -28,4 +28,6 @@ router.get('/questions/:type', catchErrors(questionsController.getQuestionsByFil
 router.get('/questions/:type/:tag', catchErrors(questionsController.getQuestionsByFilter));
 router.delete('/question/:id', questionsController.remove);
 
+router.get('/search', questionsController.searchQuestions);
+
 module.exports = router;

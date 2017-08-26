@@ -27,11 +27,9 @@ exports.getQuestionById = async (req, res) => {
     });
 
   if (question) {
-    res.json({ question });
+    res.json(question);
     return;
   }
-
-  res.status(500).json({ error: `Question with id='${req.params.id}' didn't find` });
 };
 
 exports.add = async (req, res) => {
@@ -44,7 +42,7 @@ exports.add = async (req, res) => {
   );
 
   if (newQuestion && user) {
-    res.json({ question: newQuestion });
+    res.json(newQuestion);
     return;
   }
 
@@ -60,7 +58,7 @@ exports.edit = async (req, res) => {
   await question.save();
 
   if (question) {
-    res.json({ question });
+    res.json(question);
     return;
   }
 
@@ -79,7 +77,7 @@ exports.editField = async (req, res) => {
 
   await question.save();
 
-  res.json({ question });
+  res.json(question);
 };
 
 exports.remove = async (req, res) => {
@@ -87,7 +85,7 @@ exports.remove = async (req, res) => {
   const user = await User.findByIdAndUpdate({ _id: question.author }, { $pull: { questions: question._id } });
 
   if (question && user) {
-    res.json({ question });
+    res.json(question);
     return;
   }
 
@@ -102,4 +100,19 @@ exports.getQuestionsByFilter = async (req, res) => {
   const [tags, questions] = await Promise.all([typePromise, questionsPromise]);
 
   res.json({ tags, questions });
+};
+
+exports.searchQuestions = async (req, res) => {
+  const questions = await Question.find({
+    $text: {
+      $search: req.query.q
+    }
+  }, {
+      score: { $meta: 'textScore' }
+    })
+    .sort({
+      score: { $meta: 'textScore' }
+    });
+
+  res.json(questions);
 };

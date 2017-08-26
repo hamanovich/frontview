@@ -14,6 +14,7 @@ const TextField = ({
   handleBlur,
   errorState,
   readonly,
+  feedback,
   meta: { touched, error, warning }
 }) => (
     <FormGroup
@@ -21,7 +22,7 @@ const TextField = ({
       validationState={(touched && error) || errorState ? 'error' :
         touched && !error && !errorState ? 'success' : null}
     >
-      <ControlLabel>{label}</ControlLabel>
+      {label && <ControlLabel>{label}</ControlLabel>}
       <FormControl
         {...input}
         placeholder={placeholder}
@@ -30,7 +31,7 @@ const TextField = ({
         readOnly={readonly}
         onBlur={(e) => { handleBlur(e); input.onBlur(e); }}
       />
-      <FormControl.Feedback />
+      {feedback && <FormControl.Feedback />}
       {errorState &&
         <HelpBlock>{errorState}</HelpBlock>}
       {touched &&
@@ -45,7 +46,8 @@ TextField.propTypes = {
     value: PropTypes.string
   }).isRequired,
   readonly: PropTypes.bool,
-  label: PropTypes.string.isRequired,
+  feedback: PropTypes.bool,
+  label: PropTypes.string,
   placeholder: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   handleBlur: PropTypes.func,
@@ -60,6 +62,8 @@ TextField.propTypes = {
 TextField.defaultProps = {
   handleBlur: () => { },
   readonly: false,
+  feedback: true,
+  label: '',
   errorState: null
 };
 

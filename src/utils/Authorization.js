@@ -24,7 +24,7 @@ export default (allowed) =>
         const { router } = this.context;
         const include = allowed && allowed.includes(auth.user.role);
 
-        if (!allowed && auth.isAuthenticated) { console.log('!');
+        if (!allowed && auth.isAuthenticated) {
           addFlashMessage({
             type: 'warn',
             text: 'You have already logged in. No need to do it again'

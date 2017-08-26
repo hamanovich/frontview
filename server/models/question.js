@@ -56,7 +56,8 @@ const questionSchema = new Schema({
 
 questionSchema.index({
   question: 'text',
-  answer: 'text'
+  answer: 'text',
+  answers: 'text'
 });
 
 questionSchema.pre('save', async function(next) {

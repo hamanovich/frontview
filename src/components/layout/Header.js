@@ -12,36 +12,54 @@ import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 
 import { logout } from '../../actions/auth';
+import { getSearchedQuestions } from '../../actions/questions';
+import { addFlashMessage } from '../../actions/flash';
 
-class NavbarMenu extends Component {
+import SearchForm from './SearchForm';
+
+class Header extends Component {
   static propTypes = {
     auth: PropTypes.object.isRequired,
+    getSearchedQuestions: PropTypes.func.isRequired,
+    addFlashMessage: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired
   };
 
+  static contextTypes = {
+    router: PropTypes.object.isRequired
+  };
+
+  onSearch = (values) => {
+    const { getSearchedQuestions, addFlashMessage } = this.props;
+    const { history } = this.context.router;
+
+    getSearchedQuestions(values.search).then(
+      (res) => {
+        if (!res.length) {
+          addFlashMessage({
+            type: 'warn',
+            text: `Nothing found by search = ${values.search}`
+          });
+
+          return;
+        }
+
+        history.push(`/questions/search?q=${values.search}`);
+      }
+    );
+  };
+
   render() {
-    const { auth, logout } = this.props;
+    const { auth, logout, getSearchedQuestions, addFlashMessage } = this.props;
     const username = auth.user ? (auth.user.username || '') : '';
     const userLinks = (
       <Nav pullRight>
         <NavDropdown title="Questions" id="questions-dropdown">
           <IndexLinkContainer to="/questions"><MenuItem>Show All</MenuItem></IndexLinkContainer>
           <MenuItem divider />
-          <IndexLinkContainer to="/questions/level"><MenuItem><FontAwesome name="line-chart" /> By Levels</MenuItem></IndexLinkContainer>
-          <LinkContainer to="/questions/level/Junior"><MenuItem>Level: Junior</MenuItem></LinkContainer>
-          <LinkContainer to="/questions/level/Middle"><MenuItem>Level: Middle</MenuItem></LinkContainer>
-          <LinkContainer to="/questions/level/Senior"><MenuItem>Level: Senior</MenuItem></LinkContainer>
-          <LinkContainer to="/questions/level/Lead"><MenuItem>Level: Lead</MenuItem></LinkContainer>
-          <MenuItem divider />
-          <IndexLinkContainer to="/questions/skill"><MenuItem><FontAwesome name="star-half-o" /> By Skills</MenuItem></IndexLinkContainer>
-          <LinkContainer to="/questions/skill/CSS"><MenuItem>Skill: CSS</MenuItem></LinkContainer>
-          <LinkContainer to="/questions/skill/HTML"><MenuItem>Skill: HTML</MenuItem></LinkContainer>
-          <LinkContainer to="/questions/skill/JS"><MenuItem>Skill: JS</MenuItem></LinkContainer>
-          <LinkContainer to="/questions/skill/Soft"><MenuItem>Skill: Soft</MenuItem></LinkContainer>
-          <MenuItem divider />
-          <IndexLinkContainer to="/questions/practice"><MenuItem><FontAwesome name="keyboard-o" /> By Practice</MenuItem></IndexLinkContainer>
-          <LinkContainer to="/questions/practice/practice"><MenuItem>Practical</MenuItem></LinkContainer>
-          <LinkContainer to="/questions/practice/theory"><MenuItem>Theoretical</MenuItem></LinkContainer>
+          <LinkContainer to="/questions/level"><MenuItem><FontAwesome name="line-chart" /> By Levels</MenuItem></LinkContainer>
+          <LinkContainer to="/questions/skill"><MenuItem><FontAwesome name="star-half-o" /> By Skills</MenuItem></LinkContainer>
+          <LinkContainer to="/questions/practice"><MenuItem><FontAwesome name="keyboard-o" /> By Practice</MenuItem></LinkContainer>
           <MenuItem divider />
           <LinkContainer to="/questions/add"><MenuItem><FontAwesome name="question-circle-o" /> Add new</MenuItem></LinkContainer>
         </NavDropdown>
@@ -69,10 +87,18 @@ class NavbarMenu extends Component {
       <Navbar>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">Frontview</Link>
+            <Link to="/">Frontview /</Link>
           </Navbar.Brand>
+          <Navbar.Toggle />
         </Navbar.Header>
-        {auth.isAuthenticated ? userLinks : guestLinks}
+        <Navbar.Collapse>
+          <SearchForm
+            getSearchedQuestions={getSearchedQuestions}
+            addFlashMessage={addFlashMessage}
+            onSearch={this.onSearch}
+          />
+          {auth.isAuthenticated ? userLinks : guestLinks}
+        </Navbar.Collapse>
       </Navbar>
     );
   }
@@ -80,4 +106,9 @@ class NavbarMenu extends Component {
 
 const mapStateToProps = state => ({ auth: state.auth });
 
-export default connect(mapStateToProps, { logout }, null, { pure: false })(NavbarMenu);
+export default connect(
+  mapStateToProps,
+  { logout, getSearchedQuestions, addFlashMessage },
+  null,
+  { pure: false }
+)(Header);
