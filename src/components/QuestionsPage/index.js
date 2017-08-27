@@ -5,18 +5,18 @@ import QuestionsAll from './QuestionsAll';
 import QuestionsTags from './QuestionsTags';
 import QuestionsSearch from './QuestionsSearch';
 import AddQuestion from './AddQuestion';
+import QuestionsWrapper from './QuestionsWrapper';
 
 import { User } from '../../utils/helpers';
 
 const QuestionsPage = () => (
   <Switch>
-    <Route exact path="/questions" component={QuestionsAll} />
-    <Route path="/questions/page/:page" component={QuestionsAll} />
-    <Route exact path="/questions/search" component={QuestionsSearch} />
+    <Route path="/questions/page/:page" component={QuestionsWrapper(QuestionsAll)} />
+    <Route exact path="/questions/search" component={QuestionsWrapper(QuestionsSearch)} />
     <Route exact path="/questions/add" component={User(AddQuestion)} />
     <Route path="/questions/:_id/edit" component={User(AddQuestion)} />
-    <Route path="/questions/:filter/:tag?" component={User(QuestionsTags)} />
-    <Redirect to="/questions" />
+    <Route path="/questions/:filter/:tag?" component={QuestionsWrapper(QuestionsTags)} />
+    <Redirect to="/questions/page/1" />
   </Switch>
 );
 
