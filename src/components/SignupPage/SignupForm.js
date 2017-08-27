@@ -23,7 +23,8 @@ class SignupForm extends Component {
 
   state = {
     errors: {},
-    isLoading: false
+    isLoading: false,
+    invalid: false
   };
 
   checkUserExists = (e) => {
@@ -112,7 +113,11 @@ class SignupForm extends Component {
           placeholder="Repeat your password"
         />
 
-        <Button type="submit" bsStyle="primary" bsSize="large" disabled={isLoading || invalid}>Register</Button>
+        <Button
+          type="submit"
+          bsStyle="primary"
+          bsSize="large"
+          disabled={isLoading || invalid}>Register</Button>
       </Form>
     );
   }

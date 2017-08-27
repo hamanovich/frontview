@@ -9,7 +9,7 @@ import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 
 const QuestionsBar = ({ active, filter, tags, style }) => (
   <ButtonToolbar>
-    {map(tags, tag =>
+    {map(tags, tag => (
       <Link
         className={classNames('btn', `btn-${style}`, { active: active === tag._id })}
         key={tag._id}
@@ -17,7 +17,7 @@ const QuestionsBar = ({ active, filter, tags, style }) => (
       >
         {tag._id} <Badge>{tag.count}</Badge>
       </Link>
-    )}
+    ))}
   </ButtonToolbar>
 );
 

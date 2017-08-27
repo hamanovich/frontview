@@ -43,7 +43,7 @@ class Forgot extends Component {
 
     return (
       <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
-        <PageHeader>Forgot your password? <br /> Don't worry!</PageHeader>
+        <PageHeader>Forgot your password? <br /> Don&apos;t worry!</PageHeader>
         <p>Just put your email and we will send you instructions.</p>
 
         {emailed && <Alert bsStyle="success">{emailed}</Alert>}
@@ -57,7 +57,11 @@ class Forgot extends Component {
           placeholder="Type your email"
         />
 
-        <Button type="submit" bsStyle="warning" bsSize="large" disabled={isLoading}>Send a reset</Button>
+        <Button
+          type="submit"
+          bsStyle="warning"
+          bsSize="large"
+          disabled={isLoading}>Send a reset</Button>
       </Form>
     );
   }

@@ -14,22 +14,22 @@ const QuestionsAll = ({
   onPageSelect,
   state
 }) => (
-    <div>
-      <PageHeader>Questions <Badge>{state.pagination.count}</Badge></PageHeader>
+  <div>
+    <PageHeader>Questions <Badge>{state.pagination.count}</Badge></PageHeader>
 
-      <Questions
-        user={auth.user}
-        questions={questions}
-        editQuestionField={editQuestionField}
-      />
+    <Questions
+      user={auth.user}
+      questions={questions}
+      editQuestionField={editQuestionField}
+    />
 
-      <PaginationBar
-        activePage={state.pagination.activePage}
-        pages={state.pagination.pages}
-        onSelect={onPageSelect}
-      />
-    </div>
-  );
+    <PaginationBar
+      activePage={state.pagination.activePage}
+      pages={state.pagination.pages}
+      onSelect={onPageSelect}
+    />
+  </div>
+);
 
 QuestionsAll.propTypes = {
   auth: PropTypes.shape({

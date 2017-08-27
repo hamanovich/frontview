@@ -22,7 +22,8 @@
     "start": "concurrently \"npm run start:react\" \"npm run server\"",
     "start:react": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom"
+    "test": "react-scripts test --env=jsdom",
+    "test:lint": "eslint **/*.js"
   },
   "dependencies": {
     "axios": "^0.16.2",
@@ -67,10 +68,16 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-eslint": "^7.2.3",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
-    "nodemon": "^1.11.0",
-    "concurrently": "^3.5.0"
+    "concurrently": "^3.5.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.0.1",
+    "eslint-plugin-react": "^7.1.0",
+    "nodemon": "^1.11.0"
   },
   "proxy": "http://localhost:3001",
   "babel": {

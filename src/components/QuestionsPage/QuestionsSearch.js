@@ -11,16 +11,16 @@ const QuestionsSearch = ({
   editQuestionField,
   state
 }) => (
-    <div>
-      <PageHeader>Search: '{state.searchQuery}'</PageHeader>
+  <div>
+    <PageHeader>Search: &apos;{state.searchQuery}&apos;</PageHeader>
 
-      <Questions
-        user={auth.user}
-        questions={questions}
-        editQuestionField={editQuestionField}
-      />
-    </div>
-  );
+    <Questions
+      user={auth.user}
+      questions={questions}
+      editQuestionField={editQuestionField}
+    />
+  </div>
+);
 
 QuestionsSearch.propTypes = {
   auth: PropTypes.shape({

@@ -13,7 +13,7 @@ const AnswerFields = ({ fields, meta: { touched, error, submitFailed } }) => (
   <div>
     {(touched || submitFailed) && error && <span>{error}</span>}
 
-    {fields.map((answer, index) =>
+    {fields.map((answer, index) => (
       <Row key={answer.toString()}>
         <FormGroup>
           <Col xs={10}>
@@ -30,7 +30,7 @@ const AnswerFields = ({ fields, meta: { touched, error, submitFailed } }) => (
           </Col>
         </FormGroup>
       </Row>
-    )}
+    ))}
 
     <FormGroup>
       <Button bsStyle="success" onClick={() => fields.push()}>Add Answer</Button>

@@ -56,8 +56,8 @@ export const getQuestionsByFilter = (filter, tag = '') =>
 export const getQuestionById = id =>
   dispatch => axios.get(`/api/question/${id}`)
     .then(
-    res => dispatch(questionGot(res.data)),
-    err => err.response);
+      res => dispatch(questionGot(res.data)),
+      err => err.response);
 
 export const addQuestion = question =>
   dispatch => axios.post('/api/questions/add', question)
@@ -67,7 +67,7 @@ export const editQuestion = data =>
   dispatch => axios.put(`/api/question/${data._id}/edit`, data)
     .then(res => dispatch(questionEdited(res.data)));
 
-export const editQuestionField = (id, field, value, lastModified) =>
+export const editQuestionField = (id, field, value) =>
   dispatch => axios.patch(`/api/question/${id}/edit`, { field, value, lastModified: new Date() })
     .then((res) => {
       dispatch(questionEdited(res.data));
@@ -78,7 +78,7 @@ export const removeQuestion = id =>
   dispatch => axios.delete(`/api/question/${id}`)
     .then(res => dispatch(questionRemoved(res.data)));
 
-export const getSearchedQuestions = (query) =>
+export const getSearchedQuestions = query =>
   dispatch => axios.get(`/api/search?q=${query}`)
     .then((res) => {
       if (res.data.length) {

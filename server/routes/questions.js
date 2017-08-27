@@ -28,7 +28,6 @@ exports.getQuestionById = async (req, res) => {
 
   if (question) {
     res.json(question);
-    return;
   }
 };
 
@@ -108,8 +107,8 @@ exports.searchQuestions = async (req, res) => {
       $search: req.query.q
     }
   }, {
-      score: { $meta: 'textScore' }
-    })
+    score: { $meta: 'textScore' }
+  })
     .sort({
       score: { $meta: 'textScore' }
     });

@@ -9,8 +9,7 @@ import { deleteFlashMessage, deleteFlashMessages } from '../../actions/flash';
 class FlashList extends Component {
   static propTypes = {
     messages: PropTypes.array.isRequired,
-    deleteFlashMessage: PropTypes.func.isRequired,
-    deleteFlashMessages: PropTypes.func.isRequired
+    deleteFlashMessage: PropTypes.func.isRequired
   };
 
   render() {

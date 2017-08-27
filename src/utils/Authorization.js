@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { addFlashMessage } from '../actions/flash';
 
-export default (allowed) =>
+export default allowed =>
   (WrappedComponent) => {
     class Authorization extends Component {
       static propTypes = {
@@ -52,7 +52,7 @@ export default (allowed) =>
       }
 
       render() {
-        return <WrappedComponent {...this.props} />
+        return <WrappedComponent {...this.props} />;
       }
     }
 

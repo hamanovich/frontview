@@ -75,7 +75,12 @@ class Login extends Component {
             <Link to="/login/forgot">Forgot password?</Link>
           </FormControl.Static>
         </FormGroup>
-        <Button type="submit" bsStyle="primary" bsSize="large" disabled={isLoading}>Login</Button>
+
+        <Button
+          type="submit"
+          bsStyle="primary"
+          bsSize="large"
+          disabled={isLoading}>Login</Button>
       </Form>
     );
   }

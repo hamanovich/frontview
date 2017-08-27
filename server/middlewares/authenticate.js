@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/user';
 
 export default (req, res, next) => {
-  const authorizationHeader = req.headers['authorization'];
+  const authorizationHeader = req.headers.authorization;
   let token;
 
   if (authorizationHeader) {
@@ -31,4 +31,4 @@ export default (req, res, next) => {
       error: 'No token provided'
     });
   }
-}
+};

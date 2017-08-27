@@ -22,7 +22,8 @@ export default (WrappedComponent) => {
       getQuestionsByFilter: PropTypes.func.isRequired,
       editQuestionField: PropTypes.func.isRequired,
       getSearchedQuestions: PropTypes.func.isRequired,
-      addFlashMessage: PropTypes.func.isRequired
+      addFlashMessage: PropTypes.func.isRequired,
+      match: PropTypes.object.isRequired
     };
 
     static contextTypes = {
@@ -58,6 +59,54 @@ export default (WrappedComponent) => {
       }
     }
 
+    getQueryQuestions = (query) => {
+      const { getSearchedQuestions, addFlashMessage, questions } = this.props;
+      const { history } = this.context.router;
+
+      this.setState({ searchQuery: query });
+
+      if (questions.length > 0) return;
+
+      getSearchedQuestions(query).then(
+        (res) => {
+          if (!res.length) {
+            addFlashMessage({
+              type: 'warn',
+              text: `Nothing found by search = ${query}`
+            });
+
+            history.push('/questions/page/1');
+          }
+        }
+      );
+    };
+
+    onPageSelect = (activePage) => {
+      const { addFlashMessage, getQuestions, match } = this.props;
+
+      getQuestions(activePage)
+        .then(
+          ({ pages, count, questions }) => {
+            this.setState({
+              questions,
+              pagination: { pages, activePage, count }
+            });
+
+            if (Number(match.params.page) !== activePage) {
+              this.context.router.history.push(`/questions/page/${activePage}`);
+            }
+          },
+          (err) => {
+            addFlashMessage({
+              type: 'error',
+              text: err.response.data.error
+            });
+
+            this.setState({ questions: [] });
+          }
+        );
+    };
+
     filter = (filter, tag = '') => {
       const { match, getQuestionsByFilter, addFlashMessage } = this.props;
       const { history } = this.context.router;
@@ -86,60 +135,14 @@ export default (WrappedComponent) => {
         });
     };
 
-    onPageSelect = (activePage) => {
-      const { addFlashMessage, getQuestions, match } = this.props;
-
-      getQuestions(activePage)
-        .then(
-        ({ pages, count, questions }) => {
-          this.setState({
-            questions,
-            pagination: { pages, activePage, count }
-          });
-
-          if (Number(match.params.page) !== activePage) {
-            this.context.router.history.push(`/questions/page/${activePage}`);
-          }
-        },
-        (err) => {
-          addFlashMessage({
-            type: 'error',
-            text: err.response.data.error
-          });
-
-          this.setState({ questions: [] });
-        }
-        );
-    };
-
-    getQueryQuestions = (query) => {
-      const { getSearchedQuestions, addFlashMessage, questions } = this.props;
-      const { history } = this.context.router;
-
-      this.setState({ searchQuery: query });
-
-      if (questions.length > 0) return;
-
-      getSearchedQuestions(query).then(
-        (res) => {
-          if (!res.length) {
-            addFlashMessage({
-              type: 'warn',
-              text: `Nothing found by search = ${query}`
-            });
-
-            history.push('/questions/page/1');
-          }
-        }
-      );
-    };
-
     render() {
-      return <WrappedComponent
-        {...this.props}
-        state={this.state}
-        onPageSelect={this.onPageSelect}
-      />
+      return (
+        <WrappedComponent
+          {...this.props}
+          state={this.state}
+          onPageSelect={this.onPageSelect}
+        />
+      );
     }
   }
 

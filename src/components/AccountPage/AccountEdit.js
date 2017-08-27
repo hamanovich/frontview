@@ -20,7 +20,9 @@ class AccountEdit extends Component {
     getUser: PropTypes.func.isRequired,
     updateUser: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func.isRequired
+    handleSubmit: PropTypes.func.isRequired,
+    initialValues: PropTypes.object.isRequired,
+    initialize: PropTypes.func.isRequired
   };
 
   static contextTypes = {
@@ -36,7 +38,7 @@ class AccountEdit extends Component {
     const { getUser, initialValues, initialize } = this.props;
 
     getUser(initialValues.username)
-      .then(res => {
+      .then((res) => {
         const { username, email, first_name, last_name, primary_skill, job_function, skype, phone, notes } = res.user;
         initialize({ username, email, first_name, last_name, primary_skill, job_function, skype, phone, notes });
       });
@@ -175,7 +177,11 @@ class AccountEdit extends Component {
             placeholder="Repeat your password"
           />
 
-          <Button type="submit" bsStyle="primary" bsSize="large" disabled={isLoading}>Update profile</Button>
+          <Button
+            type="submit"
+            bsStyle="primary"
+            bsSize="large"
+            disabled={isLoading}>Update profile</Button>
         </Form>
       </div>
     );

@@ -76,7 +76,7 @@ class Question extends Component {
       <div className="clearfix">
         <h5 className="pull-left">
           <strong>Skill</strong>:
-            {question.skill && map(question.skill, skill => (
+          {question.skill && map(question.skill, skill => (
             <Link to={`/questions/skill/${skill}`} key={skill}>{' '}{skill}</Link>
           ))}
         </h5>

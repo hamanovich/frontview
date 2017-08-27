@@ -13,25 +13,26 @@ const RadioButton = ({
   options,
   meta: { touched, error, warning }
 }) => (
-    <FormGroup
-      validationState={touched && error ? 'error' : touched && !error ? 'success' : null}>
-      <ControlLabel>{label}</ControlLabel>
-      {map(options, o =>
-        <Radio
-          {...input}
-          id={o.value}
-          key={o.value}
-          value={o.value}
-          checked={input.value === o.value}
-        >
-          {o.title}
-        </Radio>
-      )}
-      {touched &&
-        ((error && <HelpBlock>{error}</HelpBlock>) ||
-          (warning && <span>{warning}</span>))}
-    </FormGroup>
-  );
+  <FormGroup
+    validationState={touched && error ? 'error' : touched && !error ? 'success' : null}>
+    <ControlLabel>{label}</ControlLabel>
+    {map(options, o => (
+      <Radio
+        {...input}
+        id={o.value}
+        key={o.value}
+        value={o.value}
+        checked={input.value === o.value}
+      >
+        {o.title}
+      </Radio>
+    )
+    )}
+    {touched &&
+      ((error && <HelpBlock>{error}</HelpBlock>) ||
+        (warning && <span>{warning}</span>))}
+  </FormGroup>
+);
 
 RadioButton.propTypes = {
   options: PropTypes.array.isRequired,

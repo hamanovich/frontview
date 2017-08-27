@@ -29,7 +29,6 @@ exports.auth = async (req, res) => {
 
 exports.forgot = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
-  let resetURL;
 
   if (!user) {
     res.status(401).json({ errors: { form: 'No account with that email exists' } });
@@ -41,7 +40,7 @@ exports.forgot = async (req, res) => {
 
   await user.save();
 
-  resetURL = `http://${req.headers['x-forwarded-host']}/login/reset/${user.resetPasswordToken}`;
+  const resetURL = `http://${req.headers['x-forwarded-host']}/login/reset/${user.resetPasswordToken}`;
 
   await send({
     user,
@@ -50,7 +49,7 @@ exports.forgot = async (req, res) => {
     resetURL
   });
 
-  res.json({ emailed: 'You have been emailed a password reset link. Please, check your email.' })
+  res.json({ emailed: 'You have been emailed a password reset link. Please, check your email.' });
 };
 
 exports.reset = async (req, res) => {

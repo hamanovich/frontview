@@ -33,6 +33,8 @@ class Header extends Component {
     const { getSearchedQuestions, addFlashMessage } = this.props;
     const { history } = this.context.router;
 
+    if (!values.search) return;
+
     getSearchedQuestions(values.search).then(
       (res) => {
         if (!res.length) {

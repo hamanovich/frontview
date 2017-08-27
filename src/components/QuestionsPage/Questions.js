@@ -6,7 +6,7 @@ import Question from './Question';
 
 const Questions = ({ user, questions, editQuestionField }) => (
   <div>
-    {map(questions, (question) => (
+    {map(questions, question => (
       <Question
         question={question}
         editQuestionField={editQuestionField}

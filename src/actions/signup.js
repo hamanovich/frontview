@@ -8,7 +8,7 @@ export const userGet = user => ({
 });
 
 export const userSignup = userData =>
-  dispatch => axios.post('/api/users/', userData);
+  () => axios.post('/api/users/', userData);
 
 export const isUserExists = identifier =>
   () => axios.get(`/api/users/${identifier}`);

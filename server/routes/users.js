@@ -30,17 +30,15 @@ exports.createUser = async (req, res) => {
   const { errors, isValid } = await validateUser(req.body, validate);
   const { username, email, password } = req.body;
   const password_digest = bcrypt.hashSync(password, 10);
-  let user;
 
   if (!isValid) {
     res.status(400).json(errors);
   }
 
-  user = await User.create({ username, email, password_digest });
+  const user = await User.create({ username, email, password_digest });
 
   if (user) {
     res.send(user);
-    return;
   }
 };
 
@@ -78,14 +76,12 @@ exports.updateUser = async (req, res) => {
   const { errors, isValid } = await validateUser(req.body, validate);
   const { username, email, password, first_name, last_name, primary_skill, job_function, skype, phone, notes } = req.body;
   const password_digest = bcrypt.hashSync(password, 10);
-  let userOne;
-  let user;
 
   if (!isValid) {
     res.status(400).json(errors);
   }
 
-  userOne = await User.findOne({ username: req.params.username });
+  const userOne = await User.findOne({ username: req.params.username });
   userOne.username = username;
   userOne.email = email;
   userOne.first_name = first_name;
@@ -99,11 +95,10 @@ exports.updateUser = async (req, res) => {
 
   await userOne.save();
 
-  user = await User.findOne({ username: req.params.username })
+  const user = await User.findOne({ username: req.params.username });
 
   if (user) {
     res.json({ success: true });
-    return;
   }
 };
 

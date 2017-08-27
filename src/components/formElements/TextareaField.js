@@ -13,27 +13,28 @@ const TextareaField = ({
   rows,
   readonly,
   feedback,
+  errorsVisible,
   meta: { touched, error, warning }
 }) => (
-    <FormGroup 
-    controlId={`label-${input.name}`} 
-    validationState={touched && error ? 'error' : 
-    touched && !error ? 'success' : null}>
-      <ControlLabel>{label}</ControlLabel>
-      <FormControl
-        {...input}
-        componentClass="textarea"
-        placeholder={placeholder}
-        id={`label-${input.name}`}
-        rows={rows}
-        readOnly={readonly}
-      />
-      {feedback && <FormControl.Feedback />}
-      {touched && 
-      ((error && <HelpBlock>{error}</HelpBlock>) || 
-      (warning && <span>{warning}</span>))}
-    </FormGroup>
-  );
+  <FormGroup
+    controlId={`label-${input.name}`}
+    validationState={touched && error ? 'error' :
+      touched && !error ? 'success' : null}>
+    <ControlLabel>{label}</ControlLabel>
+    <FormControl
+      {...input}
+      componentClass="textarea"
+      placeholder={placeholder}
+      id={`label-${input.name}`}
+      rows={rows}
+      readOnly={readonly}
+    />
+    {feedback && <FormControl.Feedback />}
+    {errorsVisible && touched &&
+      ((error && <HelpBlock>{error}</HelpBlock>) ||
+        (warning && <span>{warning}</span>))}
+  </FormGroup>
+);
 
 TextareaField.propTypes = {
   input: PropTypes.shape({
@@ -44,6 +45,7 @@ TextareaField.propTypes = {
   readonly: PropTypes.bool,
   feedback: PropTypes.bool,
   placeholder: PropTypes.string.isRequired,
+  errorsVisible: PropTypes.bool,
   meta: PropTypes.shape({
     touched: PropTypes.bool,
     error: PropTypes.string,
@@ -55,7 +57,8 @@ TextareaField.propTypes = {
 TextareaField.defaultProps = {
   rows: null,
   readonly: false,
-  feedback: true
+  feedback: true,
+  errorsVisible: true
 };
 
 export default TextareaField;

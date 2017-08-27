@@ -60,7 +60,7 @@ questionSchema.index({
   answers: 'text'
 });
 
-questionSchema.pre('save', async function(next) {
+questionSchema.pre('save', async function (next) {
   this.slug = slug(this.question);
   const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i');
   const questionWithSlug = await this.constructor.find({ slug: slugRegEx });
@@ -84,5 +84,5 @@ function autopopulate(next) {
 
 questionSchema.pre('find', autopopulate);
 questionSchema.pre('findOne', autopopulate);
- 
+
 export default mongoose.model('question', questionSchema);

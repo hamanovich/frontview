@@ -32,7 +32,7 @@ class AccountPage extends Component {
         </Col>
         <Col md={9} sm={8}>
           <Switch>
-            <Route exact path="/me" component={Account}/>
+            <Route exact path="/me" component={Account} />
             <Route exact path="/me/edit" component={AccountEdit} />
             <Redirect to="/me" />
           </Switch>

@@ -18,7 +18,7 @@ export default (values) => {
     errors.email = 'Email is invalid';
   }
 
-  if (values.phone && !isMobilePhone(values.phone, 'any')){
+  if (values.phone && !isMobilePhone(values.phone, 'any')) {
     errors.phone = 'Mobile phone is invalid';
   }
 

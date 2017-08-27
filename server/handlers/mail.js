@@ -28,6 +28,6 @@ export function send(options) {
     text
   };
   const sendMail = promisify(transport.sendMail, transport);
-  
+
   return sendMail(mailOptions);
 }

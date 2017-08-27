@@ -28,9 +28,10 @@ class AddQuestion extends Component {
     editQuestion: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
     removeQuestion: PropTypes.func.isRequired,
+    getQuestionById: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
-    userId: PropTypes.string,
-    _id: PropTypes.string
+    match: PropTypes.object.isRequired,
+    userId: PropTypes.string
   };
 
   static contextTypes = {
@@ -38,7 +39,7 @@ class AddQuestion extends Component {
   };
 
   static defaultProps = {
-    _id: ''
+    userId: ''
   };
 
   state = {
@@ -92,7 +93,8 @@ class AddQuestion extends Component {
         type: 'success',
         text: `Question with id=${id} was successfully removed`
       });
-      history.push('/questions')
+
+      history.push('/questions');
     }
     );
   };
@@ -122,15 +124,15 @@ class AddQuestion extends Component {
 
           history.push('/questions');
         },
-      (err) => {
-        addFlashMessage({
-          type: 'error',
-          text: err.response.data.error
-        });
+        (err) => {
+          addFlashMessage({
+            type: 'error',
+            text: err.response.data.error
+          });
 
-        logout();
-        history.push('/');
-      });
+          logout();
+          history.push('/');
+        });
     }
   }
 
@@ -238,7 +240,7 @@ class AddQuestion extends Component {
             {_id && <div className="pull-right">
               <Button bsStyle="danger" onClick={this.openModel}>
                 <FontAwesome name="trash-o" /> Remove
-          </Button>
+              </Button>
 
               <Modal bsSize="sm" show={this.state.showModal} onHide={this.closeModal}>
                 <Modal.Header closeButton>

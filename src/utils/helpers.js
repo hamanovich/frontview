@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import axios from 'axios';
 
@@ -10,10 +11,16 @@ export const Owner = Authorization(['owner', 'admin']);
 export const Admin = Authorization(['admin']);
 
 export const PropsRoute = ({ component, ...rest }) => (
-  <Route {...rest} render={
-    routeProps => React.createElement(component, Object.assign({}, routeProps, rest))
-  } />
+  <Route
+    {...rest}
+    render={
+      routeProps => React.createElement(component, Object.assign({}, routeProps, rest))
+    } />
 );
+
+PropsRoute.propTypes = {
+  component: PropTypes.node.isRequired
+};
 
 export const setAuthorizationToken = (token) => {
   if (token) {

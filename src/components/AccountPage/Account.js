@@ -51,7 +51,7 @@ class Account extends Component {
     this.setState({ modal: true });
   };
 
-  remove = (_id) => {
+  remove = () => {
     const { user, removeUser, logout, addFlashMessage } = this.props;
 
     removeUser(user.username).then(
@@ -61,8 +61,7 @@ class Account extends Component {
           text: `The user @${user.username} is no longer available`
         });
         logout();
-      },
-      err => console.error(err)
+      }
     );
   };
 
@@ -81,7 +80,7 @@ class Account extends Component {
 
         <dl>
           <dt>Email:</dt>
-          <dd><FontAwesome name="envelope-open-o" /> <a href={"mailto:" + user.email}>{user.email}</a></dd>
+          <dd><FontAwesome name="envelope-open-o" /> <a href={`mailto:${user.email}`}>{user.email}</a></dd>
           {user.primary_skill &&
             <div>
               <dt>Primary Skill:</dt>
@@ -110,7 +109,7 @@ class Account extends Component {
 
         <ButtonGroup bsSize="small" className="pull-right">
           <Link to="/me/edit" className="btn btn-warning"><FontAwesome name="pencil" /> Edit profile</Link>
-          <Button bsStyle="danger" onClick={() => { this.open() }}><FontAwesome name="times" /> Remove</Button>
+          <Button bsStyle="danger" onClick={this.open}><FontAwesome name="times" /> Remove</Button>
         </ButtonGroup>
 
         <Modal bsSize="sm" show={this.state.modal} onHide={this.close}>
@@ -123,7 +122,7 @@ class Account extends Component {
           <Modal.Footer>
             <ButtonGroup>
               <Button bsStyle="default" onClick={this.close}>Cancel</Button>
-              <Button bsStyle="danger" onClick={() => this.remove()}>Remove</Button>
+              <Button bsStyle="danger" onClick={this.remove}>Remove</Button>
             </ButtonGroup>
           </Modal.Footer>
         </Modal>

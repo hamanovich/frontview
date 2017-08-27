@@ -7,6 +7,8 @@ import Navbar from 'react-bootstrap/lib/Navbar';
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 
+import validate from '../../validations/search';
+
 import { TextField } from '../formElements';
 
 const SearchForm = ({ handleSubmit, onSearch }) => (
@@ -19,6 +21,7 @@ const SearchForm = ({ handleSubmit, onSearch }) => (
         name="search"
         placeholder="Search question"
         feedback={false}
+        errorsVisible={false}
       />
       {' '}
       <Button type="submit">
@@ -29,8 +32,11 @@ const SearchForm = ({ handleSubmit, onSearch }) => (
 );
 
 SearchForm.propTypes = {
-  getSearchedQuestions: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired
 };
 
-export default reduxForm({ form: 'search' })(SearchForm);
+export default reduxForm({
+  form: 'search',
+  validate
+})(SearchForm);

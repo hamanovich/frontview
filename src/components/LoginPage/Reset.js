@@ -20,7 +20,8 @@ class Reset extends Component {
     resetToken: PropTypes.func.isRequired,
     getReset: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func.isRequired
+    handleSubmit: PropTypes.func.isRequired,
+    match: PropTypes.object.isRequired
   };
 
   static contextTypes = {
@@ -44,10 +45,10 @@ class Reset extends Component {
     };
 
     getReset(match.params.token)
-      .then((res) => {
-        if (!res) failure();
-      })
-      .catch(err => failure());
+      .then(
+        (res) => { if (!res) failure(); },
+        () => failure()
+      );
   }
 
   onSubmit = (values) => {
@@ -59,7 +60,8 @@ class Reset extends Component {
     resetToken(match.params.token, values).then(
       (res) => {
         if (res.errors) {
-          this.setState({ errors: res.errors, isLoading: false })
+          this.setState({ errors: res.errors, isLoading: false });
+
           return;
         }
 
@@ -99,7 +101,11 @@ class Reset extends Component {
           placeholder="Repeat your mad password"
         />
 
-        <Button type="submit" bsStyle="warning" bsSize="large" disabled={isLoading}>Reset</Button>
+        <Button
+          type="submit"
+          bsStyle="warning"
+          bsSize="large"
+          disabled={isLoading}>Reset</Button>
       </Form>
     );
   }

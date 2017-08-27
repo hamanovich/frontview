@@ -8,7 +8,7 @@ import Login from './Login';
 import Forgot from './Forgot';
 import Reset from './Reset';
 
-const LoginPage = (props) => (
+const LoginPage = () => (
   <Row>
     <Col md={6} mdOffset={3}>
       <Switch>

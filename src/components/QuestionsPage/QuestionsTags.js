@@ -12,24 +12,24 @@ const QuestionsTags = ({
   editQuestionField,
   state
 }) => (
-    <div>
-      <PageHeader>Questions</PageHeader>
+  <div>
+    <PageHeader>Questions</PageHeader>
 
-      <QuestionsBar
-        active={state.filters.tag}
-        tags={state.filters.tags}
-        filter={state.filters.filter}
-      />
+    <QuestionsBar
+      active={state.filters.tag}
+      tags={state.filters.tags}
+      filter={state.filters.filter}
+    />
 
-      <hr />
+    <hr />
 
-      <Questions
-        user={auth.user}
-        questions={questions}
-        editQuestionField={editQuestionField}
-      />
-    </div>
-  );
+    <Questions
+      user={auth.user}
+      questions={questions}
+      editQuestionField={editQuestionField}
+    />
+  </div>
+);
 
 QuestionsTags.propTypes = {
   auth: PropTypes.shape({
