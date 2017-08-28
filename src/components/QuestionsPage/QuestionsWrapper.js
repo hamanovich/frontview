@@ -7,20 +7,16 @@ import {
   getQuestions,
   editQuestionField,
   getSearchedQuestions,
-  getQuestionsByFilter
+  getQuestionsByFilter,
+  voteQuestion
 } from '../../actions/questions';
 
 export default (WrappedComponent) => {
   class QuestionsWrapper extends Component {
     static propTypes = {
-      auth: PropTypes.shape({
-        user: PropTypes.object,
-        isAuthenticated: PropTypes.bool.isRequired
-      }).isRequired,
       questions: PropTypes.array.isRequired,
       getQuestions: PropTypes.func.isRequired,
       getQuestionsByFilter: PropTypes.func.isRequired,
-      editQuestionField: PropTypes.func.isRequired,
       getSearchedQuestions: PropTypes.func.isRequired,
       addFlashMessage: PropTypes.func.isRequired,
       match: PropTypes.object.isRequired
@@ -86,9 +82,8 @@ export default (WrappedComponent) => {
 
       getQuestions(activePage)
         .then(
-          ({ pages, count, questions }) => {
+          ({ pages, count }) => {
             this.setState({
-              questions,
               pagination: { pages, activePage, count }
             });
 
@@ -156,6 +151,7 @@ export default (WrappedComponent) => {
     getQuestions,
     getQuestionsByFilter,
     editQuestionField,
+    voteQuestion,
     getSearchedQuestions
   })(QuestionsWrapper);
 };

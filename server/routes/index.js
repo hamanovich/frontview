@@ -26,6 +26,7 @@ router.get('/questions', catchErrors(questionsController.getQuestions));
 router.get('/questions/page/:page', catchErrors(questionsController.getQuestions));
 router.get('/questions/:type', catchErrors(questionsController.getQuestionsByFilter));
 router.get('/questions/:type/:tag', catchErrors(questionsController.getQuestionsByFilter));
+router.put('/question/:id/vote', catchErrors(questionsController.voteQuestion));
 router.delete('/question/:id', questionsController.remove);
 
 router.get('/search', questionsController.searchQuestions);

@@ -9,6 +9,7 @@ const QuestionsSearch = ({
   auth,
   questions,
   editQuestionField,
+  voteQuestion,
   state
 }) => (
   <div>
@@ -18,6 +19,7 @@ const QuestionsSearch = ({
       user={auth.user}
       questions={questions}
       editQuestionField={editQuestionField}
+      voteQuestion={voteQuestion}
     />
   </div>
 );
@@ -29,6 +31,7 @@ QuestionsSearch.propTypes = {
   }).isRequired,
   questions: PropTypes.array.isRequired,
   editQuestionField: PropTypes.func.isRequired,
+  voteQuestion: PropTypes.func.isRequired,
   state: PropTypes.object.isRequired
 };
 

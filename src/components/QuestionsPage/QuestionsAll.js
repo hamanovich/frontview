@@ -11,6 +11,7 @@ const QuestionsAll = ({
   auth,
   questions,
   editQuestionField,
+  voteQuestion,
   onPageSelect,
   state
 }) => (
@@ -21,6 +22,7 @@ const QuestionsAll = ({
       user={auth.user}
       questions={questions}
       editQuestionField={editQuestionField}
+      voteQuestion={voteQuestion}
     />
 
     <PaginationBar
@@ -39,6 +41,7 @@ QuestionsAll.propTypes = {
   questions: PropTypes.array.isRequired,
   onPageSelect: PropTypes.func.isRequired,
   editQuestionField: PropTypes.func.isRequired,
+  voteQuestion: PropTypes.func.isRequired,
   state: PropTypes.object.isRequired
 };
 

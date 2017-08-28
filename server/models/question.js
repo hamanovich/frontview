@@ -46,8 +46,14 @@ const questionSchema = new Schema({
     default: Date.now
   },
   votes: {
-    like: [Schema.Types.ObjectId],
-    dislike: [Schema.Types.ObjectId]
+    like: [{
+      type: Schema.Types.ObjectId,
+      ref: 'user'
+    }],
+    dislike: [{
+      type: Schema.Types.ObjectId,
+      ref: 'user'
+    }]
   }
 }, {
   toJSON: { virtuals: true },
@@ -84,5 +90,6 @@ function autopopulate(next) {
 
 questionSchema.pre('find', autopopulate);
 questionSchema.pre('findOne', autopopulate);
+questionSchema.pre('findByIdAndUpdate', autopopulate);
 
 export default mongoose.model('question', questionSchema);

@@ -42,7 +42,17 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'question',
     required: 'You must supply a question'
-  }]
+  }],
+  votes: {
+    like: [{
+      type: Schema.Types.ObjectId,
+      ref: 'question'
+    }],
+    dislike: [{
+      type: Schema.Types.ObjectId,
+      ref: 'question'
+    }]
+  }
 });
 
 userSchema.virtual('gravatar').get(function () {

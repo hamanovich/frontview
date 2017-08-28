@@ -34,8 +34,7 @@ exports.getQuestionById = async (req, res) => {
 exports.add = async (req, res) => {
   const { question, skill, level, practice, answer, answers, notes, userId, lastModified } = req.body;
   const newQuestion = await Question.create({ question, skill, level, practice, answer, answers, notes, author: userId, lastModified });
-  const user = await User.findByIdAndUpdate(
-    { _id: userId },
+  const user = await User.findByIdAndUpdate(userId,
     { $push: { questions: newQuestion._id } },
     { safe: true, upsert: true, new: true }
   );
@@ -49,10 +48,7 @@ exports.add = async (req, res) => {
 };
 
 exports.edit = async (req, res) => {
-  const question = await Question.findByIdAndUpdate(
-    { _id: req.params.id },
-    req.body,
-    { new: true }).exec();
+  const question = await Question.findByIdAndUpdate(req.params.id, req.body, { new: true }).exec();
 
   await question.save();
 
@@ -81,7 +77,7 @@ exports.editField = async (req, res) => {
 
 exports.remove = async (req, res) => {
   const question = await Question.findByIdAndRemove({ _id: req.params.id });
-  const user = await User.findByIdAndUpdate({ _id: question.author }, { $pull: { questions: question._id } });
+  const user = await User.findByIdAndUpdate(question.author, { $pull: { questions: question._id } });
 
   if (question && user) {
     res.json(question);
@@ -109,9 +105,30 @@ exports.searchQuestions = async (req, res) => {
   }, {
     score: { $meta: 'textScore' }
   })
-    .sort({
-      score: { $meta: 'textScore' }
-    });
+  .sort({
+    score: { $meta: 'textScore' }
+  });
 
   res.json(questions);
+};
+
+exports.voteQuestion = async (req, res) => {
+  const { action, question, userId } = req.body;
+  const votes = question.votes[action].map(obj => obj.toString());
+  const operator = votes.includes(userId) ? '$pull' : '$push';
+  const newQuestion = await Question.findByIdAndUpdate(req.params.id,
+     { [operator]: { [`votes.${action}`]: userId } },
+    { new: true }
+  ).populate('author');
+  const user = await User.findByIdAndUpdate(userId,
+    { [operator]: { [`votes.${action}`]: question._id } },
+    { new: true }
+  ).populate('questions');
+
+  if (user && newQuestion) {
+    res.json(newQuestion);
+    return;
+  }
+
+  res.status(500).json({ error: 'You can not vote!' });
 };

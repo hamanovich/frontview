@@ -10,6 +10,7 @@ const QuestionsTags = ({
   auth,
   questions,
   editQuestionField,
+  voteQuestion,
   state
 }) => (
   <div>
@@ -27,6 +28,7 @@ const QuestionsTags = ({
       user={auth.user}
       questions={questions}
       editQuestionField={editQuestionField}
+      voteQuestion={voteQuestion}
     />
   </div>
 );
@@ -38,6 +40,7 @@ QuestionsTags.propTypes = {
   }).isRequired,
   questions: PropTypes.array.isRequired,
   editQuestionField: PropTypes.func.isRequired,
+  voteQuestion: PropTypes.func.isRequired,
   state: PropTypes.object.isRequired
 };
 

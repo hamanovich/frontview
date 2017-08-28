@@ -5,7 +5,9 @@ import {
   QUESTION_ADD,
   QUESTION_EDIT,
   QUESTION_GET,
-  QUESTION_REMOVE
+  QUESTION_REMOVE,
+  VOTE_LIKE,
+  VOTE_DISLIKE
 } from './types';
 
 export const addQuestions = (questions, count = 0, pages = 0) => ({
@@ -35,13 +37,23 @@ export const questionRemoved = question => ({
   question
 });
 
+export const voteLike = question => ({
+  type: VOTE_LIKE,
+  question
+});
+
+export const voteDislike = question => ({
+  type: VOTE_DISLIKE,
+  question
+});
+
 export const getQuestions = (page = 1) =>
   dispatch => axios.get(`/api/questions/page/${page}`)
     .then((res) => {
       const { questions, count, pages } = res.data;
       dispatch(addQuestions(questions, count, pages));
 
-      return { questions, count, pages };
+      return { count, pages };
     });
 
 export const getQuestionsByFilter = (filter, tag = '') =>
@@ -56,8 +68,8 @@ export const getQuestionsByFilter = (filter, tag = '') =>
 export const getQuestionById = id =>
   dispatch => axios.get(`/api/question/${id}`)
     .then(
-      res => dispatch(questionGot(res.data)),
-      err => err.response);
+    res => dispatch(questionGot(res.data)),
+    err => err.response);
 
 export const addQuestion = question =>
   dispatch => axios.post('/api/questions/add', question)
@@ -87,3 +99,10 @@ export const getSearchedQuestions = query =>
 
       return res.data;
     });
+
+export const voteQuestion = (question, action, userId) =>
+  dispatch => axios.put(`/api/question/${question.id}/vote`, { question, action, userId })
+    .then(res => action === 'like'
+        ? dispatch(voteLike(res.data))
+        : dispatch(voteDislike(res.data))
+    );

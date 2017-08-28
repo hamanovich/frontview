@@ -16,11 +16,14 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 
+import Toolbar from '../layout/Toolbar';
+
 class Question extends Component {
   static propTypes = {
     question: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
-    editQuestionField: PropTypes.func.isRequired
+    editQuestionField: PropTypes.func.isRequired,
+    voteQuestion: PropTypes.func.isRequired
   };
 
   state = {
@@ -49,7 +52,7 @@ class Question extends Component {
   };
 
   render() {
-    const { question, editQuestionField, user } = this.props;
+    const { question, editQuestionField, voteQuestion, user } = this.props;
     const { answerField, textField } = this.state;
 
     const panelHeader = (
@@ -117,6 +120,12 @@ class Question extends Component {
             <Link to={`/questions/${question._id}/edit`} className="btn btn-warning">Edit</Link>
           </ButtonGroup>
         }
+
+        {user.username && <Toolbar
+          userId={user._id}
+          question={question}
+          voteQuestion={voteQuestion}
+        />}
 
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>

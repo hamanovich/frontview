@@ -14,3 +14,6 @@ export const QUESTION_EDIT = '[QUESTION] EDIT';
 export const QUESTION_GET = '[QUESTION] GET';
 export const QUESTION_REMOVE = '[QUESTION] REMOVE';
 export const FILTER_QUESTIONS = '[QUESTIONS] FILTER';
+
+export const VOTE_LIKE = '[VOTE] LIKE';
+export const VOTE_DISLIKE = '[VOTE] DISLIKE';
