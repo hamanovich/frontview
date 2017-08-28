@@ -3,27 +3,18 @@ import morgan from 'morgan';
 import path from 'path';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+import cors from 'cors';
+import { notFound } from './handlers/errors';
 
 import routes from './routes';
 
 const app = express();
 
-const { notFound } = require('./handlers/errors');
-
-app.set('trust proxy', 'loopback');
-
 app.use(morgan('":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  next();
-});
+app.use(cors());
 
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
+app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '/../public')));
 

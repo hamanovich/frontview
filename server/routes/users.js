@@ -4,23 +4,41 @@ import isEmpty from 'lodash/isEmpty';
 import User from '../models/user';
 
 import validate from '../../src/validations/signup';
-import validateUser from '../validations/user';
+
+const validateUser = async (data, otherValidations) => {
+  const { username, email } = data;
+  const { errors } = await otherValidations(data);
+  const user = await User.find({ $or: [{ username }, { email }] });
+
+  if (user) {
+    if (user.username === data.username) {
+      errors.username = 'There is a user with such username';
+    }
+
+    if (user.email === data.email) {
+      errors.email = 'There is a user with such email';
+    }
+  }
+
+  return {
+    errors,
+    isValid: isEmpty(errors)
+  };
+};
 
 exports.createUser = async (req, res) => {
   const { errors, isValid } = await validateUser(req.body, validate);
   const { username, email, password } = req.body;
   const password_digest = bcrypt.hashSync(password, 10);
-  let user;
 
   if (!isValid) {
     res.status(400).json(errors);
   }
 
-  user = await User.create({ username, email, password_digest });
+  const user = await User.create({ username, email, password_digest });
 
   if (user) {
     res.send(user);
-    return;
   }
 };
 
@@ -58,14 +76,12 @@ exports.updateUser = async (req, res) => {
   const { errors, isValid } = await validateUser(req.body, validate);
   const { username, email, password, first_name, last_name, primary_skill, job_function, skype, phone, notes } = req.body;
   const password_digest = bcrypt.hashSync(password, 10);
-  let userOne;
-  let user;
 
   if (!isValid) {
     res.status(400).json(errors);
   }
 
-  userOne = await User.findOne({ username: req.params.username });
+  const userOne = await User.findOne({ username: req.params.username });
   userOne.username = username;
   userOne.email = email;
   userOne.first_name = first_name;
@@ -79,11 +95,10 @@ exports.updateUser = async (req, res) => {
 
   await userOne.save();
 
-  user = await User.findOne({ username: req.params.username })
+  const user = await User.findOne({ username: req.params.username });
 
   if (user) {
     res.json({ success: true });
-    return;
   }
 };
 

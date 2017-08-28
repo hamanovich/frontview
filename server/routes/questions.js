@@ -19,14 +19,16 @@ exports.getQuestions = async (req, res) => {
 };
 
 exports.getQuestionById = async (req, res) => {
-  const question = await Question.findOne({ _id: req.params.id });
+  const question = await Question.findById({ _id: req.params.id })
+    .exec((err) => {
+      if (err) {
+        res.status(500).json({ error: `Question with id='${req.params.id}' didn't find` });
+      }
+    });
 
   if (question) {
-    res.json({ question });
-    return;
+    res.json(question);
   }
-
-  res.status(500).json({ error: `Question with id='${req.params.id}' didn't find` });
 };
 
 exports.add = async (req, res) => {
@@ -38,8 +40,8 @@ exports.add = async (req, res) => {
     { safe: true, upsert: true, new: true }
   );
 
-  if (newQuestion && user ) {
-    res.json({ question: newQuestion });
+  if (newQuestion && user) {
+    res.json(newQuestion);
     return;
   }
 
@@ -55,7 +57,7 @@ exports.edit = async (req, res) => {
   await question.save();
 
   if (question) {
-    res.json({ question });
+    res.json(question);
     return;
   }
 
@@ -65,7 +67,7 @@ exports.edit = async (req, res) => {
 exports.editField = async (req, res) => {
   const question = await Question.findById({ _id: req.params.id });
   if (!question) {
-    res.json({ errors: { form: `Question by ${req.params.id} didn't find`}});
+    res.json({ errors: { form: `Question by ${req.params.id} didn't find` } });
     return;
   }
 
@@ -74,7 +76,7 @@ exports.editField = async (req, res) => {
 
   await question.save();
 
-  res.json({ question });
+  res.json(question);
 };
 
 exports.remove = async (req, res) => {
@@ -82,9 +84,34 @@ exports.remove = async (req, res) => {
   const user = await User.findByIdAndUpdate({ _id: question.author }, { $pull: { questions: question._id } });
 
   if (question && user) {
-    res.json({ question });
+    res.json(question);
     return;
   }
 
   res.status(500).res({ error: 'Question didn\'t remove' });
+};
+
+exports.getQuestionsByFilter = async (req, res) => {
+  const { type, tag } = req.params;
+  const tagQuery = tag || { $exists: true };
+  const typePromise = Question.getListByType(type);
+  const questionsPromise = Question.find({ [type]: tagQuery });
+  const [tags, questions] = await Promise.all([typePromise, questionsPromise]);
+
+  res.json({ tags, questions });
+};
+
+exports.searchQuestions = async (req, res) => {
+  const questions = await Question.find({
+    $text: {
+      $search: req.query.q
+    }
+  }, {
+    score: { $meta: 'textScore' }
+  })
+    .sort({
+      score: { $meta: 'textScore' }
+    });
+
+  res.json(questions);
 };

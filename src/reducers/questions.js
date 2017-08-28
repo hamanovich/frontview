@@ -48,7 +48,7 @@ export default (state = [], action) => {
 
     case QUESTION_REMOVE:
       const removeIndex = state.findIndex(question => question._id === action.question._id);
-      
+
       if (removeIndex > -1) {
         return [
           ...state.slice(0, removeIndex),

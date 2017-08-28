@@ -56,10 +56,11 @@ const questionSchema = new Schema({
 
 questionSchema.index({
   question: 'text',
-  answer: 'text'
+  answer: 'text',
+  answers: 'text'
 });
 
-questionSchema.pre('save', async function(next) {
+questionSchema.pre('save', async function (next) {
   this.slug = slug(this.question);
   const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i');
   const questionWithSlug = await this.constructor.find({ slug: slugRegEx });
@@ -69,10 +70,10 @@ questionSchema.pre('save', async function(next) {
   next();
 });
 
-questionSchema.statics.getSkillList = function () {
+questionSchema.statics.getListByType = function (type) {
   return this.aggregate([
-    { $unwind: '$skill' },
-    { $group: { _id: '$skill', count: { $sum: 1 } } }
+    { $unwind: `$${type}` },
+    { $group: { _id: `$${type}`, count: { $sum: 1 } } }
   ]);
 };
 
@@ -83,6 +84,5 @@ function autopopulate(next) {
 
 questionSchema.pre('find', autopopulate);
 questionSchema.pre('findOne', autopopulate);
- 
 
 export default mongoose.model('question', questionSchema);
