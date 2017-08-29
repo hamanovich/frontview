@@ -13,6 +13,7 @@ const TextareaField = ({
   rows,
   readonly,
   feedback,
+  defaultValue,
   errorsVisible,
   meta: { touched, error, warning }
 }) => (
@@ -28,6 +29,7 @@ const TextareaField = ({
       id={`label-${input.name}`}
       rows={rows}
       readOnly={readonly}
+      value={defaultValue || input.value}
     />
     {feedback && <FormControl.Feedback />}
     {errorsVisible && touched &&
@@ -42,9 +44,10 @@ TextareaField.propTypes = {
     value: PropTypes.string
   }).isRequired,
   label: PropTypes.string.isRequired,
+  defaultValue: PropTypes.string,
   readonly: PropTypes.bool,
   feedback: PropTypes.bool,
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   errorsVisible: PropTypes.bool,
   meta: PropTypes.shape({
     touched: PropTypes.bool,
@@ -58,7 +61,9 @@ TextareaField.defaultProps = {
   rows: null,
   readonly: false,
   feedback: true,
-  errorsVisible: true
+  errorsVisible: true,
+  defaultValue: '',
+  placeholder: ''
 };
 
 export default TextareaField;

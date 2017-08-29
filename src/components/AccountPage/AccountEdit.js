@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
+import PageHeader from 'react-bootstrap/lib/PageHeader';
 
 import { TextField, TextareaField } from '../formElements';
 
@@ -34,7 +35,7 @@ class AccountEdit extends Component {
     isLoading: false
   };
 
-  componentWillMount() {
+  componentDidMount() {
     const { getUser, initialValues, initialize } = this.props;
 
     getUser(initialValues.username)
@@ -45,7 +46,7 @@ class AccountEdit extends Component {
   }
 
   onSubmit = (values) => {
-    const { updateUser, addFlashMessage } = this.props;
+    const { updateUser, getUser, initialValues, addFlashMessage } = this.props;
 
     this.setState({ errors: {}, isLoading: true });
 
@@ -55,7 +56,8 @@ class AccountEdit extends Component {
           type: 'success',
           text: 'You have updated profile successfully.'
         });
-        this.context.router.history.push('/me');
+
+        getUser(initialValues.username).then(() => this.context.router.history.push('/me'));
       },
       err => this.setState({ errors: err.response.data, isLoading: false })
     );
@@ -67,7 +69,7 @@ class AccountEdit extends Component {
 
     return (
       <div>
-        <h1>Edit your account</h1>
+        <PageHeader>Edit your account</PageHeader>
 
         <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
           <Field

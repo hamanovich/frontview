@@ -71,6 +71,12 @@ export const getQuestionById = id =>
     res => dispatch(questionGot(res.data)),
     err => err.response);
 
+export const getQuestionBySlug = slug =>
+  dispatch => axios.get(`/api/question/${slug}/one`)
+    .then(
+    res => dispatch(questionGot(res.data)),
+    err => err.response);
+
 export const addQuestion = question =>
   dispatch => axios.post('/api/questions/add', question)
     .then(res => dispatch(questionAdded(res.data)));
@@ -103,6 +109,6 @@ export const getSearchedQuestions = query =>
 export const voteQuestion = (question, action, userId) =>
   dispatch => axios.put(`/api/question/${question.id}/vote`, { question, action, userId })
     .then(res => action === 'like'
-        ? dispatch(voteLike(res.data))
-        : dispatch(voteDislike(res.data))
+      ? dispatch(voteLike(res.data))
+      : dispatch(voteDislike(res.data))
     );

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import isEmpty from 'lodash/isEmpty';
 
+import './Loader.css';
+
 export default prop => (ComposedComponent) => {
   class Loader extends Component {
     componentDidMount() {
@@ -14,11 +16,13 @@ export default prop => (ComposedComponent) => {
     }
 
     render() {
+      const props = prop.split(' ');
+      const filtered = props.filter(prop => !isEmpty(this.props[prop]));
       const myProps = {
         loadingTime: ((this.endTimer - this.startTimer) / 1000).toFixed(2)
       };
 
-      return isEmpty(this.props[prop]) ? <div className="loader" /> : <ComposedComponent {...this.props} {...myProps} />;
+      return filtered.length !== props.length ? <div className="loader" /> : <ComposedComponent {...this.props} {...myProps} />;
     }
   }
 

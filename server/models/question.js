@@ -83,8 +83,14 @@ questionSchema.statics.getListByType = function (type) {
   ]);
 };
 
+questionSchema.virtual('comments', {
+  ref: 'comment',
+  localField: '_id',
+  foreignField: 'question'
+});
+
 function autopopulate(next) {
-  this.populate('author');
+  this.populate('author comments');
   next();
 }
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import MarkdownRenderer from 'react-markdown-renderer';
 import map from 'lodash/map';
+import FontAwesome from 'react-fontawesome';
 
 import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
@@ -17,6 +18,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 
 import Toolbar from '../layout/Toolbar';
+import Loader from '../../utils/Loader';
 
 class Question extends Component {
   static propTypes = {
@@ -54,7 +56,6 @@ class Question extends Component {
   render() {
     const { question, editQuestionField, voteQuestion, user } = this.props;
     const { answerField, textField } = this.state;
-
     const panelHeader = (
       <div className="clearfix">
         <h3 className="panel-title pull-left">
@@ -74,7 +75,6 @@ class Question extends Component {
         </div>
       </div>
     );
-
     const panelFooter = (
       <div className="clearfix">
         <h5 className="pull-left">
@@ -83,8 +83,8 @@ class Question extends Component {
             <Link to={`/questions/skill/${skill}`} key={skill}>{' '}{skill}</Link>
           ))}
         </h5>
-        <Link to={`/questions/practice/${question.practice}`}>
-          <Label bsStyle="warning" className="pull-right">{question.practice}</Label>
+        <Link to={`/questions/practice/${question.practice}`} className="pull-right" style={{ marginTop: 7 }}>
+          <Label bsStyle="warning">{question.practice}</Label>
         </Link>
       </div>
     );
@@ -111,7 +111,11 @@ class Question extends Component {
           <Well onClick={() => this.open(question.notes, 'notes')}>
             <MarkdownRenderer markdown={question.notes} />
           </Well>}
-        <small><strong>Author</strong>: {question.author.username}</small>
+        {question.author && <small><strong>Author</strong>: {question.author.username}</small>}
+
+        <Link to={`/questions/${question.slug}/one`} className="pull-right">
+          <FontAwesome name="comments-o" /> {question.comments.length}
+        </Link>
 
         <hr />
 
@@ -157,4 +161,4 @@ class Question extends Component {
   }
 }
 
-export default Question;
+export default Loader('question')(Question);

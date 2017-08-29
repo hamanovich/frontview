@@ -53,6 +53,9 @@ const userSchema = new Schema({
       ref: 'question'
     }]
   }
+}, {
+  toJSON: { virtuals: true },
+  toOjbect: { virtuals: true }
 });
 
 userSchema.virtual('gravatar').get(function () {

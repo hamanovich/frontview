@@ -24,10 +24,11 @@ const store = createStore(
   )
 );
 const localJwtToken = localStorage.jwtToken;
+const jwtDecoded = jwtDecode(localJwtToken);
 
 if (localJwtToken) {
   setAuthorizationToken(localJwtToken);
-  store.dispatch(setCurrentUser(jwtDecode(localJwtToken)));
+  store.dispatch(setCurrentUser(jwtDecoded));
 }
 
 const Root = () => (

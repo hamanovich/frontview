@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import map from 'lodash/map';
 
 import Question from './Question';
+import Loader from '../../utils/Loader';
 
 const Questions = ({ user, questions, editQuestionField, voteQuestion }) => (
   <div>
@@ -25,4 +26,4 @@ Questions.propTypes = {
   voteQuestion: PropTypes.func.isRequired
 };
 
-export default Questions;
+export default Loader('questions')(Questions);

@@ -11,7 +11,7 @@ import Image from 'react-bootstrap/lib/Image';
 import Well from 'react-bootstrap/lib/Well';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
 
-import { removeUser, getUser } from '../../actions/signup';
+import { removeUser } from '../../actions/signup';
 import { addFlashMessage } from '../../actions/flash';
 import { logout } from '../../actions/auth';
 
@@ -29,19 +29,12 @@ class Account extends Component {
     }).isRequired,
     logout: PropTypes.func.isRequired,
     removeUser: PropTypes.func.isRequired,
-    getUser: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired
   };
 
   state = {
     modal: false
   };
-
-  componentWillMount() {
-    const { getUser, user } = this.props;
-
-    getUser(user.username);
-  }
 
   close = () => {
     this.setState({ modal: false });
@@ -66,7 +59,7 @@ class Account extends Component {
   };
 
   render() {
-    const { user } = this.props;
+    const { user, logout } = this.props;
 
     return (
       <div>
@@ -108,7 +101,8 @@ class Account extends Component {
         <hr />
 
         <ButtonGroup bsSize="small" className="pull-right">
-          <Link to="/me/edit" className="btn btn-warning"><FontAwesome name="pencil" /> Edit profile</Link>
+          <Link to="/me/edit" className="btn btn-info"><FontAwesome name="pencil" /> Edit profile</Link>
+          <Button bsStyle="warning" onClick={logout}><FontAwesome name="sign-out" /> Logout</Button>
           <Button bsStyle="danger" onClick={this.open}><FontAwesome name="times" /> Remove</Button>
         </ButtonGroup>
 
@@ -133,4 +127,4 @@ class Account extends Component {
 
 const mapStateToProps = state => ({ user: state.auth.user });
 
-export default connect(mapStateToProps, { removeUser, getUser, logout, addFlashMessage })(Account);
+export default connect(mapStateToProps, { removeUser, logout, addFlashMessage })(Account);

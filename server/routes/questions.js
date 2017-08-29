@@ -6,7 +6,7 @@ exports.getQuestions = async (req, res) => {
   const limit = 2;
   const skip = (page * limit) - limit;
   const countPromise = Question.count();
-  const questionsPromise = Question.find().skip(skip).limit(limit);
+  const questionsPromise = Question.find().skip(skip).limit(limit).populate('comments');
   const [questions, count] = await Promise.all([questionsPromise, countPromise]);
   const pages = Math.ceil(count / limit);
 
@@ -29,6 +29,18 @@ exports.getQuestionById = async (req, res) => {
   if (question) {
     res.json(question);
   }
+};
+
+exports.getQuestionBySlug = async (req, res) => {
+  const question = await Question.findOne({ slug: req.params.slug })
+  .populate('author comments');
+
+  if (question) {
+    res.json(question);
+    return;
+  }
+
+  res.status(500).json({ error: `Question with slug='${req.params.slug}' didn't find` });
 };
 
 exports.add = async (req, res) => {
@@ -115,11 +127,11 @@ exports.searchQuestions = async (req, res) => {
 exports.voteQuestion = async (req, res) => {
   const { action, question, userId } = req.body;
   const votes = question.votes[action].map(obj => obj.toString());
-  const operator = votes.includes(userId) ? '$pull' : '$push';
+  const operator = votes.includes(userId) ? '$pull' : '$addToSet';
   const newQuestion = await Question.findByIdAndUpdate(req.params.id,
      { [operator]: { [`votes.${action}`]: userId } },
     { new: true }
-  ).populate('author');
+  ).populate('author comments');
   const user = await User.findByIdAndUpdate(userId,
     { [operator]: { [`votes.${action}`]: question._id } },
     { new: true }
