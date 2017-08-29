@@ -76,29 +76,6 @@ class AddQuestion extends Component {
     }
   };
 
-  openModel = () => {
-    this.setState({ showModal: true });
-  };
-
-  closeModal = () => {
-    this.setState({ showModal: false });
-  };
-
-  remove = (id) => {
-    const { removeQuestion, addFlashMessage } = this.props;
-    const { history } = this.context.router;
-
-    removeQuestion(id).then(() => {
-      addFlashMessage({
-        type: 'success',
-        text: `Question with id=${id} was successfully removed`
-      });
-
-      history.push('/questions');
-    }
-    );
-  };
-
   onSubmit = (values) => {
     const { userId, match, logout, addQuestion, editQuestion, addFlashMessage } = this.props;
     const { history } = this.context.router;
@@ -135,6 +112,29 @@ class AddQuestion extends Component {
         });
     }
   }
+
+  openModel = () => {
+    this.setState({ showModal: true });
+  };
+
+  closeModal = () => {
+    this.setState({ showModal: false });
+  };
+
+  remove = (id) => {
+    const { removeQuestion, addFlashMessage } = this.props;
+    const { history } = this.context.router;
+
+    removeQuestion(id).then(() => {
+      addFlashMessage({
+        type: 'success',
+        text: `Question with id=${id} was successfully removed`
+      });
+
+      history.push('/questions');
+    }
+    );
+  };
 
   render() {
     const { isLoading } = this.state;

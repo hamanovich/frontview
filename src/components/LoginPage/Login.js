@@ -80,7 +80,8 @@ class Login extends Component {
           type="submit"
           bsStyle="primary"
           bsSize="large"
-          disabled={isLoading}>Login</Button>
+          disabled={isLoading}
+        >Login</Button>
       </Form>
     );
   }

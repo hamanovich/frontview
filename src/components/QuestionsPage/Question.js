@@ -58,10 +58,8 @@ class Question extends Component {
     const { answerField, textField } = this.state;
     const panelHeader = (
       <div className="clearfix">
-        <h3 className="panel-title pull-left">
-          <span className="edit-field" onClick={() => this.open(question.question, 'question')}>
-            <MarkdownRenderer markdown={question.question} />
-          </span>
+        <h3 className="panel-title pull-left" onClick={() => this.open(question.question, 'question')}>
+          <MarkdownRenderer markdown={question.question} />
         </h3>
         <div className="pull-right">
           {question.level && map(question.level, level => (

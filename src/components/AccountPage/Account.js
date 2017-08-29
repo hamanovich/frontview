@@ -20,11 +20,11 @@ class Account extends Component {
     user: PropTypes.shape({
       username: PropTypes.string,
       email: PropTypes.string,
-      job_function: PropTypes.string,
-      primary_skill: PropTypes.string,
+      jobFunction: PropTypes.string,
+      primarySkill: PropTypes.string,
       notes: PropTypes.string,
-      first_name: PropTypes.string,
-      last_name: PropTypes.string,
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
       gravatar: PropTypes.string
     }).isRequired,
     logout: PropTypes.func.isRequired,
@@ -63,8 +63,8 @@ class Account extends Component {
 
     return (
       <div>
-        <PageHeader>{user.first_name && user.last_name ?
-          <span>{user.first_name} {user.last_name}</span> :
+        <PageHeader>{user.firstName && user.lastName ?
+          <span>{user.firstName} {user.lastName}</span> :
           'Your account'}</PageHeader>
 
         <Image src={user.gravatar} thumbnail />
@@ -74,15 +74,15 @@ class Account extends Component {
         <dl>
           <dt>Email:</dt>
           <dd><FontAwesome name="envelope-open-o" /> <a href={`mailto:${user.email}`}>{user.email}</a></dd>
-          {user.primary_skill &&
+          {user.primarySkill &&
             <div>
               <dt>Primary Skill:</dt>
-              <dd>{user.primary_skill}</dd>
+              <dd>{user.primarySkill}</dd>
             </div>}
-          {user.job_function &&
+          {user.jobFunction &&
             <div>
               <dt>Job Function:</dt>
-              <dd>{user.job_function}</dd>
+              <dd>{user.jobFunction}</dd>
             </div>}
           {user.skype &&
             <div>

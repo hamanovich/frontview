@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -11,29 +11,23 @@ import { addFlashMessage } from '../../actions/flash';
 
 import SignupForm from './SignupForm';
 
-class SignupPage extends Component {
-  static propTypes = {
-    userSignup: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired,
-    isUserExists: PropTypes.func.isRequired
-  };
+const SignupPage = ({ userSignup, addFlashMessage, isUserExists }) => (
+  <Row>
+    <Col md={6} mdOffset={3}>
+      <PageHeader>Register. Welcome</PageHeader>
+      <SignupForm
+        userSignup={userSignup}
+        addFlashMessage={addFlashMessage}
+        isUserExists={isUserExists}
+      />
+    </Col>
+  </Row>
+);
 
-  render() {
-    const { userSignup, addFlashMessage, isUserExists } = this.props;
-
-    return (
-      <Row>
-        <Col md={6} mdOffset={3}>
-          <PageHeader>Register. Welcome</PageHeader>
-          <SignupForm
-            userSignup={userSignup}
-            addFlashMessage={addFlashMessage}
-            isUserExists={isUserExists}
-          />
-        </Col>
-      </Row>
-    );
-  }
-}
+SignupPage.propTypes = {
+  userSignup: PropTypes.func.isRequired,
+  addFlashMessage: PropTypes.func.isRequired,
+  isUserExists: PropTypes.func.isRequired
+};
 
 export default connect(null, { userSignup, addFlashMessage, isUserExists })(SignupPage);

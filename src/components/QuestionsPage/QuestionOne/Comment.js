@@ -14,7 +14,8 @@ const Comment = ({ comment }) => (
         src={comment.author.gravatar}
         alt={comment.author.username}
         style={{ width: 50, height: 50, maxWidth: 50 }}
-        thumbnail />
+        thumbnail
+      />
     </Media.Left>
     <Media.Body>
       <Media.Heading>{comment.topic}</Media.Heading>

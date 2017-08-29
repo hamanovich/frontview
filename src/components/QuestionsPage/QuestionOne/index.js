@@ -86,14 +86,16 @@ class QuestionOne extends Component {
           question={question}
           editQuestionField={editQuestionField}
           voteQuestion={voteQuestion}
-          user={user} />
+          user={user}
+        />
 
         <PanelGroup defaultActiveKey="1" accordion>
           <Panel header={panelHeader} eventKey="1" bsStyle="info">
             {map(question.comments, comment => (
               <Comment
                 comment={comment}
-                key={comment._id} />
+                key={comment._id}
+              />
             ))}
           </Panel>
           {user.username && (
@@ -102,7 +104,8 @@ class QuestionOne extends Component {
                 question={question}
                 addComment={addComment}
                 getQuestion={this.getQuestion}
-                user={user} />
+                user={user}
+              />
             </Panel>
           )}
         </PanelGroup>

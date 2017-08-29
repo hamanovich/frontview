@@ -11,7 +11,8 @@ const Flash = ({ close, message }) => (
     danger: message.type === 'error',
     success: message.type === 'success',
     warning: message.type === 'warn'
-  })}>
+  })}
+  >
     {message.text}
     <Button onClick={close} className="close">
       <FontAwesome name="times" />

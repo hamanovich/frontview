@@ -13,7 +13,7 @@ exports.auth = async (req, res) => {
     return;
   }
 
-  if (bcrypt.compareSync(password, user.password_digest)) {
+  if (bcrypt.compareSync(password, user.passwordDigest)) {
     const token = jwt.sign({
       _id: user._id,
       username: user.username,
@@ -86,7 +86,7 @@ exports.update = async (req, res) => {
     return;
   }
 
-  user.password_digest = bcrypt.hashSync(req.body.password, 10);
+  user.passwordDigest = bcrypt.hashSync(req.body.password, 10);
   user.resetPasswordToken = undefined;
   user.resetPasswordExpires = undefined;
 

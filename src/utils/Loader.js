@@ -17,7 +17,7 @@ export default prop => (ComposedComponent) => {
 
     render() {
       const props = prop.split(' ');
-      const filtered = props.filter(prop => !isEmpty(this.props[prop]));
+      const filtered = props.filter(propOne => !isEmpty(this.props[propOne]));
       const myProps = {
         loadingTime: ((this.endTimer - this.startTimer) / 1000).toFixed(2)
       };

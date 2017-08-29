@@ -10,14 +10,16 @@ const Toolbar = ({ size, question, userId, voteQuestion }) => (
     <Button
       bsStyle="success"
       active={question.votes.like.includes(userId)}
-      onClick={() => voteQuestion(question, 'like', userId)}>
+      onClick={() => voteQuestion(question, 'like', userId)}
+    >
       <FontAwesome name="thumbs-up" /> {question.votes.like.length}
     </Button>
 
     <Button
       bsStyle="danger"
       active={question.votes.dislike.includes(userId)}
-      onClick={() => voteQuestion(question, 'dislike', userId)}>
+      onClick={() => voteQuestion(question, 'dislike', userId)}
+    >
       <FontAwesome name="thumbs-down" /> {question.votes.dislike.length}
     </Button>
   </ButtonGroup>

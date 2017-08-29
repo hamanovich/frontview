@@ -78,7 +78,8 @@ class CommentForm extends Component {
             <Button
               type="submit"
               bsStyle="info"
-              bsSize="large">Add a Comment</Button>
+              bsSize="large"
+            >Add a Comment</Button>
           </Form>
         </Col>
       </Row>

@@ -108,7 +108,10 @@ export const getSearchedQuestions = query =>
 
 export const voteQuestion = (question, action, userId) =>
   dispatch => axios.put(`/api/question/${question.id}/vote`, { question, action, userId })
-    .then(res => action === 'like'
-      ? dispatch(voteLike(res.data))
-      : dispatch(voteDislike(res.data))
+    .then((res) => {
+      const vote = action === 'like'
+        ? dispatch(voteLike(res.data))
+        : dispatch(voteDislike(res.data));
+      return vote;
+    }
     );

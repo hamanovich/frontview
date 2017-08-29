@@ -40,8 +40,8 @@ class AccountEdit extends Component {
 
     getUser(initialValues.username)
       .then((res) => {
-        const { username, email, first_name, last_name, primary_skill, job_function, skype, phone, notes } = res.user;
-        initialize({ username, email, first_name, last_name, primary_skill, job_function, skype, phone, notes });
+        const { username, email, firstName, lastName, primarySkill, jobFunction, skype, phone, notes } = res.user;
+        initialize({ username, email, firstName, lastName, primarySkill, jobFunction, skype, phone, notes });
       });
   }
 
@@ -96,7 +96,7 @@ class AccountEdit extends Component {
                 label="First name:"
                 component={TextField}
                 type="text"
-                name="first_name"
+                name="firstName"
                 placeholder="Type your first name"
               />
             </Col>
@@ -106,7 +106,7 @@ class AccountEdit extends Component {
                 label="Last name:"
                 component={TextField}
                 type="text"
-                name="last_name"
+                name="lastName"
                 placeholder="Type your surname"
               />
             </Col>
@@ -118,7 +118,7 @@ class AccountEdit extends Component {
                 label="Primary skill:"
                 component={TextField}
                 type="text"
-                name="primary_skill"
+                name="primarySkill"
                 placeholder="Type your primary skill"
               />
             </Col>
@@ -128,7 +128,7 @@ class AccountEdit extends Component {
                 label="Job function:"
                 component={TextField}
                 type="text"
-                name="job_function"
+                name="jobFunction"
                 placeholder="Type your job function"
               />
             </Col>
@@ -183,7 +183,8 @@ class AccountEdit extends Component {
             type="submit"
             bsStyle="primary"
             bsSize="large"
-            disabled={isLoading}>Update profile</Button>
+            disabled={isLoading}
+          >Update profile</Button>
         </Form>
       </div>
     );

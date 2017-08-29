@@ -105,7 +105,8 @@ class Reset extends Component {
           type="submit"
           bsStyle="warning"
           bsSize="large"
-          disabled={isLoading}>Reset</Button>
+          disabled={isLoading}
+        >Reset</Button>
       </Form>
     );
   }

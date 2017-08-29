@@ -55,6 +55,31 @@ export default (WrappedComponent) => {
       }
     }
 
+    onPageSelect = (activePage) => {
+      const { addFlashMessage, getQuestions, match } = this.props;
+
+      getQuestions(activePage)
+        .then(
+        ({ pages, count }) => {
+          this.setState({
+            pagination: { pages, activePage, count }
+          });
+
+          if (Number(match.params.page) !== activePage) {
+            this.context.router.history.push(`/questions/page/${activePage}`);
+          }
+        },
+        (err) => {
+          addFlashMessage({
+            type: 'error',
+            text: err.response.data.error
+          });
+
+          this.setState({ questions: [] });
+        }
+        );
+    };
+
     getQueryQuestions = (query) => {
       const { getSearchedQuestions, addFlashMessage, questions } = this.props;
       const { history } = this.context.router;
@@ -75,31 +100,6 @@ export default (WrappedComponent) => {
           }
         }
       );
-    };
-
-    onPageSelect = (activePage) => {
-      const { addFlashMessage, getQuestions, match } = this.props;
-
-      getQuestions(activePage)
-        .then(
-          ({ pages, count }) => {
-            this.setState({
-              pagination: { pages, activePage, count }
-            });
-
-            if (Number(match.params.page) !== activePage) {
-              this.context.router.history.push(`/questions/page/${activePage}`);
-            }
-          },
-          (err) => {
-            addFlashMessage({
-              type: 'error',
-              text: err.response.data.error
-            });
-
-            this.setState({ questions: [] });
-          }
-        );
     };
 
     filter = (filter, tag = '') => {

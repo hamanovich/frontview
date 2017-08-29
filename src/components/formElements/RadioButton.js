@@ -13,8 +13,7 @@ const RadioButton = ({
   options,
   meta: { touched, error, warning }
 }) => (
-  <FormGroup
-    validationState={touched && error ? 'error' : touched && !error ? 'success' : null}>
+  <FormGroup validationState={touched && error ? 'error' : touched && !error ? 'success' : null}>
     <ControlLabel>{label}</ControlLabel>
     {map(options, o => (
       <Radio

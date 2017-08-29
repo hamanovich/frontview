@@ -61,7 +61,8 @@ class Forgot extends Component {
           type="submit"
           bsStyle="warning"
           bsSize="large"
-          disabled={isLoading}>Send a reset</Button>
+          disabled={isLoading}
+        >Send a reset</Button>
       </Form>
     );
   }

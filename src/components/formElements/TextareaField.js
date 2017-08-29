@@ -20,7 +20,8 @@ const TextareaField = ({
   <FormGroup
     controlId={`label-${input.name}`}
     validationState={touched && error ? 'error' :
-      touched && !error ? 'success' : null}>
+      touched && !error ? 'success' : null}
+  >
     <ControlLabel>{label}</ControlLabel>
     <FormControl
       {...input}
