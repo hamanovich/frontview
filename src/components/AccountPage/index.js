@@ -21,6 +21,9 @@ const AccountPage = ({ user }) => (
         <Link to={`/questions/author/${user.username}`} className="list-group-item">
           <FontAwesome name="copyright" /> Your Questions
         </Link>
+        <Link to={`/comments/${user.username}`} className="list-group-item">
+          <FontAwesome name="comments-o" /> Your Comments
+        </Link>
         <Link to="/questions/add" className="list-group-item">
           <FontAwesome name="file-text-o" /> Add question
         </Link>

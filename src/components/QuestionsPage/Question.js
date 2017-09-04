@@ -110,10 +110,13 @@ class Question extends Component {
           <Well onClick={() => this.open(question.notes, 'notes')}>
             <MarkdownRenderer markdown={question.notes} />
           </Well>}
-        {question.author && <small><strong>Author</strong>: {question.author.username}</small>}
+        {question.author && <small><strong>Author</strong>:
+          <Link to={`/questions/author/${question.author.username}`}>{question.author.username}</Link>
+        </small>
+        }
 
         <Link to={`/questions/${question.slug}/one`} className="pull-right">
-          <FontAwesome name="comments-o" /> {question.comments && question.comments.length}
+          <FontAwesome name="comments-o" /> {question && question.comments.length}
         </Link>
 
         <hr />

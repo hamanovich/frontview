@@ -36,6 +36,5 @@ function autopopulate(next) {
 }
 
 commentSchema.pre('find', autopopulate);
-commentSchema.pre('findOne', autopopulate);
 
 module.exports = mongoose.model('comment', commentSchema);

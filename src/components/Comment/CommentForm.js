@@ -18,8 +18,12 @@ class CommentForm extends Component {
     addComment: PropTypes.func.isRequired,
     getQuestion: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
-    question: PropTypes.object.isRequired,
+    question: PropTypes.object,
     initialize: PropTypes.func.isRequired
+  };
+
+  static defaultProps = {
+    question: null
   };
 
   static contextTypes = {

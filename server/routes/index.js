@@ -33,6 +33,7 @@ router.get('/questions/:type/:tag', catchErrors(questionsController.getQuestions
 router.put('/question/:id/vote', catchErrors(questionsController.voteQuestion));
 router.delete('/question/:id', questionsController.remove);
 
+router.get('/comments/:username', catchErrors(commentsController.getCommentsByAuthor));
 router.post('/comments/add', authenticate, catchErrors(commentsController.add));
 
 router.get('/search', questionsController.searchQuestions);

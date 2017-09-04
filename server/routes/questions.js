@@ -6,7 +6,7 @@ exports.getQuestions = async (req, res) => {
   const limit = 2;
   const skip = (page * limit) - limit;
   const countPromise = Question.count();
-  const questionsPromise = Question.find().skip(skip).limit(limit).populate('comments');
+  const questionsPromise = Question.find().skip(skip).limit(limit);
   const [questions, count] = await Promise.all([questionsPromise, countPromise]);
   const pages = Math.ceil(count / limit);
 
@@ -32,8 +32,7 @@ exports.getQuestionById = async (req, res) => {
 };
 
 exports.getQuestionBySlug = async (req, res) => {
-  const question = await Question.findOne({ slug: req.params.slug })
-    .populate('author comments');
+  const question = await Question.findOne({ slug: req.params.slug });
 
   if (question) {
     res.json(question);

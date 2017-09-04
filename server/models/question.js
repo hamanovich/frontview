@@ -83,13 +83,6 @@ questionSchema.statics.getListByType = function (type) {
   ]);
 };
 
-questionSchema.statics.getListByAuthor = function () {
-  return this.aggregate([
-    { $unwind: '$author' },
-    { $group: { _id: '$author', count: { $sum: 1 } } }
-  ]);
-};
-
 questionSchema.statics.getTopQuestions = function () {
   return this.aggregate([
     { $lookup: { from: 'users', localField: '_id', foreignField: 'votes.like', as: 'favourite' } },
@@ -112,6 +105,5 @@ function autopopulate(next) {
 questionSchema.pre('find', autopopulate);
 questionSchema.pre('findOne', autopopulate);
 questionSchema.pre('findByIdAndUpdate', autopopulate);
-questionSchema.pre('getTopQuestions', autopopulate);
 
 export default mongoose.model('question', questionSchema);

@@ -14,7 +14,7 @@ const QuestionsAuthor = ({
 }) => (
   <div>
     <PageHeader>
-      <FontAwesome name="file-text-o" /> Only Your Questions
+      <FontAwesome name="file-text-o" /> {auth.user.username}&apos;s Questions
   </PageHeader>
 
     <Questions
