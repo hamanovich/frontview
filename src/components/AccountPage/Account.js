@@ -11,7 +11,7 @@ import Image from 'react-bootstrap/lib/Image';
 import Well from 'react-bootstrap/lib/Well';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
 
-import { removeUser } from '../../actions/signup';
+import { getUser, removeUser } from '../../actions/signup';
 import { addFlashMessage } from '../../actions/flash';
 import { logout } from '../../actions/auth';
 
@@ -27,6 +27,7 @@ class Account extends Component {
       lastName: PropTypes.string,
       gravatar: PropTypes.string
     }).isRequired,
+    getUser: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
     removeUser: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired
@@ -35,6 +36,14 @@ class Account extends Component {
   state = {
     modal: false
   };
+
+  componentDidMount() {
+    const { user, getUser } = this.props;
+
+    if (user.gravatar) return;
+
+    getUser(user.username);
+  }
 
   close = () => {
     this.setState({ modal: false });
@@ -127,4 +136,4 @@ class Account extends Component {
 
 const mapStateToProps = state => ({ user: state.auth.user });
 
-export default connect(mapStateToProps, { removeUser, logout, addFlashMessage })(Account);
+export default connect(mapStateToProps, { getUser, removeUser, logout, addFlashMessage })(Account);

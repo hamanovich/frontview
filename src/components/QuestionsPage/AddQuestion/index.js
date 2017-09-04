@@ -48,7 +48,7 @@ class AddQuestion extends Component {
     showModal: false
   };
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     const { history } = this.context.router;
     const { getQuestionById, addFlashMessage, match } = this.props;
 

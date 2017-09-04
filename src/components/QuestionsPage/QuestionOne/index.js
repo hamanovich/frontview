@@ -7,11 +7,11 @@ import map from 'lodash/map';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
 import Panel from 'react-bootstrap/lib/Panel';
 import PanelGroup from 'react-bootstrap/lib/PanelGroup';
-
+import Badge from 'react-bootstrap/lib/Badge';
 
 import Question from '../Question';
-import CommentForm from './CommentForm';
-import Comment from './Comment';
+import CommentForm from '../../Comment/CommentForm';
+import Comment from '../../Comment/Comment';
 
 import { getQuestionBySlug, editQuestionField, voteQuestion } from '../../../actions/questions';
 import { addComment } from '../../../actions/comments';
@@ -75,7 +75,7 @@ class QuestionOne extends Component {
 
   render() {
     const { question, addComment, editQuestionField, voteQuestion, user } = this.props;
-    const panelHeader = (<span><FontAwesome name="comments-o" /> Comments</span>);
+    const panelHeader = (<span><FontAwesome name="comments-o" /> Comments <Badge>{question.comments && question.comments.length}</Badge></span>);
     const panelAddHeader = (<span><FontAwesome name="commenting-o" /> Add comment</span>);
 
     return (
@@ -90,14 +90,16 @@ class QuestionOne extends Component {
         />
 
         <PanelGroup defaultActiveKey="1" accordion>
-          <Panel header={panelHeader} eventKey="1" bsStyle="info">
-            {map(question.comments, comment => (
-              <Comment
-                comment={comment}
-                key={comment._id}
-              />
-            ))}
-          </Panel>
+          {question.comments && question.comments.length > 0 && (
+            <Panel header={panelHeader} eventKey="1" bsStyle="info">
+              {map(question.comments, comment => (
+                <Comment
+                  comment={comment}
+                  key={comment._id}
+                />
+              ))}
+            </Panel>
+          )}
           {user.username && (
             <Panel header={panelAddHeader} eventKey="2" bsStyle="primary">
               <CommentForm
@@ -119,7 +121,6 @@ const mapStateToProps = (state, props) => {
 
   return {
     user: state.auth.user,
-    gravatar: state.auth.user.gravatar,
     question
   };
 };

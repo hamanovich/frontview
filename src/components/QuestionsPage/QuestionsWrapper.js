@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { addFlashMessage } from '../../actions/flash';
 import {
   getQuestions,
+  getTopQuestions,
   editQuestionField,
   getSearchedQuestions,
   getQuestionsByFilter,
@@ -16,6 +17,7 @@ export default (WrappedComponent) => {
     static propTypes = {
       questions: PropTypes.array.isRequired,
       getQuestions: PropTypes.func.isRequired,
+      getTopQuestions: PropTypes.func.isRequired,
       getQuestionsByFilter: PropTypes.func.isRequired,
       getSearchedQuestions: PropTypes.func.isRequired,
       addFlashMessage: PropTypes.func.isRequired,
@@ -40,16 +42,22 @@ export default (WrappedComponent) => {
       }
     };
 
-    componentWillMount() {
-      const { match } = this.props;
+    componentDidMount() {
+      const { match, getTopQuestions } = this.props;
       const { search } = this.context.router.route.location;
-      const { filter, tag, page } = match.params;
+      const { filter, tag, page = 1 } = match.params;
       const searchQuery = new URLSearchParams(search).get('q');
+
+      console.log(match, this.props);
 
       if (searchQuery) {
         this.getQueryQuestions(searchQuery);
       } else if (filter) {
         this.filter(filter, tag);
+      } else if (match.path === '/questions/top') {
+        getTopQuestions((res) => {
+          console.log('RES', res);
+        });
       } else {
         this.onPageSelect(Number(page));
       }
@@ -149,6 +157,7 @@ export default (WrappedComponent) => {
   return connect(mapStateToProps, {
     addFlashMessage,
     getQuestions,
+    getTopQuestions,
     getQuestionsByFilter,
     editQuestionField,
     voteQuestion,

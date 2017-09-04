@@ -39,7 +39,7 @@
     "html-to-text": "^3.3.0",
     "jsonwebtoken": "^7.4.3",
     "juice": "^4.1.0",
-    "jwt-decode": "^2.2.0",
+    "jwt-decode": "^2.1.0",
     "lodash": "^4.17.4",
     "md5": "^2.2.1",
     "moment": "^2.18.1",

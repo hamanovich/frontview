@@ -7,9 +7,9 @@ import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 
-import { TextField, TextareaField } from '../../formElements';
+import { TextField, TextareaField } from '../formElements';
 
-import validate from '../../../validations/comment';
+import validate from '../../validations/comment';
 
 class CommentForm extends Component {
   static propTypes = {

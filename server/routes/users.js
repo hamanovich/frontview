@@ -63,7 +63,8 @@ exports.getUser = async (req, res) => {
       phone: user.phone,
       notes: user.notes,
       role: user.role,
-      gravatar: user.gravatar
+      gravatar: user.gravatar,
+      votes: user.votes
     };
 
     res.json({ user: userData });

@@ -87,6 +87,7 @@ class Question extends Component {
       </div>
     );
 
+
     return (
       <Panel header={panelHeader} footer={panelFooter}>
         <ListGroup fill>
@@ -112,7 +113,7 @@ class Question extends Component {
         {question.author && <small><strong>Author</strong>: {question.author.username}</small>}
 
         <Link to={`/questions/${question.slug}/one`} className="pull-right">
-          <FontAwesome name="comments-o" /> {question.comments.length}
+          <FontAwesome name="comments-o" /> {question.comments && question.comments.length}
         </Link>
 
         <hr />

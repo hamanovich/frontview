@@ -38,6 +38,8 @@ class AccountEdit extends Component {
   componentDidMount() {
     const { getUser, initialValues, initialize } = this.props;
 
+    if (initialValues.gravatar) return;
+
     getUser(initialValues.username)
       .then((res) => {
         const { username, email, firstName, lastName, primarySkill, jobFunction, skype, phone, notes } = res.user;
@@ -59,7 +61,7 @@ class AccountEdit extends Component {
 
         getUser(initialValues.username).then(() => this.context.router.history.push('/me'));
       },
-      err => this.setState({ errors: err.response.data, isLoading: false })
+      err => this.setState({ errors: err.response, isLoading: false })
     );
   };
 

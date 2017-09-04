@@ -25,6 +25,7 @@ router.patch('/question/:id/edit', authenticate, catchErrors(questionsController
 router.get('/question/:id', catchErrors(questionsController.getQuestionById));
 router.get('/question/:slug/one', catchErrors(questionsController.getQuestionBySlug));
 router.get('/questions', catchErrors(questionsController.getQuestions));
+router.get('/questions/top', catchErrors(questionsController.getTopQuestions));
 router.get('/questions/page/:page', catchErrors(questionsController.getQuestions));
 router.get('/questions/:type', catchErrors(questionsController.getQuestionsByFilter));
 router.get('/questions/:type/:tag', catchErrors(questionsController.getQuestionsByFilter));

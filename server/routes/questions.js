@@ -33,7 +33,7 @@ exports.getQuestionById = async (req, res) => {
 
 exports.getQuestionBySlug = async (req, res) => {
   const question = await Question.findOne({ slug: req.params.slug })
-  .populate('author comments');
+    .populate('author comments');
 
   if (question) {
     res.json(question);
@@ -129,7 +129,7 @@ exports.voteQuestion = async (req, res) => {
   const votes = question.votes[action].map(obj => obj.toString());
   const operator = votes.includes(userId) ? '$pull' : '$addToSet';
   const newQuestion = await Question.findByIdAndUpdate(req.params.id,
-     { [operator]: { [`votes.${action}`]: userId } },
+    { [operator]: { [`votes.${action}`]: userId } },
     { new: true }
   ).populate('author comments');
   const user = await User.findByIdAndUpdate(userId,
@@ -143,4 +143,10 @@ exports.voteQuestion = async (req, res) => {
   }
 
   res.status(500).json({ error: 'You can not vote!' });
+};
+
+exports.getTopQuestions = async (req, res) => {
+  const questions = await Question.getTopQuestions();
+
+  res.send(questions);
 };

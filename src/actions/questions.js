@@ -56,6 +56,10 @@ export const getQuestions = (page = 1) =>
       return { count, pages };
     });
 
+export const getTopQuestions = () =>
+  dispatch => axios.get('/api/questions/top/')
+    .then(res => dispatch(addQuestions(res.data)));
+
 export const getQuestionsByFilter = (filter, tag = '') =>
   dispatch => axios.get(`/api/questions/${filter}/${tag}`)
     .then((res) => {
@@ -67,15 +71,13 @@ export const getQuestionsByFilter = (filter, tag = '') =>
 
 export const getQuestionById = id =>
   dispatch => axios.get(`/api/question/${id}`)
-    .then(
-    res => dispatch(questionGot(res.data)),
-    err => err.response);
+    .then(res => dispatch(questionGot(res.data)))
+    .catch(err => err.response);
 
 export const getQuestionBySlug = slug =>
   dispatch => axios.get(`/api/question/${slug}/one`)
-    .then(
-    res => dispatch(questionGot(res.data)),
-    err => err.response);
+    .then(res => dispatch(questionGot(res.data)))
+    .catch(err => err.response);
 
 export const addQuestion = question =>
   dispatch => axios.post('/api/questions/add', question)
@@ -87,10 +89,7 @@ export const editQuestion = data =>
 
 export const editQuestionField = (id, field, value) =>
   dispatch => axios.patch(`/api/question/${id}/edit`, { field, value, lastModified: new Date() })
-    .then((res) => {
-      dispatch(questionEdited(res.data));
-      return res.data;
-    });
+    .then(res => dispatch(questionEdited(res.data)));
 
 export const removeQuestion = id =>
   dispatch => axios.delete(`/api/question/${id}`)
@@ -107,11 +106,8 @@ export const getSearchedQuestions = query =>
     });
 
 export const voteQuestion = (question, action, userId) =>
-  dispatch => axios.put(`/api/question/${question.id}/vote`, { question, action, userId })
-    .then((res) => {
-      const vote = action === 'like'
-        ? dispatch(voteLike(res.data))
-        : dispatch(voteDislike(res.data));
-      return vote;
-    }
+  dispatch => axios.put(`/api/question/${question._id}/vote`, { question, action, userId })
+    .then(res => action === 'like'
+      ? dispatch(voteLike(res.data))
+      : dispatch(voteDislike(res.data))
     );

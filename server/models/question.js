@@ -83,6 +83,20 @@ questionSchema.statics.getListByType = function (type) {
   ]);
 };
 
+questionSchema.statics.getTopQuestions = function () {
+  return this.aggregate([
+    { $lookup: { from: 'users', localField: '_id', foreignField: 'questions', as: 'author' } },
+    { $lookup: { from: 'comment', localField: '_id', foreignField: 'question', as: 'comments' } },
+    { $lookup: { from: 'users', localField: '_id', foreignField: 'votes.like', as: 'favourite' } },
+    {
+      $addFields: {
+        size: { $size: { $ifNull: ['$favourite', []] } }
+      }
+    },
+    { $sort: { size: -1 } }
+  ]);
+};
+
 questionSchema.virtual('comments', {
   ref: 'comment',
   localField: '_id',
@@ -97,5 +111,6 @@ function autopopulate(next) {
 questionSchema.pre('find', autopopulate);
 questionSchema.pre('findOne', autopopulate);
 questionSchema.pre('findByIdAndUpdate', autopopulate);
+questionSchema.pre('getTopQuestions', autopopulate);
 
 export default mongoose.model('question', questionSchema);
