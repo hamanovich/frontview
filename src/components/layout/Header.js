@@ -93,7 +93,9 @@ class Header extends Component {
           </MenuItem>
           </IndexLinkContainer>
           <LinkContainer to="/me/edit">
-            <MenuItem>Edit profile</MenuItem>
+            <MenuItem>
+              <FontAwesome name="pencil-square-o" /> Edit profile
+            </MenuItem>
           </LinkContainer>
           <MenuItem divider />
           <MenuItem onClick={logout}>

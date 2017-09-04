@@ -9,6 +9,7 @@ import {
   editQuestionField,
   getSearchedQuestions,
   getQuestionsByFilter,
+  getQuestionsByAuthor,
   voteQuestion
 } from '../../actions/questions';
 
@@ -19,6 +20,7 @@ export default (WrappedComponent) => {
       getQuestions: PropTypes.func.isRequired,
       getTopQuestions: PropTypes.func.isRequired,
       getQuestionsByFilter: PropTypes.func.isRequired,
+      getQuestionsByAuthor: PropTypes.func.isRequired,
       getSearchedQuestions: PropTypes.func.isRequired,
       addFlashMessage: PropTypes.func.isRequired,
       match: PropTypes.object.isRequired
@@ -43,21 +45,26 @@ export default (WrappedComponent) => {
     };
 
     componentDidMount() {
-      const { match, getTopQuestions } = this.props;
-      const { search } = this.context.router.route.location;
+      const { match, getTopQuestions, getQuestionsByAuthor, addFlashMessage } = this.props;
+      const { route, history } = this.context.router;
       const { filter, tag, page = 1 } = match.params;
-      const searchQuery = new URLSearchParams(search).get('q');
-
-      console.log(match, this.props);
+      const searchQuery = new URLSearchParams(route.location.search).get('q');
 
       if (searchQuery) {
         this.getQueryQuestions(searchQuery);
       } else if (filter) {
         this.filter(filter, tag);
       } else if (match.path === '/questions/top') {
-        getTopQuestions((res) => {
-          console.log('RES', res);
-        });
+        getTopQuestions();
+      } else if (match.params.username) {
+        getQuestionsByAuthor(match.params.username)
+          .catch((err) => {
+            addFlashMessage({
+              type: 'error',
+              text: err.response.data.error
+            });
+            history.push('/questions');
+          });
       } else {
         this.onPageSelect(Number(page));
       }
@@ -159,6 +166,7 @@ export default (WrappedComponent) => {
     getQuestions,
     getTopQuestions,
     getQuestionsByFilter,
+    getQuestionsByAuthor,
     editQuestionField,
     voteQuestion,
     getSearchedQuestions

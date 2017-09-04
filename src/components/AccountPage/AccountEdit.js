@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import FontAwesome from 'react-fontawesome';
 
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
@@ -71,7 +72,9 @@ class AccountEdit extends Component {
 
     return (
       <div>
-        <PageHeader>Edit your account</PageHeader>
+        <PageHeader>
+          <FontAwesome name="pencil-square-o" /> Edit your account
+        </PageHeader>
 
         <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
           <Field

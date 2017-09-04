@@ -96,7 +96,7 @@ exports.remove = async (req, res) => {
     return;
   }
 
-  res.status(500).res({ error: 'Question didn\'t remove' });
+  res.status(500).json({ error: 'Question didn\'t remove' });
 };
 
 exports.getQuestionsByFilter = async (req, res) => {
@@ -107,6 +107,20 @@ exports.getQuestionsByFilter = async (req, res) => {
   const [tags, questions] = await Promise.all([typePromise, questionsPromise]);
 
   res.json({ tags, questions });
+};
+
+exports.getQuestionsByAuthor = async (req, res) => {
+  const { username } = req.params;
+  const user = await User.findOne({ username });
+
+  if (!user) {
+    res.status(404).json({ error: `User ${username} didn't find` });
+    return;
+  }
+
+  const questions = await Question.find({ author: user._id });
+
+  res.json(questions);
 };
 
 exports.searchQuestions = async (req, res) => {

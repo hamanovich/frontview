@@ -14,11 +14,17 @@ import './QuestionsTop.css';
 
 const QuestionsTop = ({ questions }) => (
   <div>
-    <PageHeader>Top 10 Questions</PageHeader>
+    <PageHeader>
+      <FontAwesome name="exclamation" /> Top 10 Questions
+    </PageHeader>
 
     <ListGroup>
       {map(questions, (question, index) => (
-        <ListGroupItem header={`${index + 1}. ${question.question}`} href={`/questions/${question.slug}/one`}>
+        <ListGroupItem
+          header={`${index + 1}. ${question.question}`}
+          href={`/questions/${question.slug}/one`}
+          key={question.slug}
+        >
           <span className="label-group">
             <Label bsStyle="warning">{question.practice}</Label>
           </span>

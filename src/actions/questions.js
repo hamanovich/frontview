@@ -71,13 +71,15 @@ export const getQuestionsByFilter = (filter, tag = '') =>
 
 export const getQuestionById = id =>
   dispatch => axios.get(`/api/question/${id}`)
-    .then(res => dispatch(questionGot(res.data)))
-    .catch(err => err.response);
+    .then(res => dispatch(questionGot(res.data)));
 
 export const getQuestionBySlug = slug =>
   dispatch => axios.get(`/api/question/${slug}/one`)
-    .then(res => dispatch(questionGot(res.data)))
-    .catch(err => err.response);
+    .then(res => dispatch(questionGot(res.data)));
+
+export const getQuestionsByAuthor = username =>
+  dispatch => axios.get(`/api/questions/author/${username}`)
+    .then(res => dispatch(addQuestions(res.data)));
 
 export const addQuestion = question =>
   dispatch => axios.post('/api/questions/add', question)

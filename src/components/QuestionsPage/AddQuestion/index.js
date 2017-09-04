@@ -145,7 +145,9 @@ class AddQuestion extends Component {
       <Row>
         <Col md={6} mdOffset={3}>
           <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
-            <PageHeader>{_id ? 'Edit question' : 'Add new question'}</PageHeader>
+            <PageHeader>
+              <FontAwesome name="question-circle-o" /> {_id ? 'Edit question' : 'Add new question'}
+            </PageHeader>
             <Field
               label="Question*:"
               component={TextField}

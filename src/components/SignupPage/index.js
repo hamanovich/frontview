@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
+import FontAwesome from 'react-fontawesome';
 
 import { userSignup, isUserExists } from '../../actions/signup';
 import { addFlashMessage } from '../../actions/flash';
@@ -14,7 +15,9 @@ import SignupForm from './SignupForm';
 const SignupPage = ({ userSignup, addFlashMessage, isUserExists }) => (
   <Row>
     <Col md={6} mdOffset={3}>
-      <PageHeader>Register. Welcome</PageHeader>
+      <PageHeader>
+        <FontAwesome name="user-plus" /> Register. Welcome
+      </PageHeader>
       <SignupForm
         userSignup={userSignup}
         addFlashMessage={addFlashMessage}

@@ -6,17 +6,16 @@ import PageHeader from 'react-bootstrap/lib/PageHeader';
 
 import Questions from './Questions';
 
-const QuestionsSearch = ({
+const QuestionsAuthor = ({
   auth,
   questions,
   editQuestionField,
-  voteQuestion,
-  state
+  voteQuestion
 }) => (
   <div>
     <PageHeader>
-      <FontAwesome name="search-plus" /> Search: &apos;{state.searchQuery}&apos;
-    </PageHeader>
+      <FontAwesome name="file-text-o" /> Only Your Questions
+  </PageHeader>
 
     <Questions
       user={auth.user}
@@ -27,15 +26,14 @@ const QuestionsSearch = ({
   </div>
 );
 
-QuestionsSearch.propTypes = {
+QuestionsAuthor.propTypes = {
   auth: PropTypes.shape({
     user: PropTypes.object,
     isAuthenticated: PropTypes.bool.isRequired
   }).isRequired,
   questions: PropTypes.array.isRequired,
   editQuestionField: PropTypes.func.isRequired,
-  voteQuestion: PropTypes.func.isRequired,
-  state: PropTypes.object.isRequired
+  voteQuestion: PropTypes.func.isRequired
 };
 
-export default QuestionsSearch;
+export default QuestionsAuthor;

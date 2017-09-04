@@ -73,8 +73,11 @@ class Account extends Component {
     return (
       <div>
         <PageHeader>{user.firstName && user.lastName ?
-          <span>{user.firstName} {user.lastName}</span> :
-          'Your account'}</PageHeader>
+          <span>
+            <FontAwesome name="user" /> {user.firstName} {user.lastName}
+          </span> :
+          'Your account'}
+        </PageHeader>
 
         <Image src={user.gravatar} thumbnail />
 

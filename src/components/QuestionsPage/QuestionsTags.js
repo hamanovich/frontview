@@ -14,7 +14,7 @@ const QuestionsTags = ({
   state
 }) => (
   <div>
-    <PageHeader>Questions</PageHeader>
+    <PageHeader>Questions by &apos;{state.filters.filter}&apos;</PageHeader>
 
     <QuestionsBar
       active={state.filters.tag}
