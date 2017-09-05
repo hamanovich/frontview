@@ -17,14 +17,14 @@ const userSchema = new Schema({
     trim: true,
     required: 'Email field is required'
   },
-  password_digest: {
+  passwordDigest: {
     type: String,
     required: 'Password field is required'
   },
-  first_name: String,
-  last_name: String,
-  primary_skill: String,
-  job_function: String,
+  firstName: String,
+  lastName: String,
+  primarySkill: String,
+  jobFunction: String,
   skype: String,
   phone: String,
   notes: {
@@ -42,7 +42,20 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'question',
     required: 'You must supply a question'
-  }]
+  }],
+  votes: {
+    like: [{
+      type: Schema.Types.ObjectId,
+      ref: 'question'
+    }],
+    dislike: [{
+      type: Schema.Types.ObjectId,
+      ref: 'question'
+    }]
+  }
+}, {
+  toJSON: { virtuals: true },
+  toOjbect: { virtuals: true }
 });
 
 userSchema.virtual('gravatar').get(function () {

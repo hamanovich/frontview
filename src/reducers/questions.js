@@ -5,7 +5,9 @@ import {
   QUESTION_ADD,
   QUESTION_EDIT,
   QUESTION_GET,
-  QUESTION_REMOVE
+  QUESTION_REMOVE,
+  VOTE_LIKE,
+  VOTE_DISLIKE
 } from '../actions/types';
 
 export default (state = [], action) => {
@@ -32,6 +34,8 @@ export default (state = [], action) => {
       return [action.question];
 
     case QUESTION_EDIT:
+    case VOTE_LIKE:
+    case VOTE_DISLIKE:
       const editIndex = state.findIndex(question => question._id === action.question._id);
 
       if (editIndex > -1) {

@@ -76,29 +76,6 @@ class AddQuestion extends Component {
     }
   };
 
-  openModel = () => {
-    this.setState({ showModal: true });
-  };
-
-  closeModal = () => {
-    this.setState({ showModal: false });
-  };
-
-  remove = (id) => {
-    const { removeQuestion, addFlashMessage } = this.props;
-    const { history } = this.context.router;
-
-    removeQuestion(id).then(() => {
-      addFlashMessage({
-        type: 'success',
-        text: `Question with id=${id} was successfully removed`
-      });
-
-      history.push('/questions');
-    }
-    );
-  };
-
   onSubmit = (values) => {
     const { userId, match, logout, addQuestion, editQuestion, addFlashMessage } = this.props;
     const { history } = this.context.router;
@@ -136,6 +113,29 @@ class AddQuestion extends Component {
     }
   }
 
+  openModel = () => {
+    this.setState({ showModal: true });
+  };
+
+  closeModal = () => {
+    this.setState({ showModal: false });
+  };
+
+  remove = (id) => {
+    const { removeQuestion, addFlashMessage } = this.props;
+    const { history } = this.context.router;
+
+    removeQuestion(id).then(() => {
+      addFlashMessage({
+        type: 'success',
+        text: `Question with id=${id} was successfully removed`
+      });
+
+      history.push('/questions');
+    }
+    );
+  };
+
   render() {
     const { isLoading } = this.state;
     const { match, handleSubmit } = this.props;
@@ -145,7 +145,9 @@ class AddQuestion extends Component {
       <Row>
         <Col md={6} mdOffset={3}>
           <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
-            <PageHeader>{_id ? 'Edit question' : 'Add new question'}</PageHeader>
+            <PageHeader>
+              <FontAwesome name="question-circle-o" /> {_id ? 'Edit question' : 'Add new question'}
+            </PageHeader>
             <Field
               label="Question*:"
               component={TextField}

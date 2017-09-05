@@ -31,11 +31,21 @@ exports.getQuestionById = async (req, res) => {
   }
 };
 
+exports.getQuestionBySlug = async (req, res) => {
+  const question = await Question.findOne({ slug: req.params.slug });
+
+  if (question) {
+    res.json(question);
+    return;
+  }
+
+  res.status(500).json({ error: `Question with slug='${req.params.slug}' didn't find` });
+};
+
 exports.add = async (req, res) => {
   const { question, skill, level, practice, answer, answers, notes, userId, lastModified } = req.body;
   const newQuestion = await Question.create({ question, skill, level, practice, answer, answers, notes, author: userId, lastModified });
-  const user = await User.findByIdAndUpdate(
-    { _id: userId },
+  const user = await User.findByIdAndUpdate(userId,
     { $push: { questions: newQuestion._id } },
     { safe: true, upsert: true, new: true }
   );
@@ -49,10 +59,7 @@ exports.add = async (req, res) => {
 };
 
 exports.edit = async (req, res) => {
-  const question = await Question.findByIdAndUpdate(
-    { _id: req.params.id },
-    req.body,
-    { new: true }).exec();
+  const question = await Question.findByIdAndUpdate(req.params.id, req.body, { new: true }).exec();
 
   await question.save();
 
@@ -81,14 +88,14 @@ exports.editField = async (req, res) => {
 
 exports.remove = async (req, res) => {
   const question = await Question.findByIdAndRemove({ _id: req.params.id });
-  const user = await User.findByIdAndUpdate({ _id: question.author }, { $pull: { questions: question._id } });
+  const user = await User.findByIdAndUpdate(question.author, { $pull: { questions: question._id } });
 
   if (question && user) {
     res.json(question);
     return;
   }
 
-  res.status(500).res({ error: 'Question didn\'t remove' });
+  res.status(500).json({ error: 'Question didn\'t remove' });
 };
 
 exports.getQuestionsByFilter = async (req, res) => {
@@ -101,6 +108,20 @@ exports.getQuestionsByFilter = async (req, res) => {
   res.json({ tags, questions });
 };
 
+exports.getQuestionsByAuthor = async (req, res) => {
+  const { username } = req.params;
+  const user = await User.findOne({ username });
+
+  if (!user) {
+    res.status(404).json({ error: `User ${username} didn't find` });
+    return;
+  }
+
+  const questions = await Question.find({ author: user._id });
+
+  res.json(questions);
+};
+
 exports.searchQuestions = async (req, res) => {
   const questions = await Question.find({
     $text: {
@@ -109,9 +130,36 @@ exports.searchQuestions = async (req, res) => {
   }, {
     score: { $meta: 'textScore' }
   })
-    .sort({
-      score: { $meta: 'textScore' }
-    });
+  .sort({
+    score: { $meta: 'textScore' }
+  });
 
   res.json(questions);
+};
+
+exports.voteQuestion = async (req, res) => {
+  const { action, question, userId } = req.body;
+  const votes = question.votes[action].map(obj => obj.toString());
+  const operator = votes.includes(userId) ? '$pull' : '$addToSet';
+  const newQuestion = await Question.findByIdAndUpdate(req.params.id,
+    { [operator]: { [`votes.${action}`]: userId } },
+    { new: true }
+  ).populate('author comments');
+  const user = await User.findByIdAndUpdate(userId,
+    { [operator]: { [`votes.${action}`]: question._id } },
+    { new: true }
+  ).populate('questions');
+
+  if (user && newQuestion) {
+    res.json(newQuestion);
+    return;
+  }
+
+  res.status(500).json({ error: 'You can not vote!' });
+};
+
+exports.getTopQuestions = async (req, res) => {
+  const questions = await Question.getTopQuestions();
+
+  res.send(questions);
 };

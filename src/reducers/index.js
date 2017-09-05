@@ -5,11 +5,13 @@ import { routerReducer } from 'react-router-redux';
 import flash from './flash';
 import auth from './auth';
 import questions from './questions';
+import comments from './comments';
 
 const reducer = combineReducers({
   flash,
   auth,
   questions,
+  comments,
   form: formReducer,
   routing: routerReducer
 });

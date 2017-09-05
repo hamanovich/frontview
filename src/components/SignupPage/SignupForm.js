@@ -27,6 +27,23 @@ class SignupForm extends Component {
     invalid: false
   };
 
+  onSubmit = (values) => {
+    const { addFlashMessage, userSignup } = this.props;
+
+    this.setState({ errors: {}, isLoading: true });
+
+    userSignup(values).then(
+      () => {
+        addFlashMessage({
+          type: 'success',
+          text: 'You have signed up successfully'
+        });
+        this.context.router.history.push('/');
+      },
+      err => this.setState({ errors: err.response.data, isLoading: false })
+    );
+  }
+
   checkUserExists = (e) => {
     const { isUserExists } = this.props;
     const { name, value } = e.target;
@@ -51,23 +68,6 @@ class SignupForm extends Component {
       this.setState({ errors });
     }
   };
-
-  onSubmit = (values) => {
-    const { addFlashMessage, userSignup } = this.props;
-
-    this.setState({ errors: {}, isLoading: true });
-
-    userSignup(values).then(
-      () => {
-        addFlashMessage({
-          type: 'success',
-          text: 'You have signed up successfully'
-        });
-        this.context.router.history.push('/');
-      },
-      err => this.setState({ errors: err.response.data, isLoading: false })
-    );
-  }
 
   render() {
     const { errors, isLoading, invalid } = this.state;
@@ -117,7 +117,8 @@ class SignupForm extends Component {
           type="submit"
           bsStyle="primary"
           bsSize="large"
-          disabled={isLoading || invalid}>Register</Button>
+          disabled={isLoading || invalid}
+        >Register</Button>
       </Form>
     );
   }

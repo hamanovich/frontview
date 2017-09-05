@@ -10,10 +10,11 @@ const QuestionsTags = ({
   auth,
   questions,
   editQuestionField,
+  voteQuestion,
   state
 }) => (
   <div>
-    <PageHeader>Questions</PageHeader>
+    <PageHeader>Questions by &apos;{state.filters.filter}&apos;</PageHeader>
 
     <QuestionsBar
       active={state.filters.tag}
@@ -27,6 +28,7 @@ const QuestionsTags = ({
       user={auth.user}
       questions={questions}
       editQuestionField={editQuestionField}
+      voteQuestion={voteQuestion}
     />
   </div>
 );
@@ -38,6 +40,7 @@ QuestionsTags.propTypes = {
   }).isRequired,
   questions: PropTypes.array.isRequired,
   editQuestionField: PropTypes.func.isRequired,
+  voteQuestion: PropTypes.func.isRequired,
   state: PropTypes.object.isRequired
 };
 

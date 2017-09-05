@@ -11,6 +11,7 @@ const TextField = ({
   label,
   placeholder,
   type,
+  defaultValue,
   handleBlur,
   errorState,
   readonly,
@@ -30,6 +31,7 @@ const TextField = ({
       id={`label-${input.name}`}
       type={type}
       readOnly={readonly}
+      value={defaultValue || input.value}
       onBlur={(e) => { handleBlur(e); input.onBlur(e); }}
     />
     {feedback && <FormControl.Feedback />}
@@ -49,7 +51,8 @@ TextField.propTypes = {
   readonly: PropTypes.bool,
   feedback: PropTypes.bool,
   label: PropTypes.string,
-  placeholder: PropTypes.string.isRequired,
+  defaultValue: PropTypes.string,
+  placeholder: PropTypes.string,
   type: PropTypes.string.isRequired,
   handleBlur: PropTypes.func,
   errorState: PropTypes.string,
@@ -67,6 +70,8 @@ TextField.defaultProps = {
   feedback: true,
   errorsVisible: true,
   label: '',
+  placeholder: '',
+  defaultValue: '',
   errorState: null
 };
 

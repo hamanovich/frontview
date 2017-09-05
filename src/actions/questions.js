@@ -5,7 +5,9 @@ import {
   QUESTION_ADD,
   QUESTION_EDIT,
   QUESTION_GET,
-  QUESTION_REMOVE
+  QUESTION_REMOVE,
+  VOTE_LIKE,
+  VOTE_DISLIKE
 } from './types';
 
 export const addQuestions = (questions, count = 0, pages = 0) => ({
@@ -35,14 +37,28 @@ export const questionRemoved = question => ({
   question
 });
 
+export const voteLike = question => ({
+  type: VOTE_LIKE,
+  question
+});
+
+export const voteDislike = question => ({
+  type: VOTE_DISLIKE,
+  question
+});
+
 export const getQuestions = (page = 1) =>
   dispatch => axios.get(`/api/questions/page/${page}`)
     .then((res) => {
       const { questions, count, pages } = res.data;
       dispatch(addQuestions(questions, count, pages));
 
-      return { questions, count, pages };
+      return { count, pages };
     });
+
+export const getTopQuestions = () =>
+  dispatch => axios.get('/api/questions/top/')
+    .then(res => dispatch(addQuestions(res.data)));
 
 export const getQuestionsByFilter = (filter, tag = '') =>
   dispatch => axios.get(`/api/questions/${filter}/${tag}`)
@@ -55,9 +71,15 @@ export const getQuestionsByFilter = (filter, tag = '') =>
 
 export const getQuestionById = id =>
   dispatch => axios.get(`/api/question/${id}`)
-    .then(
-      res => dispatch(questionGot(res.data)),
-      err => err.response);
+    .then(res => dispatch(questionGot(res.data)));
+
+export const getQuestionBySlug = slug =>
+  dispatch => axios.get(`/api/question/${slug}/one`)
+    .then(res => dispatch(questionGot(res.data)));
+
+export const getQuestionsByAuthor = username =>
+  dispatch => axios.get(`/api/questions/author/${username}`)
+    .then(res => dispatch(addQuestions(res.data)));
 
 export const addQuestion = question =>
   dispatch => axios.post('/api/questions/add', question)
@@ -69,10 +91,7 @@ export const editQuestion = data =>
 
 export const editQuestionField = (id, field, value) =>
   dispatch => axios.patch(`/api/question/${id}/edit`, { field, value, lastModified: new Date() })
-    .then((res) => {
-      dispatch(questionEdited(res.data));
-      return res.data;
-    });
+    .then(res => dispatch(questionEdited(res.data)));
 
 export const removeQuestion = id =>
   dispatch => axios.delete(`/api/question/${id}`)
@@ -87,3 +106,10 @@ export const getSearchedQuestions = query =>
 
       return res.data;
     });
+
+export const voteQuestion = (question, action, userId) =>
+  dispatch => axios.put(`/api/question/${question._id}/vote`, { question, action, userId })
+    .then(res => action === 'like'
+      ? dispatch(voteLike(res.data))
+      : dispatch(voteDislike(res.data))
+    );

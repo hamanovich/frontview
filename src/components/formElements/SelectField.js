@@ -17,7 +17,8 @@ const SelectField = ({
   <FormGroup
     controlId={input.name}
     validationState={touched && error ? 'error' :
-      touched && !error ? 'success' : null}>
+      touched && !error ? 'success' : null}
+  >
     <ControlLabel>{label}</ControlLabel>
     <select
       {...input}

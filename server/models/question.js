@@ -46,8 +46,14 @@ const questionSchema = new Schema({
     default: Date.now
   },
   votes: {
-    like: [Schema.Types.ObjectId],
-    dislike: [Schema.Types.ObjectId]
+    like: [{
+      type: Schema.Types.ObjectId,
+      ref: 'user'
+    }],
+    dislike: [{
+      type: Schema.Types.ObjectId,
+      ref: 'user'
+    }]
   }
 }, {
   toJSON: { virtuals: true },
@@ -77,12 +83,27 @@ questionSchema.statics.getListByType = function (type) {
   ]);
 };
 
+questionSchema.statics.getTopQuestions = function () {
+  return this.aggregate([
+    { $lookup: { from: 'users', localField: '_id', foreignField: 'votes.like', as: 'favourite' } },
+    { $addFields: { size: { $size: { $ifNull: ['$favourite', []] } } } },
+    { $sort: { size: -1 } }
+  ]);
+};
+
+questionSchema.virtual('comments', {
+  ref: 'comment',
+  localField: '_id',
+  foreignField: 'question'
+});
+
 function autopopulate(next) {
-  this.populate('author');
+  this.populate('author comments');
   next();
 }
 
 questionSchema.pre('find', autopopulate);
 questionSchema.pre('findOne', autopopulate);
+questionSchema.pre('findByIdAndUpdate', autopopulate);
 
 export default mongoose.model('question', questionSchema);

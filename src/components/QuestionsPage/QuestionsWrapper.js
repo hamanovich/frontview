@@ -5,22 +5,22 @@ import { connect } from 'react-redux';
 import { addFlashMessage } from '../../actions/flash';
 import {
   getQuestions,
+  getTopQuestions,
   editQuestionField,
   getSearchedQuestions,
-  getQuestionsByFilter
+  getQuestionsByFilter,
+  getQuestionsByAuthor,
+  voteQuestion
 } from '../../actions/questions';
 
 export default (WrappedComponent) => {
   class QuestionsWrapper extends Component {
     static propTypes = {
-      auth: PropTypes.shape({
-        user: PropTypes.object,
-        isAuthenticated: PropTypes.bool.isRequired
-      }).isRequired,
       questions: PropTypes.array.isRequired,
       getQuestions: PropTypes.func.isRequired,
+      getTopQuestions: PropTypes.func.isRequired,
       getQuestionsByFilter: PropTypes.func.isRequired,
-      editQuestionField: PropTypes.func.isRequired,
+      getQuestionsByAuthor: PropTypes.func.isRequired,
       getSearchedQuestions: PropTypes.func.isRequired,
       addFlashMessage: PropTypes.func.isRequired,
       match: PropTypes.object.isRequired
@@ -44,20 +44,63 @@ export default (WrappedComponent) => {
       }
     };
 
-    componentWillMount() {
-      const { match } = this.props;
+    componentDidMount() {
+      const { match, getTopQuestions } = this.props;
       const { search } = this.context.router.route.location;
-      const { filter, tag, page } = match.params;
+      const { filter, tag, page = 1 } = match.params;
       const searchQuery = new URLSearchParams(search).get('q');
 
       if (searchQuery) {
         this.getQueryQuestions(searchQuery);
       } else if (filter) {
         this.filter(filter, tag);
+      } else if (match.path === '/questions/top') {
+        getTopQuestions();
+      } else if (match.params.username) {
+        this.getAuthorsQuestions(match.params.username);
       } else {
         this.onPageSelect(Number(page));
       }
     }
+
+    onPageSelect = (activePage) => {
+      const { addFlashMessage, getQuestions, match } = this.props;
+      const { history } = this.context.router;
+
+      getQuestions(activePage).then(({ pages, count }) => {
+        this.setState({
+          pagination: { pages, activePage, count }
+        });
+
+        if (Number(match.params.page) !== activePage) {
+          this.context.router.history.push(`/questions/page/${activePage}`);
+        }
+      }).catch((err) => {
+        addFlashMessage({
+          type: 'error',
+          text: err.response.data.error
+        });
+
+        this.setState({ questions: [] });
+
+        history.push('/questions');
+      });
+    };
+
+    getAuthorsQuestions = (author) => {
+      const { getQuestionsByAuthor, addFlashMessage } = this.props;
+      const { history } = this.context.router;
+
+      getQuestionsByAuthor(author)
+        .catch((err) => {
+          addFlashMessage({
+            type: 'error',
+            text: err.response.data.error
+          });
+
+          history.push('/questions');
+        });
+    };
 
     getQueryQuestions = (query) => {
       const { getSearchedQuestions, addFlashMessage, questions } = this.props;
@@ -67,72 +110,43 @@ export default (WrappedComponent) => {
 
       if (questions.length > 0) return;
 
-      getSearchedQuestions(query).then(
-        (res) => {
-          if (!res.length) {
-            addFlashMessage({
-              type: 'warn',
-              text: `Nothing found by search = ${query}`
-            });
+      getSearchedQuestions(query).then((res) => {
+        if (!res.length) {
+          addFlashMessage({
+            type: 'warn',
+            text: `Nothing found by search = ${query}`
+          });
 
-            history.push('/questions/page/1');
-          }
+          history.push('/questions/page/1');
         }
-      );
-    };
-
-    onPageSelect = (activePage) => {
-      const { addFlashMessage, getQuestions, match } = this.props;
-
-      getQuestions(activePage)
-        .then(
-          ({ pages, count, questions }) => {
-            this.setState({
-              questions,
-              pagination: { pages, activePage, count }
-            });
-
-            if (Number(match.params.page) !== activePage) {
-              this.context.router.history.push(`/questions/page/${activePage}`);
-            }
-          },
-          (err) => {
-            addFlashMessage({
-              type: 'error',
-              text: err.response.data.error
-            });
-
-            this.setState({ questions: [] });
-          }
-        );
+      });
     };
 
     filter = (filter, tag = '') => {
       const { match, getQuestionsByFilter, addFlashMessage } = this.props;
       const { history } = this.context.router;
 
-      getQuestionsByFilter(filter, tag).then(
-        ({ tags, questions }) => {
-          if (!tags.length) {
-            addFlashMessage({
-              type: 'warn',
-              text: `There is no filter - ${match.params.filter}. Please change filter`
-            });
+      getQuestionsByFilter(filter, tag).then(({ tags, questions }) => {
+        if (!tags.length) {
+          addFlashMessage({
+            type: 'warn',
+            text: `There is no filter - ${match.params.filter}. Please change filter`
+          });
 
-            history.push('/questions');
+          history.push('/questions');
 
-            return;
-          }
+          return;
+        }
 
-          if (!questions.length) {
-            addFlashMessage({
-              type: 'warn',
-              text: 'No questions found. Please change filter'
-            });
-          }
+        if (!questions.length) {
+          addFlashMessage({
+            type: 'warn',
+            text: 'No questions found. Please change filter'
+          });
+        }
 
-          this.setState({ filters: { filter, tags, tag } });
-        });
+        this.setState({ filters: { filter, tags, tag } });
+      });
     };
 
     render() {
@@ -154,8 +168,11 @@ export default (WrappedComponent) => {
   return connect(mapStateToProps, {
     addFlashMessage,
     getQuestions,
+    getTopQuestions,
     getQuestionsByFilter,
+    getQuestionsByAuthor,
     editQuestionField,
+    voteQuestion,
     getSearchedQuestions
   })(QuestionsWrapper);
 };

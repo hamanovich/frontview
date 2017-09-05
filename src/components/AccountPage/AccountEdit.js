@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import FontAwesome from 'react-fontawesome';
 
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
+import PageHeader from 'react-bootstrap/lib/PageHeader';
 
 import { TextField, TextareaField } from '../formElements';
 
@@ -34,18 +36,20 @@ class AccountEdit extends Component {
     isLoading: false
   };
 
-  componentWillMount() {
+  componentDidMount() {
     const { getUser, initialValues, initialize } = this.props;
+
+    if (initialValues.gravatar) return;
 
     getUser(initialValues.username)
       .then((res) => {
-        const { username, email, first_name, last_name, primary_skill, job_function, skype, phone, notes } = res.user;
-        initialize({ username, email, first_name, last_name, primary_skill, job_function, skype, phone, notes });
+        const { username, email, firstName, lastName, primarySkill, jobFunction, skype, phone, notes } = res.user;
+        initialize({ username, email, firstName, lastName, primarySkill, jobFunction, skype, phone, notes });
       });
   }
 
   onSubmit = (values) => {
-    const { updateUser, addFlashMessage } = this.props;
+    const { updateUser, getUser, initialValues, addFlashMessage } = this.props;
 
     this.setState({ errors: {}, isLoading: true });
 
@@ -55,9 +59,10 @@ class AccountEdit extends Component {
           type: 'success',
           text: 'You have updated profile successfully.'
         });
-        this.context.router.history.push('/me');
+
+        getUser(initialValues.username).then(() => this.context.router.history.push('/me'));
       },
-      err => this.setState({ errors: err.response.data, isLoading: false })
+      err => this.setState({ errors: err.response, isLoading: false })
     );
   };
 
@@ -67,7 +72,9 @@ class AccountEdit extends Component {
 
     return (
       <div>
-        <h1>Edit your account</h1>
+        <PageHeader>
+          <FontAwesome name="pencil-square-o" /> Edit your account
+        </PageHeader>
 
         <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
           <Field
@@ -94,7 +101,7 @@ class AccountEdit extends Component {
                 label="First name:"
                 component={TextField}
                 type="text"
-                name="first_name"
+                name="firstName"
                 placeholder="Type your first name"
               />
             </Col>
@@ -104,7 +111,7 @@ class AccountEdit extends Component {
                 label="Last name:"
                 component={TextField}
                 type="text"
-                name="last_name"
+                name="lastName"
                 placeholder="Type your surname"
               />
             </Col>
@@ -116,7 +123,7 @@ class AccountEdit extends Component {
                 label="Primary skill:"
                 component={TextField}
                 type="text"
-                name="primary_skill"
+                name="primarySkill"
                 placeholder="Type your primary skill"
               />
             </Col>
@@ -126,7 +133,7 @@ class AccountEdit extends Component {
                 label="Job function:"
                 component={TextField}
                 type="text"
-                name="job_function"
+                name="jobFunction"
                 placeholder="Type your job function"
               />
             </Col>
@@ -181,7 +188,8 @@ class AccountEdit extends Component {
             type="submit"
             bsStyle="primary"
             bsSize="large"
-            disabled={isLoading}>Update profile</Button>
+            disabled={isLoading}
+          >Update profile</Button>
         </Form>
       </div>
     );

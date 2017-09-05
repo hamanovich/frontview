@@ -29,13 +29,13 @@ const validateUser = async (data, otherValidations) => {
 exports.createUser = async (req, res) => {
   const { errors, isValid } = await validateUser(req.body, validate);
   const { username, email, password } = req.body;
-  const password_digest = bcrypt.hashSync(password, 10);
+  const passwordDigest = bcrypt.hashSync(password, 10);
 
   if (!isValid) {
     res.status(400).json(errors);
   }
 
-  const user = await User.create({ username, email, password_digest });
+  const user = await User.create({ username, email, passwordDigest });
 
   if (user) {
     res.send(user);
@@ -52,17 +52,19 @@ exports.getUser = async (req, res) => {
 
   if (user) {
     const userData = {
+      _id: user._id,
       username: user.username,
       email: user.email,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      primary_skill: user.primary_skill,
-      job_function: user.job_function,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      primarySkill: user.primarySkill,
+      jobFunction: user.jobFunction,
       skype: user.skype,
       phone: user.phone,
       notes: user.notes,
       role: user.role,
-      gravatar: user.gravatar
+      gravatar: user.gravatar,
+      votes: user.votes
     };
 
     res.json({ user: userData });
@@ -74,8 +76,8 @@ exports.getUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   const { errors, isValid } = await validateUser(req.body, validate);
-  const { username, email, password, first_name, last_name, primary_skill, job_function, skype, phone, notes } = req.body;
-  const password_digest = bcrypt.hashSync(password, 10);
+  const { username, email, password, firstName, lastName, primarySkill, jobFunction, skype, phone, notes } = req.body;
+  const passwordDigest = bcrypt.hashSync(password, 10);
 
   if (!isValid) {
     res.status(400).json(errors);
@@ -84,14 +86,14 @@ exports.updateUser = async (req, res) => {
   const userOne = await User.findOne({ username: req.params.username });
   userOne.username = username;
   userOne.email = email;
-  userOne.first_name = first_name;
-  userOne.last_name = last_name;
-  userOne.job_function = job_function;
-  userOne.primary_skill = primary_skill;
+  userOne.firstName = firstName;
+  userOne.lastName = lastName;
+  userOne.jobFunction = jobFunction;
+  userOne.primarySkill = primarySkill;
   userOne.skype = skype;
   userOne.phone = phone;
   userOne.notes = notes;
-  userOne.password_digest = password_digest;
+  userOne.passwordDigest = passwordDigest;
 
   await userOne.save();
 

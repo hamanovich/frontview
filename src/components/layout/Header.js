@@ -58,18 +58,49 @@ class Header extends Component {
       <Nav pullRight>
         <NavDropdown title="Questions" id="questions-dropdown">
           <IndexLinkContainer to="/questions"><MenuItem>Show All</MenuItem></IndexLinkContainer>
+          <LinkContainer to="/questions/top">
+            <MenuItem>
+              <FontAwesome name="exclamation" /> Top 10
+          </MenuItem>
+          </LinkContainer>
           <MenuItem divider />
-          <LinkContainer to="/questions/level"><MenuItem><FontAwesome name="line-chart" /> By Levels</MenuItem></LinkContainer>
-          <LinkContainer to="/questions/skill"><MenuItem><FontAwesome name="star-half-o" /> By Skills</MenuItem></LinkContainer>
-          <LinkContainer to="/questions/practice"><MenuItem><FontAwesome name="keyboard-o" /> By Practice</MenuItem></LinkContainer>
+          <LinkContainer to="/questions/level">
+            <MenuItem>
+              <FontAwesome name="line-chart" /> By Levels
+          </MenuItem>
+          </LinkContainer>
+          <LinkContainer to="/questions/skill">
+            <MenuItem>
+              <FontAwesome name="star-half-o" /> By Skills
+          </MenuItem>
+          </LinkContainer>
+          <LinkContainer to="/questions/practice">
+            <MenuItem>
+              <FontAwesome name="keyboard-o" /> By Practice
+          </MenuItem>
+          </LinkContainer>
           <MenuItem divider />
-          <LinkContainer to="/questions/add"><MenuItem><FontAwesome name="question-circle-o" /> Add new</MenuItem></LinkContainer>
+          <LinkContainer to="/questions/add">
+            <MenuItem>
+              <FontAwesome name="question-circle-o" /> Add new
+          </MenuItem>
+          </LinkContainer>
         </NavDropdown>
         <NavDropdown title={username} id="account-dropdown">
-          <IndexLinkContainer to="/me"><MenuItem><FontAwesome name="user" /> Account</MenuItem></IndexLinkContainer>
-          <LinkContainer to="/me/edit"><MenuItem>Edit profile</MenuItem></LinkContainer>
+          <IndexLinkContainer to="/me">
+            <MenuItem>
+              <FontAwesome name="user" /> Account
+          </MenuItem>
+          </IndexLinkContainer>
+          <LinkContainer to="/me/edit">
+            <MenuItem>
+              <FontAwesome name="pencil-square-o" /> Edit profile
+            </MenuItem>
+          </LinkContainer>
           <MenuItem divider />
-          <MenuItem onClick={logout}><FontAwesome name="lock" /> Logout</MenuItem>
+          <MenuItem onClick={logout}>
+            <FontAwesome name="lock" /> Logout
+          </MenuItem>
         </NavDropdown>
       </Nav>
     );

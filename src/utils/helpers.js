@@ -15,7 +15,8 @@ export const PropsRoute = ({ component, ...rest }) => (
     {...rest}
     render={
       routeProps => React.createElement(component, Object.assign({}, routeProps, rest))
-    } />
+    }
+  />
 );
 
 PropsRoute.propTypes = {

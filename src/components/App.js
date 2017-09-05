@@ -12,6 +12,7 @@ import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
 import AccountPage from './AccountPage';
 import QuestionsPage from './QuestionsPage';
+import CommentsAuthor from './Comment/CommentsAuthor';
 
 import { isLoggedIn, User } from '../utils/helpers';
 
@@ -23,10 +24,11 @@ const App = () => (
       <main>
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route path="/login" component={isLoggedIn(LoginPage)} />
+          <Route path="/login" component={LoginPage} />
           <Route path="/signup" component={isLoggedIn(SignupPage)} />
           <Route path="/me" component={User(AccountPage)} />
           <Route path="/questions" component={QuestionsPage} />
+          <Route path="/comments/:username" component={User(CommentsAuthor)} />
           <Route component={NotFound} />
         </Switch>
       </main>

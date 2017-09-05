@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import FontAwesome from 'react-fontawesome';
 
-import Button from 'react-bootstrap/lib/Button';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import ListGroup from 'react-bootstrap/lib/ListGroup';
@@ -11,35 +11,38 @@ import ListGroup from 'react-bootstrap/lib/ListGroup';
 import Account from './Account';
 import AccountEdit from './AccountEdit';
 
-import { logout } from '../../actions/auth';
+const AccountPage = ({ user }) => (
+  <Row>
+    <Col md={3} sm={4}>
+      <ListGroup style={{ marginTop: 45 }}>
+        <Link to="/questions" className="list-group-item">
+          <FontAwesome name="question-circle-o" /> All Questions
+        </Link>
+        <Link to={`/questions/author/${user.username}`} className="list-group-item">
+          <FontAwesome name="copyright" /> Your Questions
+        </Link>
+        <Link to={`/comments/${user.username}`} className="list-group-item">
+          <FontAwesome name="comments-o" /> Your Comments
+        </Link>
+        <Link to="/questions/add" className="list-group-item">
+          <FontAwesome name="file-text-o" /> Add question
+        </Link>
+      </ListGroup>
+    </Col>
+    <Col md={9} sm={8}>
+      <Switch>
+        <Route exact path="/me" component={Account} />
+        <Route exact path="/me/edit" component={AccountEdit} />
+        <Redirect to="/me" />
+      </Switch>
+    </Col>
+  </Row>
+);
 
-class AccountPage extends Component {
-  static propTypes = {
-    logout: PropTypes.func.isRequired
-  };
+AccountPage.propTypes = {
+  user: PropTypes.object.isRequired
+};
 
-  render() {
-    const { logout } = this.props;
+const mapStateToProps = state => ({ user: state.auth.user });
 
-    return (
-      <Row>
-        <Col md={3} sm={4}>
-          <ListGroup style={{ marginTop: 25 }}>
-            <Link to="/questions" className="list-group-item">Questions</Link>
-            <Link to="/questions/add" className="list-group-item">Add question</Link>
-            <Button block bsStyle="danger" onClick={logout}>Logout</Button>
-          </ListGroup>
-        </Col>
-        <Col md={9} sm={8}>
-          <Switch>
-            <Route exact path="/me" component={Account} />
-            <Route exact path="/me/edit" component={AccountEdit} />
-            <Redirect to="/me" />
-          </Switch>
-        </Col>
-      </Row>
-    );
-  }
-}
-
-export default connect(null, { logout })(AccountPage);
+export default connect(mapStateToProps)(AccountPage);

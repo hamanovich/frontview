@@ -11,7 +11,7 @@ import Image from 'react-bootstrap/lib/Image';
 import Well from 'react-bootstrap/lib/Well';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
 
-import { removeUser, getUser } from '../../actions/signup';
+import { getUser, removeUser } from '../../actions/signup';
 import { addFlashMessage } from '../../actions/flash';
 import { logout } from '../../actions/auth';
 
@@ -20,16 +20,16 @@ class Account extends Component {
     user: PropTypes.shape({
       username: PropTypes.string,
       email: PropTypes.string,
-      job_function: PropTypes.string,
-      primary_skill: PropTypes.string,
+      jobFunction: PropTypes.string,
+      primarySkill: PropTypes.string,
       notes: PropTypes.string,
-      first_name: PropTypes.string,
-      last_name: PropTypes.string,
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
       gravatar: PropTypes.string
     }).isRequired,
+    getUser: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
     removeUser: PropTypes.func.isRequired,
-    getUser: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired
   };
 
@@ -37,8 +37,10 @@ class Account extends Component {
     modal: false
   };
 
-  componentWillMount() {
-    const { getUser, user } = this.props;
+  componentDidMount() {
+    const { user, getUser } = this.props;
+
+    if (user.gravatar) return;
 
     getUser(user.username);
   }
@@ -66,13 +68,16 @@ class Account extends Component {
   };
 
   render() {
-    const { user } = this.props;
+    const { user, logout } = this.props;
 
     return (
       <div>
-        <PageHeader>{user.first_name && user.last_name ?
-          <span>{user.first_name} {user.last_name}</span> :
-          'Your account'}</PageHeader>
+        <PageHeader>{user.firstName && user.lastName ?
+          <span>
+            <FontAwesome name="user" /> {user.firstName} {user.lastName}
+          </span> :
+          'Your account'}
+        </PageHeader>
 
         <Image src={user.gravatar} thumbnail />
 
@@ -81,15 +86,15 @@ class Account extends Component {
         <dl>
           <dt>Email:</dt>
           <dd><FontAwesome name="envelope-open-o" /> <a href={`mailto:${user.email}`}>{user.email}</a></dd>
-          {user.primary_skill &&
+          {user.primarySkill &&
             <div>
               <dt>Primary Skill:</dt>
-              <dd>{user.primary_skill}</dd>
+              <dd>{user.primarySkill}</dd>
             </div>}
-          {user.job_function &&
+          {user.jobFunction &&
             <div>
               <dt>Job Function:</dt>
-              <dd>{user.job_function}</dd>
+              <dd>{user.jobFunction}</dd>
             </div>}
           {user.skype &&
             <div>
@@ -108,7 +113,8 @@ class Account extends Component {
         <hr />
 
         <ButtonGroup bsSize="small" className="pull-right">
-          <Link to="/me/edit" className="btn btn-warning"><FontAwesome name="pencil" /> Edit profile</Link>
+          <Link to="/me/edit" className="btn btn-info"><FontAwesome name="pencil" /> Edit profile</Link>
+          <Button bsStyle="warning" onClick={logout}><FontAwesome name="sign-out" /> Logout</Button>
           <Button bsStyle="danger" onClick={this.open}><FontAwesome name="times" /> Remove</Button>
         </ButtonGroup>
 
@@ -133,4 +139,4 @@ class Account extends Component {
 
 const mapStateToProps = state => ({ user: state.auth.user });
 
-export default connect(mapStateToProps, { removeUser, getUser, logout, addFlashMessage })(Account);
+export default connect(mapStateToProps, { getUser, removeUser, logout, addFlashMessage })(Account);

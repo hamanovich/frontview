@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import FontAwesome from 'react-fontawesome';
 
 import Alert from 'react-bootstrap/lib/Alert';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
@@ -49,7 +50,9 @@ class Login extends Component {
 
     return (
       <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
-        <PageHeader>Please, login</PageHeader>
+        <PageHeader>
+          <FontAwesome name="user-circle-o" /> Please, login
+        </PageHeader>
 
         {errors.form && <Alert bsStyle="danger">{errors.form}</Alert>}
 
@@ -80,7 +83,8 @@ class Login extends Component {
           type="submit"
           bsStyle="primary"
           bsSize="large"
-          disabled={isLoading}>Login</Button>
+          disabled={isLoading}
+        >Login</Button>
       </Form>
     );
   }
