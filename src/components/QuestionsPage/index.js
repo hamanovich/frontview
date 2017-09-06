@@ -6,6 +6,7 @@ import QuestionsAuthor from './QuestionsAuthor';
 import QuestionsTop from './QuestionsTop';
 import QuestionsTags from './QuestionsTags';
 import QuestionsSearch from './QuestionsSearch';
+import QuestionsFromInternet from './QuestionsFromInternet';
 import AddQuestion from './AddQuestion';
 import QuestionOne from './QuestionOne';
 import QuestionsWrapper from './QuestionsWrapper';
@@ -19,6 +20,7 @@ const QuestionsPage = () => (
     <Route exact path="/questions/search" component={QuestionsWrapper(QuestionsSearch)} />
     <Route exact path="/questions/top" component={QuestionsWrapper(QuestionsTop)} />
     <Route exact path="/questions/add" component={User(AddQuestion)} />
+    <Route path="/questions/internet/:source?" component={QuestionsFromInternet} />
     <Route path="/questions/:_id/edit" component={User(AddQuestion)} />
     <Route path="/questions/:slug/one" component={QuestionOne} />
     <Route path="/questions/:filter/:tag?" component={QuestionsWrapper(QuestionsTags)} />

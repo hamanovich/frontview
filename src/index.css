@@ -21,10 +21,6 @@ main{
   border-radius: 0;
 }
 
-#frontview .navbar-right{
-  margin-right: 0;
-}
-
 .footer {
   position: absolute;
   bottom: 0;
