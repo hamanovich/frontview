@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 
 import Alert from 'react-bootstrap/lib/Alert';
@@ -16,16 +15,13 @@ import { TextField } from '../formElements';
 
 import validate from '../../validations/login';
 
-import { login } from '../../actions/auth';
-
 class Login extends Component {
   static propTypes = {
     login: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func.isRequired
-  };
-
-  static contextTypes = {
-    router: PropTypes.object.isRequired
+    handleSubmit: PropTypes.func.isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired
+    }).isRequired
   };
 
   state = {
@@ -34,14 +30,13 @@ class Login extends Component {
   };
 
   onSubmit = (values) => {
-    const { login } = this.props;
+    const { login, history } = this.props;
 
     this.setState({ errors: {}, isLoading: true });
 
-    login(values).then(
-      () => this.context.router.history.push('/'),
-      err => this.setState({ errors: err.response.data.errors, isLoading: false })
-    );
+    login(values)
+      .then(() => history.push('/'))
+      .catch(err => this.setState({ errors: err.response.data.errors, isLoading: false }));
   };
 
   render() {
@@ -84,14 +79,12 @@ class Login extends Component {
           bsStyle="primary"
           bsSize="large"
           disabled={isLoading}
-        >Login</Button>
+        >
+          Login <FontAwesome name="sign-in" />
+        </Button>
       </Form>
     );
   }
 }
 
-export default connect(null, { login })(
-  reduxForm({
-    form: 'login',
-    validate
-  })(Login));
+export default reduxForm({ form: 'login', validate })(Login);

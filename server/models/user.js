@@ -63,4 +63,17 @@ userSchema.virtual('gravatar').get(function () {
   return `https://gravatar.com/avatar/${hash}?s=100`;
 });
 
+userSchema.virtual('qlists', {
+  ref: 'qlist',
+  localField: '_id',
+  foreignField: 'author'
+});
+
+function autopopulate(next) {
+  this.populate('qlists');
+  next();
+}
+
+userSchema.pre('find', autopopulate);
+
 export default mongoose.model('user', userSchema);

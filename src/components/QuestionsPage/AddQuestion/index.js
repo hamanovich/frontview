@@ -31,11 +31,10 @@ class AddQuestion extends Component {
     getQuestionById: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
     match: PropTypes.object.isRequired,
-    userId: PropTypes.string
-  };
-
-  static contextTypes = {
-    router: PropTypes.object.isRequired
+    userId: PropTypes.string,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired
+    }).isRequired
   };
 
   static defaultProps = {
@@ -49,8 +48,7 @@ class AddQuestion extends Component {
   };
 
   componentDidMount = () => {
-    const { history } = this.context.router;
-    const { getQuestionById, addFlashMessage, match } = this.props;
+    const { getQuestionById, addFlashMessage, match, history } = this.props;
 
     if (match.params._id) {
       getQuestionById(match.params._id).then(
@@ -77,8 +75,7 @@ class AddQuestion extends Component {
   };
 
   onSubmit = (values) => {
-    const { userId, match, logout, addQuestion, editQuestion, addFlashMessage } = this.props;
-    const { history } = this.context.router;
+    const { userId, match, logout, addQuestion, editQuestion, addFlashMessage, history } = this.props;
     const query = { ...values, userId, lastModified: new Date() };
 
     if (match.params._id) {
@@ -122,8 +119,7 @@ class AddQuestion extends Component {
   };
 
   remove = (id) => {
-    const { removeQuestion, addFlashMessage } = this.props;
-    const { history } = this.context.router;
+    const { removeQuestion, addFlashMessage, history } = this.props;
 
     removeQuestion(id).then(() => {
       addFlashMessage({

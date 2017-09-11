@@ -12,7 +12,7 @@ import Question from '../Question';
 import CommentForm from '../../Comment/CommentForm';
 import Comments from '../../Comment/Comments';
 
-import { getQuestionBySlug, editQuestionField, voteQuestion } from '../../../actions/questions';
+import { getQuestionBySlug, editQuestionField } from '../../../actions/questions';
 import { addComment } from '../../../actions/comments';
 import { getUser } from '../../../actions/signup';
 import { addFlashMessage } from '../../../actions/flash';
@@ -27,11 +27,9 @@ class QuestionOne extends Component {
     question: PropTypes.object,
     user: PropTypes.object.isRequired,
     editQuestionField: PropTypes.func.isRequired,
-    voteQuestion: PropTypes.func.isRequired
-  };
-
-  static contextTypes = {
-    router: PropTypes.object.isRequired
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired
+    }).isRequired
   };
 
   static defaultProps = {
@@ -47,8 +45,7 @@ class QuestionOne extends Component {
   };
 
   getQuestion = (slug) => {
-    const { history } = this.context.router;
-    const { getQuestionBySlug, addFlashMessage } = this.props;
+    const { getQuestionBySlug, addFlashMessage, history } = this.props;
 
     getQuestionBySlug(slug).then(
       (res) => {
@@ -73,7 +70,7 @@ class QuestionOne extends Component {
   }
 
   render() {
-    const { question, addComment, editQuestionField, voteQuestion, user } = this.props;
+    const { question, addComment, editQuestionField, user } = this.props;
     const panelHeader = (<span><FontAwesome name="comments-o" /> Comments <Badge>{question && question.comments.length}</Badge></span>);
     const panelAddHeader = (<span><FontAwesome name="commenting-o" /> Add comment</span>);
 
@@ -84,7 +81,6 @@ class QuestionOne extends Component {
         <Question
           question={question}
           editQuestionField={editQuestionField}
-          voteQuestion={voteQuestion}
           user={user}
         />
 
@@ -123,7 +119,6 @@ export default connect(mapStateToProps, {
   getQuestionBySlug,
   getUser,
   editQuestionField,
-  voteQuestion,
   addComment,
   addFlashMessage
 })(QuestionOne);

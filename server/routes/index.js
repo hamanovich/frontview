@@ -6,6 +6,7 @@ import * as authController from './auth';
 import * as usersController from './users';
 import * as questionsController from './questions';
 import * as commentsController from './comments';
+import * as qlistController from './qlists';
 
 const router = express.Router();
 
@@ -35,6 +36,10 @@ router.delete('/question/:id', questionsController.remove);
 
 router.get('/comments/:username', catchErrors(commentsController.getCommentsByAuthor));
 router.post('/comments/add', authenticate, catchErrors(commentsController.add));
+
+router.get('/qlists/:_id', catchErrors(qlistController.getQListsByAuthor));
+router.post('/qlist/add', authenticate, catchErrors(qlistController.addQlist));
+router.post('/qlist/add/question', authenticate, catchErrors(qlistController.addQuestion));
 
 router.get('/search', questionsController.searchQuestions);
 

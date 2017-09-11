@@ -9,8 +9,7 @@ import {
   editQuestionField,
   getSearchedQuestions,
   getQuestionsByFilter,
-  getQuestionsByAuthor,
-  voteQuestion
+  getQuestionsByAuthor
 } from '../../actions/questions';
 
 export default (WrappedComponent) => {
@@ -172,7 +171,6 @@ export default (WrappedComponent) => {
     getQuestionsByFilter,
     getQuestionsByAuthor,
     editQuestionField,
-    voteQuestion,
     getSearchedQuestions
   })(QuestionsWrapper);
 };

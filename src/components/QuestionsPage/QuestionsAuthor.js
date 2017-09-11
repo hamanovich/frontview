@@ -10,7 +10,6 @@ const QuestionsAuthor = ({
   auth,
   questions,
   editQuestionField,
-  voteQuestion
 }) => (
   <div>
     <PageHeader>
@@ -21,7 +20,6 @@ const QuestionsAuthor = ({
       user={auth.user}
       questions={questions}
       editQuestionField={editQuestionField}
-      voteQuestion={voteQuestion}
     />
   </div>
 );
@@ -32,8 +30,7 @@ QuestionsAuthor.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired
   }).isRequired,
   questions: PropTypes.array.isRequired,
-  editQuestionField: PropTypes.func.isRequired,
-  voteQuestion: PropTypes.func.isRequired
+  editQuestionField: PropTypes.func.isRequired
 };
 
 export default QuestionsAuthor;

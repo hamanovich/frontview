@@ -14,11 +14,10 @@ class SignupForm extends Component {
     userSignup: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
     isUserExists: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func.isRequired
-  };
-
-  static contextTypes = {
-    router: PropTypes.object.isRequired
+    handleSubmit: PropTypes.func.isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired
+    }).isRequired
   };
 
   state = {
@@ -28,20 +27,20 @@ class SignupForm extends Component {
   };
 
   onSubmit = (values) => {
-    const { addFlashMessage, userSignup } = this.props;
+    const { addFlashMessage, userSignup, history } = this.props;
 
     this.setState({ errors: {}, isLoading: true });
 
-    userSignup(values).then(
-      () => {
+    userSignup(values)
+      .then(() => {
         addFlashMessage({
           type: 'success',
           text: 'You have signed up successfully'
         });
-        this.context.router.history.push('/');
-      },
-      err => this.setState({ errors: err.response.data, isLoading: false })
-    );
+
+        history.push('/');
+      })
+      .catch(err => this.setState({ errors: err.response.data, isLoading: false }));
   }
 
   checkUserExists = (e) => {
@@ -124,7 +123,4 @@ class SignupForm extends Component {
   }
 }
 
-export default reduxForm({
-  form: 'signup',
-  validate
-})(SignupForm);
+export default reduxForm({ form: 'signup', validate })(SignupForm);

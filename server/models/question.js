@@ -98,7 +98,7 @@ questionSchema.virtual('comments', {
 });
 
 function autopopulate(next) {
-  this.populate('author comments');
+  this.populate('author comments qlists');
   next();
 }
 

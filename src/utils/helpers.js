@@ -20,7 +20,7 @@ export const PropsRoute = ({ component, ...rest }) => (
 );
 
 PropsRoute.propTypes = {
-  component: PropTypes.node.isRequired
+  component: PropTypes.func.isRequired
 };
 
 export const setAuthorizationToken = (token) => {

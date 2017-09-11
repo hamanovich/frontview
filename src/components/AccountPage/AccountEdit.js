@@ -24,7 +24,10 @@ class AccountEdit extends Component {
     addFlashMessage: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     initialValues: PropTypes.object.isRequired,
-    initialize: PropTypes.func.isRequired
+    initialize: PropTypes.func.isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired
+    }).isRequired
   };
 
   static contextTypes = {
@@ -49,21 +52,21 @@ class AccountEdit extends Component {
   }
 
   onSubmit = (values) => {
-    const { updateUser, getUser, initialValues, addFlashMessage } = this.props;
+    const { updateUser, getUser, initialValues, addFlashMessage, history } = this.props;
 
     this.setState({ errors: {}, isLoading: true });
 
-    updateUser(values).then(
-      () => {
+    updateUser(values)
+      .then(() => {
         addFlashMessage({
           type: 'success',
           text: 'You have updated profile successfully.'
         });
 
-        getUser(initialValues.username).then(() => this.context.router.history.push('/me'));
-      },
-      err => this.setState({ errors: err.response, isLoading: false })
-    );
+        getUser(initialValues.username).then(() => history.push('/me'));
+      })
+      .catch(err => this.setState({ errors: err.response, isLoading: false })
+      );
   };
 
   render() {

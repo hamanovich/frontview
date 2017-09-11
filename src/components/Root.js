@@ -1,7 +1,8 @@
 import React from 'react';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import jwtDecode from 'jwt-decode';
 import createHistory from 'history/createBrowserHistory';
@@ -18,10 +19,7 @@ const history = createHistory();
 const middleware = routerMiddleware(history);
 const store = createStore(
   rootReducer,
-  compose(
-    applyMiddleware(thunk, middleware),
-    window.devToolsExtension ? window.devToolsExtension() : f => f
-  )
+  composeWithDevTools(applyMiddleware(thunk, middleware))
 );
 const localJwtToken = localStorage.jwtToken;
 

@@ -38,7 +38,8 @@ export const forgot = email =>
 
 export const getReset = token =>
   () => axios.get(`/api/auth/reset/${token}`)
-    .then(res => res.data);
+    .then(res => res.data)
+    .catch((e) => { throw new Error(e.response.data); });
 
 export const resetToken = (token, passwords) =>
   () => axios.post(`/api/auth/reset/${token}`, passwords)

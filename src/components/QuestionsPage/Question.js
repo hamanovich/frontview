@@ -25,7 +25,6 @@ class Question extends Component {
     question: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
     editQuestionField: PropTypes.func.isRequired,
-    voteQuestion: PropTypes.func.isRequired
   };
 
   state = {
@@ -54,7 +53,7 @@ class Question extends Component {
   };
 
   render() {
-    const { question, editQuestionField, voteQuestion, user } = this.props;
+    const { question, editQuestionField, user } = this.props;
     const { answerField, textField } = this.state;
     const panelHeader = (
       <div className="clearfix">
@@ -86,7 +85,6 @@ class Question extends Component {
         </Link>
       </div>
     );
-
 
     return (
       <Panel header={panelHeader} footer={panelFooter}>
@@ -127,11 +125,7 @@ class Question extends Component {
           </ButtonGroup>
         }
 
-        {user.username && <Toolbar
-          userId={user._id}
-          question={question}
-          voteQuestion={voteQuestion}
-        />}
+        {user.username && <Toolbar question={question} user={user} />}
 
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
