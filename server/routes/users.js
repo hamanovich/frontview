@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import isEmpty from 'lodash/isEmpty';
 
 import User from '../models/user';
+import { send } from '../handlers/mail';
 
 import validate from '../../src/validations/signup';
 
@@ -35,22 +36,38 @@ exports.createUser = async (req, res) => {
     res.status(400).json(errors);
   }
 
-  const user = new User({ username, email, passwordDigest });
+  const user = new User({
+    username,
+    email,
+    passwordDigest,
+    confirmationToken: bcrypt.hashSync(process.env.SECRET, 10).replace(/\//g, '')
+  });
+
 
   await user.save((err) => {
     if (err) {
       const { username, email } = err.errors;
 
-      res.status(500).json({
+      return res.status(500).json({
         username: username && username.message,
         email: email && email.message
       });
-
-      return;
     }
 
-    res.send(user);
+    return true;
   });
+
+  const confirmURL = `http://${req.headers['x-forwarded-host']}/confirmation/${user.confirmationToken}`;
+
+  await send({
+    user,
+    from: 'FrontView <admin@frontview.com>',
+    filename: 'confirmation-email',
+    subject: 'Confirmation Email',
+    confirmURL
+  });
+
+  res.send(user);
 };
 
 exports.getUser = async (req, res) => {

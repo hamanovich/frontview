@@ -2,9 +2,11 @@ import axios from 'axios';
 
 export default {
   user: {
-    login: credentials =>
-      axios.post('/api/auth', credentials)
-        .then(res => res.data.token),
+    login: credentials => axios.post('/api/auth', credentials)
+      .then(res => res.data),
+
+    confirm: token => axios.post('/api/auth/confirmation', { token })
+      .then(res => res.data),
 
     forgot: email => axios.post('/api/auth/forgot', email)
       .then(res => res.data),

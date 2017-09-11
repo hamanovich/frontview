@@ -21,7 +21,7 @@ export function send(options) {
   const html = generateHTML(options.filename, options);
   const text = htmlToText.fromString(html);
   const mailOptions = {
-    from: 'Siarhei Hamanovich <siarhei_hamanovich@epam.com>',
+    from: options.from,
     to: options.user.email,
     subject: options.subject,
     html,

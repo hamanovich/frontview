@@ -13,6 +13,7 @@ import validate from '../../validations/signup';
 class SignupForm extends Component {
   static propTypes = {
     signup: PropTypes.func.isRequired,
+    reset: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
     isUserExists: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired
@@ -32,19 +33,18 @@ class SignupForm extends Component {
   };
 
   onSubmit = (values) => {
-    const { addFlashMessage, signup } = this.props;
-    const { history } = this.context.router;
+    const { addFlashMessage, signup, reset } = this.props;
 
     this.setState({ errors: {}, isLoading: true });
 
     signup(values)
       .then(() => {
         addFlashMessage({
-          type: 'success',
-          text: 'You have signed up successfully'
+          type: 'warn',
+          text: 'Please, verify your email to confirm'
         });
 
-        history.push('/');
+        reset();
       })
       .catch(err => this.setState({ errors: err.response.data, isLoading: false }));
   }

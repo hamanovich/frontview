@@ -39,6 +39,11 @@ const userSchema = new Schema({
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
+  confirmed: {
+    type: Boolean,
+    default: false
+  },
+  confirmationToken: String,
   questions: [{
     type: Schema.Types.ObjectId,
     ref: 'question',

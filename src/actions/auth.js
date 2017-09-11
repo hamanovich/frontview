@@ -20,7 +20,7 @@ export const login = credentials =>
     .then((token) => {
       const decoded = jwtDecode(token);
 
-      localStorage.setItem('jwtToken', token);
+      localStorage.jwtToken = token;
       setAuthorizationToken(token);
       dispatch(setCurrentUser(decoded));
     });
@@ -31,6 +31,16 @@ export const logout = () =>
     setAuthorizationToken(false);
     dispatch(logoutUser());
   };
+
+export const confirm = token =>
+  dispatch => api.user.confirm(token)
+    .then((token) => {
+      const decoded = jwtDecode(token);
+
+      localStorage.jwtToken = token;
+      setAuthorizationToken(token);
+      dispatch(setCurrentUser(decoded));
+    });
 
 export const forgot = email => () => api.user.forgot(email);
 export const getReset = token => () => api.user.getReset(token);

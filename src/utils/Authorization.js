@@ -27,21 +27,21 @@ export default allowed =>
             type: 'warn',
             text: 'You have already logged in. No need to do it again'
           });
-          
+
           history.push('/');
         } else if (!auth.isAuthenticated && allowed) {
           addFlashMessage({
             type: 'error',
             text: 'To see this page you have to login. Please do it'
           });
-          
+
           history.push('/login');
         } else if (auth.isAuthenticated && !include) {
           addFlashMessage({
             type: 'error',
             text: 'You have no access to this page'
           });
-          
+
           history.push('/');
         }
       }
