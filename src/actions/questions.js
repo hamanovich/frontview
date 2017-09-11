@@ -106,7 +106,7 @@ export const getSearchedQuestions = query =>
     });
 
 export const voteQuestion = (question, action, userId) =>
-  dispatch => api.questions.vote(question, action, userId)
+  dispatch => () => api.questions.vote(question, action, userId)
     .then(question => action === 'like'
       ? dispatch(voteLike(question))
       : dispatch(voteDislike(question))

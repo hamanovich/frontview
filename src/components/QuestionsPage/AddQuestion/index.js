@@ -30,7 +30,11 @@ class AddQuestion extends Component {
     removeQuestion: PropTypes.func.isRequired,
     getQuestionById: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
-    match: PropTypes.object.isRequired,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        _id: PropTypes.string.isRequired
+      }).isRequired
+    }).isRequired,
     userId: PropTypes.string,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired
@@ -118,7 +122,7 @@ class AddQuestion extends Component {
     this.setState({ showModal: false });
   };
 
-  remove = (id) => {
+  remove = id => () => {
     const { removeQuestion, addFlashMessage, history } = this.props;
 
     removeQuestion(id).then(() => {
@@ -255,7 +259,7 @@ class AddQuestion extends Component {
                     >Cancel</Button>
                     <Button
                       bsStyle="danger"
-                      onClick={() => this.remove(_id)}
+                      onClick={this.remove(_id)}
                     >Remove</Button>
                   </ButtonGroup>
                 </Modal.Footer>
@@ -283,8 +287,14 @@ function mapStateToProps(state, props) {
   };
 }
 
-export default connect(mapStateToProps,
-  { logout, addQuestion, getQuestionById, removeQuestion, editQuestion, addFlashMessage })(
+export default connect(mapStateToProps, {
+  logout,
+  addQuestion,
+  getQuestionById,
+  removeQuestion,
+  editQuestion,
+  addFlashMessage
+})(
   reduxForm({
     form: 'addQuestion',
     validate

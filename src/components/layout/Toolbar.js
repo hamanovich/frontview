@@ -44,7 +44,7 @@ class Toolbar extends Component {
           <Button
             bsStyle="success"
             active={question.votes.like.includes(user._id)}
-            onClick={() => voteQuestion(question, 'like', user._id)}
+            onClick={voteQuestion(question, 'like', user._id)}
           >
             <FontAwesome name="thumbs-up" /> {question.votes.like.length}
           </Button>
@@ -52,7 +52,7 @@ class Toolbar extends Component {
           <Button
             bsStyle="danger"
             active={question.votes.dislike.includes(user._id)}
-            onClick={() => voteQuestion(question, 'dislike', user._id)}
+            onClick={voteQuestion(question, 'dislike', user._id)}
           >
             <FontAwesome name="thumbs-down" /> {question.votes.dislike.length}
           </Button>
@@ -69,7 +69,7 @@ class Toolbar extends Component {
               <MenuItem
                 eventKey={index}
                 key={qlist._id}
-                onClick={() => qlistAddQuestion(qlist, question)}
+                onClick={qlistAddQuestion(qlist, question)}
               >
                 {qlist.title} {qlist.questions.includes(question._id) && <FontAwesome name="check" />}
               </MenuItem>

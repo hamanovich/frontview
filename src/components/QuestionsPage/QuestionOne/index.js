@@ -23,7 +23,11 @@ class QuestionOne extends Component {
     getQuestionBySlug: PropTypes.func.isRequired,
     getUser: PropTypes.func.isRequired,
     addComment: PropTypes.func.isRequired,
-    match: PropTypes.object.isRequired,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        slug: PropTypes.string.isRequired
+      }).isRequired
+    }).isRequired,
     question: PropTypes.object,
     user: PropTypes.object.isRequired,
     editQuestionField: PropTypes.func.isRequired,

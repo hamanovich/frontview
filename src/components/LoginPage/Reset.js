@@ -17,7 +17,11 @@ class Reset extends Component {
     getReset: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
-    match: PropTypes.object.isRequired,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        token: PropTypes.string.isRequired
+      }).isRequired
+    }).isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired
     }).isRequired

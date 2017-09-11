@@ -33,7 +33,7 @@ class Question extends Component {
     answerField: null
   };
 
-  open = (answerField, field) => {
+  open = (answerField, field) => () => {
     const { user, question } = this.props;
 
     if (user.username === question.author.username) {
@@ -57,7 +57,7 @@ class Question extends Component {
     const { answerField, textField } = this.state;
     const panelHeader = (
       <div className="clearfix">
-        <h3 className="panel-title pull-left" onClick={() => this.open(question.question, 'question')}>
+        <h3 className="panel-title pull-left" onClick={this.open(question.question, 'question')}>
           <MarkdownRenderer markdown={question.question} />
         </h3>
         <div className="pull-right">
@@ -90,14 +90,14 @@ class Question extends Component {
       <Panel header={panelHeader} footer={panelFooter}>
         <ListGroup fill>
           {question.answer &&
-            <ListGroupItem bsStyle="success" style={{ whiteSpace: 'pre-wrap' }} onClick={() => this.open(question.answer, 'answer')}>
+            <ListGroupItem bsStyle="success" style={{ whiteSpace: 'pre-wrap' }} onClick={this.open(question.answer, 'answer')}>
               <MarkdownRenderer markdown={question.answer} />
             </ListGroupItem>}
           {question.answers && map(question.answers, (question, index) => (
             <ListGroupItem
               key={`question[${index}]`}
               style={{ whiteSpace: 'pre-wrap' }}
-              onClick={() => this.open(question, `answers.${index}.text`)}
+              onClick={this.open(question, `answers.${index}.text`)}
             >
               <MarkdownRenderer markdown={question.text} />
             </ListGroupItem>
@@ -105,7 +105,7 @@ class Question extends Component {
         </ListGroup>
 
         {question.notes &&
-          <Well onClick={() => this.open(question.notes, 'notes')}>
+          <Well onClick={this.open(question.notes, 'notes')}>
             <MarkdownRenderer markdown={question.notes} />
           </Well>}
         {question.author && <small><strong>Author</strong>:

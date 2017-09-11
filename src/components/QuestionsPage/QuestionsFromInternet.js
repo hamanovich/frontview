@@ -7,6 +7,14 @@ import Tab from 'react-bootstrap/lib/Tab';
 import * as QuestionsTab from './QuestionsTabs';
 
 class QuestionsFromInternet extends Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        source: PropTypes.string.isRequired
+      }).isRequired
+    }).isRequired
+  };
+
   static contextTypes = {
     router: PropTypes.object.isRequired
   };
@@ -18,15 +26,16 @@ class QuestionsFromInternet extends Component {
   };
 
   componentWillMount() {
-    const { history, route } = this.context.router;
+    const { history } = this.context.router;
+    const { params } = this.props.match;
     const { prefixHistory, routes } = this.state;
 
-    if (!routes.includes(route.match.params.source)) {
+    if (!routes.includes(params.source)) {
       history.push(`${prefixHistory}/${routes[0]}`);
-      route.match.params.source = routes[0];
+      params.source = routes[0];
     }
 
-    this.setState({ source: route.match.params.source });
+    this.setState({ source: params.source });
   }
 
   tabSelect = (source) => {

@@ -8,7 +8,7 @@ import { deleteFlashMessage, deleteFlashMessages } from '../../actions/flash';
 
 const FlashList = ({ messages, deleteFlashMessage }) => (
   <div>{map(messages, message =>
-    <Flash key={message.id} message={message} close={() => deleteFlashMessage(message.id)} />
+    <Flash key={message.id} message={message} close={deleteFlashMessage(message.id)} />
   )}</div>
 );
 

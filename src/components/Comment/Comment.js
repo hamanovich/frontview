@@ -8,6 +8,8 @@ import Media from 'react-bootstrap/lib/Media';
 import Image from 'react-bootstrap/lib/Image';
 import Label from 'react-bootstrap/lib/Label';
 
+import Loader from '../../utils/Loader';
+
 const Comment = ({ comment, match }) => (
   <Media>
     <Media.Left>
@@ -35,11 +37,15 @@ const Comment = ({ comment, match }) => (
 
 Comment.propTypes = {
   comment: PropTypes.object.isRequired,
-  match: PropTypes.object
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      username: PropTypes.string.isRequired
+    }).isRequired
+  })
 };
 
 Comment.defaultProps = {
   match: null
 };
 
-export default Comment;
+export default Loader('comment')(Comment);
