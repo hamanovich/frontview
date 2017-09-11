@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import md5 from 'md5';
+import uniqueValidator from 'mongoose-unique-validator';
 
 const Schema = mongoose.Schema;
 
@@ -75,5 +76,7 @@ function autopopulate(next) {
 }
 
 userSchema.pre('find', autopopulate);
+
+userSchema.plugin(uniqueValidator);
 
 export default mongoose.model('user', userSchema);

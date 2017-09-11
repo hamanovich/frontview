@@ -45,6 +45,7 @@
     "moment": "^2.18.1",
     "mongoose": "^4.11.7",
     "mongoose-mongodb-errors": "0.0.2",
+    "mongoose-unique-validator": "^1.0.5",
     "morgan": "^1.8.2",
     "nodemailer": "^4.0.1",
     "pug": "^2.0.0-rc.3",

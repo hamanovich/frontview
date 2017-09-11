@@ -29,16 +29,14 @@ class Reset extends Component {
   };
 
   componentDidMount() {
-    const { getReset, addFlashMessage, match, history } = this.props;
+    const { getReset, addFlashMessage, match } = this.props;
 
-    getReset(match.params.token).catch(() => {
+    getReset(match.params.token).catch(err =>
       addFlashMessage({
         type: 'error',
-        text: 'Password reset is invalid or expired'
-      });
-
-      history.push('/login');
-    });
+        text: err.response.data.errors.form
+      })
+    );
   }
 
   onSubmit = (values) => {

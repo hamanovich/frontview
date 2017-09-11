@@ -2,23 +2,17 @@ import axios from 'axios';
 
 import { USER_GET } from './types';
 
+import api from '../api';
+
 export const userGet = user => ({
   type: USER_GET,
   user
 });
 
-export const userSignup = userData =>
-  () => axios.post('/api/users/', userData);
-
-export const isUserExists = identifier =>
-  () => axios.get(`/api/users/${identifier}`);
-
+export const signup = user => () => api.user.signup(user);
+export const isUserExists = identifier => () => axios.get(`/api/users/${identifier}`);
+export const removeUser = username => () => api.user.remove(username);
+export const updateUser = user => () => api.user.update(user);
 export const getUser = identifier =>
-  dispatch => axios.get(`/api/users/${identifier}`)
-    .then(res => dispatch(userGet(res.data.user)));
-
-export const removeUser = username =>
-  () => axios.delete(`/api/users/${username}`);
-
-export const updateUser = user =>
-  () => axios.put(`/api/users/${user.username}`, user);
+  dispatch => api.user.getUser(identifier)
+    .then(user => dispatch(userGet(user)));

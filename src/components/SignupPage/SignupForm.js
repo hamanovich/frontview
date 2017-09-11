@@ -11,13 +11,14 @@ import validate from '../../validations/signup';
 
 class SignupForm extends Component {
   static propTypes = {
-    userSignup: PropTypes.func.isRequired,
+    signup: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
     isUserExists: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func.isRequired,
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired
-    }).isRequired
+    handleSubmit: PropTypes.func.isRequired
+  };
+
+  static contextTypes = {
+    router: PropTypes.object.isRequired
   };
 
   state = {
@@ -27,11 +28,12 @@ class SignupForm extends Component {
   };
 
   onSubmit = (values) => {
-    const { addFlashMessage, userSignup, history } = this.props;
+    const { addFlashMessage, signup } = this.props;
+    const { history } = this.context.router;
 
     this.setState({ errors: {}, isLoading: true });
 
-    userSignup(values)
+    signup(values)
       .then(() => {
         addFlashMessage({
           type: 'success',
@@ -116,7 +118,7 @@ class SignupForm extends Component {
           type="submit"
           bsStyle="primary"
           bsSize="large"
-          disabled={isLoading || invalid}
+          disabled={isLoading || invalid || !!(errors.username || errors.email)}
         >Register</Button>
       </Form>
     );

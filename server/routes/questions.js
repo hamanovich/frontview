@@ -73,7 +73,7 @@ exports.edit = async (req, res) => {
 
 exports.editField = async (req, res) => {
   const question = await Question.findById({ _id: req.params.id });
-  
+
   if (!question) {
     res.json({ errors: { form: `Question by ${req.params.id} didn't find` } });
     return;

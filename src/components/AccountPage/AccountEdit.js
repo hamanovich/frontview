@@ -9,6 +9,8 @@ import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
+import Image from 'react-bootstrap/lib/Image';
+import Media from 'react-bootstrap/lib/Media';
 
 import { TextField, TextareaField } from '../formElements';
 
@@ -71,7 +73,7 @@ class AccountEdit extends Component {
 
   render() {
     const { isLoading } = this.state;
-    const { handleSubmit } = this.props;
+    const { handleSubmit, initialValues } = this.props;
 
     return (
       <div>
@@ -80,6 +82,23 @@ class AccountEdit extends Component {
         </PageHeader>
 
         <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
+          <Media>
+            <Media.Left>
+              <Image
+                src={initialValues.gravatar}
+                style={{ width: 100, height: 100, maxWidth: 100 }}
+                thumbnail
+              />
+            </Media.Left>
+            <Media.Body>
+              <Media.Heading>Gravatar image</Media.Heading>
+              <p>A Gravatar is a <b>G</b>lobally <b>R</b>ecognized <b>Avatar</b>. You upload it and create your profile just once, and then when you participate in any Gravatar-enabled site, your Gravatar image will automatically follow you there.</p>
+              <p>To change avatar: <a href="https://gravatar.com" target="_blank" rel="noopener noreferrer">Go to gravatar</a></p>
+            </Media.Body>
+          </Media>
+
+          <hr />
+
           <Field
             label="Username:"
             component={TextField}

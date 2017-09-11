@@ -1,8 +1,9 @@
-import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { setAuthorizationToken } from '../utils/helpers';
 
 import { SET_CURRENT_USER, CLEANUP_CURRENT_USER } from './types';
+
+import api from '../api';
 
 export const setCurrentUser = user => ({
   type: SET_CURRENT_USER,
@@ -14,10 +15,9 @@ export const logoutUser = () => ({
   user: {}
 });
 
-export const login = userData =>
-  dispatch => axios.post('/api/auth', userData)
-    .then((res) => {
-      const token = res.data.token;
+export const login = credentials =>
+  dispatch => api.user.login(credentials)
+    .then((token) => {
       const decoded = jwtDecode(token);
 
       localStorage.setItem('jwtToken', token);
@@ -32,16 +32,6 @@ export const logout = () =>
     dispatch(logoutUser());
   };
 
-export const forgot = email =>
-  () => axios.post('/api/auth/forgot', email)
-    .then(res => res.data);
-
-export const getReset = token =>
-  () => axios.get(`/api/auth/reset/${token}`)
-    .then(res => res.data)
-    .catch((e) => { throw new Error(e.response.data); });
-
-export const resetToken = (token, passwords) =>
-  () => axios.post(`/api/auth/reset/${token}`, passwords)
-    .then(res => res.data);
-
+export const forgot = email => () => api.user.forgot(email);
+export const getReset = token => () => api.user.getReset(token);
+export const resetToken = (token, passwords) => () => api.user.reset(token, passwords);
