@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../api';
 
 import { QLISTS_ADD, QLIST_ADD, QLIST_ADD_QUESTION } from './types';
 
@@ -18,13 +18,10 @@ export const qlistQuestionAdded = qlist => ({
 });
 
 export const qlistAdd = qlist =>
-  dispatch => axios.post('/api/qlist/add', qlist)
-    .then(res => dispatch(qlistAdded(res.data)));
+  dispatch => api.qlists.add(qlist).then(qlist => dispatch(qlistAdded(qlist)));
 
 export const qlistAddQuestion = (qlist, question) =>
-  dispatch => axios.post('/api/qlist/add/question', { qlist, question })
-    .then(res => dispatch(qlistQuestionAdded(res.data)));
+  dispatch => api.qlists.addQuestion(qlist, question).then(qlist => dispatch(qlistQuestionAdded(qlist)));
 
 export const getQListsByAuthor = _id =>
-  dispatch => axios.get(`/api/qlists/${_id}`)
-    .then(res => dispatch(addQlists(res.data)));
+  dispatch => api.qlists.getByAuthor(_id).then(qlist => dispatch(addQlists(qlist)));

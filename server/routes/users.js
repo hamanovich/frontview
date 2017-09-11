@@ -78,7 +78,7 @@ exports.getUser = async (req, res) => {
       votes: user.votes
     };
 
-    res.json({ user: userData });
+    res.json(userData);
     return;
   }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
+import FontAwesome from 'react-fontawesome';
 
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
@@ -22,7 +23,10 @@ class SignupForm extends Component {
   };
 
   state = {
-    errors: {},
+    errors: {
+      username: '',
+      email: ''
+    },
     isLoading: false,
     invalid: false
   };
@@ -119,7 +123,7 @@ class SignupForm extends Component {
           bsStyle="primary"
           bsSize="large"
           disabled={isLoading || invalid || !!(errors.username || errors.email)}
-        >Register</Button>
+        >Register <FontAwesome name="users" /></Button>
       </Form>
     );
   }

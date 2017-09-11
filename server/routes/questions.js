@@ -79,7 +79,7 @@ exports.editField = async (req, res) => {
     return;
   }
 
-  question.lastModified = req.body.lastModified;
+  question.lastModified = new Date();
   question[req.body.field] = req.body.value;
 
   await question.save();
