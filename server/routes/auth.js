@@ -19,14 +19,7 @@ exports.auth = async (req, res) => {
   }
 
   if (bcrypt.compareSync(password, user.passwordDigest)) {
-    const token = jwt.sign({
-      _id: user._id,
-      username: user.username,
-      email: user.email,
-      role: user.role
-    }, process.env.SECRET);
-
-    res.json(token);
+    res.json(user.generateJWT());
   } else {
     res.status(401).json({ errors: { form: 'Invalid Credentials' } });
   }
@@ -45,14 +38,7 @@ exports.confirm = async (req, res) => {
     return;
   }
 
-  const userToken = jwt.sign({
-    _id: user._id,
-    username: user.username,
-    email: user.email,
-    role: user.role
-  }, process.env.SECRET);
-
-  res.json(userToken);
+  res.json(user.generateJWT());
 };
 
 exports.forgot = async (req, res) => {

@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import md5 from 'md5';
+import jwt from 'jsonwebtoken';
 import uniqueValidator from 'mongoose-unique-validator';
 
 const Schema = mongoose.Schema;
@@ -64,6 +65,15 @@ const userSchema = new Schema({
   toOjbect: { virtuals: true }
 });
 
+userSchema.methods.generateJWT = function () {
+  return jwt.sign({
+    _id: this._id,
+    username: this.username,
+    email: this.email,
+    role: this.role
+  }, process.env.SECRET);
+};
+
 userSchema.virtual('gravatar').get(function () {
   const hash = md5(this.email);
   return `https://gravatar.com/avatar/${hash}?s=100`;
@@ -74,13 +84,6 @@ userSchema.virtual('qlists', {
   localField: '_id',
   foreignField: 'author'
 });
-
-function autopopulate(next) {
-  this.populate('qlists');
-  next();
-}
-
-userSchema.pre('find', autopopulate);
 
 userSchema.plugin(uniqueValidator);
 

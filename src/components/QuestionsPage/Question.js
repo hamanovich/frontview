@@ -55,13 +55,14 @@ class Question extends Component {
   render() {
     const { question, editQuestionField, user } = this.props;
     const { answerField, textField } = this.state;
+    
     const panelHeader = (
       <div className="clearfix">
         <h3 className="panel-title pull-left" onClick={this.open(question.question, 'question')}>
           <MarkdownRenderer markdown={question.question} />
         </h3>
         <div className="pull-right">
-          {question.level && map(question.level, level => (
+          {map(question.level, level => (
             <Link to={`/questions/level/${level}`} key={level}>
               <Label
                 style={{ margin: '0 3px' }}
@@ -76,7 +77,7 @@ class Question extends Component {
       <div className="clearfix">
         <h5 className="pull-left">
           <strong>Skill</strong>:
-          {question.skill && map(question.skill, skill => (
+          {map(question.skill, skill => (
             <Link to={`/questions/skill/${skill}`} key={skill}>{' '}{skill}</Link>
           ))}
         </h5>
@@ -89,11 +90,10 @@ class Question extends Component {
     return (
       <Panel header={panelHeader} footer={panelFooter}>
         <ListGroup fill>
-          {question.answer &&
-            <ListGroupItem bsStyle="success" style={{ whiteSpace: 'pre-wrap' }} onClick={this.open(question.answer, 'answer')}>
-              <MarkdownRenderer markdown={question.answer} />
-            </ListGroupItem>}
-          {question.answers && map(question.answers, (question, index) => (
+          <ListGroupItem bsStyle="success" style={{ whiteSpace: 'pre-wrap' }} onClick={this.open(question.answer, 'answer')}>
+            <MarkdownRenderer markdown={question.answer} />
+          </ListGroupItem>
+          {map(question.answers, (question, index) => (
             <ListGroupItem
               key={`question[${index}]`}
               style={{ whiteSpace: 'pre-wrap' }}
@@ -108,13 +108,13 @@ class Question extends Component {
           <Well onClick={this.open(question.notes, 'notes')}>
             <MarkdownRenderer markdown={question.notes} />
           </Well>}
-        {question.author && <small><strong>Author</strong>:
+
+        <small><strong>Author</strong>:
           <Link to={`/questions/author/${question.author.username}`}>{question.author.username}</Link>
         </small>
-        }
 
         <Link to={`/questions/${question.slug}/one`} className="pull-right">
-          <FontAwesome name="comments-o" /> {question && question.comments.length}
+          <FontAwesome name="comments-o" /> {question.comments && question.comments.length}
         </Link>
 
         <hr />

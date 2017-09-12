@@ -34,7 +34,7 @@ class AddQuestion extends Component {
       params: PropTypes.shape({
         _id: PropTypes.string.isRequired
       }).isRequired
-    }).isRequired,
+    }),
     userId: PropTypes.string,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired
@@ -42,7 +42,8 @@ class AddQuestion extends Component {
   };
 
   static defaultProps = {
-    userId: ''
+    userId: '',
+    match: null
   };
 
   state = {

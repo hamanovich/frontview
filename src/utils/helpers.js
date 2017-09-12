@@ -14,7 +14,7 @@ export const PropsRoute = ({ component, ...rest }) => (
   <Route
     {...rest}
     render={
-      routeProps => React.createElement(component, Object.assign({}, routeProps, rest))
+      routeProps => React.createElement(component, { ...routeProps, ...rest })
     }
   />
 );

@@ -32,8 +32,7 @@ exports.getQListsByAuthor = async (req, res) => {
     return;
   }
 
-  const qlists = await QList.find({ author: user._id })
-    .sort({ created: -1 });
+  const qlists = await QList.find({ author: user._id }).sort({ created: -1 });
 
   res.json(qlists);
 };
