@@ -15,7 +15,11 @@ class CommentsAuthor extends Component {
     comments: PropTypes.array.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
     getCommentsByAuthor: PropTypes.func.isRequired,
-    match: PropTypes.object.isRequired
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        username: PropTypes.string.isRequired
+      }).isRequired
+    }).isRequired
   };
 
   componentDidMount() {

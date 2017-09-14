@@ -45,13 +45,9 @@ class Account extends Component {
     getUser(user.username);
   }
 
-  close = () => {
-    this.setState({ modal: false });
-  };
+  close = () => this.setState({ modal: false });
 
-  open = () => {
-    this.setState({ modal: true });
-  };
+  open = () => this.setState({ modal: true });
 
   remove = () => {
     const { user, removeUser, logout, addFlashMessage } = this.props;

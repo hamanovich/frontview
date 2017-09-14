@@ -13,18 +13,32 @@ exports.auth = async (req, res) => {
     return;
   }
 
-  if (bcrypt.compareSync(password, user.passwordDigest)) {
-    const token = jwt.sign({
-      _id: user._id,
-      username: user.username,
-      email: user.email,
-      role: user.role
-    }, process.env.SECRET);
+  if (!user.confirmed) {
+    res.status(401).json({ errors: { form: 'You didn\'t confirm your email. Before login, please do it' } });
+    return;
+  }
 
-    res.json({ token });
+  if (bcrypt.compareSync(password, user.passwordDigest)) {
+    res.json(user.generateJWT());
   } else {
     res.status(401).json({ errors: { form: 'Invalid Credentials' } });
   }
+};
+
+exports.confirm = async (req, res) => {
+  const token = req.body.token;
+  const user = await User.findOneAndUpdate(
+    { confirmationToken: token },
+    { confirmationToken: undefined, confirmed: true },
+    { new: true }
+  );
+
+  if (!user) {
+    res.status(400).json({ errors: 'Ooops. Invalid token it seems. Or you have already confirmed it' });
+    return;
+  }
+
+  res.json(user.generateJWT());
 };
 
 exports.forgot = async (req, res) => {
@@ -44,6 +58,7 @@ exports.forgot = async (req, res) => {
 
   await send({
     user,
+    from: 'Siarhei Hamanovich <siarhei_hamanovich@epam.com>',
     filename: 'password-reset',
     subject: 'Password Reset',
     resetURL

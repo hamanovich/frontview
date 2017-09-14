@@ -7,19 +7,19 @@ import Col from 'react-bootstrap/lib/Col';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
 import FontAwesome from 'react-fontawesome';
 
-import { userSignup, isUserExists } from '../../actions/signup';
+import { signup, isUserExists } from '../../actions/signup';
 import { addFlashMessage } from '../../actions/flash';
 
 import SignupForm from './SignupForm';
 
-const SignupPage = ({ userSignup, addFlashMessage, isUserExists }) => (
+const SignupPage = ({ signup, addFlashMessage, isUserExists }) => (
   <Row>
     <Col md={6} mdOffset={3}>
       <PageHeader>
         <FontAwesome name="user-plus" /> Register. Welcome
       </PageHeader>
       <SignupForm
-        userSignup={userSignup}
+        signup={signup}
         addFlashMessage={addFlashMessage}
         isUserExists={isUserExists}
       />
@@ -28,9 +28,9 @@ const SignupPage = ({ userSignup, addFlashMessage, isUserExists }) => (
 );
 
 SignupPage.propTypes = {
-  userSignup: PropTypes.func.isRequired,
+  signup: PropTypes.func.isRequired,
   addFlashMessage: PropTypes.func.isRequired,
   isUserExists: PropTypes.func.isRequired
 };
 
-export default connect(null, { userSignup, addFlashMessage, isUserExists })(SignupPage);
+export default connect(null, { signup, addFlashMessage, isUserExists })(SignupPage);

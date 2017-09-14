@@ -19,7 +19,11 @@ const Comments = ({ comments, match }) => (
 
 Comments.propTypes = {
   comments: PropTypes.array.isRequired,
-  match: PropTypes.object
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      username: PropTypes.string.isRequired
+    }).isRequired
+  })
 };
 
 Comments.defaultProps = {

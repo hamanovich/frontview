@@ -8,7 +8,6 @@ export const CLEANUP_CURRENT_USER = '[USER] CLEAN';
 export const USER_GET = '[USER] GET';
 
 export const QUESTIONS_ADD = '[QUESTIONS] ADD';
-export const QUESTIONS_GET = '[QUESTIONS] GET';
 export const QUESTION_ADD = '[QUESTION] ADD';
 export const QUESTION_EDIT = '[QUESTION] EDIT';
 export const QUESTION_GET = '[QUESTION] GET';
@@ -20,3 +19,7 @@ export const VOTE_DISLIKE = '[VOTE] DISLIKE';
 
 export const COMMENTS_ADD = '[COMMENTS] ADD';
 export const COMMENT_ADD = '[COMMENT] ADD';
+
+export const QLISTS_ADD = '[QLISTS] ADD';
+export const QLIST_ADD = '[QLIST] ADD';
+export const QLIST_ADD_QUESTION = '[QLIST] ADD_QUESTION';

@@ -11,7 +11,7 @@ const HomePage = () => (
       <hr />
       <p>It uses utility classes for typgraphy and spacing to space content out within the larger container.</p>
       <p className="lead">
-        <Button color="primary">Learn More</Button>
+        <Button bsStyle="primary">Learn More</Button>
       </p>
     </Jumbotron>
   </div>

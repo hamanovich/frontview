@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
 
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
@@ -12,20 +11,20 @@ import { TextField } from '../formElements';
 
 import validate from '../../validations/reset';
 
-import { resetToken, getReset } from '../../actions/auth';
-import { addFlashMessage } from '../../actions/flash';
-
 class Reset extends Component {
   static propTypes = {
     resetToken: PropTypes.func.isRequired,
     getReset: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
-    match: PropTypes.object.isRequired
-  };
-
-  static contextTypes = {
-    router: PropTypes.object.isRequired
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        token: PropTypes.string.isRequired
+      }).isRequired
+    }).isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired
+    }).isRequired
   };
 
   state = {
@@ -34,31 +33,23 @@ class Reset extends Component {
   };
 
   componentDidMount() {
-    const { router } = this.context;
     const { getReset, addFlashMessage, match } = this.props;
-    const failure = () => {
+
+    getReset(match.params.token).catch(err =>
       addFlashMessage({
         type: 'error',
-        text: 'Password reset is invalid or expired'
-      });
-      router.history.push('/login');
-    };
-
-    getReset(match.params.token)
-      .then(
-        (res) => { if (!res) failure(); },
-        () => failure()
-      );
+        text: err.response.data.errors.form
+      })
+    );
   }
 
   onSubmit = (values) => {
-    const { router } = this.context;
-    const { resetToken, addFlashMessage, match } = this.props;
+    const { resetToken, addFlashMessage, match, history } = this.props;
 
     this.setState({ errors: {}, isLoading: true });
 
-    resetToken(match.params.token, values).then(
-      (res) => {
+    resetToken(match.params.token, values)
+      .then((res) => {
         if (res.errors) {
           this.setState({ errors: res.errors, isLoading: false });
 
@@ -69,10 +60,10 @@ class Reset extends Component {
           type: 'success',
           text: 'Password successfully updated. Please login'
         });
-        router.history.push('/');
-      },
-      err => this.setState({ errors: err.response.data.error, isLoading: false })
-    );
+
+        history.push('/');
+      })
+      .catch(err => this.setState({ errors: err.response.data.error, isLoading: false }));
   };
 
   render() {
@@ -112,8 +103,4 @@ class Reset extends Component {
   }
 }
 
-export default connect(null, { getReset, addFlashMessage, resetToken })(
-  reduxForm({
-    form: 'reset',
-    validate
-  })(Reset));
+export default reduxForm({ form: 'reset', validate })(Reset);

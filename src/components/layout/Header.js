@@ -57,40 +57,47 @@ class Header extends Component {
     const userLinks = (
       <Nav pullRight>
         <NavDropdown title="Questions" id="questions-dropdown">
-          <IndexLinkContainer to="/questions"><MenuItem>Show All</MenuItem></IndexLinkContainer>
+          <IndexLinkContainer to="/questions">
+            <MenuItem>Show All</MenuItem>
+          </IndexLinkContainer>
           <LinkContainer to="/questions/top">
             <MenuItem>
               <FontAwesome name="exclamation" /> Top 10
-          </MenuItem>
+            </MenuItem>
+          </LinkContainer>
+          <LinkContainer to="/questions/internet">
+            <MenuItem>
+              <FontAwesome name="internet-explorer" /> From Internet
+            </MenuItem>
           </LinkContainer>
           <MenuItem divider />
           <LinkContainer to="/questions/level">
             <MenuItem>
               <FontAwesome name="line-chart" /> By Levels
-          </MenuItem>
+            </MenuItem>
           </LinkContainer>
           <LinkContainer to="/questions/skill">
             <MenuItem>
               <FontAwesome name="star-half-o" /> By Skills
-          </MenuItem>
+            </MenuItem>
           </LinkContainer>
           <LinkContainer to="/questions/practice">
             <MenuItem>
               <FontAwesome name="keyboard-o" /> By Practice
-          </MenuItem>
+            </MenuItem>
           </LinkContainer>
           <MenuItem divider />
           <LinkContainer to="/questions/add">
             <MenuItem>
               <FontAwesome name="question-circle-o" /> Add new
-          </MenuItem>
+            </MenuItem>
           </LinkContainer>
         </NavDropdown>
         <NavDropdown title={username} id="account-dropdown">
           <IndexLinkContainer to="/me">
             <MenuItem>
               <FontAwesome name="user" /> Account
-          </MenuItem>
+            </MenuItem>
           </IndexLinkContainer>
           <LinkContainer to="/me/edit">
             <MenuItem>
@@ -117,7 +124,7 @@ class Header extends Component {
     );
 
     return (
-      <Navbar>
+      <Navbar style={{ borderRadius: 0 }}>
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/">Frontview /</Link>

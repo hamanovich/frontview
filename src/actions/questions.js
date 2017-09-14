@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../api';
 
 import {
   QUESTIONS_ADD,
@@ -47,69 +47,69 @@ export const voteDislike = question => ({
   question
 });
 
+export const getQuestionInterface = () => () => api.questions.getInterface();
+
 export const getQuestions = (page = 1) =>
-  dispatch => axios.get(`/api/questions/page/${page}`)
-    .then((res) => {
-      const { questions, count, pages } = res.data;
+  dispatch => api.questions.getQuestions(page)
+    .then(({ questions, count, pages }) => {
       dispatch(addQuestions(questions, count, pages));
 
       return { count, pages };
     });
 
 export const getTopQuestions = () =>
-  dispatch => axios.get('/api/questions/top/')
-    .then(res => dispatch(addQuestions(res.data)));
+  dispatch => api.questions.getTop()
+    .then(questions => dispatch(addQuestions(questions)));
 
 export const getQuestionsByFilter = (filter, tag = '') =>
-  dispatch => axios.get(`/api/questions/${filter}/${tag}`)
-    .then((res) => {
-      const { tags, questions } = res.data;
+  dispatch => api.questions.getByFilter(filter, tag)
+    .then(({ tags, questions }) => {
       dispatch(addQuestions(questions));
 
       return { tags, questions };
     });
 
 export const getQuestionById = id =>
-  dispatch => axios.get(`/api/question/${id}`)
-    .then(res => dispatch(questionGot(res.data)));
+  dispatch => api.questions.getById(id)
+    .then(question => dispatch(questionGot(question)));
 
 export const getQuestionBySlug = slug =>
-  dispatch => axios.get(`/api/question/${slug}/one`)
-    .then(res => dispatch(questionGot(res.data)));
+  dispatch => api.questions.getBySlug(slug)
+    .then(question => dispatch(questionGot(question)));
 
 export const getQuestionsByAuthor = username =>
-  dispatch => axios.get(`/api/questions/author/${username}`)
-    .then(res => dispatch(addQuestions(res.data)));
+  dispatch => api.questions.getByAuthor(username)
+    .then(questions => dispatch(addQuestions(questions)));
 
 export const addQuestion = question =>
-  dispatch => axios.post('/api/questions/add', question)
-    .then(res => dispatch(questionAdded(res.data)));
+  dispatch => api.questions.add(question)
+    .then(question => dispatch(questionAdded(question)));
 
 export const editQuestion = data =>
-  dispatch => axios.put(`/api/question/${data._id}/edit`, data)
-    .then(res => dispatch(questionEdited(res.data)));
+  dispatch => api.questions.edit(data)
+    .then(question => dispatch(questionEdited(question)));
 
 export const editQuestionField = (id, field, value) =>
-  dispatch => axios.patch(`/api/question/${id}/edit`, { field, value, lastModified: new Date() })
-    .then(res => dispatch(questionEdited(res.data)));
+  dispatch => api.questions.editField(id, field, value)
+    .then(question => dispatch(questionEdited(question)));
 
 export const removeQuestion = id =>
-  dispatch => axios.delete(`/api/question/${id}`)
-    .then(res => dispatch(questionRemoved(res.data)));
+  dispatch => api.questions.remove(id)
+    .then(question => dispatch(questionRemoved(question)));
 
 export const getSearchedQuestions = query =>
-  dispatch => axios.get(`/api/search?q=${query}`)
-    .then((res) => {
-      if (res.data.length) {
-        dispatch(addQuestions(res.data));
+  dispatch => api.questions.getSearched(query)
+    .then((questions) => {
+      if (questions.length) {
+        dispatch(addQuestions(questions));
       }
 
-      return res.data;
+      return questions;
     });
 
 export const voteQuestion = (question, action, userId) =>
-  dispatch => axios.put(`/api/question/${question._id}/vote`, { question, action, userId })
-    .then(res => action === 'like'
-      ? dispatch(voteLike(res.data))
-      : dispatch(voteDislike(res.data))
+  dispatch => () => api.questions.vote(question, action, userId)
+    .then(question => action === 'like'
+      ? dispatch(voteLike(question))
+      : dispatch(voteDislike(question))
     );

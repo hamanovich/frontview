@@ -7,11 +7,15 @@ import FontAwesome from 'react-fontawesome';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import ListGroup from 'react-bootstrap/lib/ListGroup';
+import Button from 'react-bootstrap/lib/Button';
 
 import Account from './Account';
 import AccountEdit from './AccountEdit';
+import QListForm from './QListForm';
 
-const AccountPage = ({ user }) => (
+import { logout } from '../../actions/auth';
+
+const AccountPage = ({ user, logout }) => (
   <Row>
     <Col md={3} sm={4}>
       <ListGroup style={{ marginTop: 45 }}>
@@ -25,14 +29,21 @@ const AccountPage = ({ user }) => (
           <FontAwesome name="comments-o" /> Your Comments
         </Link>
         <Link to="/questions/add" className="list-group-item">
-          <FontAwesome name="file-text-o" /> Add question
+          <FontAwesome name="file-text-o" /> Add a question
         </Link>
+        <Link to="/me/qlist/create" className="list-group-item">
+          <FontAwesome name="list-ul" /> Create a QList
+        </Link>
+        <Button block bsStyle="danger" onClick={logout}>
+          <FontAwesome name="sign-out" /> Logout
+        </Button>
       </ListGroup>
     </Col>
     <Col md={9} sm={8}>
       <Switch>
         <Route exact path="/me" component={Account} />
         <Route exact path="/me/edit" component={AccountEdit} />
+        <Route exact path="/me/qlist/create" component={QListForm} />
         <Redirect to="/me" />
       </Switch>
     </Col>
@@ -40,9 +51,10 @@ const AccountPage = ({ user }) => (
 );
 
 AccountPage.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({ user: state.auth.user });
 
-export default connect(mapStateToProps)(AccountPage);
+export default connect(mapStateToProps, { logout })(AccountPage);

@@ -41,7 +41,6 @@ class CommentForm extends Component {
     const query = { ...values, userId: user._id, questionId: question._id };
     const { slug } = this.context.router.route.match.params;
 
-
     addComment(query).then(() => {
       reset();
       getQuestion(slug);
@@ -91,7 +90,4 @@ class CommentForm extends Component {
   }
 }
 
-export default reduxForm({
-  form: 'comment',
-  validate
-})(CommentForm);
+export default reduxForm({ form: 'comment', validate })(CommentForm);

@@ -1,6 +1,6 @@
-import axios from 'axios';
-
 import { COMMENTS_ADD, COMMENT_ADD } from './types';
+
+import api from '../api';
 
 export const addComments = comments => ({
   type: COMMENTS_ADD,
@@ -13,9 +13,7 @@ export const commentAdded = comment => ({
 });
 
 export const addComment = comment =>
-  dispatch => axios.post('/api/comments/add', comment)
-    .then(res => dispatch(commentAdded(res.data)));
+  dispatch => api.comments.add(comment).then(comment => dispatch(commentAdded(comment)));
 
 export const getCommentsByAuthor = username =>
-    dispatch => axios.get(`/api/comments/${username}`)
-      .then(res => dispatch(addComments(res.data)));
+  dispatch => api.comments.getByAuthor(username).then(comments => dispatch(addComments(comments)));

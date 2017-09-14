@@ -1,6 +1,15 @@
 import Question from '../models/question';
 import User from '../models/user';
 
+exports.getQuestionInterface = (req, res) => {
+  const schema = Question.schema;
+  const skill = schema.path('skill').caster.enumValues;
+  const level = schema.path('level').caster.enumValues;
+  const practice = schema.path('practice').enumValues;
+
+  res.json({ skill, level, practice });
+};
+
 exports.getQuestions = async (req, res) => {
   const page = req.params.page || 1;
   const limit = 2;
@@ -73,12 +82,13 @@ exports.edit = async (req, res) => {
 
 exports.editField = async (req, res) => {
   const question = await Question.findById({ _id: req.params.id });
+
   if (!question) {
     res.json({ errors: { form: `Question by ${req.params.id} didn't find` } });
     return;
   }
 
-  question.lastModified = req.body.lastModified;
+  question.lastModified = new Date();
   question[req.body.field] = req.body.value;
 
   await question.save();
@@ -128,11 +138,11 @@ exports.searchQuestions = async (req, res) => {
       $search: req.query.q
     }
   }, {
-    score: { $meta: 'textScore' }
-  })
-  .sort({
-    score: { $meta: 'textScore' }
-  });
+      score: { $meta: 'textScore' }
+    })
+    .sort({
+      score: { $meta: 'textScore' }
+    });
 
   res.json(questions);
 };

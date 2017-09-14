@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import md5 from 'md5';
+import jwt from 'jsonwebtoken';
+import uniqueValidator from 'mongoose-unique-validator';
 
 const Schema = mongoose.Schema;
 
@@ -38,6 +40,11 @@ const userSchema = new Schema({
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
+  confirmed: {
+    type: Boolean,
+    default: false
+  },
+  confirmationToken: String,
   questions: [{
     type: Schema.Types.ObjectId,
     ref: 'question',
@@ -54,13 +61,30 @@ const userSchema = new Schema({
     }]
   }
 }, {
-  toJSON: { virtuals: true },
-  toOjbect: { virtuals: true }
-});
+    toJSON: { virtuals: true },
+    toOjbect: { virtuals: true }
+  });
+
+userSchema.methods.generateJWT = function () {
+  return jwt.sign({
+    _id: this._id,
+    username: this.username,
+    email: this.email,
+    role: this.role
+  }, process.env.SECRET);
+};
 
 userSchema.virtual('gravatar').get(function () {
   const hash = md5(this.email);
   return `https://gravatar.com/avatar/${hash}?s=100`;
 });
+
+userSchema.virtual('qlists', {
+  ref: 'qlist',
+  localField: '_id',
+  foreignField: 'author'
+});
+
+userSchema.plugin(uniqueValidator);
 
 export default mongoose.model('user', userSchema);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
+import FontAwesome from 'react-fontawesome';
 
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
@@ -11,7 +12,8 @@ import validate from '../../validations/signup';
 
 class SignupForm extends Component {
   static propTypes = {
-    userSignup: PropTypes.func.isRequired,
+    signup: PropTypes.func.isRequired,
+    reset: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
     isUserExists: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired
@@ -22,26 +24,29 @@ class SignupForm extends Component {
   };
 
   state = {
-    errors: {},
+    errors: {
+      username: '',
+      email: ''
+    },
     isLoading: false,
     invalid: false
   };
 
   onSubmit = (values) => {
-    const { addFlashMessage, userSignup } = this.props;
+    const { addFlashMessage, signup, reset } = this.props;
 
     this.setState({ errors: {}, isLoading: true });
 
-    userSignup(values).then(
-      () => {
+    signup(values)
+      .then(() => {
         addFlashMessage({
-          type: 'success',
-          text: 'You have signed up successfully'
+          type: 'warn',
+          text: 'Please, verify your email to confirm'
         });
-        this.context.router.history.push('/');
-      },
-      err => this.setState({ errors: err.response.data, isLoading: false })
-    );
+
+        reset();
+      })
+      .catch(err => this.setState({ errors: err.response.data, isLoading: false }));
   }
 
   checkUserExists = (e) => {
@@ -117,14 +122,11 @@ class SignupForm extends Component {
           type="submit"
           bsStyle="primary"
           bsSize="large"
-          disabled={isLoading || invalid}
-        >Register</Button>
+          disabled={isLoading || invalid || !!(errors.username || errors.email)}
+        >Register <FontAwesome name="users" /></Button>
       </Form>
     );
   }
 }
 
-export default reduxForm({
-  form: 'signup',
-  validate
-})(SignupForm);
+export default reduxForm({ form: 'signup', validate })(SignupForm);

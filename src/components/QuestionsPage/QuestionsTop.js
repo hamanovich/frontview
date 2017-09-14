@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import map from 'lodash/map';
 import FontAwesome from 'react-fontawesome';
 
@@ -10,7 +11,25 @@ import Label from 'react-bootstrap/lib/Label';
 
 import Loader from '../../utils/Loader';
 
-import './QuestionsTop.css';
+const LabelGroup = styled.span`
+  .label {
+    margin: 0 3px;
+
+    &:first-child{
+      margin-left: 0;
+    }
+
+    &:last-child{
+      margin-right: 0;
+    }
+  }
+`;
+
+const LabelVoted = styled.span`
+  position: absolute;
+  right: 10px;
+  top: 10px;
+`;
 
 const QuestionsTop = ({ questions }) => (
   <div>
@@ -25,24 +44,24 @@ const QuestionsTop = ({ questions }) => (
           href={`/questions/${question.slug}/one`}
           key={question.slug}
         >
-          <span className="label-group">
+          <LabelGroup>
             <Label bsStyle="warning">{question.practice}</Label>
-          </span>
+          </LabelGroup>
           {' | '}
-          <span className="label-group">
+          <LabelGroup>
             {question.level && map(question.level, level => (
               <Label bsStyle="primary" key={level}>{level}</Label>
             ))}
-          </span>
+          </LabelGroup>
           {' | '}
-          <span className="label-group">
+          <LabelGroup>
             {question.skill && map(question.skill, skill => (
               <Label bsStyle="primary" key={skill}>{skill}</Label>
             ))}
-          </span>
-          <span className="label-voted">
+          </LabelGroup>
+          <LabelVoted>
             <FontAwesome name="thumbs-o-up" /> {question.votes.like.length}
-          </span>
+          </LabelVoted>
         </ListGroupItem>
       ))}
     </ListGroup>

@@ -25,7 +25,6 @@ class Question extends Component {
     question: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
     editQuestionField: PropTypes.func.isRequired,
-    voteQuestion: PropTypes.func.isRequired
   };
 
   state = {
@@ -34,7 +33,7 @@ class Question extends Component {
     answerField: null
   };
 
-  open = (answerField, field) => {
+  open = (answerField, field) => () => {
     const { user, question } = this.props;
 
     if (user.username === question.author.username) {
@@ -54,15 +53,16 @@ class Question extends Component {
   };
 
   render() {
-    const { question, editQuestionField, voteQuestion, user } = this.props;
+    const { question, editQuestionField, user } = this.props;
     const { answerField, textField } = this.state;
+    
     const panelHeader = (
       <div className="clearfix">
-        <h3 className="panel-title pull-left" onClick={() => this.open(question.question, 'question')}>
+        <h3 className="panel-title pull-left" onClick={this.open(question.question, 'question')}>
           <MarkdownRenderer markdown={question.question} />
         </h3>
         <div className="pull-right">
-          {question.level && map(question.level, level => (
+          {map(question.level, level => (
             <Link to={`/questions/level/${level}`} key={level}>
               <Label
                 style={{ margin: '0 3px' }}
@@ -77,7 +77,7 @@ class Question extends Component {
       <div className="clearfix">
         <h5 className="pull-left">
           <strong>Skill</strong>:
-          {question.skill && map(question.skill, skill => (
+          {map(question.skill, skill => (
             <Link to={`/questions/skill/${skill}`} key={skill}>{' '}{skill}</Link>
           ))}
         </h5>
@@ -87,19 +87,17 @@ class Question extends Component {
       </div>
     );
 
-
     return (
       <Panel header={panelHeader} footer={panelFooter}>
         <ListGroup fill>
-          {question.answer &&
-            <ListGroupItem bsStyle="success" style={{ whiteSpace: 'pre-wrap' }} onClick={() => this.open(question.answer, 'answer')}>
-              <MarkdownRenderer markdown={question.answer} />
-            </ListGroupItem>}
-          {question.answers && map(question.answers, (question, index) => (
+          <ListGroupItem style={{ whiteSpace: 'pre-wrap' }} onClick={this.open(question.answer, 'answer')}>
+            <MarkdownRenderer markdown={question.answer} />
+          </ListGroupItem>
+          {map(question.answers, (question, index) => (
             <ListGroupItem
               key={`question[${index}]`}
               style={{ whiteSpace: 'pre-wrap' }}
-              onClick={() => this.open(question, `answers.${index}.text`)}
+              onClick={this.open(question, `answers.${index}.text`)}
             >
               <MarkdownRenderer markdown={question.text} />
             </ListGroupItem>
@@ -107,16 +105,16 @@ class Question extends Component {
         </ListGroup>
 
         {question.notes &&
-          <Well onClick={() => this.open(question.notes, 'notes')}>
+          <Well onClick={this.open(question.notes, 'notes')}>
             <MarkdownRenderer markdown={question.notes} />
           </Well>}
-        {question.author && <small><strong>Author</strong>:
+
+        <small><strong>Author</strong>:
           <Link to={`/questions/author/${question.author.username}`}>{question.author.username}</Link>
         </small>
-        }
 
         <Link to={`/questions/${question.slug}/one`} className="pull-right">
-          <FontAwesome name="comments-o" /> {question && question.comments.length}
+          <FontAwesome name="comments-o" /> {question.comments && question.comments.length}
         </Link>
 
         <hr />
@@ -127,15 +125,11 @@ class Question extends Component {
           </ButtonGroup>
         }
 
-        {user.username && <Toolbar
-          userId={user._id}
-          question={question}
-          voteQuestion={voteQuestion}
-        />}
+        {user.username && <Toolbar question={question} user={user} />}
 
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
-            <Modal.Title>Change value: <strong>{this.state.textField}</strong></Modal.Title>
+            <Modal.Title>Change value: <strong>{textField}</strong></Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form>

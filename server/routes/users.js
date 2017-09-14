@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import isEmpty from 'lodash/isEmpty';
 
 import User from '../models/user';
+import { send } from '../handlers/mail';
 
 import validate from '../../src/validations/signup';
 
@@ -35,11 +36,38 @@ exports.createUser = async (req, res) => {
     res.status(400).json(errors);
   }
 
-  const user = await User.create({ username, email, passwordDigest });
+  const user = new User({
+    username,
+    email,
+    passwordDigest,
+    confirmationToken: bcrypt.hashSync(process.env.SECRET, 10).replace(/\//g, '')
+  });
 
-  if (user) {
-    res.send(user);
-  }
+
+  await user.save((err) => {
+    if (err) {
+      const { username, email } = err.errors;
+
+      return res.status(500).json({
+        username: username && username.message,
+        email: email && email.message
+      });
+    }
+
+    return true;
+  });
+
+  const confirmURL = `http://${req.headers['x-forwarded-host']}/confirmation/${user.confirmationToken}`;
+
+  await send({
+    user,
+    from: 'FrontView <admin@frontview.com>',
+    filename: 'confirmation-email',
+    subject: 'Confirmation Email',
+    confirmURL
+  });
+
+  res.send(user);
 };
 
 exports.getUser = async (req, res) => {
@@ -67,7 +95,7 @@ exports.getUser = async (req, res) => {
       votes: user.votes
     };
 
-    res.json({ user: userData });
+    res.json(userData);
     return;
   }
 
@@ -76,41 +104,25 @@ exports.getUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   const { errors, isValid } = await validateUser(req.body, validate);
-  const { username, email, password, firstName, lastName, primarySkill, jobFunction, skype, phone, notes } = req.body;
-  const passwordDigest = bcrypt.hashSync(password, 10);
+  const passwordDigest = bcrypt.hashSync(req.body.password, 10);
 
   if (!isValid) {
     res.status(400).json(errors);
   }
 
-  const userOne = await User.findOne({ username: req.params.username });
-  userOne.username = username;
-  userOne.email = email;
-  userOne.firstName = firstName;
-  userOne.lastName = lastName;
-  userOne.jobFunction = jobFunction;
-  userOne.primarySkill = primarySkill;
-  userOne.skype = skype;
-  userOne.phone = phone;
-  userOne.notes = notes;
-  userOne.passwordDigest = passwordDigest;
+  const userOne = await User.findOneAndUpdate(
+    { username: req.params.username },
+    { ...req.body, passwordDigest },
+    { new: true }
+  );
 
   await userOne.save();
 
-  const user = await User.findOne({ username: req.params.username });
-
-  if (user) {
-    res.json({ success: true });
-  }
+  res.json({ success: true });
 };
 
 exports.remove = async (req, res) => {
-  const user = await User.remove({ username: req.params.username });
+  await User.remove({ username: req.params.username });
 
-  if (user) {
-    res.json({ succes: true });
-    return;
-  }
-
-  res.status(500).json({ error: 'User didn\'t remove. It looks this user doesn\'t exist.' });
+  res.json({ succes: true });
 };
