@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import isEmpty from 'lodash/isEmpty';
+import FontAwesome from 'react-fontawesome';
 
-import './Loader.css';
-
-export default prop => (ComposedComponent) => {
+export default prop => ComposedComponent =>
   class Loader extends Component {
     componentDidMount() {
       this.startTimer = Date.now();
@@ -22,9 +21,19 @@ export default prop => (ComposedComponent) => {
         loadingTime: ((this.endTimer - this.startTimer) / 1000).toFixed(2)
       };
 
-      return filtered.length !== props.length ? <div className="loader" /> : <ComposedComponent {...this.props} {...myProps} />;
+      return filtered.length !== props.length ?
+        <FontAwesome
+          name="spinner"
+          size="4x"
+          pulse
+          spin
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translateX(-50%) translateY(-50%)'
+          }}
+        /> :
+        <ComposedComponent {...this.props} {...myProps} />;
     }
-  }
-
-  return Loader;
-};
+  };

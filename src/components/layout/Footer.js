@@ -1,13 +1,17 @@
 import React from 'react';
+import styled from 'styled-components';
 
-import Grid from 'react-bootstrap/lib/Grid';
+const Foot = styled.footer`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  padding: 10px 0;
+  background-color: #1a242f;
+  text-align: center;
+  color: #fff;
+`;
 
-const Footer = () => (
-  <footer className="footer text-center">
-    <Grid>
-      <p className="text-muted">&copy; Front View <br /> 2017</p>
-    </Grid>
-  </footer>
-);
+const Footer = () => (<Foot>&copy; Front View <br /> 2017</Foot>);
 
 export default Footer;

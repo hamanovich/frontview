@@ -1,6 +1,15 @@
 import Question from '../models/question';
 import User from '../models/user';
 
+exports.getQuestionInterface = (req, res) => {
+  const schema = Question.schema;
+  const skill = schema.path('skill').caster.enumValues;
+  const level = schema.path('level').caster.enumValues;
+  const practice = schema.path('practice').enumValues;
+
+  res.json({ skill, level, practice });
+};
+
 exports.getQuestions = async (req, res) => {
   const page = req.params.page || 1;
   const limit = 2;
@@ -129,11 +138,11 @@ exports.searchQuestions = async (req, res) => {
       $search: req.query.q
     }
   }, {
-    score: { $meta: 'textScore' }
-  })
-  .sort({
-    score: { $meta: 'textScore' }
-  });
+      score: { $meta: 'textScore' }
+    })
+    .sort({
+      score: { $meta: 'textScore' }
+    });
 
   res.json(questions);
 };

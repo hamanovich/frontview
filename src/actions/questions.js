@@ -47,6 +47,8 @@ export const voteDislike = question => ({
   question
 });
 
+export const getQuestionInterface = () => () => api.questions.getInterface();
+
 export const getQuestions = (page = 1) =>
   dispatch => api.questions.getQuestions(page)
     .then(({ questions, count, pages }) => {

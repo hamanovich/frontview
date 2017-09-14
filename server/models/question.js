@@ -13,16 +13,19 @@ const questionSchema = new Schema({
     type: String,
     lowercase: true
   },
-  skill: {
-    type: [String],
+  skill: [{
+    type: String,
+    enum: ['HTML', 'CSS', 'JS', 'Soft', 'Other'],
     required: 'Skill field is required'
-  },
-  level: {
-    type: [String],
+  }],
+  level: [{
+    type: String,
+    enum: ['Junioe', 'Middle', 'Senior', 'Lead', 'Chief', 'Not specified'],
     required: 'Level field is required'
-  },
+  }],
   practice: {
     type: String,
+    enum: ['practice', 'theory'],
     required: 'Practice field is required'
   },
   answer: {

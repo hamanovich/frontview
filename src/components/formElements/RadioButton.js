@@ -11,6 +11,7 @@ const RadioButton = ({
   input,
   label,
   options,
+  inline,
   meta: { touched, error, warning }
 }) => (
   <FormGroup validationState={touched && error ? 'error' : touched && !error ? 'success' : null}>
@@ -21,6 +22,7 @@ const RadioButton = ({
         id={o.value}
         key={o.value}
         value={o.value}
+        inline={inline}
         checked={input.value === o.value}
       >
         {o.title}
@@ -40,11 +42,16 @@ RadioButton.propTypes = {
     value: PropTypes.string
   }).isRequired,
   label: PropTypes.string.isRequired,
+  inline: PropTypes.bool,
   meta: PropTypes.shape({
     touched: PropTypes.bool,
     error: PropTypes.string,
     warning: PropTypes.string
   }).isRequired
+};
+
+RadioButton.defaultProps = {
+  inline: false
 };
 
 export default RadioButton;

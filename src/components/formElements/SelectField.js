@@ -12,6 +12,7 @@ const SelectField = ({
   label,
   multiple,
   options,
+  size,
   meta: { touched, error, warning }
 }) => (
   <FormGroup
@@ -23,6 +24,7 @@ const SelectField = ({
     <select
       {...input}
       id={id}
+      size={size}
       multiple={multiple}
       className="form-control"
     >
@@ -44,12 +46,17 @@ SelectField.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   multiple: PropTypes.bool.isRequired,
+  size: PropTypes.number,
   options: PropTypes.array.isRequired,
   meta: PropTypes.shape({
     touched: PropTypes.bool,
     error: PropTypes.string,
     warning: PropTypes.string
   }).isRequired
+};
+
+SelectField.defaultProps = {
+  size: 4
 };
 
 export default SelectField;

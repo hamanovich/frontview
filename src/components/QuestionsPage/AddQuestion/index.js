@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, FieldArray, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
+import map from 'lodash/map';
 
 import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
@@ -18,22 +19,29 @@ import { TextField, TextareaField, RadioButton, SelectField } from '../../formEl
 import validate from '../../../validations/question';
 
 import { logout } from '../../../actions/auth';
-import { addQuestion, removeQuestion, editQuestion, getQuestionById } from '../../../actions/questions';
 import { addFlashMessage } from '../../../actions/flash';
+import {
+  addQuestion,
+  removeQuestion,
+  editQuestion,
+  getQuestionById,
+  getQuestionInterface
+} from '../../../actions/questions';
 
 class AddQuestion extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     addQuestion: PropTypes.func.isRequired,
     editQuestion: PropTypes.func.isRequired,
+    getQuestionInterface: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
     removeQuestion: PropTypes.func.isRequired,
     getQuestionById: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
     match: PropTypes.shape({
       params: PropTypes.shape({
-        _id: PropTypes.string.isRequired
-      }).isRequired
+        _id: PropTypes.string
+      })
     }),
     userId: PropTypes.string,
     history: PropTypes.shape({
@@ -49,11 +57,17 @@ class AddQuestion extends Component {
   state = {
     errors: {},
     isLoading: false,
-    showModal: false
+    showRemoveModal: false,
+    level: [],
+    practice: [],
+    skill: []
   };
 
   componentDidMount = () => {
-    const { getQuestionById, addFlashMessage, match, history } = this.props;
+    const { getQuestionById, getQuestionInterface, addFlashMessage, match, history } = this.props;
+
+    getQuestionInterface()
+      .then(({ skill, level, practice }) => this.setState({ skill, level, practice }));
 
     if (match.params._id) {
       getQuestionById(match.params._id).then(
@@ -115,13 +129,7 @@ class AddQuestion extends Component {
     }
   }
 
-  openModel = () => {
-    this.setState({ showModal: true });
-  };
-
-  closeModal = () => {
-    this.setState({ showModal: false });
-  };
+  toggleRemoveModal = () => this.setState({ showRemoveModal: !this.state.showRemoveModal });
 
   remove = id => () => {
     const { removeQuestion, addFlashMessage, history } = this.props;
@@ -138,7 +146,7 @@ class AddQuestion extends Component {
   };
 
   render() {
-    const { isLoading } = this.state;
+    const { isLoading, showRemoveModal, skill, practice, level } = this.state;
     const { match, handleSubmit } = this.props;
     const { _id } = match.params;
 
@@ -149,6 +157,7 @@ class AddQuestion extends Component {
             <PageHeader>
               <FontAwesome name="question-circle-o" /> {_id ? 'Edit question' : 'Add new question'}
             </PageHeader>
+
             <Field
               label="Question*:"
               component={TextField}
@@ -165,15 +174,10 @@ class AddQuestion extends Component {
                   id="skill"
                   label="Choose skill* (multiple):"
                   multiple
+                  size={5}
                   type="select-multiple"
                   required
-                  options={[
-                    { title: 'HTML', value: 'HTML' },
-                    { title: 'CSS', value: 'CSS' },
-                    { title: 'JS', value: 'JS' },
-                    { title: 'Soft', value: 'Soft' },
-                    { title: 'Other', value: 'Other' }
-                  ]}
+                  options={map(skill, s => ({ title: s, value: s }))}
                 />
               </Col>
 
@@ -184,16 +188,10 @@ class AddQuestion extends Component {
                   id="level"
                   label="Choose level* (multiple):"
                   multiple
+                  size={6}
                   type="select-multiple"
                   required
-                  options={[
-                    { title: 'Junior', value: 'Junior' },
-                    { title: 'Middle', value: 'Middle' },
-                    { title: 'Senior', value: 'Senior' },
-                    { title: 'Lead', value: 'Lead' },
-                    { title: 'Chief', value: 'Chief' },
-                    { title: 'Not defined', value: 'Not defined' }
-                  ]}
+                  options={map(level, s => ({ title: s, value: s }))}
                 />
               </Col>
             </Row>
@@ -202,12 +200,10 @@ class AddQuestion extends Component {
               component={RadioButton}
               name="practice"
               id="practice"
-              label="Is it practical question?*:"
+              label="Is it practical question?*:&emsp;"
               required
-              options={[
-                { title: 'Theory', value: 'theory' },
-                { title: 'Practice', value: 'practice' }
-              ]}
+              inline
+              options={map(practice, s => ({ title: s, value: s }))}
             />
 
             <hr />
@@ -238,14 +234,14 @@ class AddQuestion extends Component {
               bsStyle="info"
               bsSize="large"
               disabled={isLoading}
-            >{_id ? 'Update' : 'Add new question'}</Button>
+            >{_id ? (<span>Update <FontAwesome name="refresh" /></span>) : 'Add new question'}</Button>
 
             {_id && <div className="pull-right">
-              <Button bsStyle="danger" onClick={this.openModel}>
+              <Button bsStyle="danger" onClick={this.toggleRemoveModal}>
                 <FontAwesome name="trash-o" /> Remove
               </Button>
 
-              <Modal bsSize="sm" show={this.state.showModal} onHide={this.closeModal}>
+              <Modal bsSize="sm" show={showRemoveModal} onHide={this.toggleRemoveModal}>
                 <Modal.Header closeButton>
                   <Modal.Title>Are you sure?</Modal.Title>
                 </Modal.Header>
@@ -254,21 +250,15 @@ class AddQuestion extends Component {
                 </Modal.Body>
                 <Modal.Footer>
                   <ButtonGroup>
-                    <Button
-                      bsStyle="default"
-                      onClick={this.closeModal}
-                    >Cancel</Button>
-                    <Button
-                      bsStyle="danger"
-                      onClick={this.remove(_id)}
-                    >Remove</Button>
+                    <Button bsStyle="default" onClick={this.toggleRemoveModal}>Cancel</Button>
+                    <Button bsStyle="danger" onClick={this.remove(_id)}>Remove</Button>
                   </ButtonGroup>
                 </Modal.Footer>
               </Modal>
             </div>}
           </Form>
         </Col>
-      </Row>
+      </Row >
     );
   }
 }
@@ -294,6 +284,7 @@ export default connect(mapStateToProps, {
   getQuestionById,
   removeQuestion,
   editQuestion,
+  getQuestionInterface,
   addFlashMessage
 })(
   reduxForm({

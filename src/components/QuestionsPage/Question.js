@@ -90,7 +90,7 @@ class Question extends Component {
     return (
       <Panel header={panelHeader} footer={panelFooter}>
         <ListGroup fill>
-          <ListGroupItem bsStyle="success" style={{ whiteSpace: 'pre-wrap' }} onClick={this.open(question.answer, 'answer')}>
+          <ListGroupItem style={{ whiteSpace: 'pre-wrap' }} onClick={this.open(question.answer, 'answer')}>
             <MarkdownRenderer markdown={question.answer} />
           </ListGroupItem>
           {map(question.answers, (question, index) => (
@@ -129,7 +129,7 @@ class Question extends Component {
 
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
-            <Modal.Title>Change value: <strong>{this.state.textField}</strong></Modal.Title>
+            <Modal.Title>Change value: <strong>{textField}</strong></Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form>

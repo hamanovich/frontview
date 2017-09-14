@@ -24,6 +24,7 @@ router.post('/auth/reset/:token', authController.confirmedPasswords, catchErrors
 router.post('/questions/add', authenticate, catchErrors(questionsController.add));
 router.put('/question/:id/edit', authenticate, catchErrors(questionsController.edit));
 router.patch('/question/:id/edit', authenticate, catchErrors(questionsController.editField));
+router.get('/question/interface', questionsController.getQuestionInterface);
 router.get('/question/:id', catchErrors(questionsController.getQuestionById));
 router.get('/question/:slug/one', catchErrors(questionsController.getQuestionBySlug));
 router.get('/questions', catchErrors(questionsController.getQuestions));

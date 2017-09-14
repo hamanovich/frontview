@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import styled from 'styled-components';
 
 import Grid from 'react-bootstrap/lib/Grid';
 
@@ -17,12 +18,16 @@ import CommentsAuthor from './Comment/CommentsAuthor';
 
 import { isLoggedIn, User } from '../utils/helpers';
 
+const Main = styled.main`
+  padding-bottom: 30px;
+`;
+
 const App = () => (
   <div>
     <Header />
     <Grid>
       <FlashList />
-      <main>
+      <Main>
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/login" component={isLoggedIn(LoginPage)} />
@@ -33,7 +38,7 @@ const App = () => (
           <Route path="/confirmation/:token" component={Confirmation} />
           <Route component={NotFound} />
         </Switch>
-      </main>
+      </Main>
     </Grid>
     <Footer />
   </div>

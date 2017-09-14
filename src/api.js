@@ -48,6 +48,9 @@ export default {
   },
 
   questions: {
+    getInterface: () => axios.get('/api/question/interface')
+      .then(res => res.data),
+
     getQuestions: page => axios.get(`/api/questions/page/${page}`)
       .then(res => res.data),
 

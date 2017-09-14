@@ -124,7 +124,7 @@ class Header extends Component {
     );
 
     return (
-      <Navbar>
+      <Navbar style={{ borderRadius: 0 }}>
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/">Frontview /</Link>
