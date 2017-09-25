@@ -25,7 +25,7 @@ export default {
 
     remove: username => axios.delete(`/api/users/${username}`),
 
-    update: user => axios.put(`/api/users/${user.username}`, user)
+    update: user => axios.put(`/api/user/${user.username}`, user)
   },
 
   comments: {
@@ -44,7 +44,10 @@ export default {
       .then(res => res.data),
 
     getByAuthor: _id => axios.get(`/api/qlists/${_id}`)
-      .then(res => res.data)
+      .then(res => res.data),
+
+    remove: _id => axios.delete(`/api/qlist/${_id}`)
+      .then(res => res.data),
   },
 
   questions: {
@@ -58,6 +61,9 @@ export default {
       .then(res => res.data),
 
     getByFilter: (filter, tag) => axios.get(`/api/questions/${filter}/${tag}`)
+      .then(res => res.data),
+
+    getByQList: qlist => axios.get(`api/questions/${qlist}`)
       .then(res => res.data),
 
     getById: id => axios.get(`/api/question/${id}`)

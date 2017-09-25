@@ -1,6 +1,6 @@
 import map from 'lodash/map';
 
-import { QLISTS_ADD, QLIST_ADD, QLIST_ADD_QUESTION } from '../actions/types';
+import { QLISTS_ADD, QLIST_ADD, QLIST_ADD_QUESTION, QLIST_REMOVE } from '../actions/types';
 
 export default (state = [], action) => {
   switch (action.type) {
@@ -24,6 +24,18 @@ export default (state = [], action) => {
       }
 
       return [action.qlist];
+
+    case QLIST_REMOVE:
+      const removeIndex = state.findIndex(qlist => qlist._id === action.qlist._id);
+
+      if (removeIndex > -1) {
+        return [
+          ...state.slice(0, removeIndex),
+          ...state.slice(removeIndex + 1)
+        ];
+      }
+
+      return state;
 
     default:
       return state;

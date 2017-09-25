@@ -61,9 +61,9 @@ const userSchema = new Schema({
     }]
   }
 }, {
-    toJSON: { virtuals: true },
-    toOjbect: { virtuals: true }
-  });
+  toJSON: { virtuals: true },
+  toOjbect: { virtuals: true }
+});
 
 userSchema.methods.generateJWT = function () {
   return jwt.sign({

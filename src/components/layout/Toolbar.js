@@ -12,7 +12,7 @@ import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 
 import { voteQuestion } from '../../actions/questions';
-import { qlistAddQuestion, getQListsByAuthor } from '../../actions/qlists';
+import { qlistAddQuestion, getQLists } from '../../actions/qlists';
 
 class Toolbar extends Component {
   static propTypes = {
@@ -21,7 +21,7 @@ class Toolbar extends Component {
     question: PropTypes.object.isRequired,
     qlists: PropTypes.array.isRequired,
     qlistAddQuestion: PropTypes.func.isRequired,
-    getQListsByAuthor: PropTypes.func.isRequired,
+    getQLists: PropTypes.func.isRequired,
     voteQuestion: PropTypes.func.isRequired
   };
 
@@ -30,9 +30,9 @@ class Toolbar extends Component {
   };
 
   componentDidMount() {
-    const { user, getQListsByAuthor } = this.props;
+    const { user, getQLists } = this.props;
 
-    getQListsByAuthor(user._id);
+    getQLists(user._id);
   }
 
   render() {
@@ -87,4 +87,4 @@ class Toolbar extends Component {
 
 const mapStateToProps = state => ({ qlists: state.qlists });
 
-export default connect(mapStateToProps, { voteQuestion, qlistAddQuestion, getQListsByAuthor })(Toolbar);
+export default connect(mapStateToProps, { voteQuestion, qlistAddQuestion, getQLists })(Toolbar);

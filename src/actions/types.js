@@ -23,3 +23,4 @@ export const COMMENT_ADD = '[COMMENT] ADD';
 export const QLISTS_ADD = '[QLISTS] ADD';
 export const QLIST_ADD = '[QLIST] ADD';
 export const QLIST_ADD_QUESTION = '[QLIST] ADD_QUESTION';
+export const QLIST_REMOVE = '[QLIST] REMOVE';

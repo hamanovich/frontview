@@ -13,7 +13,7 @@ const router = express.Router();
 router.post('/users', usersController.createUser);
 router.get('/users/:identifier', usersController.getUser);
 router.put('/users/:username', usersController.updateUser);
-router.delete('/users/:username', usersController.remove);
+router.delete('/user/:username', usersController.remove);
 
 router.post('/auth', authController.auth);
 router.post('/auth/confirmation', authController.confirm);
@@ -39,9 +39,10 @@ router.delete('/question/:id', questionsController.remove);
 router.get('/comments/:username', catchErrors(commentsController.getCommentsByAuthor));
 router.post('/comments/add', authenticate, catchErrors(commentsController.add));
 
-router.get('/qlists/:_id', catchErrors(qlistController.getQListsByAuthor));
+router.get('/qlists/:_id', catchErrors(qlistController.getQLists));
 router.post('/qlist/add', authenticate, catchErrors(qlistController.addQlist));
 router.post('/qlist/add/question', authenticate, catchErrors(qlistController.addQuestion));
+router.delete('/qlist/:_id', qlistController.remove);
 
 router.get('/search', questionsController.searchQuestions);
 

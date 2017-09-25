@@ -152,7 +152,7 @@ class Question extends Component {
             </form>
           </Modal.Body>
         </Modal>
-      </Panel >
+      </Panel>
     );
   }
 }

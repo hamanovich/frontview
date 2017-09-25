@@ -11,7 +11,8 @@ import Button from 'react-bootstrap/lib/Button';
 
 import Account from './Account';
 import AccountEdit from './AccountEdit';
-import QListForm from './QListForm';
+import QListForm from '../QList/QListForm';
+import QLists from '../QList/QLists';
 
 import { logout } from '../../actions/auth';
 
@@ -34,6 +35,9 @@ const AccountPage = ({ user, logout }) => (
         <Link to="/me/qlist/create" className="list-group-item">
           <FontAwesome name="list-ul" /> Create a QList
         </Link>
+        <Link to="/me/qlists" className="list-group-item">
+          <FontAwesome name="list-ol" /> Show my QLists
+        </Link>
         <Button block bsStyle="danger" onClick={logout}>
           <FontAwesome name="sign-out" /> Logout
         </Button>
@@ -44,6 +48,7 @@ const AccountPage = ({ user, logout }) => (
         <Route exact path="/me" component={Account} />
         <Route exact path="/me/edit" component={AccountEdit} />
         <Route exact path="/me/qlist/create" component={QListForm} />
+        <Route exact path="/me/qlists" component={QLists} />
         <Redirect to="/me" />
       </Switch>
     </Col>

@@ -23,7 +23,7 @@ exports.addQuestion = async (req, res) => {
   res.json(newQlist);
 };
 
-exports.getQListsByAuthor = async (req, res) => {
+exports.getQLists = async (req, res) => {
   const { _id } = req.params;
   const user = await User.findById({ _id });
 
@@ -35,4 +35,16 @@ exports.getQListsByAuthor = async (req, res) => {
   const qlists = await QList.find({ author: user._id }).sort({ created: -1 });
 
   res.json(qlists);
+};
+
+
+exports.remove = async (req, res) => {
+  const qlist = await QList.findByIdAndRemove({ _id: req.params._id });
+
+  if (qlist) {
+    res.json(qlist);
+    return;
+  }
+
+  res.status(500).json({ error: 'QList didn\'t remove' });
 };
