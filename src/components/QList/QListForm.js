@@ -51,7 +51,7 @@ class QListForm extends Component {
         reset();
         this.setState({ isLoading: false });
       })
-      .catch(err => this.setState({ errors: err.response.data, isLoading: false }));
+      .catch(() => this.setState({ isLoading: false }));
   };
 
   render() {

@@ -24,11 +24,10 @@ exports.addQuestion = async (req, res) => {
 };
 
 exports.getQLists = async (req, res) => {
-  const { _id } = req.params;
-  const user = await User.findById({ _id });
+  const user = await User.findById(req.params._id);
 
   if (!user) {
-    res.status(404).json({ error: `User ${username} didn't find` });
+    res.status(404).json({ error: 'User didn\'t find' });
     return;
   }
 
@@ -39,7 +38,7 @@ exports.getQLists = async (req, res) => {
 
 
 exports.remove = async (req, res) => {
-  const qlist = await QList.findByIdAndRemove({ _id: req.params._id });
+  const qlist = await QList.findByIdAndRemove(req.params._id);
 
   if (qlist) {
     res.json(qlist);

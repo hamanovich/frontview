@@ -28,7 +28,7 @@ exports.getQuestions = async (req, res) => {
 };
 
 exports.getQuestionById = async (req, res) => {
-  const question = await Question.findById({ _id: req.params.id })
+  const question = await Question.findById(req.params.id)
     .exec((err) => {
       if (err) {
         res.status(500).json({ error: `Question with id='${req.params.id}' didn't find` });
@@ -81,7 +81,7 @@ exports.edit = async (req, res) => {
 };
 
 exports.editField = async (req, res) => {
-  const question = await Question.findById({ _id: req.params.id });
+  const question = await Question.findById(req.params.id);
 
   if (!question) {
     res.json({ errors: { form: `Question by ${req.params.id} didn't find` } });
@@ -97,7 +97,7 @@ exports.editField = async (req, res) => {
 };
 
 exports.remove = async (req, res) => {
-  const question = await Question.findByIdAndRemove({ _id: req.params.id });
+  const question = await Question.findByIdAndRemove(req.params.id);
   const user = await User.findByIdAndUpdate(question.author, { $pull: { questions: question._id } });
 
   if (question && user) {
@@ -123,7 +123,7 @@ exports.getQuestionsByAuthor = async (req, res) => {
   const user = await User.findOne({ username });
 
   if (!user) {
-    res.status(404).json({ error: `User ${username} didn't find` });
+    res.status(404).json({ error: 'User didn\'t find' });
     return;
   }
 
@@ -138,11 +138,11 @@ exports.searchQuestions = async (req, res) => {
       $search: req.query.q
     }
   }, {
-      score: { $meta: 'textScore' }
-    })
-    .sort({
-      score: { $meta: 'textScore' }
-    });
+    score: { $meta: 'textScore' }
+  })
+  .sort({
+    score: { $meta: 'textScore' }
+  });
 
   res.json(questions);
 };

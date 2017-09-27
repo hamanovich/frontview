@@ -85,6 +85,12 @@ userSchema.virtual('qlists', {
   foreignField: 'author'
 });
 
+userSchema.virtual('candidates', {
+  ref: 'candidate',
+  localField: '_id',
+  foreignField: 'interviewer'
+});
+
 userSchema.plugin(uniqueValidator);
 
 export default mongoose.model('user', userSchema);

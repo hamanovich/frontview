@@ -50,6 +50,17 @@ export default {
       .then(res => res.data),
   },
 
+  candidates: {
+    add: candidate => axios.post('/api/candidates/add', candidate)
+      .then(res => res.data),
+
+    getByInterviewer: _id => axios.get(`/api/candidates/${_id}`)
+      .then(res => res.data),
+
+    remove: _id => axios.delete(`/api/candidate/${_id}`)
+      .then(res => res.data),
+  },
+
   questions: {
     getInterface: () => axios.get('/api/question/interface')
       .then(res => res.data),

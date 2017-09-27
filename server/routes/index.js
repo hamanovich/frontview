@@ -7,6 +7,7 @@ import * as usersController from './users';
 import * as questionsController from './questions';
 import * as commentsController from './comments';
 import * as qlistController from './qlists';
+import * as candidatesController from './candidates';
 
 const router = express.Router();
 
@@ -43,6 +44,9 @@ router.get('/qlists/:_id', catchErrors(qlistController.getQLists));
 router.post('/qlist/add', authenticate, catchErrors(qlistController.addQlist));
 router.post('/qlist/add/question', authenticate, catchErrors(qlistController.addQuestion));
 router.delete('/qlist/:_id', qlistController.remove);
+
+router.get('/candidates/:_id', catchErrors(candidatesController.getCandidates));
+router.post('/candidates/add', authenticate, catchErrors(candidatesController.add));
 
 router.get('/search', questionsController.searchQuestions);
 
