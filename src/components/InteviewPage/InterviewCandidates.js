@@ -33,7 +33,10 @@ class InterviewCandidates extends Component {
     getCandidates: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
-    reset: PropTypes.func.isRequired
+    reset: PropTypes.func.isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired
+    }).isRequired
   };
 
   static defaultProps = {
@@ -41,22 +44,17 @@ class InterviewCandidates extends Component {
   };
 
   state = {
-    candidatePanel: false,
-    candidatesLoaded: false,
+    panel: false,
+    isLoaded: false,
     isLoading: false
   };
-
-  // chooseOne = () => {
-  // this.props.getCandidateById(this.candidateOne.value);
-  // this.context.router.push('/interview/step-2');
-  // };
 
   onSubmit = (values) => {
     const { candidateAdd, addFlashMessage, user, reset } = this.props;
     const query = { ...values, userId: user._id };
 
     this.setState({ errors: {}, isLoading: true });
-
+    
     candidateAdd(query)
       .then(() => {
         reset();
@@ -68,33 +66,41 @@ class InterviewCandidates extends Component {
 
         this.setState({
           isLoading: false,
-          candidatePanel: !this.state.candidatePanel
+          panel: !this.state.panel
         });
       })
       .catch(() => this.setState({ isLoading: false }));
   };
 
+  chooseOne = () => {
+    const { history, candidates } = this.props;
+    const candidate = candidates.find(candidate => candidate._id === this.candidateOne.value);
+
+    history.push({
+      pathname: '/interview/qlists',
+      state: candidate
+    });
+  };
+
   chooseFromList = () => {
-    const { candidatePanel, candidatesLoaded } = this.state;
+    const { panel, isLoaded } = this.state;
     const { getCandidates, user } = this.props;
 
-    this.setState({ candidatePanel: !candidatePanel });
-    if (!this.state.candidatePanel && !candidatesLoaded) {
-      getCandidates(user._id).then(
-        () => this.setState({ candidatesLoaded: true }),
-        err => this.setState({ errors: err.response.data })
-      );
+    this.setState({ panel: !panel });
+
+    if (!panel && !isLoaded) {
+      getCandidates(user._id)
+        .then(() => this.setState({ isLoaded: true }));
     }
   };
 
   render() {
     const { isLoading } = this.state;
     const { candidates, handleSubmit } = this.props;
-    const chooseCandidates = map(candidates, candidate =>
-      (<option
-        value={candidate._id}
-        key={candidate._id}
-      >{candidate.firstName} {candidate.lastName} - {candidate.primarySkill} ({candidate.techLevel})</option>));
+    const chooseCandidates = map(candidates, candidate => (<option
+      value={candidate._id}
+      key={candidate._id}
+    >{candidate.firstName} {candidate.lastName} - {candidate.primarySkill} ({candidate.techLevel})</option>));
 
     return (
       <div>
@@ -103,9 +109,9 @@ class InterviewCandidates extends Component {
           <p>
             <Button bsSize="small" onClick={this.chooseFromList}>
               or choose one
-          </Button>
+            </Button>
           </p>
-          <Panel collapsible expanded={this.state.candidatePanel}>
+          <Panel collapsible expanded={this.state.panel}>
             <FormGroup>
               <ControlLabel>Choose candidate from the list below:</ControlLabel>
               <Field
@@ -120,14 +126,13 @@ class InterviewCandidates extends Component {
               </Field>
             </FormGroup>
             <Button
-              bsSize="small"
               bsStyle="success"
               onClick={this.chooseOne}
             >Choose</Button>
           </Panel>
         </div>
 
-        <Panel collapsible expanded={!this.state.candidatePanel}>
+        <Panel collapsible expanded={!this.state.panel}>
           <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
             <Row>
               <Col sm={6}>

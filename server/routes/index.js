@@ -41,12 +41,15 @@ router.get('/comments/:username', catchErrors(commentsController.getCommentsByAu
 router.post('/comments/add', authenticate, catchErrors(commentsController.add));
 
 router.get('/qlists/:_id', catchErrors(qlistController.getQLists));
+router.get('/qlists/:_id/questions', catchErrors(qlistController.getQListQuestions));
 router.post('/qlist/add', authenticate, catchErrors(qlistController.addQlist));
 router.post('/qlist/add/question', authenticate, catchErrors(qlistController.addQuestion));
 router.delete('/qlist/:_id', qlistController.remove);
 
 router.get('/candidates/:_id', catchErrors(candidatesController.getCandidates));
 router.post('/candidates/add', authenticate, catchErrors(candidatesController.add));
+router.post('/candidate/:_id/feedback', catchErrors(candidatesController.provideFeedack));
+router.get('/candidate/:_id', catchErrors(candidatesController.getCandidate));
 
 router.get('/search', questionsController.searchQuestions);
 

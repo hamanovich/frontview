@@ -263,20 +263,10 @@ class AddQuestion extends Component {
   }
 }
 
-function mapStateToProps(state, props) {
-  if (props.match.params._id) {
-    const question = state.questions.find(question => question._id === props.match.params._id);
-    return {
-      initialValues: question,
-      userId: state.auth.user._id
-    };
-  }
-
-  return {
-    initialValues: {},
-    userId: state.auth.user._id
-  };
-}
+const mapStateToProps = (state, props) => ({
+  initialValues: props.match.params._id ? state.questions.find(q => q._id === props.match.params._id) : {},
+  userId: state.auth.user._id
+});
 
 export default connect(mapStateToProps, {
   logout,
@@ -286,8 +276,7 @@ export default connect(mapStateToProps, {
   editQuestion,
   getQuestionInterface,
   addFlashMessage
-})(
-  reduxForm({
-    form: 'addQuestion',
-    validate
-  })(AddQuestion));
+})(reduxForm({
+  form: 'addQuestion',
+  validate
+})(AddQuestion));

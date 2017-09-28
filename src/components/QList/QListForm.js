@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import FontAwesome from 'react-fontawesome';
 
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
-import PageHeader from 'react-bootstrap/lib/PageHeader';
 
 import { TextField, TextareaField } from '../formElements';
 
@@ -59,36 +57,30 @@ class QListForm extends Component {
     const { handleSubmit } = this.props;
 
     return (
-      <div>
-        <PageHeader>
-          <FontAwesome name="list-ul" /> Create new Question&apos;s List (QList)
-        </PageHeader>
+      <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
+        <Field
+          label="Title*:"
+          component={TextField}
+          type="text"
+          name="title"
+          placeholder="Come up with a list title"
+        />
 
-        <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
-          <Field
-            label="Title*:"
-            component={TextField}
-            type="text"
-            name="title"
-            placeholder="Come up with a list title"
-          />
+        <Field
+          label="Notes"
+          name="notes"
+          component={TextareaField}
+          rows={6}
+          placeholder="Add some notes, if needed"
+        />
 
-          <Field
-            label="Notes"
-            name="notes"
-            component={TextareaField}
-            rows={6}
-            placeholder="Add some notes, if needed"
-          />
-
-          <Button
-            type="submit"
-            bsStyle="primary"
-            bsSize="large"
-            disabled={isLoading}
-          >Create</Button>
-        </Form>
-      </div>
+        <Button
+          type="submit"
+          bsStyle="primary"
+          bsSize="large"
+          disabled={isLoading}
+        >Create</Button>
+      </Form>
     );
   }
 }

@@ -1,4 +1,6 @@
-import { CANDIDATES_ADD, CANDIDATE_ADD, CANDIDATE_REMOVE } from '../actions/types';
+import map from 'lodash/map';
+
+import { CANDIDATES_ADD, CANDIDATE_GET, CANDIDATE_ADD, CANDIDATE_REMOVE } from '../actions/types';
 
 export default (state = [], action) => {
   switch (action.type) {
@@ -7,6 +9,21 @@ export default (state = [], action) => {
 
     case CANDIDATE_ADD:
       return [...state, action.candidate];
+
+    case CANDIDATE_GET:
+      const gotIndex = state.findIndex(candidate => candidate._id === action.candidate._id);
+
+      if (gotIndex > -1) {
+        return map(state, (candidate) => {
+          if (candidate._id === action.candidate._id) {
+            return action.candidate;
+          }
+
+          return candidate;
+        });
+      }
+
+      return [action.candidate];
 
     case CANDIDATE_REMOVE:
       const removeIndex = state.findIndex(candidate => candidate._id === action.candidate._id);

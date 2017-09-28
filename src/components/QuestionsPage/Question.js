@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import MarkdownRenderer from 'react-markdown-renderer';
 import map from 'lodash/map';
+import shortid from 'shortid';
 import FontAwesome from 'react-fontawesome';
 
 import Button from 'react-bootstrap/lib/Button';
@@ -55,7 +56,7 @@ class Question extends Component {
   render() {
     const { question, editQuestionField, user } = this.props;
     const { answerField, textField } = this.state;
-    
+
     const panelHeader = (
       <div className="clearfix">
         <h3 className="panel-title pull-left" onClick={this.open(question.question, 'question')}>
@@ -95,7 +96,7 @@ class Question extends Component {
           </ListGroupItem>
           {map(question.answers, (question, index) => (
             <ListGroupItem
-              key={`question[${index}]`}
+              key={shortid.generate()}
               style={{ whiteSpace: 'pre-wrap' }}
               onClick={this.open(question, `answers.${index}.text`)}
             >

@@ -11,7 +11,7 @@ import Button from 'react-bootstrap/lib/Button';
 
 import Account from './Account';
 import AccountEdit from './AccountEdit';
-import QListForm from '../QList/QListForm';
+import QListPage from '../QList/QListPage';
 import QLists from '../QList/QLists';
 
 import { logout } from '../../actions/auth';
@@ -47,7 +47,7 @@ const AccountPage = ({ user, logout }) => (
       <Switch>
         <Route exact path="/me" component={Account} />
         <Route exact path="/me/edit" component={AccountEdit} />
-        <Route exact path="/me/qlist/create" component={QListForm} />
+        <Route exact path="/me/qlist/create" component={QListPage} />
         <Route exact path="/me/qlists" component={QLists} />
         <Redirect to="/me" />
       </Switch>

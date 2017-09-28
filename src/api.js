@@ -43,6 +43,9 @@ export default {
     addQuestion: (qlist, question) => axios.post('/api/qlist/add/question', { qlist, question })
       .then(res => res.data),
 
+    getQListQuestions: _id => axios.get(`/qlists/${_id}/questions`)
+      .then(res => res.data),
+
     getByAuthor: _id => axios.get(`/api/qlists/${_id}`)
       .then(res => res.data),
 
@@ -52,13 +55,20 @@ export default {
 
   candidates: {
     add: candidate => axios.post('/api/candidates/add', candidate)
-      .then(res => res.data),
+      .then(res => res.data)
+      .catch(err => console.error('E', err.response)),
 
     getByInterviewer: _id => axios.get(`/api/candidates/${_id}`)
       .then(res => res.data),
 
+    getCandidate: _id => axios.get(`/api/candidate/${_id}`)
+      .then(res => res.data),
+
     remove: _id => axios.delete(`/api/candidate/${_id}`)
       .then(res => res.data),
+
+    provideFeedback: (_id, feedback) => axios.post(`/api/candidate/${_id}/feedback`, feedback)
+      .then(res => res.data)
   },
 
   questions: {

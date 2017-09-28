@@ -8,13 +8,26 @@ import PageHeader from 'react-bootstrap/lib/PageHeader';
 
 import InterviewHero from './InterviewHero';
 import InterviewCandidates from './InterviewCandidates';
+import InterviewQLists from './InterviewQLists';
+import InterviewProgress from './InterviewProgress';
+import InterviewFinish from './InterviewFinish';
 
-import { candidateAdd, getCandidates } from '../../actions/candidates';
+import { candidateAdd, getCandidates, provideFeedback } from '../../actions/candidates';
 import { addFlashMessage } from '../../actions/flash';
+import { getQLists } from '../../actions/qlists';
 
 import { PropsRoute } from '../../utils/helpers';
 
-const InterviewPage = ({ user, addFlashMessage, candidates, candidateAdd, getCandidates }) => (
+const InterviewPage = ({
+  user,
+  addFlashMessage,
+  candidates,
+  candidateAdd,
+  getCandidates,
+  provideFeedback,
+  getQLists,
+  qlists
+}) => (
   <div>
     <PageHeader><FontAwesome name="id-badge" /> Interview</PageHeader>
 
@@ -30,6 +43,27 @@ const InterviewPage = ({ user, addFlashMessage, candidates, candidateAdd, getCan
         user={user}
         candidates={candidates}
       />
+      <PropsRoute
+        exact
+        path="/interview/qlists"
+        component={InterviewQLists}
+        getQLists={getQLists}
+        addFlashMessage={addFlashMessage}
+        user={user}
+        qlists={qlists}
+      />
+      <PropsRoute
+        exact
+        path="/interview/progress"
+        component={InterviewProgress}
+        addFlashMessage={addFlashMessage}
+        provideFeedback={provideFeedback}
+      />
+      <PropsRoute
+        exact
+        path="/interview/finish"
+        component={InterviewFinish}
+      />
       <Redirect to="/interview" />
     </Switch>
   </div>
@@ -39,6 +73,8 @@ InterviewPage.propTypes = {
   candidateAdd: PropTypes.func.isRequired,
   getCandidates: PropTypes.func.isRequired,
   addFlashMessage: PropTypes.func.isRequired,
+  getQLists: PropTypes.func.isRequired,
+  provideFeedback: PropTypes.func.isRequired,
   user: PropTypes.shape({
     username: PropTypes.string,
     email: PropTypes.string,
@@ -49,16 +85,25 @@ InterviewPage.propTypes = {
     lastName: PropTypes.string,
     gravatar: PropTypes.string
   }).isRequired,
-  candidates: PropTypes.array
+  candidates: PropTypes.array,
+  qlists: PropTypes.array
 };
 
 InterviewPage.defaultProps = {
-  candidates: []
+  candidates: [],
+  qlists: []
 };
 
 const mapStateToProps = state => ({
   user: state.auth.user,
-  candidates: state.candidates
+  candidates: state.candidates,
+  qlists: state.qlists
 });
 
-export default connect(mapStateToProps, { candidateAdd, getCandidates, addFlashMessage })(InterviewPage);
+export default connect(mapStateToProps, {
+  candidateAdd,
+  getCandidates,
+  addFlashMessage,
+  getQLists,
+  provideFeedback
+})(InterviewPage);

@@ -31,11 +31,23 @@ exports.getQLists = async (req, res) => {
     return;
   }
 
-  const qlists = await QList.find({ author: user._id }).sort({ created: -1 });
+  const qlists = await QList.find({ author: user._id })
+    .sort({ created: -1 })
+    .populate('questions');
 
   res.json(qlists);
 };
 
+exports.getQListQuestions = async (req, res) => {
+  const qlist = await QList.findById(req.params._id).populate('questions');
+
+  if (!qlist) {
+    res.status(404).json({ error: 'QList didn\'t find' });
+    return;
+  }
+
+  res.json(qlist);
+};
 
 exports.remove = async (req, res) => {
   const qlist = await QList.findByIdAndRemove(req.params._id);

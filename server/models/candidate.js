@@ -32,6 +32,10 @@ const candidateSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'user',
     required: 'You must supply an interviewer'
+  },
+  result: {
+    type: String,
+    default: ''
   }
 }, {
   toJSON: { virtuals: true },

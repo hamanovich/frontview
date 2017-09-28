@@ -111,7 +111,7 @@ class QuestionOne extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  const question = state.questions.filter(question => question.slug === props.match.params.slug)[0];
+  const question = state.questions.find(question => question.slug === props.match.params.slug);
 
   return {
     user: state.auth.user,
