@@ -54,7 +54,7 @@ class InterviewCandidates extends Component {
     const query = { ...values, userId: user._id };
 
     this.setState({ errors: {}, isLoading: true });
-    
+
     candidateAdd(query)
       .then(() => {
         reset();

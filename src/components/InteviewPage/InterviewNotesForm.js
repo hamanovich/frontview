@@ -29,7 +29,7 @@ class InterviewNotesForm extends Component {
 
     history.push({
       pathname: '/interview/finish',
-      state: feedback.result
+      state: { feedback, candidate }
     });
   };
 

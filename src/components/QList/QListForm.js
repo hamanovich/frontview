@@ -9,6 +9,7 @@ import Form from 'react-bootstrap/lib/Form';
 import { TextField, TextareaField } from '../formElements';
 
 import { qlistAdd } from '../../actions/qlists';
+import { addFlashMessage } from '../../actions/flash';
 
 import validate from '../../validations/qlist';
 
@@ -26,6 +27,7 @@ class QListForm extends Component {
     }).isRequired,
     handleSubmit: PropTypes.func.isRequired,
     reset: PropTypes.func.isRequired,
+    addFlashMessage: PropTypes.func.isRequired,
     qlistAdd: PropTypes.func.isRequired
   };
 
@@ -39,7 +41,7 @@ class QListForm extends Component {
   };
 
   onSubmit = (values) => {
-    const { qlistAdd, user, reset } = this.props;
+    const { qlistAdd, user, reset, addFlashMessage } = this.props;
     const query = { ...values, userId: user._id };
 
     this.setState({ errors: {}, isLoading: true });
@@ -48,6 +50,11 @@ class QListForm extends Component {
       .then(() => {
         reset();
         this.setState({ isLoading: false });
+
+        addFlashMessage({
+          type: 'success',
+          text: `QLists ${values.title} has created`
+        });
       })
       .catch(() => this.setState({ isLoading: false }));
   };
@@ -88,7 +95,8 @@ class QListForm extends Component {
 const mapStateToProps = state => ({ user: state.auth.user });
 
 export default connect(mapStateToProps, {
-  qlistAdd
+  qlistAdd,
+  addFlashMessage
 })(reduxForm({
   form: 'qlist',
   validate
