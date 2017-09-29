@@ -12,3 +12,7 @@ body {
 a[role=tab]{
   cursor: pointer;
 }
+
+.panel{
+  box-shadow: none;
+}

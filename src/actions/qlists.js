@@ -1,6 +1,6 @@
 import api from '../api';
 
-import { QLISTS_ADD, QLIST_ADD, QLIST_ADD_QUESTION } from './types';
+import { QLISTS_ADD, QLIST_ADD, QLIST_GET, QLIST_ADD_QUESTION, QLIST_REMOVE } from './types';
 
 export const addQlists = qlists => ({
   type: QLISTS_ADD,
@@ -12,16 +12,37 @@ export const qlistAdded = qlist => ({
   qlist
 });
 
+export const qlistGot = qlist => ({
+  type: QLIST_GET,
+  qlist
+});
+
 export const qlistQuestionAdded = qlist => ({
   type: QLIST_ADD_QUESTION,
   qlist
 });
 
+export const qlistRemoved = qlist => ({
+  type: QLIST_REMOVE,
+  qlist
+});
+
 export const qlistAdd = qlist =>
-  dispatch => api.qlists.add(qlist).then(qlist => dispatch(qlistAdded(qlist)));
+  dispatch => api.qlists.add(qlist)
+    .then(qlist => dispatch(qlistAdded(qlist)));
 
 export const qlistAddQuestion = (qlist, question) =>
-  dispatch => () => api.qlists.addQuestion(qlist, question).then(qlist => dispatch(qlistQuestionAdded(qlist)));
+  dispatch => () => api.qlists.addQuestion(qlist, question)
+    .then(qlist => dispatch(qlistQuestionAdded(qlist)));
 
-export const getQListsByAuthor = _id =>
-  dispatch => api.qlists.getByAuthor(_id).then(qlist => dispatch(addQlists(qlist)));
+export const getQLists = _id =>
+  dispatch => api.qlists.getByAuthor(_id)
+    .then(qlists => dispatch(addQlists(qlists)));
+
+export const getQListQuestions = _id =>
+dispatch => api.qlists.getQListQuestions(_id)
+.then(qlist => dispatch(qlistGot(qlist)));
+
+export const removeQList = _id =>
+  dispatch => api.qlists.remove(_id)
+    .then(qlist => dispatch(qlistRemoved(qlist)));

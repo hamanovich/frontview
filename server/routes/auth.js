@@ -1,5 +1,4 @@
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 
 import User from '../models/user';
 import { send } from '../handlers/mail';

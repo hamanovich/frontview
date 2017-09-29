@@ -23,3 +23,10 @@ export const COMMENT_ADD = '[COMMENT] ADD';
 export const QLISTS_ADD = '[QLISTS] ADD';
 export const QLIST_ADD = '[QLIST] ADD';
 export const QLIST_ADD_QUESTION = '[QLIST] ADD_QUESTION';
+export const QLIST_GET = '[QLIST] GET';
+export const QLIST_REMOVE = '[QLIST] REMOVE';
+
+export const CANDIDATES_ADD = '[CANDIDATES] ADD';
+export const CANDIDATE_ADD = '[CANDIDATE] ADD';
+export const CANDIDATE_GET = '[CANDIDATE] GET';
+export const CANDIDATE_REMOVE = '[CANDIDATE] REMOVE';

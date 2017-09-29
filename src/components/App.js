@@ -10,6 +10,7 @@ import Header from './layout/Header';
 import Footer from './layout/Footer';
 import FlashList from './flash/FlashList';
 import Confirmation from './Confirmation';
+import InterviewPage from './InteviewPage';
 import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
 import AccountPage from './AccountPage';
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/signup" component={isLoggedIn(SignupPage)} />
           <Route path="/me" component={User(AccountPage)} />
           <Route path="/questions" component={QuestionsPage} />
+          <Route path="/interview" component={User(InterviewPage)} />
           <Route path="/comments/:username" component={User(CommentsAuthor)} />
           <Route path="/confirmation/:token" component={Confirmation} />
           <Route component={NotFound} />

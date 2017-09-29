@@ -61,9 +61,9 @@ const userSchema = new Schema({
     }]
   }
 }, {
-    toJSON: { virtuals: true },
-    toOjbect: { virtuals: true }
-  });
+  toJSON: { virtuals: true },
+  toOjbect: { virtuals: true }
+});
 
 userSchema.methods.generateJWT = function () {
   return jwt.sign({
@@ -83,6 +83,12 @@ userSchema.virtual('qlists', {
   ref: 'qlist',
   localField: '_id',
   foreignField: 'author'
+});
+
+userSchema.virtual('candidates', {
+  ref: 'candidate',
+  localField: '_id',
+  foreignField: 'interviewer'
 });
 
 userSchema.plugin(uniqueValidator);

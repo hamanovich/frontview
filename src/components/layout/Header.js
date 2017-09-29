@@ -56,6 +56,9 @@ class Header extends Component {
     const username = auth.user ? (auth.user.username || '') : '';
     const userLinks = (
       <Nav pullRight>
+        <LinkContainer to="/interview">
+          <NavItem><FontAwesome name="id-badge" /> Interview</NavItem>
+        </LinkContainer>
         <NavDropdown title="Questions" id="questions-dropdown">
           <IndexLinkContainer to="/questions">
             <MenuItem>Show All</MenuItem>

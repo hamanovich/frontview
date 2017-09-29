@@ -69,6 +69,10 @@ export const getQuestionsByFilter = (filter, tag = '') =>
       return { tags, questions };
     });
 
+export const getQuestionsByQList = qlist =>
+  dispatch => api.questions.getByQList(qlist)
+    .then(questions => dispatch(addQuestions(questions)));
+
 export const getQuestionById = id =>
   dispatch => api.questions.getById(id)
     .then(question => dispatch(questionGot(question)));

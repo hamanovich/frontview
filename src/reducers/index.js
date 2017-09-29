@@ -7,6 +7,7 @@ import auth from './auth';
 import questions from './questions';
 import comments from './comments';
 import qlists from './qlists';
+import candidates from './candidates';
 
 const reducer = combineReducers({
   flash,
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   questions,
   comments,
   qlists,
+  candidates,
   form: formReducer,
   routing: routerReducer
 });
