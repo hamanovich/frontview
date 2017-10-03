@@ -32,8 +32,7 @@ exports.getQLists = async (req, res) => {
   }
 
   const qlists = await QList.find({ author: user._id })
-    .sort({ created: -1 })
-    .populate('questions');
+    .sort({ created: -1 });
 
   res.json(qlists);
 };

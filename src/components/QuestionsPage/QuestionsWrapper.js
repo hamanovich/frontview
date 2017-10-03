@@ -12,21 +12,33 @@ import {
   getQuestionsByAuthor
 } from '../../actions/questions';
 
+import { QuestionType } from '../../propTypes';
+
 export default (WrappedComponent) => {
   class QuestionsWrapper extends Component {
     static propTypes = {
-      questions: PropTypes.array.isRequired,
+      questions: PropTypes.arrayOf(QuestionType).isRequired,
       getQuestions: PropTypes.func.isRequired,
       getTopQuestions: PropTypes.func.isRequired,
       getQuestionsByFilter: PropTypes.func.isRequired,
       getQuestionsByAuthor: PropTypes.func.isRequired,
       getSearchedQuestions: PropTypes.func.isRequired,
       addFlashMessage: PropTypes.func.isRequired,
-      match: PropTypes.object.isRequired
-    };
-
-    static contextTypes = {
-      router: PropTypes.object.isRequired
+      match: PropTypes.shape({
+        params: PropTypes.shape({
+          filter: PropTypes.string,
+          tag: PropTypes.string,
+          page: PropTypes.nubmer,
+          username: PropTypes.string
+        }),
+        path: PropTypes.string
+      }).isRequired,
+      location: PropTypes.shape({
+        search: PropTypes.string
+      }).isRequired,
+      history: PropTypes.shape({
+        push: PropTypes.func.isRequired
+      }).isRequired
     };
 
     state = {
@@ -44,10 +56,9 @@ export default (WrappedComponent) => {
     };
 
     componentDidMount() {
-      const { match, getTopQuestions } = this.props;
-      const { search } = this.context.router.route.location;
-      const { filter, tag, page = 1 } = match.params;
-      const searchQuery = new URLSearchParams(search).get('q');
+      const { match, getTopQuestions, location } = this.props;
+      const { filter, tag, page = 1, username } = match.params;
+      const searchQuery = new URLSearchParams(location.search).get('q');
 
       if (searchQuery) {
         this.getQueryQuestions(searchQuery);
@@ -55,16 +66,15 @@ export default (WrappedComponent) => {
         this.filter(filter, tag);
       } else if (match.path === '/questions/top') {
         getTopQuestions();
-      } else if (match.params.username) {
-        this.getAuthorsQuestions(match.params.username);
+      } else if (username) {
+        this.getAuthorsQuestions(username);
       } else {
         this.onPageSelect(Number(page));
       }
     }
 
     onPageSelect = (activePage) => {
-      const { addFlashMessage, getQuestions, match } = this.props;
-      const { history } = this.context.router;
+      const { addFlashMessage, getQuestions, match, history } = this.props;
 
       getQuestions(activePage).then(({ pages, count }) => {
         this.setState({
@@ -72,7 +82,7 @@ export default (WrappedComponent) => {
         });
 
         if (Number(match.params.page) !== activePage) {
-          this.context.router.history.push(`/questions/page/${activePage}`);
+          history.push(`/questions/page/${activePage}`);
         }
       }).catch((err) => {
         addFlashMessage({
@@ -87,8 +97,7 @@ export default (WrappedComponent) => {
     };
 
     getAuthorsQuestions = (author) => {
-      const { getQuestionsByAuthor, addFlashMessage } = this.props;
-      const { history } = this.context.router;
+      const { getQuestionsByAuthor, addFlashMessage, history } = this.props;
 
       getQuestionsByAuthor(author)
         .catch((err) => {
@@ -102,8 +111,7 @@ export default (WrappedComponent) => {
     };
 
     getQueryQuestions = (query) => {
-      const { getSearchedQuestions, addFlashMessage, questions } = this.props;
-      const { history } = this.context.router;
+      const { getSearchedQuestions, addFlashMessage, questions, history } = this.props;
 
       this.setState({ searchQuery: query });
 
@@ -122,8 +130,7 @@ export default (WrappedComponent) => {
     };
 
     filter = (filter, tag = '') => {
-      const { match, getQuestionsByFilter, addFlashMessage } = this.props;
-      const { history } = this.context.router;
+      const { match, getQuestionsByFilter, addFlashMessage, history } = this.props;
 
       getQuestionsByFilter(filter, tag).then(({ tags, questions }) => {
         if (!tags.length) {

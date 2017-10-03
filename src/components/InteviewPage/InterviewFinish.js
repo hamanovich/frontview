@@ -13,7 +13,7 @@ class InterviewFinish extends Component {
     }).isRequired,
     location: PropTypes.shape({
       state: PropTypes.object
-    }).isRequired,
+    }).isRequired
   };
 
   componentWillMount() {

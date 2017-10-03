@@ -5,6 +5,8 @@ import map from 'lodash/map';
 import Comment from './Comment';
 import Loader from '../../utils/Loader';
 
+import { CommentType } from '../../propTypes';
+
 const Comments = ({ comments, match }) => (
   <div>
     {map(comments, comment => (
@@ -18,7 +20,7 @@ const Comments = ({ comments, match }) => (
 );
 
 Comments.propTypes = {
-  comments: PropTypes.array.isRequired,
+  comments: PropTypes.arrayOf(CommentType).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       username: PropTypes.string.isRequired

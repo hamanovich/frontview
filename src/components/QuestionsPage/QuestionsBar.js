@@ -25,7 +25,12 @@ QuestionsBar.propTypes = {
   style: PropTypes.string,
   active: PropTypes.string.isRequired,
   filter: PropTypes.string.isRequired,
-  tags: PropTypes.array.isRequired
+  tags: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      count: PropTypes.number.isRequired
+    })
+  ).isRequired
 };
 
 QuestionsBar.defaultProps = {

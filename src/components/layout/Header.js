@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
+import styled from 'styled-components';
 
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
@@ -16,6 +17,10 @@ import { getSearchedQuestions } from '../../actions/questions';
 import { addFlashMessage } from '../../actions/flash';
 
 import SearchForm from './SearchForm';
+
+const Menu = styled(Navbar) `
+  border-radius: 0;
+`;
 
 class Header extends Component {
   static propTypes = {
@@ -127,7 +132,7 @@ class Header extends Component {
     );
 
     return (
-      <Navbar style={{ borderRadius: 0 }}>
+      <Menu>
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/">Frontview /</Link>
@@ -142,7 +147,7 @@ class Header extends Component {
           />
           {auth.isAuthenticated ? userLinks : guestLinks}
         </Navbar.Collapse>
-      </Navbar>
+      </Menu>
     );
   }
 }

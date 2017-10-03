@@ -36,7 +36,10 @@ const RadioButton = ({
 );
 
 RadioButton.propTypes = {
-  options: PropTypes.array.isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string
+    })).isRequired,
   input: PropTypes.shape({
     name: PropTypes.string,
     value: PropTypes.string

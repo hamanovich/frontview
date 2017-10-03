@@ -5,12 +5,17 @@ import map from 'lodash/map';
 import MarkdownRenderer from 'react-markdown-renderer';
 import shortid from 'shortid';
 import FontAwesome from 'react-fontawesome';
+import styled from 'styled-components';
 
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
 import Label from 'react-bootstrap/lib/Label';
 
 import InterviewNotesForm from './InterviewNotesForm';
+
+const Badge = styled(Label) `
+  margin: 0 3px;
+`;
 
 class InterviewProgress extends Component {
   static propTypes = {
@@ -62,18 +67,16 @@ class InterviewProgress extends Component {
 
         <p>
           {map(question.skill, skill => (
-            <Label
-              style={{ margin: '0 3px' }}
+            <Badge
               bsStyle="warning"
               key={skill}
-            >{skill}</Label>
+            >{skill}</Badge>
           ))}
           {map(question.level, level => (
-            <Label
-              style={{ margin: '0 3px' }}
+            <Badge
               bsStyle="primary"
               key={level}
-            >{level}</Label>
+            >{level}</Badge>
           ))}</p>
         <p>
           <Link to={`/questions/${question.slug}/one`}>

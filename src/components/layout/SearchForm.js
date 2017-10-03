@@ -37,6 +37,6 @@ SearchForm.propTypes = {
 };
 
 export default reduxForm({
-  form: 'search',
+  form: 'SearchForm',
   validate
 })(SearchForm);

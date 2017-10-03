@@ -7,6 +7,8 @@ import Badge from 'react-bootstrap/lib/Badge';
 import Questions from './Questions';
 import PaginationBar from '../layout/PaginationBar';
 
+import { QuestionType, UserType } from '../../propTypes';
+
 const QuestionsAll = ({
   auth,
   questions,
@@ -33,10 +35,10 @@ const QuestionsAll = ({
 
 QuestionsAll.propTypes = {
   auth: PropTypes.shape({
-    user: PropTypes.object,
+    user: UserType,
     isAuthenticated: PropTypes.bool.isRequired
   }).isRequired,
-  questions: PropTypes.array.isRequired,
+  questions: PropTypes.arrayOf(QuestionType).isRequired,
   onPageSelect: PropTypes.func.isRequired,
   editQuestionField: PropTypes.func.isRequired,
   state: PropTypes.object.isRequired

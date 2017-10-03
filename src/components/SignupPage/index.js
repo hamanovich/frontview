@@ -18,6 +18,7 @@ const SignupPage = ({ signup, addFlashMessage, isUserExists }) => (
       <PageHeader>
         <FontAwesome name="user-plus" /> Register. Welcome
       </PageHeader>
+
       <SignupForm
         signup={signup}
         addFlashMessage={addFlashMessage}
@@ -33,4 +34,8 @@ SignupPage.propTypes = {
   isUserExists: PropTypes.func.isRequired
 };
 
-export default connect(null, { signup, addFlashMessage, isUserExists })(SignupPage);
+export default connect(null, {
+  signup,
+  addFlashMessage,
+  isUserExists
+})(SignupPage);

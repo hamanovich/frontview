@@ -76,7 +76,7 @@ exports.getUser = async (req, res) => {
       { username: req.params.identifier },
       { email: req.params.identifier }
     ]
-  });
+  }).populate('qlists');
 
   if (user) {
     const userData = {
@@ -92,7 +92,8 @@ exports.getUser = async (req, res) => {
       notes: user.notes,
       role: user.role,
       gravatar: user.gravatar,
-      votes: user.votes
+      votes: user.votes,
+      qlists: user.qlists
     };
 
     res.json(userData);

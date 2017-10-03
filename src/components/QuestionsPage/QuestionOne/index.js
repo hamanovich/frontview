@@ -74,7 +74,7 @@ class QuestionOne extends Component {
   }
 
   render() {
-    const { question, addComment, editQuestionField, user } = this.props;
+    const { question, addComment, editQuestionField, user, match } = this.props;
     const panelHeader = (<span><FontAwesome name="comments-o" /> Comments <Badge>{question && question.comments.length}</Badge></span>);
     const panelAddHeader = (<span><FontAwesome name="commenting-o" /> Add comment</span>);
 
@@ -101,6 +101,7 @@ class QuestionOne extends Component {
                 addComment={addComment}
                 getQuestion={this.getQuestion}
                 user={user}
+                slug={match.params.slug}
               />
             </Panel>
           )}

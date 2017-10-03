@@ -22,7 +22,7 @@ const QuestionsPage = () => (
     <Route exact path="/questions/add" component={User(AddQuestion)} />
     <Route path="/questions/internet/:source?" component={QuestionsFromInternet} />
     <Route path="/questions/:_id/edit" component={User(AddQuestion)} />
-    <Route path="/questions/:slug/one" component={QuestionOne} />
+    <Route path="/questions/:slug/one" component={User(QuestionOne)} />
     <Route path="/questions/:filter/:tag?" component={QuestionsWrapper(QuestionsTags)} />
     <Redirect to="/questions/page/1" />
   </Switch>

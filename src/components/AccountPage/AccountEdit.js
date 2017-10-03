@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
+import styled from 'styled-components';
 
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
@@ -17,23 +18,23 @@ import { TextField, TextareaField } from '../formElements';
 import validate from '../../validations/account';
 
 import { getUser, updateUser } from '../../actions/signup';
-import { addFlashMessage } from '../../actions/flash';
+
+const MediaImage = styled(Image) `
+  width: 100px;
+  height: 100px;
+  max-width: 100px;
+`;
 
 class AccountEdit extends Component {
   static propTypes = {
     getUser: PropTypes.func.isRequired,
     updateUser: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     initialValues: PropTypes.object.isRequired,
     initialize: PropTypes.func.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired
     }).isRequired
-  };
-
-  static contextTypes = {
-    router: PropTypes.object.isRequired
   };
 
   state = {
@@ -54,19 +55,12 @@ class AccountEdit extends Component {
   }
 
   onSubmit = (values) => {
-    const { updateUser, getUser, initialValues, addFlashMessage, history } = this.props;
+    const { updateUser, getUser, initialValues, history } = this.props;
 
     this.setState({ errors: {}, isLoading: true });
 
     updateUser(values)
-      .then(() => {
-        addFlashMessage({
-          type: 'success',
-          text: 'You have updated profile successfully.'
-        });
-
-        getUser(initialValues.username).then(() => history.push('/me'));
-      })
+      .then(() => getUser(initialValues.username).then(() => history.push('/me')))
       .catch(err => this.setState({ errors: err.response, isLoading: false })
       );
   };
@@ -84,9 +78,8 @@ class AccountEdit extends Component {
         <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
           <Media>
             <Media.Left>
-              <Image
+              <MediaImage
                 src={initialValues.gravatar}
-                style={{ width: 100, height: 100, maxWidth: 100 }}
                 thumbnail
               />
             </Media.Left>
@@ -223,8 +216,7 @@ const mapStateToProps = state => ({ initialValues: state.auth.user });
 export default connect(mapStateToProps, {
   getUser,
   updateUser,
-  addFlashMessage
 })(reduxForm({
-  form: 'accountEdit',
+  form: 'AccountEdit',
   validate
 })(AccountEdit));

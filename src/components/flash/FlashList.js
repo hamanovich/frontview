@@ -7,13 +7,23 @@ import Flash from './Flash';
 import { deleteFlashMessage, deleteFlashMessages } from '../../actions/flash';
 
 const FlashList = ({ messages, deleteFlashMessage }) => (
-  <div>{map(messages, message =>
-    <Flash key={message.id} message={message} close={() => deleteFlashMessage(message.id)} />
+  <div>{map(messages, message => (
+    <Flash
+      key={message.id}
+      message={message}
+      close={() => deleteFlashMessage(message.id)}
+    />)
   )}</div>
 );
 
 FlashList.propTypes = {
-  messages: PropTypes.array.isRequired,
+  messages: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired
+    })
+  ).isRequired,
   deleteFlashMessage: PropTypes.func.isRequired
 };
 

@@ -6,6 +6,8 @@ import PageHeader from 'react-bootstrap/lib/PageHeader';
 import Questions from './Questions';
 import QuestionsBar from './QuestionsBar';
 
+import { QuestionType, UserType } from '../../propTypes';
+
 const QuestionsTags = ({
   auth,
   questions,
@@ -33,10 +35,10 @@ const QuestionsTags = ({
 
 QuestionsTags.propTypes = {
   auth: PropTypes.shape({
-    user: PropTypes.object,
+    user: UserType,
     isAuthenticated: PropTypes.bool.isRequired
   }).isRequired,
-  questions: PropTypes.array.isRequired,
+  questions: PropTypes.arrayOf(QuestionType).isRequired,
   editQuestionField: PropTypes.func.isRequired,
   state: PropTypes.object.isRequired
 };

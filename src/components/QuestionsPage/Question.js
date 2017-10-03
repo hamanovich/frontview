@@ -5,6 +5,7 @@ import MarkdownRenderer from 'react-markdown-renderer';
 import map from 'lodash/map';
 import shortid from 'shortid';
 import FontAwesome from 'react-fontawesome';
+import styled from 'styled-components';
 
 import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
@@ -21,10 +22,24 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Toolbar from '../layout/Toolbar';
 import Loader from '../../utils/Loader';
 
+import { QuestionType, UserType } from '../../propTypes';
+
+const Badge = styled(Label) `
+  margin: 0 3px;
+`;
+
+const LinkStyled = styled(Link) `
+  margin-top: 7px;
+`;
+
+const ListItem = styled(ListGroupItem) `
+  white-space: pre-wrap
+`;
+
 class Question extends Component {
   static propTypes = {
-    question: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired,
+    question: QuestionType.isRequired,
+    user: UserType.isRequired,
     editQuestionField: PropTypes.func.isRequired,
   };
 
@@ -65,10 +80,7 @@ class Question extends Component {
         <div className="pull-right">
           {map(question.level, level => (
             <Link to={`/questions/level/${level}`} key={level}>
-              <Label
-                style={{ margin: '0 3px' }}
-                bsStyle="primary"
-              >{level}</Label>
+              <Badge bsStyle="primary">{level}</Badge>
             </Link>
           ))}
         </div>
@@ -82,26 +94,25 @@ class Question extends Component {
             <Link to={`/questions/skill/${skill}`} key={skill}>{' '}{skill}</Link>
           ))}
         </h5>
-        <Link to={`/questions/practice/${question.practice}`} className="pull-right" style={{ marginTop: 7 }}>
+        <LinkStyled to={`/questions/practice/${question.practice}`} className="pull-right">
           <Label bsStyle="warning">{question.practice}</Label>
-        </Link>
+        </LinkStyled>
       </div>
     );
 
     return (
       <Panel header={panelHeader} footer={panelFooter}>
         <ListGroup fill>
-          <ListGroupItem style={{ whiteSpace: 'pre-wrap' }} onClick={this.open(question.answer, 'answer')}>
+          <ListItem onClick={this.open(question.answer, 'answer')}>
             <MarkdownRenderer markdown={question.answer} />
-          </ListGroupItem>
+          </ListItem>
           {map(question.answers, (question, index) => (
-            <ListGroupItem
+            <ListItem
               key={shortid.generate()}
-              style={{ whiteSpace: 'pre-wrap' }}
               onClick={this.open(question, `answers.${index}.text`)}
             >
               <MarkdownRenderer markdown={question.text} />
-            </ListGroupItem>
+            </ListItem>
           ))}
         </ListGroup>
 

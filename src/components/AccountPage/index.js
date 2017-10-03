@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
+import styled from 'styled-components';
 
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
@@ -16,10 +17,16 @@ import QLists from '../QList/QLists';
 
 import { logout } from '../../actions/auth';
 
+import { UserType } from '../../propTypes';
+
+const List = styled(ListGroup) `
+  margin-top: 45px;
+`;
+
 const AccountPage = ({ user, logout }) => (
   <Row>
     <Col md={3} sm={4}>
-      <ListGroup style={{ marginTop: 45 }}>
+      <List>
         <Link to="/questions" className="list-group-item">
           <FontAwesome name="question-circle-o" /> All Questions
         </Link>
@@ -41,7 +48,7 @@ const AccountPage = ({ user, logout }) => (
         <Button block bsStyle="danger" onClick={logout}>
           <FontAwesome name="sign-out" /> Logout
         </Button>
-      </ListGroup>
+      </List>
     </Col>
     <Col md={9} sm={8}>
       <Switch>
@@ -56,7 +63,7 @@ const AccountPage = ({ user, logout }) => (
 );
 
 AccountPage.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: UserType.isRequired,
   logout: PropTypes.func.isRequired
 };
 

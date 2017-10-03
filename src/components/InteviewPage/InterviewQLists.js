@@ -90,32 +90,32 @@ class InterviewQLists extends Component {
     return (
       <div>
         <h2>Add a QList</h2>
-        <div>
-          <p>
-            <Button bsSize="small" onClick={this.chooseFromList}>
-              or choose one
+
+        <p>
+          <Button bsSize="small" onClick={this.chooseFromList}>
+            or choose one
             </Button>
-          </p>
-          <Panel collapsible expanded={this.state.panel}>
-            <FormGroup>
-              <ControlLabel>Choose QList from the list below:</ControlLabel>
-              <Field
-                name="qlists"
-                id="qlistss"
-                component="select"
-                className="form-control"
-                ref={(ref) => { this.qlistOne = ref; }}
-              >
-                <option value="">Select a QList...</option>
-                {chooseQLists}
-              </Field>
-            </FormGroup>
-            <Button
-              bsStyle="success"
-              onClick={this.chooseOne}
-            >Choose</Button>
-          </Panel>
-        </div>
+        </p>
+
+        <Panel collapsible expanded={this.state.panel}>
+          <FormGroup>
+            <ControlLabel>Choose QList from the list below:</ControlLabel>
+            <Field
+              name="qlists"
+              id="qlistss"
+              component="select"
+              className="form-control"
+              ref={(ref) => { this.qlistOne = ref; }}
+            >
+              <option value="">Select a QList...</option>
+              {chooseQLists}
+            </Field>
+          </FormGroup>
+          <Button
+            bsStyle="success"
+            onClick={this.chooseOne}
+          >Choose</Button>
+        </Panel>
 
         <Panel collapsible expanded={!this.state.panel}>
           <QListForm />

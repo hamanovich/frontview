@@ -47,7 +47,11 @@ SelectField.propTypes = {
   label: PropTypes.string.isRequired,
   multiple: PropTypes.bool.isRequired,
   size: PropTypes.number,
-  options: PropTypes.array.isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string,
+      title: PropTypes.string
+    })).isRequired,
   meta: PropTypes.shape({
     touched: PropTypes.bool,
     error: PropTypes.string,
