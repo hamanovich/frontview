@@ -20,10 +20,8 @@ import Loader from '../../utils/Loader';
 
 import { UserType } from '../../propTypes';
 
-const mapStateToProps = state => ({ user: state.auth.user });
-
 const enhance = compose(
-  connect(mapStateToProps, { getUser, removeUser, logout, addFlashMessage }),
+  connect(null, { getUser, removeUser, logout, addFlashMessage }),
 
   Loader('user')
 );
@@ -43,8 +41,6 @@ class Account extends Component {
 
   componentDidMount() {
     const { user, getUser } = this.props;
-
-    if (user.gravatar) return;
 
     getUser(user.username);
   }

@@ -35,8 +35,7 @@ const QuestionsAll = ({
 
 QuestionsAll.propTypes = {
   auth: PropTypes.shape({
-    user: UserType,
-    isAuthenticated: PropTypes.bool.isRequired
+    user: UserType
   }).isRequired,
   questions: PropTypes.arrayOf(QuestionType).isRequired,
   onPageSelect: PropTypes.func.isRequired,

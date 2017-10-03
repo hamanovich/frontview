@@ -68,7 +68,10 @@ const Toolbar = ({ user, question, voteQuestion, qlistAddQuestion, qlists }) => 
             key={qlist._id}
             onClick={qlistAddQuestion(qlist, question)}
           >
-            {qlist.title} {qlist.questions.includes(question._id) && <FontAwesome name="check" />}
+            {qlist.title}
+            {map(qlist.questions, q => q._id).includes(question._id) &&
+              <FontAwesome name="check" />
+            }
           </MenuItem>
         ))}
         <MenuItem divider />

@@ -87,4 +87,7 @@ class Login extends Component {
   }
 }
 
-export default reduxForm({ form: 'login', validate })(Login);
+export default reduxForm({
+  form: 'Login',
+  validate
+})(Login);

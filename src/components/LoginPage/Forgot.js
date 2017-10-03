@@ -64,4 +64,7 @@ class Forgot extends Component {
   }
 }
 
-export default reduxForm({ form: 'forgot', validate })(Forgot);
+export default reduxForm({
+  form: 'Forgot',
+  validate
+})(Forgot);

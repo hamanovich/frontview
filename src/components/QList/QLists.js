@@ -32,7 +32,7 @@ class QLists extends Component {
     getQLists: PropTypes.func.isRequired,
     removeQList: PropTypes.func.isRequired,
     qlists: PropTypes.array.isRequired,
-    user: PropTypes.object.isRequired
+    userId: PropTypes.string.isRequired
   };
 
   state = {
@@ -41,9 +41,9 @@ class QLists extends Component {
   };
 
   componentDidMount() {
-    const { user, getQLists } = this.props;
+    const { userId, getQLists } = this.props;
 
-    getQLists(user._id);
+    getQLists(userId);
   }
 
   toggleModal = (id = null) => this.setState({ showModal: !this.state.showModal, id });
@@ -95,8 +95,7 @@ class QLists extends Component {
 }
 
 const mapStateToProps = state => ({
-  qlists: state.qlists,
-  user: state.auth.user
+  qlists: state.qlists
 });
 
 export default connect(mapStateToProps, { getQLists, removeQList })(QLists);

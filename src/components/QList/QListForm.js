@@ -15,24 +15,15 @@ import validate from '../../validations/qlist';
 
 class QListForm extends Component {
   static propTypes = {
-    user: PropTypes.shape({
-      username: PropTypes.string,
-      email: PropTypes.string,
-      jobFunction: PropTypes.string,
-      primarySkill: PropTypes.string,
-      notes: PropTypes.string,
-      firstName: PropTypes.string,
-      lastName: PropTypes.string,
-      gravatar: PropTypes.string
-    }).isRequired,
+    userId: PropTypes.string,
     handleSubmit: PropTypes.func.isRequired,
     reset: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
     qlistAdd: PropTypes.func.isRequired
   };
 
-  static contextTypes = {
-    router: PropTypes.object.isRequired
+  static defaultProps = {
+    userId: ''
   };
 
   state = {
@@ -41,8 +32,8 @@ class QListForm extends Component {
   };
 
   onSubmit = (values) => {
-    const { qlistAdd, user, reset, addFlashMessage } = this.props;
-    const query = { ...values, userId: user._id };
+    const { qlistAdd, userId, reset, addFlashMessage } = this.props;
+    const query = { ...values, userId };
 
     this.setState({ errors: {}, isLoading: true });
 
@@ -92,12 +83,10 @@ class QListForm extends Component {
   }
 }
 
-const mapStateToProps = state => ({ user: state.auth.user });
-
-export default connect(mapStateToProps, {
+export default connect(null, {
   qlistAdd,
   addFlashMessage
 })(reduxForm({
-  form: 'qlist',
+  form: 'QListForm',
   validate
 })(QListForm));

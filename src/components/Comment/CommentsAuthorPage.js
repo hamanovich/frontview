@@ -14,11 +14,9 @@ import { getCommentsByAuthor } from '../../actions/comments';
 
 import { CommentType } from '../../propTypes';
 
-const mapStateToProps = state => ({ comments: state.comments });
-
 const enhance = compose(
   connect(
-    mapStateToProps,
+    state => ({ comments: state.comments }),
     { addFlashMessage, getCommentsByAuthor }
   ),
 

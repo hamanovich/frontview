@@ -103,4 +103,7 @@ class Reset extends Component {
   }
 }
 
-export default reduxForm({ form: 'reset', validate })(Reset);
+export default reduxForm({
+  form: 'Reset',
+  validate
+})(Reset);

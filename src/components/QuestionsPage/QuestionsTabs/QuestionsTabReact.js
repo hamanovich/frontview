@@ -13,7 +13,7 @@ const QuestionsTabReact = () => (
       >
         <FontAwesome name="link" />
       </a> React Interview Questions
-  </PageHeader>
+    </PageHeader>
 
     <ul>
       <li>What happens when you call <strong>setState</strong>?</li>

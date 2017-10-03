@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 
 import { addFlashMessage } from '../actions/flash';
 
+import { UserType } from '../propTypes';
+
 export default allowed =>
   (WrappedComponent) => {
     class Authorization extends Component {
       static propTypes = {
         auth: PropTypes.shape({
-          user: PropTypes.object,
-          isAuthenticated: PropTypes.bool.isRequired
+          user: UserType,
+          isAuthenticated: PropTypes.bool
         }).isRequired,
         addFlashMessage: PropTypes.func.isRequired,
         history: PropTypes.shape({

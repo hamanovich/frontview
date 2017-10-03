@@ -16,7 +16,7 @@ const QuestionsAuthor = ({
   <div>
     <PageHeader>
       <FontAwesome name="file-text-o" /> {auth.user.username}&apos;s Questions
-  </PageHeader>
+    </PageHeader>
 
     <Questions
       user={auth.user}

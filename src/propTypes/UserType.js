@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 
 export default PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
+  _id: PropTypes.string,
+  username: PropTypes.string,
+  email: PropTypes.string,
   firstName: PropTypes.string,
   lastName: PropTypes.string,
   primarySkill: PropTypes.string,

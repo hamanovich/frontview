@@ -10,26 +10,19 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 
 import QListForm from '../QList/QListForm';
 
+import { QListType, CandidateType } from '../../propTypes';
+
 class InterviewQLists extends Component {
   static propTypes = {
-    user: PropTypes.shape({
-      username: PropTypes.string,
-      email: PropTypes.string,
-      jobFunction: PropTypes.string,
-      primarySkill: PropTypes.string,
-      notes: PropTypes.string,
-      firstName: PropTypes.string,
-      lastName: PropTypes.string,
-      gravatar: PropTypes.string
-    }).isRequired,
-    qlists: PropTypes.array,
+    userId: PropTypes.string.isRequired,
+    qlists: PropTypes.arrayOf(QListType),
     addFlashMessage: PropTypes.func.isRequired,
     getQLists: PropTypes.func.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired
     }).isRequired,
     location: PropTypes.shape({
-      state: PropTypes.object
+      state: CandidateType
     }).isRequired
   };
 
@@ -69,12 +62,12 @@ class InterviewQLists extends Component {
 
   chooseFromList = () => {
     const { panel, isLoaded } = this.state;
-    const { getQLists, user } = this.props;
+    const { getQLists, userId } = this.props;
 
     this.setState({ panel: !panel });
 
     if (!this.state.panel && !isLoaded) {
-      getQLists(user._id)
+      getQLists(userId)
         .then(() => this.setState({ isLoaded: true }))
         .catch(err => this.setState({ errors: err.response.data }));
     }
@@ -102,7 +95,6 @@ class InterviewQLists extends Component {
             <ControlLabel>Choose QList from the list below:</ControlLabel>
             <Field
               name="qlists"
-              id="qlistss"
               component="select"
               className="form-control"
               ref={(ref) => { this.qlistOne = ref; }}

@@ -76,24 +76,25 @@ export default (WrappedComponent) => {
     onPageSelect = (activePage) => {
       const { addFlashMessage, getQuestions, match, history } = this.props;
 
-      getQuestions(activePage).then(({ pages, count }) => {
-        this.setState({
-          pagination: { pages, activePage, count }
+      getQuestions(activePage)
+        .then(({ pages, count }) => {
+          this.setState({
+            pagination: { pages, activePage, count }
+          });
+
+          if (Number(match.params.page) !== activePage) {
+            history.push(`/questions/page/${activePage}`);
+          }
+        }).catch((err) => {
+          addFlashMessage({
+            type: 'error',
+            text: err.response.data.error
+          });
+
+          this.setState({ questions: [] });
+
+          history.push('/questions');
         });
-
-        if (Number(match.params.page) !== activePage) {
-          history.push(`/questions/page/${activePage}`);
-        }
-      }).catch((err) => {
-        addFlashMessage({
-          type: 'error',
-          text: err.response.data.error
-        });
-
-        this.setState({ questions: [] });
-
-        history.push('/questions');
-      });
     };
 
     getAuthorsQuestions = (author) => {

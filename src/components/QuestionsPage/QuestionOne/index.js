@@ -17,6 +17,8 @@ import { addComment } from '../../../actions/comments';
 import { getUser } from '../../../actions/signup';
 import { addFlashMessage } from '../../../actions/flash';
 
+import { UserType, QuestionType } from '../../../propTypes';
+
 class QuestionOne extends Component {
   static propTypes = {
     addFlashMessage: PropTypes.func.isRequired,
@@ -28,8 +30,8 @@ class QuestionOne extends Component {
         slug: PropTypes.string.isRequired
       }).isRequired
     }).isRequired,
-    question: PropTypes.object,
-    user: PropTypes.object.isRequired,
+    question: QuestionType,
+    user: UserType.isRequired,
     editQuestionField: PropTypes.func.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired
@@ -37,7 +39,6 @@ class QuestionOne extends Component {
   };
 
   static defaultProps = {
-    userId: '',
     question: null
   };
 
@@ -51,8 +52,8 @@ class QuestionOne extends Component {
   getQuestion = (slug) => {
     const { getQuestionBySlug, addFlashMessage, history } = this.props;
 
-    getQuestionBySlug(slug).then(
-      (res) => {
+    getQuestionBySlug(slug)
+      .then((res) => {
         if (res.status === 500) {
           addFlashMessage({
             type: 'error',
@@ -61,22 +62,21 @@ class QuestionOne extends Component {
 
           history.push('/questions/add');
         }
-      },
-      (err) => {
+      })
+      .catch((err) => {
         addFlashMessage({
           type: 'error',
           text: err.response.data.error
         });
 
         history.push('/questions/add');
-      }
-    );
+      });
   }
 
   render() {
     const { question, addComment, editQuestionField, user, match } = this.props;
-    const panelHeader = (<span><FontAwesome name="comments-o" /> Comments <Badge>{question && question.comments.length}</Badge></span>);
-    const panelAddHeader = (<span><FontAwesome name="commenting-o" /> Add comment</span>);
+    const panelHeader = <span><FontAwesome name="comments-o" /> Comments <Badge>{question && question.comments.length}</Badge></span>;
+    const panelAddHeader = <span><FontAwesome name="commenting-o" /> Add a comment</span>;
 
     return (
       <div>

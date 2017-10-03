@@ -27,10 +27,13 @@ const MediaImage = styled(Image) `
 
 class AccountEdit extends Component {
   static propTypes = {
+    user: PropTypes.shape({
+      username: PropTypes.string,
+      gravatar: PropTypes.string
+    }).isRequired,
     getUser: PropTypes.func.isRequired,
     updateUser: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
-    initialValues: PropTypes.object.isRequired,
     initialize: PropTypes.func.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired
@@ -43,31 +46,25 @@ class AccountEdit extends Component {
   };
 
   componentDidMount() {
-    const { getUser, initialValues, initialize } = this.props;
+    const { getUser, user, initialize } = this.props;
 
-    if (initialValues.gravatar) return;
-
-    getUser(initialValues.username)
-      .then((res) => {
-        const { username, email, firstName, lastName, primarySkill, jobFunction, skype, phone, notes } = res.user;
-        initialize({ username, email, firstName, lastName, primarySkill, jobFunction, skype, phone, notes });
-      });
+    getUser(user.username)
+      .then(res => initialize(res.user));
   }
 
   onSubmit = (values) => {
-    const { updateUser, getUser, initialValues, history } = this.props;
+    const { updateUser, history } = this.props;
 
     this.setState({ errors: {}, isLoading: true });
 
     updateUser(values)
-      .then(() => getUser(initialValues.username).then(() => history.push('/me')))
-      .catch(err => this.setState({ errors: err.response, isLoading: false })
-      );
+      .then(() => history.push('/me'))
+      .catch(err => this.setState({ errors: err.response, isLoading: false }));
   };
 
   render() {
     const { isLoading } = this.state;
-    const { handleSubmit, initialValues } = this.props;
+    const { handleSubmit, user } = this.props;
 
     return (
       <div>
@@ -79,7 +76,7 @@ class AccountEdit extends Component {
           <Media>
             <Media.Left>
               <MediaImage
-                src={initialValues.gravatar}
+                src={user.gravatar}
                 thumbnail
               />
             </Media.Left>
@@ -211,9 +208,7 @@ class AccountEdit extends Component {
   }
 }
 
-const mapStateToProps = state => ({ initialValues: state.auth.user });
-
-export default connect(mapStateToProps, {
+export default connect(null, {
   getUser,
   updateUser,
 })(reduxForm({

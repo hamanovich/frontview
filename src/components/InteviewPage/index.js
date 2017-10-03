@@ -18,8 +18,10 @@ import { getQLists } from '../../actions/qlists';
 
 import { PropsRoute } from '../../utils/helpers';
 
+import { UserType, QListType, CandidateType } from '../../propTypes';
+
 const InterviewPage = ({
-  user,
+  auth,
   addFlashMessage,
   candidates,
   candidateAdd,
@@ -29,10 +31,17 @@ const InterviewPage = ({
   qlists
 }) => (
   <div>
-    <PageHeader><FontAwesome name="id-badge" /> Interview</PageHeader>
+    <PageHeader>
+      <FontAwesome name="id-badge" /> Interview
+  </PageHeader>
 
     <Switch>
-      <Route exact path="/interview" component={InterviewHero} />
+      <Route
+        exact
+        path="/interview"
+        component={InterviewHero}
+      />
+
       <PropsRoute
         exact
         path="/interview/candidates"
@@ -40,18 +49,20 @@ const InterviewPage = ({
         candidateAdd={candidateAdd}
         getCandidates={getCandidates}
         addFlashMessage={addFlashMessage}
-        user={user}
+        userId={auth.user._id}
         candidates={candidates}
       />
+
       <PropsRoute
         exact
         path="/interview/qlists"
         component={InterviewQLists}
         getQLists={getQLists}
         addFlashMessage={addFlashMessage}
-        user={user}
+        userId={auth.user._id}
         qlists={qlists}
       />
+
       <PropsRoute
         exact
         path="/interview/progress"
@@ -59,11 +70,13 @@ const InterviewPage = ({
         addFlashMessage={addFlashMessage}
         provideFeedback={provideFeedback}
       />
-      <PropsRoute
+
+      <Route
         exact
         path="/interview/finish"
         component={InterviewFinish}
       />
+
       <Redirect to="/interview" />
     </Switch>
   </div>
@@ -75,18 +88,11 @@ InterviewPage.propTypes = {
   addFlashMessage: PropTypes.func.isRequired,
   getQLists: PropTypes.func.isRequired,
   provideFeedback: PropTypes.func.isRequired,
-  user: PropTypes.shape({
-    username: PropTypes.string,
-    email: PropTypes.string,
-    jobFunction: PropTypes.string,
-    primarySkill: PropTypes.string,
-    notes: PropTypes.string,
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
-    gravatar: PropTypes.string
+  auth: PropTypes.shape({
+    user: UserType.isRequired
   }).isRequired,
-  candidates: PropTypes.array,
-  qlists: PropTypes.array
+  candidates: PropTypes.arrayOf(CandidateType),
+  qlists: PropTypes.arrayOf(QListType)
 };
 
 InterviewPage.defaultProps = {
@@ -95,7 +101,6 @@ InterviewPage.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  user: state.auth.user,
   candidates: state.candidates,
   qlists: state.qlists
 });

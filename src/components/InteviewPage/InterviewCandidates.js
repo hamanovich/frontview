@@ -16,19 +16,12 @@ import validate from '../../validations/candidate';
 import TextField from '../formElements/TextField';
 import TextareaField from '../formElements/TextareaField';
 
+import { CandidateType } from '../../propTypes';
+
 class InterviewCandidates extends Component {
   static propTypes = {
-    user: PropTypes.shape({
-      username: PropTypes.string,
-      email: PropTypes.string,
-      jobFunction: PropTypes.string,
-      primarySkill: PropTypes.string,
-      notes: PropTypes.string,
-      firstName: PropTypes.string,
-      lastName: PropTypes.string,
-      gravatar: PropTypes.string
-    }).isRequired,
-    candidates: PropTypes.array,
+    userId: PropTypes.string.isRequired,
+    candidates: PropTypes.arrayOf(CandidateType),
     candidateAdd: PropTypes.func.isRequired,
     getCandidates: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
@@ -50,8 +43,8 @@ class InterviewCandidates extends Component {
   };
 
   onSubmit = (values) => {
-    const { candidateAdd, addFlashMessage, user, reset } = this.props;
-    const query = { ...values, userId: user._id };
+    const { candidateAdd, addFlashMessage, userId, reset } = this.props;
+    const query = { ...values, userId };
 
     this.setState({ errors: {}, isLoading: true });
 
@@ -84,12 +77,12 @@ class InterviewCandidates extends Component {
 
   chooseFromList = () => {
     const { panel, isLoaded } = this.state;
-    const { getCandidates, user } = this.props;
+    const { getCandidates, userId } = this.props;
 
     this.setState({ panel: !panel });
 
     if (!panel && !isLoaded) {
-      getCandidates(user._id)
+      getCandidates(userId)
         .then(() => this.setState({ isLoaded: true }));
     }
   };
@@ -116,7 +109,6 @@ class InterviewCandidates extends Component {
               <ControlLabel>Choose candidate from the list below:</ControlLabel>
               <Field
                 name="candidates"
-                id="candidates"
                 component="select"
                 className="form-control"
                 ref={(ref) => { this.candidateOne = ref; }}
@@ -189,6 +181,7 @@ class InterviewCandidates extends Component {
             <Field
               label="Notes"
               name="notes"
+              rows={6}
               component={TextareaField}
               placeholder="Add some notes (optional)"
             />
