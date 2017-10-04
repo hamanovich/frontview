@@ -1,6 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
+
+import compose from 'recompose/compose';
+import withState from 'recompose/withState';
+import withHandlers from 'recompose/withHandlers';
 
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
@@ -11,60 +15,75 @@ import { TextField } from '../formElements';
 
 import validate from '../../validations/forgot';
 
-class Forgot extends Component {
-  static propTypes = {
-    forgot: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func.isRequired
-  };
+const enhance = compose(
+  reduxForm({
+    form: 'Forgot',
+    validate
+  }),
 
-  state = {
+  withState('state', 'setState', {
+    error: '',
     emailed: '',
-    errors: {},
     isLoading: false
-  };
+  }),
 
-  onSubmit = (email) => {
-    const { forgot } = this.props;
+  withHandlers({
+    onSubmit: props => (email) => {
+      const { forgot, setState } = props;
 
-    this.setState({ errors: {}, isLoading: true });
+      setState({
+        error: '',
+        isLoading: true
+      });
 
-    forgot(email)
-      .then(res => this.setState({ emailed: res.emailed, isLoading: false }))
-      .catch(err => this.setState({ errors: err.response.data.errors, isLoading: false }));
-  };
+      forgot(email)
+        .then(res => setState({
+          emailed: res.emailed,
+          isLoading: false
+        }))
+        .catch(err => setState({
+          error: err.response.data.error,
+          isLoading: false
+        }));
+    }
+  })
+);
 
-  render() {
-    const { isLoading, emailed, errors } = this.state;
-    const { handleSubmit } = this.props;
+const Forgot = ({ handleSubmit, onSubmit, state }) => (
+  <section>
+    <PageHeader>Forgot your password? <br /> Don&apos;t worry!</PageHeader>
+    <p>Just put your email and we will send you instructions.</p>
 
-    return (
-      <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
-        <PageHeader>Forgot your password? <br /> Don&apos;t worry!</PageHeader>
-        <p>Just put your email and we will send you instructions.</p>
+    <Form onSubmit={handleSubmit(onSubmit)} noValidate>
+      {state.emailed && <Alert bsStyle="success">{state.emailed}</Alert>}
+      {state.error && <Alert bsStyle="danger">{state.error}</Alert>}
 
-        {emailed && <Alert bsStyle="success">{emailed}</Alert>}
-        {errors.form && <Alert bsStyle="danger">{errors.form}</Alert>}
+      <Field
+        label="Email*:"
+        component={TextField}
+        type="email"
+        name="email"
+        placeholder="Type your email"
+      />
 
-        <Field
-          label="Email*:"
-          component={TextField}
-          type="email"
-          name="email"
-          placeholder="Type your email"
-        />
+      <Button
+        type="submit"
+        bsStyle="warning"
+        bsSize="large"
+        disabled={state.isLoading}
+      >Send a reset</Button>
+    </Form>
+  </section>
+);
 
-        <Button
-          type="submit"
-          bsStyle="warning"
-          bsSize="large"
-          disabled={isLoading}
-        >Send a reset</Button>
-      </Form>
-    );
-  }
-}
+Forgot.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  state: PropTypes.shape({
+    emailed: PropTypes.string,
+    error: PropTypes.string,
+    isLoading: PropTypes.bool.isRequired
+  }).isRequired
+};
 
-export default reduxForm({
-  form: 'Forgot',
-  validate
-})(Forgot);
+export default enhance(Forgot);

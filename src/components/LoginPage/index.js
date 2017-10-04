@@ -15,7 +15,13 @@ import { addFlashMessage } from '../../actions/flash';
 
 import { PropsRoute } from '../../utils/helpers';
 
-const LoginPage = ({ login, forgot, resetToken, getReset, addFlashMessage }) => (
+const LoginPage = ({
+  login,
+  forgot,
+  resetToken,
+  getReset,
+  addFlashMessage
+}) => (
   <Row>
     <Col md={6} mdOffset={3}>
       <Switch>
@@ -55,4 +61,10 @@ LoginPage.propTypes = {
   addFlashMessage: PropTypes.func.isRequired
 };
 
-export default connect(null, { login, forgot, resetToken, getReset, addFlashMessage })(LoginPage);
+export default connect(null, {
+  login,
+  forgot,
+  resetToken,
+  getReset,
+  addFlashMessage
+})(LoginPage);

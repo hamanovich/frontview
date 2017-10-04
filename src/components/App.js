@@ -9,7 +9,7 @@ import NotFound from './NotFound';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
 import FlashList from './flash/FlashList';
-import Confirmation from './Confirmation';
+import ConfirmationPage from './ConfirmationPage';
 import InterviewPage from './InteviewPage';
 import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
@@ -37,7 +37,7 @@ const App = () => (
           <Route path="/questions" component={QuestionsPage} />
           <Route path="/interview" component={User(InterviewPage)} />
           <Route path="/comments/:username" component={User(CommentsAuthorPage)} />
-          <Route path="/confirmation/:token" component={Confirmation} />
+          <Route path="/confirmation/:token" component={ConfirmationPage} />
           <Route component={NotFound} />
         </Switch>
       </Main>

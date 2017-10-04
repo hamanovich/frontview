@@ -1,6 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
+
+import compose from 'recompose/compose';
+import withState from 'recompose/withState';
+import withHandlers from 'recompose/withHandlers';
+import lifecycle from 'recompose/lifecycle';
 
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
@@ -11,99 +16,103 @@ import { TextField } from '../formElements';
 
 import validate from '../../validations/reset';
 
-class Reset extends Component {
-  static propTypes = {
-    resetToken: PropTypes.func.isRequired,
-    getReset: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func.isRequired,
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        token: PropTypes.string.isRequired
-      }).isRequired
-    }).isRequired,
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired
-    }).isRequired
-  };
+const enhance = compose(
+  reduxForm({
+    form: 'Reset',
+    validate
+  }),
 
-  state = {
-    errors: {},
+  withState('state', 'setState', {
+    error: '',
     isLoading: false
-  };
+  }),
 
-  componentDidMount() {
-    const { getReset, addFlashMessage, match } = this.props;
+  lifecycle({
+    componentDidMount() {
+      const { getReset, addFlashMessage, match } = this.props;
 
-    getReset(match.params.token).catch(err =>
-      addFlashMessage({
-        type: 'error',
-        text: err.response.data.errors.form
-      })
-    );
-  }
+      getReset(match.params.token)
+        .catch(err =>
+          addFlashMessage({
+            type: 'error',
+            text: err.response.data.error
+          })
+        );
+    }
+  }),
 
-  onSubmit = (values) => {
-    const { resetToken, addFlashMessage, match, history } = this.props;
+  withHandlers({
+    onSubmit: props => (values) => {
+      const { resetToken, addFlashMessage, match, history, setState } = props;
 
-    this.setState({ errors: {}, isLoading: true });
+      setState({ errors: {}, isLoading: true });
 
-    resetToken(match.params.token, values)
-      .then((res) => {
-        if (res.errors) {
-          this.setState({ errors: res.errors, isLoading: false });
+      resetToken(match.params.token, values)
+        .then((res) => {
+          if (res.error) {
+            setState({
+              error: res.error,
+              isLoading: false
+            });
 
-          return;
-        }
+            return;
+          }
 
-        addFlashMessage({
-          type: 'success',
-          text: 'Password successfully updated. Please login'
-        });
+          addFlashMessage({
+            type: 'success',
+            text: 'Password successfully updated. Please login'
+          });
 
-        history.push('/');
-      })
-      .catch(err => this.setState({ errors: err.response.data.error, isLoading: false }));
-  };
+          history.push('/');
+        })
+        .catch(err => setState({
+          error: err.response.data.error,
+          isLoading: false
+        }));
+    }
+  })
+);
 
-  render() {
-    const { errors, isLoading } = this.state;
-    const { handleSubmit } = this.props;
+const Reset = ({ handleSubmit, onSubmit, state }) => (
+  <section>
+    <PageHeader>Reset my password</PageHeader>
 
-    return (
-      <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
-        <PageHeader>Reset my password</PageHeader>
+    <Form onSubmit={handleSubmit(onSubmit)} noValidate>
+      {state.error && <Alert bsStyle="danger">{state.error}</Alert>}
 
-        {errors.form && <Alert bsStyle="danger">{errors.form}</Alert>}
+      <Field
+        label="Password*:"
+        component={TextField}
+        type="password"
+        name="password"
+        placeholder="Enter a new password"
+      />
 
-        <Field
-          label="Password*:"
-          component={TextField}
-          type="password"
-          name="password"
-          placeholder="Enter a new password"
-        />
+      <Field
+        label="Confirm your Password*:"
+        component={TextField}
+        type="password"
+        name="passwordConfirmation"
+        placeholder="Repeat your mad password"
+      />
 
-        <Field
-          label="Confirm your Password*:"
-          component={TextField}
-          type="password"
-          name="passwordConfirmation"
-          placeholder="Repeat your mad password"
-        />
+      <Button
+        type="submit"
+        bsStyle="warning"
+        bsSize="large"
+        disabled={state.isLoading}
+      >Reset</Button>
+    </Form>
+  </section>
+);
 
-        <Button
-          type="submit"
-          bsStyle="warning"
-          bsSize="large"
-          disabled={isLoading}
-        >Reset</Button>
-      </Form>
-    );
-  }
-}
+Reset.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  state: PropTypes.shape({
+    error: PropTypes.string,
+    isLoading: PropTypes.bool.isRequired
+  }).isRequired
+};
 
-export default reduxForm({
-  form: 'Reset',
-  validate
-})(Reset);
+export default enhance(Reset);
