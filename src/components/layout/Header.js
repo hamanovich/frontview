@@ -18,20 +18,31 @@ import { addFlashMessage } from '../../actions/flash';
 
 import SearchForm from './SearchForm';
 
+import { UserType } from '../../propTypes';
+
 const Menu = styled(Navbar) `
   border-radius: 0;
 `;
 
+const { shape, func, bool } = PropTypes;
+
 class Header extends Component {
   static propTypes = {
-    auth: PropTypes.object.isRequired,
-    getSearchedQuestions: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired,
-    logout: PropTypes.func.isRequired
+    auth: shape({
+      isAuthenticated: bool.isRequired,
+      user: UserType.isRequired
+    }).isRequired,
+    getSearchedQuestions: func.isRequired,
+    addFlashMessage: func.isRequired,
+    logout: func.isRequired
   };
 
   static contextTypes = {
-    router: PropTypes.object.isRequired
+    router: shape({
+      history: shape({
+        push: func.isRequired
+      }).isRequired
+    }).isRequired
   };
 
   onSearch = (values) => {

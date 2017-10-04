@@ -33,7 +33,7 @@ const InterviewPage = ({
   <div>
     <PageHeader>
       <FontAwesome name="id-badge" /> Interview
-  </PageHeader>
+    </PageHeader>
 
     <Switch>
       <Route
@@ -82,17 +82,19 @@ const InterviewPage = ({
   </div>
 );
 
+const { arrayOf, shape, func } = PropTypes;
+
 InterviewPage.propTypes = {
-  candidateAdd: PropTypes.func.isRequired,
-  getCandidates: PropTypes.func.isRequired,
-  addFlashMessage: PropTypes.func.isRequired,
-  getQLists: PropTypes.func.isRequired,
-  provideFeedback: PropTypes.func.isRequired,
-  auth: PropTypes.shape({
+  candidateAdd: func.isRequired,
+  getCandidates: func.isRequired,
+  addFlashMessage: func.isRequired,
+  getQLists: func.isRequired,
+  provideFeedback: func.isRequired,
+  auth: shape({
     user: UserType.isRequired
   }).isRequired,
-  candidates: PropTypes.arrayOf(CandidateType),
-  qlists: PropTypes.arrayOf(QListType)
+  candidates: arrayOf(CandidateType),
+  qlists: arrayOf(QListType)
 };
 
 InterviewPage.defaultProps = {

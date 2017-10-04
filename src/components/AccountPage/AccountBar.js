@@ -42,12 +42,14 @@ const AccountBar = ({ auth, logout }) => (
   </List>
 );
 
+const { func, shape, bool } = PropTypes;
+
 AccountBar.propTypes = {
-  auth: PropTypes.shape({
-    isAuthenticated: PropTypes.bool.isRequired,
+  auth: shape({
+    isAuthenticated: bool.isRequired,
     user: UserType.isRequired
   }).isRequired,
-  logout: PropTypes.func.isRequired
+  logout: func.isRequired
 };
 
 export default connect(null, { logout })(AccountBar);

@@ -20,10 +20,12 @@ const Questions = ({ user, questions, editQuestionField }) => (
   </div>
 );
 
+const { arrayOf, func } = PropTypes;
+
 Questions.propTypes = {
   user: UserType.isRequired,
-  questions: PropTypes.arrayOf(QuestionType).isRequired,
-  editQuestionField: PropTypes.func.isRequired
+  questions: arrayOf(QuestionType).isRequired,
+  editQuestionField: func.isRequired
 };
 
 export default Loader('questions')(Questions);

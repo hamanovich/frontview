@@ -18,17 +18,19 @@ import TextareaField from '../formElements/TextareaField';
 
 import { CandidateType } from '../../propTypes';
 
+const { arrayOf, shape, string, func } = PropTypes;
+
 class InterviewCandidates extends Component {
   static propTypes = {
-    userId: PropTypes.string.isRequired,
-    candidates: PropTypes.arrayOf(CandidateType),
-    candidateAdd: PropTypes.func.isRequired,
-    getCandidates: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func.isRequired,
-    reset: PropTypes.func.isRequired,
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired
+    userId: string.isRequired,
+    candidates: arrayOf(CandidateType),
+    candidateAdd: func.isRequired,
+    getCandidates: func.isRequired,
+    addFlashMessage: func.isRequired,
+    handleSubmit: func.isRequired,
+    reset: func.isRequired,
+    history: shape({
+      push: func.isRequired
     }).isRequired
   };
 

@@ -35,12 +35,14 @@ const InterviewFinish = ({ location }) => (
   </div>
 );
 
+const { shape, string } = PropTypes;
+
 InterviewFinish.propTypes = {
-  location: PropTypes.shape({
-    state: PropTypes.shape({
+  location: shape({
+    state: shape({
       candidate: CandidateType,
-      feedback: PropTypes.shape({
-        result: PropTypes.string
+      feedback: shape({
+        result: string
       })
     })
   }).isRequired

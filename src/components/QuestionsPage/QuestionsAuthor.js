@@ -26,13 +26,15 @@ const QuestionsAuthor = ({
   </div>
 );
 
+const { shape, arrayOf, func, bool } = PropTypes;
+
 QuestionsAuthor.propTypes = {
-  auth: PropTypes.shape({
+  auth: shape({
     user: UserType,
-    isAuthenticated: PropTypes.bool.isRequired
+    isAuthenticated: bool.isRequired
   }).isRequired,
-  questions: PropTypes.arrayOf(QuestionType).isRequired,
-  editQuestionField: PropTypes.func.isRequired
+  questions: arrayOf(QuestionType).isRequired,
+  editQuestionField: func.isRequired
 };
 
 export default QuestionsAuthor;

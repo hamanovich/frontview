@@ -83,14 +83,16 @@ const Toolbar = ({ user, question, voteQuestion, qlistAddQuestion, qlists }) => 
   </ButtonToolbar>
 );
 
+const { arrayOf, shape, func, string } = PropTypes;
+
 Toolbar.propTypes = {
-  user: PropTypes.shape({
-    _id: PropTypes.string
+  user: shape({
+    _id: string
   }).isRequired,
   question: QuestionType.isRequired,
-  qlists: PropTypes.arrayOf(QListType).isRequired,
-  qlistAddQuestion: PropTypes.func.isRequired,
-  voteQuestion: PropTypes.func.isRequired
+  qlists: arrayOf(QListType).isRequired,
+  qlistAddQuestion: func.isRequired,
+  voteQuestion: func.isRequired
 };
 
 export default enhance(Toolbar);

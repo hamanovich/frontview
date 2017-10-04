@@ -43,7 +43,6 @@ exports.createUser = async (req, res) => {
     confirmationToken: bcrypt.hashSync(process.env.SECRET, 10).replace(/\//g, '')
   });
 
-
   await user.save((err) => {
     if (err) {
       const { username, email } = err.errors;

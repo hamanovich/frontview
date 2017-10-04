@@ -42,23 +42,25 @@ const TextField = ({
   </FormGroup>
 );
 
+const { shape, string, bool } = PropTypes;
+
 TextField.propTypes = {
-  input: PropTypes.shape({
-    name: PropTypes.string,
-    value: PropTypes.string
+  input: shape({
+    name: string,
+    value: string
   }).isRequired,
-  readonly: PropTypes.bool,
-  feedback: PropTypes.bool,
-  label: PropTypes.string,
-  defaultValue: PropTypes.string,
-  placeholder: PropTypes.string,
-  type: PropTypes.string.isRequired,
-  errorState: PropTypes.string,
-  errorsVisible: PropTypes.bool,
-  meta: PropTypes.shape({
-    touched: PropTypes.bool,
-    error: PropTypes.string,
-    warning: PropTypes.string
+  readonly: bool,
+  feedback: bool,
+  label: string,
+  defaultValue: string,
+  placeholder: string,
+  type: string.isRequired,
+  errorState: string,
+  errorsVisible: bool,
+  meta: shape({
+    touched: bool,
+    error: string,
+    warning: string
   }).isRequired
 };
 

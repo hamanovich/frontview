@@ -53,9 +53,11 @@ const InterviewNotesForm = ({ handleSubmit, onSubmit }) => (
   </Form>
 );
 
+const { func } = PropTypes;
+
 InterviewNotesForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  handleSubmit: func.isRequired,
+  onSubmit: func.isRequired
 };
 
 export default enhance(InterviewNotesForm);

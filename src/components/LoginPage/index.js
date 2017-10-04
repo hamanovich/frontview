@@ -53,12 +53,14 @@ const LoginPage = ({
   </Row>
 );
 
+const { func } = PropTypes;
+
 LoginPage.propTypes = {
-  login: PropTypes.func.isRequired,
-  forgot: PropTypes.func.isRequired,
-  resetToken: PropTypes.func.isRequired,
-  getReset: PropTypes.func.isRequired,
-  addFlashMessage: PropTypes.func.isRequired
+  login: func.isRequired,
+  forgot: func.isRequired,
+  resetToken: func.isRequired,
+  getReset: func.isRequired,
+  addFlashMessage: func.isRequired
 };
 
 export default connect(null, {

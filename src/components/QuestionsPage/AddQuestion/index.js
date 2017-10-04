@@ -28,24 +28,26 @@ import {
   getQuestionInterface
 } from '../../../actions/questions';
 
+const { func, shape, string } = PropTypes;
+
 class AddQuestion extends Component {
   static propTypes = {
-    handleSubmit: PropTypes.func.isRequired,
-    addQuestion: PropTypes.func.isRequired,
-    editQuestion: PropTypes.func.isRequired,
-    getQuestionInterface: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired,
-    removeQuestion: PropTypes.func.isRequired,
-    getQuestionById: PropTypes.func.isRequired,
-    logout: PropTypes.func.isRequired,
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        _id: PropTypes.string
+    handleSubmit: func.isRequired,
+    addQuestion: func.isRequired,
+    editQuestion: func.isRequired,
+    getQuestionInterface: func.isRequired,
+    addFlashMessage: func.isRequired,
+    removeQuestion: func.isRequired,
+    getQuestionById: func.isRequired,
+    logout: func.isRequired,
+    match: shape({
+      params: shape({
+        _id: string
       })
     }),
-    userId: PropTypes.string,
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired
+    userId: string,
+    history: shape({
+      push: func.isRequired
     }).isRequired
   };
 

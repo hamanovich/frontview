@@ -28,10 +28,12 @@ const SignupPage = ({ signup, addFlashMessage, isUserExists }) => (
   </Row>
 );
 
+const { func } = PropTypes;
+
 SignupPage.propTypes = {
-  signup: PropTypes.func.isRequired,
-  addFlashMessage: PropTypes.func.isRequired,
-  isUserExists: PropTypes.func.isRequired
+  signup: func.isRequired,
+  addFlashMessage: func.isRequired,
+  isUserExists: func.isRequired
 };
 
 export default connect(null, {

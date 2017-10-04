@@ -88,9 +88,11 @@ const CommentForm = ({ handleSubmit, onSubmit }) => (
   </Row>
 );
 
+const { func } = PropTypes;
+
 CommentForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  handleSubmit: func.isRequired,
+  onSubmit: func.isRequired
 };
 
 export default enhance(CommentForm);

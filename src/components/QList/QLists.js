@@ -15,6 +15,8 @@ import Modal from 'react-bootstrap/lib/Modal';
 
 import { getQLists, removeQList } from '../../actions/qlists';
 
+import { QListType } from '../../propTypes';
+
 const RemoveIcon = styled.button`
   position: absolute;
   right: 10px;
@@ -27,12 +29,14 @@ const RemoveIcon = styled.button`
   }
 `;
 
+const { func, string, arrayOf } = PropTypes;
+
 class QLists extends Component {
   static propTypes = {
-    getQLists: PropTypes.func.isRequired,
-    removeQList: PropTypes.func.isRequired,
-    qlists: PropTypes.array.isRequired,
-    userId: PropTypes.string.isRequired
+    getQLists: func.isRequired,
+    removeQList: func.isRequired,
+    qlists: arrayOf(QListType).isRequired,
+    userId: string.isRequired
   };
 
   state = {

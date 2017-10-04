@@ -27,14 +27,31 @@ const QuestionsSearch = ({
   </div>
 );
 
+const { shape, arrayOf, func, string, bool, number } = PropTypes;
+
 QuestionsSearch.propTypes = {
-  auth: PropTypes.shape({
+  auth: shape({
     user: UserType,
-    isAuthenticated: PropTypes.bool.isRequired
+    isAuthenticated: bool.isRequired
   }).isRequired,
-  questions: PropTypes.arrayOf(QuestionType).isRequired,
-  editQuestionField: PropTypes.func.isRequired,
-  state: PropTypes.object.isRequired
+  questions: arrayOf(QuestionType).isRequired,
+  editQuestionField: func.isRequired,
+  state: shape({
+    pagination: shape({
+      activePage: number,
+      pages: number,
+      count: number
+    }),
+    searchQuery: string,
+    filters: shape({
+      filter: string,
+      tags: arrayOf(shape({
+        _id: string,
+        count: number
+      })),
+      tag: string
+    }).isRequired
+  }).isRequired
 };
 
 export default QuestionsSearch;

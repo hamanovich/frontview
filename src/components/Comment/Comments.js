@@ -8,7 +8,7 @@ import Loader from '../../utils/Loader';
 import { CommentType } from '../../propTypes';
 
 const Comments = ({ comments, match }) => (
-  <div>
+  <section>
     {map(comments, comment => (
       <Comment
         comment={comment}
@@ -16,14 +16,16 @@ const Comments = ({ comments, match }) => (
         key={comment._id}
       />
     ))}
-  </div>
+  </section>
 );
 
+const { arrayOf, shape, string } = PropTypes;
+
 Comments.propTypes = {
-  comments: PropTypes.arrayOf(CommentType).isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      username: PropTypes.string.isRequired
+  comments: arrayOf(CommentType).isRequired,
+  match: shape({
+    params: shape({
+      username: string.isRequired
     }).isRequired
   })
 };

@@ -14,30 +14,32 @@ import {
 
 import { QuestionType } from '../../propTypes';
 
+const { shape, func, number, string, arrayOf } = PropTypes;
+
 export default (WrappedComponent) => {
   class QuestionsWrapper extends Component {
     static propTypes = {
-      questions: PropTypes.arrayOf(QuestionType).isRequired,
-      getQuestions: PropTypes.func.isRequired,
-      getTopQuestions: PropTypes.func.isRequired,
-      getQuestionsByFilter: PropTypes.func.isRequired,
-      getQuestionsByAuthor: PropTypes.func.isRequired,
-      getSearchedQuestions: PropTypes.func.isRequired,
-      addFlashMessage: PropTypes.func.isRequired,
-      match: PropTypes.shape({
-        params: PropTypes.shape({
-          filter: PropTypes.string,
-          tag: PropTypes.string,
-          page: PropTypes.nubmer,
-          username: PropTypes.string
+      questions: arrayOf(QuestionType).isRequired,
+      getQuestions: func.isRequired,
+      getTopQuestions: func.isRequired,
+      getQuestionsByFilter: func.isRequired,
+      getQuestionsByAuthor: func.isRequired,
+      getSearchedQuestions: func.isRequired,
+      addFlashMessage: func.isRequired,
+      match: shape({
+        params: shape({
+          filter: string,
+          tag: string,
+          page: number,
+          username: string
         }),
-        path: PropTypes.string
+        path: string
       }).isRequired,
-      location: PropTypes.shape({
-        search: PropTypes.string
+      location: shape({
+        search: string
       }).isRequired,
-      history: PropTypes.shape({
-        push: PropTypes.func.isRequired
+      history: shape({
+        push: func.isRequired
       }).isRequired
     };
 

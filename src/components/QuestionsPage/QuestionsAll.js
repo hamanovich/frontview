@@ -33,14 +33,31 @@ const QuestionsAll = ({
   </div>
 );
 
+const { shape, arrayOf, func, string, number } = PropTypes;
+
 QuestionsAll.propTypes = {
-  auth: PropTypes.shape({
+  auth: shape({
     user: UserType
   }).isRequired,
-  questions: PropTypes.arrayOf(QuestionType).isRequired,
-  onPageSelect: PropTypes.func.isRequired,
-  editQuestionField: PropTypes.func.isRequired,
-  state: PropTypes.object.isRequired
+  questions: arrayOf(QuestionType).isRequired,
+  onPageSelect: func.isRequired,
+  editQuestionField: func.isRequired,
+  state: shape({
+    pagination: shape({
+      activePage: number,
+      pages: number,
+      count: number
+    }),
+    searchQuery: string,
+    filters: shape({
+      filter: string,
+      tags: arrayOf(shape({
+        _id: string,
+        count: number
+      })),
+      tag: string
+    }).isRequired
+  }).isRequired
 };
 
 export default QuestionsAll;

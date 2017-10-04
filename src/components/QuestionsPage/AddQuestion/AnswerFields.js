@@ -41,17 +41,23 @@ const AnswerFields = ({ fields, meta: { touched, error, submitFailed } }) => (
     ))}
 
     <FormGroup>
-      <Button bsStyle="success" onClick={() => fields.push()}>Add Answer</Button>
+      <Button bsStyle="success" onClick={fields.push}>Add Answer</Button>
     </FormGroup>
   </div>
 );
 
+const { shape, func, string, bool } = PropTypes;
+
 AnswerFields.propTypes = {
-  fields: PropTypes.object.isRequired,
-  meta: PropTypes.shape({
-    touched: PropTypes.bool,
-    error: PropTypes.string,
-    submitFailed: PropTypes.bool
+  fields: shape({
+    map: func.isRequired,
+    push: func.isRequired,
+    remove: func.isRequired,
+  }).isRequired,
+  meta: shape({
+    touched: bool,
+    error: string,
+    submitFailed: bool
   }).isRequired
 };
 

@@ -38,24 +38,26 @@ const SelectField = ({
   </FormGroup>
 );
 
+const { arrayOf, number, shape, string, bool } = PropTypes;
+
 SelectField.propTypes = {
-  input: PropTypes.shape({
-    name: PropTypes.string,
-    value: PropTypes.array
+  input: shape({
+    name: string,
+    value: arrayOf(string)
   }).isRequired,
-  id: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  multiple: PropTypes.bool.isRequired,
-  size: PropTypes.number,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.string,
-      title: PropTypes.string
+  id: string.isRequired,
+  label: string.isRequired,
+  multiple: bool.isRequired,
+  size: number,
+  options: arrayOf(
+    shape({
+      value: string,
+      title: string
     })).isRequired,
-  meta: PropTypes.shape({
-    touched: PropTypes.bool,
-    error: PropTypes.string,
-    warning: PropTypes.string
+  meta: shape({
+    touched: bool,
+    error: string,
+    warning: string
   }).isRequired
 };
 

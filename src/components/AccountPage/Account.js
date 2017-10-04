@@ -21,18 +21,25 @@ import Loader from '../../utils/Loader';
 import { UserType } from '../../propTypes';
 
 const enhance = compose(
-  connect(null, { getUser, removeUser, logout, addFlashMessage }),
+  connect(null, {
+    getUser,
+    removeUser,
+    logout,
+    addFlashMessage
+  }),
 
   Loader('user')
 );
 
+const { func } = PropTypes;
+
 class Account extends Component {
   static propTypes = {
     user: UserType.isRequired,
-    getUser: PropTypes.func.isRequired,
-    logout: PropTypes.func.isRequired,
-    removeUser: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired
+    getUser: func.isRequired,
+    logout: func.isRequired,
+    removeUser: func.isRequired,
+    addFlashMessage: func.isRequired
   };
 
   state = {

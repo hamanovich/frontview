@@ -19,22 +19,24 @@ import { addFlashMessage } from '../../../actions/flash';
 
 import { UserType, QuestionType } from '../../../propTypes';
 
+const { shape, func, string } = PropTypes;
+
 class QuestionOne extends Component {
   static propTypes = {
-    addFlashMessage: PropTypes.func.isRequired,
-    getQuestionBySlug: PropTypes.func.isRequired,
-    getUser: PropTypes.func.isRequired,
-    addComment: PropTypes.func.isRequired,
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        slug: PropTypes.string.isRequired
+    addFlashMessage: func.isRequired,
+    getQuestionBySlug: func.isRequired,
+    getUser: func.isRequired,
+    addComment: func.isRequired,
+    match: shape({
+      params: shape({
+        slug: string.isRequired
       }).isRequired
     }).isRequired,
     question: QuestionType,
     user: UserType.isRequired,
-    editQuestionField: PropTypes.func.isRequired,
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired
+    editQuestionField: func.isRequired,
+    history: shape({
+      push: func.isRequired
     }).isRequired
   };
 

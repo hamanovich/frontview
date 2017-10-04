@@ -52,11 +52,13 @@ const Comment = ({ comment, match }) => (
   </Media>
 );
 
+const { shape, string } = PropTypes;
+
 Comment.propTypes = {
   comment: CommentType.isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      username: PropTypes.string.isRequired
+  match: shape({
+    params: shape({
+      username: string.isRequired
     }).isRequired
   })
 };

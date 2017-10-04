@@ -10,17 +10,15 @@ import { TextField } from '../formElements';
 
 import validate from '../../validations/signup';
 
+const { func } = PropTypes;
+
 class SignupForm extends Component {
   static propTypes = {
-    signup: PropTypes.func.isRequired,
-    reset: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired,
-    isUserExists: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func.isRequired
-  };
-
-  static contextTypes = {
-    router: PropTypes.object.isRequired
+    signup: func.isRequired,
+    reset: func.isRequired,
+    addFlashMessage: func.isRequired,
+    isUserExists: func.isRequired,
+    handleSubmit: func.isRequired
   };
 
   state = {

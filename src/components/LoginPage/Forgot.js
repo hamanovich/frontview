@@ -76,13 +76,15 @@ const Forgot = ({ handleSubmit, onSubmit, state }) => (
   </section>
 );
 
+const { shape, func, string, bool } = PropTypes;
+
 Forgot.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  state: PropTypes.shape({
-    emailed: PropTypes.string,
-    error: PropTypes.string,
-    isLoading: PropTypes.bool.isRequired
+  handleSubmit: func.isRequired,
+  onSubmit: func.isRequired,
+  state: shape({
+    emailed: string,
+    error: string,
+    isLoading: bool.isRequired
   }).isRequired
 };
 

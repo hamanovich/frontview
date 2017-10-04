@@ -113,19 +113,21 @@ const InterviewProgress = ({ step, provideFeedback, location, history, onSelectS
   );
 };
 
+const { shape, func, number } = PropTypes;
+
 InterviewProgress.propTypes = {
-  location: PropTypes.shape({
-    state: PropTypes.shape({
+  location: shape({
+    state: shape({
       candidate: CandidateType,
       qlist: QListType
     })
   }).isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
+  history: shape({
+    push: func.isRequired
   }).isRequired,
-  step: PropTypes.number.isRequired,
-  onSelectStep: PropTypes.func.isRequired,
-  provideFeedback: PropTypes.func.isRequired
+  step: number.isRequired,
+  onSelectStep: func.isRequired,
+  provideFeedback: func.isRequired
 };
 
 export default enhance(InterviewProgress);

@@ -47,11 +47,13 @@ const CommentsAuthorPage = ({ comments, match }) => (
   </section>
 );
 
+const { arrayOf, shape, string } = PropTypes;
+
 CommentsAuthorPage.propTypes = {
-  comments: PropTypes.arrayOf(CommentType).isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      username: PropTypes.string.isRequired
+  comments: arrayOf(CommentType).isRequired,
+  match: shape({
+    params: shape({
+      username: string.isRequired
     }).isRequired
   }).isRequired
 };

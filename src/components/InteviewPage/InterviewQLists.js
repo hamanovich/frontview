@@ -12,16 +12,18 @@ import QListForm from '../QList/QListForm';
 
 import { QListType, CandidateType } from '../../propTypes';
 
+const { arrayOf, shape, string, func } = PropTypes;
+
 class InterviewQLists extends Component {
   static propTypes = {
-    userId: PropTypes.string.isRequired,
-    qlists: PropTypes.arrayOf(QListType),
-    addFlashMessage: PropTypes.func.isRequired,
-    getQLists: PropTypes.func.isRequired,
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired
+    userId: string.isRequired,
+    qlists: arrayOf(QListType),
+    addFlashMessage: func.isRequired,
+    getQLists: func.isRequired,
+    history: shape({
+      push: func.isRequired
     }).isRequired,
-    location: PropTypes.shape({
+    location: shape({
       state: CandidateType
     }).isRequired
   };

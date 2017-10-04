@@ -79,10 +79,12 @@ const QListForm = ({ isLoading, handleSubmit, onSubmit }) => (
   </Form>
 );
 
+const { func, bool } = PropTypes;
+
 QListForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired
+  handleSubmit: func.isRequired,
+  onSubmit: func.isRequired,
+  isLoading: bool.isRequired
 };
 
 export default enhance(QListForm);

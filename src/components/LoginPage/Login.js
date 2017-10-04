@@ -93,12 +93,14 @@ const Login = ({ handleSubmit, onSubmit, state }) => (
   </section>
 );
 
+const { shape, func, string, bool } = PropTypes;
+
 Login.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  state: PropTypes.shape({
-    error: PropTypes.string,
-    isLoading: PropTypes.bool.isRequired
+  handleSubmit: func.isRequired,
+  onSubmit: func.isRequired,
+  state: shape({
+    error: string,
+    isLoading: bool.isRequired
   }).isRequired
 };
 

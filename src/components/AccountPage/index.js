@@ -56,9 +56,11 @@ const AccountPage = ({ auth }) => (
   </Row>
 );
 
+const { shape, bool } = PropTypes;
+
 AccountPage.propTypes = {
-  auth: PropTypes.shape({
-    isAuthenticated: PropTypes.bool.isRequired,
+  auth: shape({
+    isAuthenticated: bool.isRequired,
     user: UserType.isRequired
   }).isRequired
 };

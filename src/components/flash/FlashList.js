@@ -16,15 +16,17 @@ const FlashList = ({ messages, deleteFlashMessage }) => (
   )}</div>
 );
 
+const { func, arrayOf, shape, string } = PropTypes;
+
 FlashList.propTypes = {
-  messages: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired
+  messages: arrayOf(
+    shape({
+      id: string.isRequired,
+      type: string.isRequired,
+      text: string.isRequired
     })
   ).isRequired,
-  deleteFlashMessage: PropTypes.func.isRequired
+  deleteFlashMessage: func.isRequired
 };
 
 const mapStateToProps = state => ({ messages: state.flash });

@@ -6,15 +6,17 @@ import Tab from 'react-bootstrap/lib/Tab';
 
 import * as QuestionsTab from './QuestionsTabs';
 
+const { shape, func, string } = PropTypes;
+
 class QuestionsFromInternet extends Component {
   static propTypes = {
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        source: PropTypes.string
+    match: shape({
+      params: shape({
+        source: string
       }).isRequired
     }).isRequired,
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired
+    history: shape({
+      push: func.isRequired
     }).isRequired
   };
 
