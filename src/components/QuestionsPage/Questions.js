@@ -5,9 +5,9 @@ import map from 'lodash/map';
 import Question from './Question';
 import Loader from '../../utils/Loader';
 
-import { QuestionType, UserType } from '../../propTypes';
+import { QuestionType, UserType, QListType } from '../../propTypes';
 
-const Questions = ({ user, questions, editQuestionField }) => (
+const Questions = ({ user, qlists, questions, editQuestionField }) => (
   <div>
     {map(questions, question => (
       <Question
@@ -15,6 +15,7 @@ const Questions = ({ user, questions, editQuestionField }) => (
         editQuestionField={editQuestionField}
         key={question._id}
         user={user}
+        qlists={qlists}
       />
     ))}
   </div>
@@ -24,6 +25,7 @@ const { arrayOf, func } = PropTypes;
 
 Questions.propTypes = {
   user: UserType.isRequired,
+  qlists: arrayOf(QListType).isRequired,
   questions: arrayOf(QuestionType).isRequired,
   editQuestionField: func.isRequired
 };

@@ -5,8 +5,6 @@ import { LinkContainer } from 'react-router-bootstrap';
 import FontAwesome from 'react-fontawesome';
 import map from 'lodash/map';
 
-import compose from 'recompose/compose';
-import lifecycle from 'recompose/lifecycle';
 
 import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
@@ -15,25 +13,9 @@ import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 
 import { voteQuestion } from '../../actions/questions';
-import { qlistAddQuestion, getQLists } from '../../actions/qlists';
+import { qlistAddQuestion } from '../../actions/qlists';
 
 import { QuestionType, QListType } from '../../propTypes';
-
-const mapStateToProps = state => ({ qlists: state.qlists });
-
-const enhance = compose(
-  connect(mapStateToProps, {
-    voteQuestion, qlistAddQuestion, getQLists
-  }),
-
-  lifecycle({
-    componentDidMount() {
-      const { user, getQLists } = this.props;
-
-      getQLists(user._id);
-    }
-  })
-);
 
 const Toolbar = ({ user, question, voteQuestion, qlistAddQuestion, qlists }) => (
   <ButtonToolbar>
@@ -95,4 +77,7 @@ Toolbar.propTypes = {
   voteQuestion: func.isRequired
 };
 
-export default enhance(Toolbar);
+export default connect(null, {
+  voteQuestion,
+  qlistAddQuestion
+})(Toolbar);

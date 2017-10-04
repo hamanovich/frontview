@@ -11,26 +11,33 @@ import {
   getQuestionsByFilter,
   getQuestionsByAuthor
 } from '../../actions/questions';
+import { getQLists } from '../../actions/qlists';
 
 import { QuestionType } from '../../propTypes';
 
-const { shape, func, number, string, arrayOf } = PropTypes;
+const { shape, func, string, arrayOf } = PropTypes;
 
 export default (WrappedComponent) => {
   class QuestionsWrapper extends Component {
     static propTypes = {
       questions: arrayOf(QuestionType).isRequired,
       getQuestions: func.isRequired,
+      getQLists: func.isRequired,
       getTopQuestions: func.isRequired,
       getQuestionsByFilter: func.isRequired,
       getQuestionsByAuthor: func.isRequired,
       getSearchedQuestions: func.isRequired,
       addFlashMessage: func.isRequired,
+      auth: shape({
+        user: shape({
+          username: string
+        })
+      }).isRequired,
       match: shape({
         params: shape({
           filter: string,
           tag: string,
-          page: number,
+          page: string,
           username: string
         }),
         path: string
@@ -58,9 +65,11 @@ export default (WrappedComponent) => {
     };
 
     componentDidMount() {
-      const { match, getTopQuestions, location } = this.props;
+      const { match, getTopQuestions, getQLists, location, auth } = this.props;
       const { filter, tag, page = 1, username } = match.params;
       const searchQuery = new URLSearchParams(location.search).get('q');
+
+      getQLists(auth.user._id);
 
       if (searchQuery) {
         this.getQueryQuestions(searchQuery);
@@ -71,29 +80,23 @@ export default (WrappedComponent) => {
       } else if (username) {
         this.getAuthorsQuestions(username);
       } else {
-        this.onPageSelect(Number(page));
+        this.getPageQuestions(page);
       }
     }
 
-    onPageSelect = (activePage) => {
-      const { addFlashMessage, getQuestions, match, history } = this.props;
+    getPageQuestions = (page) => {
+      const { getQuestions, addFlashMessage, history } = this.props;
 
-      getQuestions(activePage)
+      getQuestions(Number(page))
         .then(({ pages, count }) => {
           this.setState({
-            pagination: { pages, activePage, count }
+            pagination: { pages, activePage: Number(page), count }
           });
-
-          if (Number(match.params.page) !== activePage) {
-            history.push(`/questions/page/${activePage}`);
-          }
         }).catch((err) => {
           addFlashMessage({
             type: 'error',
             text: err.response.data.error
           });
-
-          this.setState({ questions: [] });
 
           history.push('/questions');
         });
@@ -163,7 +166,6 @@ export default (WrappedComponent) => {
         <WrappedComponent
           {...this.props}
           state={this.state}
-          onPageSelect={this.onPageSelect}
         />
       );
     }
@@ -171,11 +173,13 @@ export default (WrappedComponent) => {
 
   const mapStateToProps = state => ({
     auth: state.auth,
-    questions: state.questions
+    questions: state.questions,
+    qlists: state.qlists
   });
 
   return connect(mapStateToProps, {
     addFlashMessage,
+    getQLists,
     getQuestions,
     getTopQuestions,
     getQuestionsByFilter,

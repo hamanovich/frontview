@@ -15,17 +15,19 @@ import Comments from '../../Comment/Comments';
 import { getQuestionBySlug, editQuestionField } from '../../../actions/questions';
 import { addComment } from '../../../actions/comments';
 import { getUser } from '../../../actions/signup';
+import { getQLists } from '../../../actions/qlists';
 import { addFlashMessage } from '../../../actions/flash';
 
-import { UserType, QuestionType } from '../../../propTypes';
+import { UserType, QuestionType, QListType } from '../../../propTypes';
 
-const { shape, func, string } = PropTypes;
+const { shape, arrayOf, func, string } = PropTypes;
 
 class QuestionOne extends Component {
   static propTypes = {
     addFlashMessage: func.isRequired,
     getQuestionBySlug: func.isRequired,
     getUser: func.isRequired,
+    getQLists: func.isRequired,
     addComment: func.isRequired,
     match: shape({
       params: shape({
@@ -34,6 +36,7 @@ class QuestionOne extends Component {
     }).isRequired,
     question: QuestionType,
     user: UserType.isRequired,
+    qlists: arrayOf(QListType).isRequired,
     editQuestionField: func.isRequired,
     history: shape({
       push: func.isRequired
@@ -45,9 +48,10 @@ class QuestionOne extends Component {
   };
 
   componentDidMount = () => {
-    const { getUser, match, user } = this.props;
+    const { getUser, getQLists, match, user } = this.props;
 
     getUser(user.username);
+    getQLists(user._id);
     this.getQuestion(match.params.slug);
   };
 
@@ -76,7 +80,7 @@ class QuestionOne extends Component {
   }
 
   render() {
-    const { question, addComment, editQuestionField, user, match } = this.props;
+    const { question, addComment, editQuestionField, user, qlists, match } = this.props;
     const panelHeader = <span><FontAwesome name="comments-o" /> Comments <Badge>{question && question.comments.length}</Badge></span>;
     const panelAddHeader = <span><FontAwesome name="commenting-o" /> Add a comment</span>;
 
@@ -88,6 +92,7 @@ class QuestionOne extends Component {
           question={question}
           editQuestionField={editQuestionField}
           user={user}
+          qlists={qlists}
         />
 
         <PanelGroup defaultActiveKey="1" accordion>
@@ -118,6 +123,7 @@ const mapStateToProps = (state, props) => {
 
   return {
     user: state.auth.user,
+    qlists: state.qlists,
     question
   };
 };
@@ -125,6 +131,7 @@ const mapStateToProps = (state, props) => {
 export default connect(mapStateToProps, {
   getQuestionBySlug,
   getUser,
+  getQLists,
   editQuestionField,
   addComment,
   addFlashMessage

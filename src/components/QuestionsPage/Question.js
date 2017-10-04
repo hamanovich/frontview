@@ -22,7 +22,7 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Toolbar from '../layout/Toolbar';
 import Loader from '../../utils/Loader';
 
-import { QuestionType, UserType } from '../../propTypes';
+import { QuestionType, UserType, QListType } from '../../propTypes';
 
 const Badge = styled(Label) `
   margin: 0 3px;
@@ -36,12 +36,18 @@ const ListItem = styled(ListGroupItem) `
   white-space: pre-wrap
 `;
 
+const { arrayOf, func } = PropTypes;
 
 class Question extends Component {
   static propTypes = {
     question: QuestionType.isRequired,
     user: UserType.isRequired,
-    editQuestionField: PropTypes.func.isRequired,
+    qlists: arrayOf(QListType),
+    editQuestionField: func.isRequired
+  };
+
+  static defaultProps = {
+    qlists: []
   };
 
   state = {
@@ -70,7 +76,7 @@ class Question extends Component {
   };
 
   render() {
-    const { question, editQuestionField, user } = this.props;
+    const { question, editQuestionField, user, qlists } = this.props;
     const { answerField, textField } = this.state;
 
     const panelHeader = (
@@ -87,6 +93,7 @@ class Question extends Component {
         </div>
       </div>
     );
+
     const panelFooter = (
       <div className="clearfix">
         <h5 className="pull-left">
@@ -138,7 +145,13 @@ class Question extends Component {
           </ButtonGroup>
         }
 
-        {user.username && <Toolbar question={question} user={user} />}
+        {user.username &&
+          <Toolbar
+            question={question}
+            user={user}
+            qlists={qlists}
+          />
+        }
 
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
