@@ -7,14 +7,15 @@ import Badge from 'react-bootstrap/lib/Badge';
 import Questions from './Questions';
 import PaginationBar from '../layout/PaginationBar';
 
-import { QuestionType, UserType } from '../../propTypes';
+import { QuestionType, UserType, QListType } from '../../propTypes';
 
 const QuestionsAll = ({
   auth,
   questions,
+  qlists,
   editQuestionField,
-  onPageSelect,
-  state
+  state,
+  history
 }) => (
   <div>
     <PageHeader>Questions <Badge>{state.pagination.count}</Badge></PageHeader>
@@ -22,13 +23,15 @@ const QuestionsAll = ({
     <Questions
       user={auth.user}
       questions={questions}
+      qlists={qlists}
       editQuestionField={editQuestionField}
     />
 
     <PaginationBar
       activePage={state.pagination.activePage}
       pages={state.pagination.pages}
-      onSelect={onPageSelect}
+      onSelect={activePage => (state.pagination.activePage !== activePage) &&
+        history.push(`/questions/page/${activePage}`)}
     />
   </div>
 );
@@ -40,7 +43,7 @@ QuestionsAll.propTypes = {
     user: UserType
   }).isRequired,
   questions: arrayOf(QuestionType).isRequired,
-  onPageSelect: func.isRequired,
+  qlists: arrayOf(QListType).isRequired,
   editQuestionField: func.isRequired,
   state: shape({
     pagination: shape({
@@ -57,6 +60,9 @@ QuestionsAll.propTypes = {
       })),
       tag: string
     }).isRequired
+  }).isRequired,
+  history: shape({
+    push: func
   }).isRequired
 };
 

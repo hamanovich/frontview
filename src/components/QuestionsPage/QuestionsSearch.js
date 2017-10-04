@@ -6,11 +6,12 @@ import PageHeader from 'react-bootstrap/lib/PageHeader';
 
 import Questions from './Questions';
 
-import { QuestionType, UserType } from '../../propTypes';
+import { QuestionType, UserType, QListType } from '../../propTypes';
 
 const QuestionsSearch = ({
   auth,
   questions,
+  qlists,
   editQuestionField,
   state
 }) => (
@@ -22,6 +23,7 @@ const QuestionsSearch = ({
     <Questions
       user={auth.user}
       questions={questions}
+      qlists={qlists}
       editQuestionField={editQuestionField}
     />
   </div>
@@ -34,6 +36,7 @@ QuestionsSearch.propTypes = {
     user: UserType,
     isAuthenticated: bool.isRequired
   }).isRequired,
+  qlists: arrayOf(QListType).isRequired,
   questions: arrayOf(QuestionType).isRequired,
   editQuestionField: func.isRequired,
   state: shape({

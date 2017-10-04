@@ -55,7 +55,7 @@ class QLists extends Component {
   remove = () => {
     this.props.removeQList(this.state.id);
     this.toggleModal();
-  }
+  };
 
   render() {
     const { qlists } = this.props;

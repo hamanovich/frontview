@@ -6,11 +6,12 @@ import PageHeader from 'react-bootstrap/lib/PageHeader';
 
 import Questions from './Questions';
 
-import { QuestionType, UserType } from '../../propTypes';
+import { QuestionType, UserType, QListType } from '../../propTypes';
 
 const QuestionsAuthor = ({
   auth,
   questions,
+  qlists,
   editQuestionField,
 }) => (
   <div>
@@ -21,6 +22,7 @@ const QuestionsAuthor = ({
     <Questions
       user={auth.user}
       questions={questions}
+      qlists={qlists}
       editQuestionField={editQuestionField}
     />
   </div>
@@ -33,6 +35,7 @@ QuestionsAuthor.propTypes = {
     user: UserType,
     isAuthenticated: bool.isRequired
   }).isRequired,
+  qlists: arrayOf(QListType).isRequired,
   questions: arrayOf(QuestionType).isRequired,
   editQuestionField: func.isRequired
 };
