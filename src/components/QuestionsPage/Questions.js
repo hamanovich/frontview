@@ -5,6 +5,8 @@ import map from 'lodash/map';
 import Question from './Question';
 import Loader from '../../utils/Loader';
 
+import { QuestionType, UserType } from '../../propTypes';
+
 const Questions = ({ user, questions, editQuestionField }) => (
   <div>
     {map(questions, question => (
@@ -18,10 +20,12 @@ const Questions = ({ user, questions, editQuestionField }) => (
   </div>
 );
 
+const { arrayOf, func } = PropTypes;
+
 Questions.propTypes = {
-  user: PropTypes.object.isRequired,
-  questions: PropTypes.array.isRequired,
-  editQuestionField: PropTypes.func.isRequired
+  user: UserType.isRequired,
+  questions: arrayOf(QuestionType).isRequired,
+  editQuestionField: func.isRequired
 };
 
 export default Loader('questions')(Questions);

@@ -18,10 +18,12 @@ const PaginationBar = ({ activePage, pages, onSelect }) => (
   />
 );
 
+const { number, func } = PropTypes;
+
 PaginationBar.propTypes = {
-  activePage: PropTypes.number.isRequired,
-  pages: PropTypes.number.isRequired,
-  onSelect: PropTypes.func.isRequired
+  activePage: number.isRequired,
+  pages: number.isRequired,
+  onSelect: func.isRequired
 };
 
 export default PaginationBar;

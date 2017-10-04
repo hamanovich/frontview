@@ -9,6 +9,8 @@ import ListGroup from 'react-bootstrap/lib/ListGroup';
 import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 import Label from 'react-bootstrap/lib/Label';
 
+import { QuestionType } from '../../propTypes';
+
 import Loader from '../../utils/Loader';
 
 const LabelGroup = styled.span`
@@ -69,7 +71,7 @@ const QuestionsTop = ({ questions }) => (
 );
 
 QuestionsTop.propTypes = {
-  questions: PropTypes.array.isRequired
+  questions: PropTypes.arrayOf(QuestionType).isRequired
 };
 
 export default Loader('questions')(QuestionsTop);

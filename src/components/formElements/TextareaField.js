@@ -39,23 +39,25 @@ const TextareaField = ({
   </FormGroup>
 );
 
+const { shape, string, bool, number } = PropTypes;
+
 TextareaField.propTypes = {
-  input: PropTypes.shape({
-    name: PropTypes.string,
-    value: PropTypes.string
+  input: shape({
+    name: string,
+    value: string
   }).isRequired,
-  label: PropTypes.string.isRequired,
-  defaultValue: PropTypes.string,
-  readonly: PropTypes.bool,
-  feedback: PropTypes.bool,
-  placeholder: PropTypes.string,
-  errorsVisible: PropTypes.bool,
-  meta: PropTypes.shape({
-    touched: PropTypes.bool,
-    error: PropTypes.string,
-    warning: PropTypes.string
+  label: string.isRequired,
+  defaultValue: string,
+  readonly: bool,
+  feedback: bool,
+  placeholder: string,
+  errorsVisible: bool,
+  meta: shape({
+    touched: bool,
+    error: string,
+    warning: string
   }).isRequired,
-  rows: PropTypes.number
+  rows: number
 };
 
 TextareaField.defaultProps = {

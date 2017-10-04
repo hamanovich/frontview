@@ -1,8 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import FontAwesome from 'react-fontawesome';
+
+import compose from 'recompose/compose';
+import withState from 'recompose/withState';
+import withHandlers from 'recompose/withHandlers';
 
 import Alert from 'react-bootstrap/lib/Alert';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
@@ -15,76 +19,89 @@ import { TextField } from '../formElements';
 
 import validate from '../../validations/login';
 
-class Login extends Component {
-  static propTypes = {
-    login: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func.isRequired,
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired
-    }).isRequired
-  };
+const enhance = compose(
+  reduxForm({
+    form: 'Login',
+    validate
+  }),
 
-  state = {
-    errors: {},
+  withState('state', 'setState', {
+    error: '',
     isLoading: false
-  };
+  }),
 
-  onSubmit = (values) => {
-    const { login, history } = this.props;
+  withHandlers({
+    onSubmit: props => (values) => {
+      const { login, history, setState } = props;
 
-    this.setState({ errors: {}, isLoading: true });
+      setState({
+        error: '',
+        isLoading: true
+      });
 
-    login(values)
-      .then(() => history.push('/'))
-      .catch(err => this.setState({ errors: err.response.data.errors, isLoading: false }));
-  };
+      login(values)
+        .then(() => history.push('/'))
+        .catch(err => setState({
+          error: err.response.data.error,
+          isLoading: false
+        }));
+    }
+  })
+);
 
-  render() {
-    const { handleSubmit } = this.props;
-    const { isLoading, errors } = this.state;
+const Login = ({ handleSubmit, onSubmit, state }) => (
+  <section>
+    <PageHeader>
+      <FontAwesome name="user-circle-o" /> Please, login
+    </PageHeader>
 
-    return (
-      <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
-        <PageHeader>
-          <FontAwesome name="user-circle-o" /> Please, login
-        </PageHeader>
+    <Form onSubmit={handleSubmit(onSubmit)} noValidate>
+      {state.error && <Alert bsStyle="danger">{state.error}</Alert>}
 
-        {errors.form && <Alert bsStyle="danger">{errors.form}</Alert>}
+      <Field
+        label="Username / Email*:"
+        component={TextField}
+        type="text"
+        htmlFor="identifier"
+        name="identifier"
+        placeholder="Type your Username or Email"
+      />
 
-        <Field
-          label="Username / Email*:"
-          component={TextField}
-          type="text"
-          htmlFor="identifier"
-          name="identifier"
-          placeholder="Type your Username or Email"
-        />
+      <Field
+        label="Password*:"
+        component={TextField}
+        type="password"
+        name="password"
+        placeholder="Come up with a password"
+      />
 
-        <Field
-          label="Password*:"
-          component={TextField}
-          type="password"
-          name="password"
-          placeholder="Come up with a password"
-        />
+      <FormGroup>
+        <FormControl.Static>
+          <Link to="/login/forgot">Forgot password?</Link>
+        </FormControl.Static>
+      </FormGroup>
 
-        <FormGroup>
-          <FormControl.Static>
-            <Link to="/login/forgot">Forgot password?</Link>
-          </FormControl.Static>
-        </FormGroup>
+      <Button
+        type="submit"
+        bsStyle="primary"
+        bsSize="large"
+        disabled={state.isLoading}
+      >
+        Login <FontAwesome name="sign-in" />
+      </Button>
+    </Form>
+  </section>
+);
 
-        <Button
-          type="submit"
-          bsStyle="primary"
-          bsSize="large"
-          disabled={isLoading}
-        >
-          Login <FontAwesome name="sign-in" />
-        </Button>
-      </Form>
-    );
-  }
-}
+const { shape, func, string, bool } = PropTypes;
 
-export default reduxForm({ form: 'login', validate })(Login);
+Login.propTypes = {
+  handleSubmit: func.isRequired,
+  onSubmit: func.isRequired,
+  state: shape({
+    error: string,
+    isLoading: bool.isRequired
+  }).isRequired
+};
+
+export default enhance(Login);

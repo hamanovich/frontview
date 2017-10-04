@@ -31,12 +31,14 @@ const SearchForm = ({ handleSubmit, onSearch }) => (
   </Navbar.Form>
 );
 
+const { func } = PropTypes;
+
 SearchForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  onSearch: PropTypes.func.isRequired
+  handleSubmit: func.isRequired,
+  onSearch: func.isRequired
 };
 
 export default reduxForm({
-  form: 'search',
+  form: 'SearchForm',
   validate
 })(SearchForm);

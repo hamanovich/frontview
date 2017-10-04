@@ -8,19 +8,19 @@ exports.auth = async (req, res) => {
   const user = await User.findOne({ $or: [{ username: identifier }, { email: identifier }] });
 
   if (!user) {
-    res.status(401).json({ errors: { form: 'Invalid Credentials' } });
+    res.status(401).json({ error: 'Invalid Credentials' });
     return;
   }
 
   if (!user.confirmed) {
-    res.status(401).json({ errors: { form: 'You didn\'t confirm your email. Before login, please do it' } });
+    res.status(401).json({ error: 'You didn\'t confirm your email. Before login, please do it' });
     return;
   }
 
   if (bcrypt.compareSync(password, user.passwordDigest)) {
     res.json(user.generateJWT());
   } else {
-    res.status(401).json({ errors: { form: 'Invalid Credentials' } });
+    res.status(401).json({ error: 'Invalid Credentials' });
   }
 };
 
@@ -33,7 +33,7 @@ exports.confirm = async (req, res) => {
   );
 
   if (!user) {
-    res.status(400).json({ errors: 'Ooops. Invalid token it seems. Or you have already confirmed it' });
+    res.status(400).json({ error: 'Ooops. Invalid token it seems. Or you have already confirmed it' });
     return;
   }
 
@@ -44,7 +44,7 @@ exports.forgot = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
-    res.status(401).json({ errors: { form: 'No account with that email exists' } });
+    res.status(401).json({ error: 'No account with that email exists' });
     return;
   }
 
@@ -73,7 +73,7 @@ exports.reset = async (req, res) => {
   });
 
   if (!user) {
-    res.status(401).json({ errors: { form: 'Password reset is invalid or expired' } });
+    res.status(401).json({ error: 'Password reset is invalid or expired' });
     return;
   }
 
@@ -86,7 +86,7 @@ exports.confirmedPasswords = (req, res, next) => {
     return;
   }
 
-  res.json({ errors: { form: 'Passwords do not match!' } });
+  res.json({ error: 'Passwords do not match!' });
 };
 
 exports.update = async (req, res) => {
@@ -96,7 +96,7 @@ exports.update = async (req, res) => {
   });
 
   if (!user) {
-    res.json({ errors: { form: 'Password reset is invalid or expired' } });
+    res.json({ error: 'Password reset is invalid or expired' });
     return;
   }
 

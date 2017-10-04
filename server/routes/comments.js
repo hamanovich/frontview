@@ -18,7 +18,7 @@ exports.getCommentsByAuthor = async (req, res) => {
   const user = await User.findOne({ username });
 
   if (!user) {
-    res.status(404).json({ error: 'User didn\'t find' });
+    res.status(404).json({ error: `User @${username} didn't find` });
     return;
   }
 

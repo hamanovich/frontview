@@ -13,7 +13,9 @@ export const commentAdded = comment => ({
 });
 
 export const addComment = comment =>
-  dispatch => api.comments.add(comment).then(comment => dispatch(commentAdded(comment)));
+  dispatch => api.comments.add(comment)
+    .then(comment => dispatch(commentAdded(comment)));
 
 export const getCommentsByAuthor = username =>
-  dispatch => api.comments.getByAuthor(username).then(comments => dispatch(addComments(comments)));
+  dispatch => api.comments.getByAuthor(username)
+    .then(comments => dispatch(addComments(comments)));

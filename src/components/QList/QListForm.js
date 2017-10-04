@@ -1,7 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+
+import compose from 'recompose/compose';
+import withState from 'recompose/withState';
+import withHandlers from 'recompose/withHandlers';
 
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
@@ -13,91 +17,74 @@ import { addFlashMessage } from '../../actions/flash';
 
 import validate from '../../validations/qlist';
 
-class QListForm extends Component {
-  static propTypes = {
-    user: PropTypes.shape({
-      username: PropTypes.string,
-      email: PropTypes.string,
-      jobFunction: PropTypes.string,
-      primarySkill: PropTypes.string,
-      notes: PropTypes.string,
-      firstName: PropTypes.string,
-      lastName: PropTypes.string,
-      gravatar: PropTypes.string
-    }).isRequired,
-    handleSubmit: PropTypes.func.isRequired,
-    reset: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired,
-    qlistAdd: PropTypes.func.isRequired
-  };
+const enhance = compose(
+  connect(null, {
+    qlistAdd,
+    addFlashMessage
+  }),
 
-  static contextTypes = {
-    router: PropTypes.object.isRequired
-  };
+  reduxForm({
+    form: 'QListForm',
+    validate
+  }),
 
-  state = {
-    errors: {},
-    isLoading: false
-  };
+  withState('isLoading', 'setLoading', false),
 
-  onSubmit = (values) => {
-    const { qlistAdd, user, reset, addFlashMessage } = this.props;
-    const query = { ...values, userId: user._id };
+  withHandlers({
+    onSubmit: props => (values) => {
+      const { qlistAdd, userId, reset, addFlashMessage, setLoading } = props;
+      const query = { ...values, userId };
 
-    this.setState({ errors: {}, isLoading: true });
+      setLoading(true);
 
-    qlistAdd(query)
-      .then(() => {
-        reset();
-        this.setState({ isLoading: false });
+      qlistAdd(query)
+        .then(() => {
+          reset();
+          setLoading(false);
 
-        addFlashMessage({
-          type: 'success',
-          text: `QLists ${values.title} has created`
-        });
-      })
-      .catch(() => this.setState({ isLoading: false }));
-  };
+          addFlashMessage({
+            type: 'success',
+            text: `QLists ${values.title} has created`
+          });
+        })
+        .catch(() => setLoading(false));
+    }
+  })
+);
 
-  render() {
-    const { isLoading } = this.state;
-    const { handleSubmit } = this.props;
+const QListForm = ({ isLoading, handleSubmit, onSubmit }) => (
+  <Form onSubmit={handleSubmit(onSubmit)} noValidate>
+    <Field
+      label="Title*:"
+      component={TextField}
+      type="text"
+      name="title"
+      placeholder="Come up with a list title"
+    />
 
-    return (
-      <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
-        <Field
-          label="Title*:"
-          component={TextField}
-          type="text"
-          name="title"
-          placeholder="Come up with a list title"
-        />
+    <Field
+      label="Notes"
+      name="notes"
+      component={TextareaField}
+      rows={6}
+      placeholder="Add some notes, if needed"
+    />
 
-        <Field
-          label="Notes"
-          name="notes"
-          component={TextareaField}
-          rows={6}
-          placeholder="Add some notes, if needed"
-        />
+    <Button
+      type="submit"
+      bsStyle="primary"
+      bsSize="large"
+      disabled={isLoading}
+    >Create</Button>
+  </Form>
+);
 
-        <Button
-          type="submit"
-          bsStyle="primary"
-          bsSize="large"
-          disabled={isLoading}
-        >Create</Button>
-      </Form>
-    );
-  }
-}
+const { func, bool } = PropTypes;
 
-const mapStateToProps = state => ({ user: state.auth.user });
+QListForm.propTypes = {
+  handleSubmit: func.isRequired,
+  onSubmit: func.isRequired,
+  isLoading: bool.isRequired
+};
 
-export default connect(mapStateToProps, {
-  qlistAdd,
-  addFlashMessage
-})(reduxForm({
-  form: 'qlist',
-  validate
-})(QListForm));
+export default enhance(QListForm);

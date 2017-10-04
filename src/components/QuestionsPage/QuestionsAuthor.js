@@ -6,6 +6,8 @@ import PageHeader from 'react-bootstrap/lib/PageHeader';
 
 import Questions from './Questions';
 
+import { QuestionType, UserType } from '../../propTypes';
+
 const QuestionsAuthor = ({
   auth,
   questions,
@@ -14,7 +16,7 @@ const QuestionsAuthor = ({
   <div>
     <PageHeader>
       <FontAwesome name="file-text-o" /> {auth.user.username}&apos;s Questions
-  </PageHeader>
+    </PageHeader>
 
     <Questions
       user={auth.user}
@@ -24,13 +26,15 @@ const QuestionsAuthor = ({
   </div>
 );
 
+const { shape, arrayOf, func, bool } = PropTypes;
+
 QuestionsAuthor.propTypes = {
-  auth: PropTypes.shape({
-    user: PropTypes.object,
-    isAuthenticated: PropTypes.bool.isRequired
+  auth: shape({
+    user: UserType,
+    isAuthenticated: bool.isRequired
   }).isRequired,
-  questions: PropTypes.array.isRequired,
-  editQuestionField: PropTypes.func.isRequired
+  questions: arrayOf(QuestionType).isRequired,
+  editQuestionField: func.isRequired
 };
 
 export default QuestionsAuthor;

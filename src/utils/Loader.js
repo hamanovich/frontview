@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import FontAwesome from 'react-fontawesome';
+import styled from 'styled-components';
+
+const FontIcon = styled(FontAwesome) `
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 
 export default prop => ComposedComponent =>
   class Loader extends Component {
@@ -22,18 +30,7 @@ export default prop => ComposedComponent =>
       };
 
       return filtered.length !== props.length ?
-        <FontAwesome
-          name="spinner"
-          size="4x"
-          pulse
-          spin
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translateX(-50%) translateY(-50%)'
-          }}
-        /> :
+        <FontIcon name="spinner" size="4x" pulse spin /> :
         <ComposedComponent {...this.props} {...myProps} />;
     }
   };

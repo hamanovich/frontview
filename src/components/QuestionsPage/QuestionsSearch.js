@@ -6,6 +6,8 @@ import PageHeader from 'react-bootstrap/lib/PageHeader';
 
 import Questions from './Questions';
 
+import { QuestionType, UserType } from '../../propTypes';
+
 const QuestionsSearch = ({
   auth,
   questions,
@@ -25,14 +27,31 @@ const QuestionsSearch = ({
   </div>
 );
 
+const { shape, arrayOf, func, string, bool, number } = PropTypes;
+
 QuestionsSearch.propTypes = {
-  auth: PropTypes.shape({
-    user: PropTypes.object,
-    isAuthenticated: PropTypes.bool.isRequired
+  auth: shape({
+    user: UserType,
+    isAuthenticated: bool.isRequired
   }).isRequired,
-  questions: PropTypes.array.isRequired,
-  editQuestionField: PropTypes.func.isRequired,
-  state: PropTypes.object.isRequired
+  questions: arrayOf(QuestionType).isRequired,
+  editQuestionField: func.isRequired,
+  state: shape({
+    pagination: shape({
+      activePage: number,
+      pages: number,
+      count: number
+    }),
+    searchQuery: string,
+    filters: shape({
+      filter: string,
+      tags: arrayOf(shape({
+        _id: string,
+        count: number
+      })),
+      tag: string
+    }).isRequired
+  }).isRequired
 };
 
 export default QuestionsSearch;

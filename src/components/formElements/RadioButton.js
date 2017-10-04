@@ -35,18 +35,23 @@ const RadioButton = ({
   </FormGroup>
 );
 
+const { arrayOf, shape, string, bool } = PropTypes;
+
 RadioButton.propTypes = {
-  options: PropTypes.array.isRequired,
-  input: PropTypes.shape({
-    name: PropTypes.string,
-    value: PropTypes.string
+  options: arrayOf(
+    shape({
+      value: string
+    })).isRequired,
+  input: shape({
+    name: string,
+    value: string
   }).isRequired,
-  label: PropTypes.string.isRequired,
-  inline: PropTypes.bool,
+  label: string.isRequired,
+  inline: bool,
   meta: PropTypes.shape({
-    touched: PropTypes.bool,
-    error: PropTypes.string,
-    warning: PropTypes.string
+    touched: bool,
+    error: string,
+    warning: string
   }).isRequired
 };
 

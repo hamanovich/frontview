@@ -10,17 +10,15 @@ import { TextField } from '../formElements';
 
 import validate from '../../validations/signup';
 
+const { func } = PropTypes;
+
 class SignupForm extends Component {
   static propTypes = {
-    signup: PropTypes.func.isRequired,
-    reset: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired,
-    isUserExists: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func.isRequired
-  };
-
-  static contextTypes = {
-    router: PropTypes.object.isRequired
+    signup: func.isRequired,
+    reset: func.isRequired,
+    addFlashMessage: func.isRequired,
+    isUserExists: func.isRequired,
+    handleSubmit: func.isRequired
   };
 
   state = {
@@ -58,7 +56,7 @@ class SignupForm extends Component {
       isUserExists(value).then((res) => {
         let invalid;
 
-        if (res.data.user) {
+        if (res.data.username) {
           errors[name] = `There is user with such ${name}`;
           invalid = true;
         } else {
@@ -86,7 +84,7 @@ class SignupForm extends Component {
           type="text"
           name="username"
           placeholder="Type your nickname"
-          handleBlur={this.checkUserExists}
+          onBlur={this.checkUserExists}
           errorState={errors.username}
         />
 
@@ -98,7 +96,7 @@ class SignupForm extends Component {
           type="email"
           name="email"
           placeholder="Type your email"
-          handleBlur={this.checkUserExists}
+          onBlur={this.checkUserExists}
           errorState={errors.email}
         />
 
@@ -129,4 +127,7 @@ class SignupForm extends Component {
   }
 }
 
-export default reduxForm({ form: 'signup', validate })(SignupForm);
+export default reduxForm({
+  form: 'SignupForm',
+  validate
+})(SignupForm);

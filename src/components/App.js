@@ -9,13 +9,13 @@ import NotFound from './NotFound';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
 import FlashList from './flash/FlashList';
-import Confirmation from './Confirmation';
+import ConfirmationPage from './ConfirmationPage';
 import InterviewPage from './InteviewPage';
 import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
 import AccountPage from './AccountPage';
 import QuestionsPage from './QuestionsPage';
-import CommentsAuthor from './Comment/CommentsAuthor';
+import CommentsAuthorPage from './Comment/CommentsAuthorPage';
 
 import { isLoggedIn, User } from '../utils/helpers';
 
@@ -36,8 +36,8 @@ const App = () => (
           <Route path="/me" component={User(AccountPage)} />
           <Route path="/questions" component={QuestionsPage} />
           <Route path="/interview" component={User(InterviewPage)} />
-          <Route path="/comments/:username" component={User(CommentsAuthor)} />
-          <Route path="/confirmation/:token" component={Confirmation} />
+          <Route path="/comments/:username" component={User(CommentsAuthorPage)} />
+          <Route path="/confirmation/:token" component={ConfirmationPage} />
           <Route component={NotFound} />
         </Switch>
       </Main>

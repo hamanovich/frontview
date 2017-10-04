@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
+import compose from 'recompose/compose';
 
 import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
@@ -15,22 +16,30 @@ import { getUser, removeUser } from '../../actions/signup';
 import { addFlashMessage } from '../../actions/flash';
 import { logout } from '../../actions/auth';
 
+import Loader from '../../utils/Loader';
+
+import { UserType } from '../../propTypes';
+
+const enhance = compose(
+  connect(null, {
+    getUser,
+    removeUser,
+    logout,
+    addFlashMessage
+  }),
+
+  Loader('user')
+);
+
+const { func } = PropTypes;
+
 class Account extends Component {
   static propTypes = {
-    user: PropTypes.shape({
-      username: PropTypes.string,
-      email: PropTypes.string,
-      jobFunction: PropTypes.string,
-      primarySkill: PropTypes.string,
-      notes: PropTypes.string,
-      firstName: PropTypes.string,
-      lastName: PropTypes.string,
-      gravatar: PropTypes.string
-    }).isRequired,
-    getUser: PropTypes.func.isRequired,
-    logout: PropTypes.func.isRequired,
-    removeUser: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired
+    user: UserType.isRequired,
+    getUser: func.isRequired,
+    logout: func.isRequired,
+    removeUser: func.isRequired,
+    addFlashMessage: func.isRequired
   };
 
   state = {
@@ -39,8 +48,6 @@ class Account extends Component {
 
   componentDidMount() {
     const { user, getUser } = this.props;
-
-    if (user.gravatar) return;
 
     getUser(user.username);
   }
@@ -133,6 +140,4 @@ class Account extends Component {
   }
 }
 
-const mapStateToProps = state => ({ user: state.auth.user });
-
-export default connect(mapStateToProps, { getUser, removeUser, logout, addFlashMessage })(Account);
+export default enhance(Account);

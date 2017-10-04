@@ -21,11 +21,18 @@ const QuestionsBar = ({ active, filter, tags, style }) => (
   </ButtonToolbar>
 );
 
+const { shape, string, arrayOf, number } = PropTypes;
+
 QuestionsBar.propTypes = {
-  style: PropTypes.string,
-  active: PropTypes.string.isRequired,
-  filter: PropTypes.string.isRequired,
-  tags: PropTypes.array.isRequired
+  style: string,
+  active: string.isRequired,
+  filter: string.isRequired,
+  tags: arrayOf(
+    shape({
+      _id: string.isRequired,
+      count: number.isRequired
+    })
+  ).isRequired
 };
 
 QuestionsBar.defaultProps = {

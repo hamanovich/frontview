@@ -10,26 +10,21 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 
 import QListForm from '../QList/QListForm';
 
+import { QListType, CandidateType } from '../../propTypes';
+
+const { arrayOf, shape, string, func } = PropTypes;
+
 class InterviewQLists extends Component {
   static propTypes = {
-    user: PropTypes.shape({
-      username: PropTypes.string,
-      email: PropTypes.string,
-      jobFunction: PropTypes.string,
-      primarySkill: PropTypes.string,
-      notes: PropTypes.string,
-      firstName: PropTypes.string,
-      lastName: PropTypes.string,
-      gravatar: PropTypes.string
+    userId: string.isRequired,
+    qlists: arrayOf(QListType),
+    addFlashMessage: func.isRequired,
+    getQLists: func.isRequired,
+    history: shape({
+      push: func.isRequired
     }).isRequired,
-    qlists: PropTypes.array,
-    addFlashMessage: PropTypes.func.isRequired,
-    getQLists: PropTypes.func.isRequired,
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired
-    }).isRequired,
-    location: PropTypes.shape({
-      state: PropTypes.object
+    location: shape({
+      state: CandidateType
     }).isRequired
   };
 
@@ -69,19 +64,19 @@ class InterviewQLists extends Component {
 
   chooseFromList = () => {
     const { panel, isLoaded } = this.state;
-    const { getQLists, user } = this.props;
+    const { getQLists, userId } = this.props;
 
     this.setState({ panel: !panel });
 
     if (!this.state.panel && !isLoaded) {
-      getQLists(user._id)
+      getQLists(userId)
         .then(() => this.setState({ isLoaded: true }))
         .catch(err => this.setState({ errors: err.response.data }));
     }
   };
 
   render() {
-    const { qlists } = this.props;
+    const { qlists, userId } = this.props;
     const chooseQLists = map(qlists, qlist => (<option
       value={qlist._id}
       key={qlist._id}
@@ -90,35 +85,36 @@ class InterviewQLists extends Component {
     return (
       <div>
         <h2>Add a QList</h2>
-        <div>
-          <p>
-            <Button bsSize="small" onClick={this.chooseFromList}>
-              or choose one
+
+        <p className="text-info">If you decide to create new QList. Don&apos;t forget to add questions into it.</p>
+
+        <p>
+          <Button bsSize="small" onClick={this.chooseFromList}>
+            or choose one
             </Button>
-          </p>
-          <Panel collapsible expanded={this.state.panel}>
-            <FormGroup>
-              <ControlLabel>Choose QList from the list below:</ControlLabel>
-              <Field
-                name="qlists"
-                id="qlistss"
-                component="select"
-                className="form-control"
-                ref={(ref) => { this.qlistOne = ref; }}
-              >
-                <option value="">Select a QList...</option>
-                {chooseQLists}
-              </Field>
-            </FormGroup>
-            <Button
-              bsStyle="success"
-              onClick={this.chooseOne}
-            >Choose</Button>
-          </Panel>
-        </div>
+        </p>
+
+        <Panel collapsible expanded={this.state.panel}>
+          <FormGroup>
+            <ControlLabel>Choose QList from the list below:</ControlLabel>
+            <Field
+              name="qlists"
+              component="select"
+              className="form-control"
+              ref={(ref) => { this.qlistOne = ref; }}
+            >
+              <option value="">Select a QList...</option>
+              {chooseQLists}
+            </Field>
+          </FormGroup>
+          <Button
+            bsStyle="success"
+            onClick={this.chooseOne}
+          >Choose</Button>
+        </Panel>
 
         <Panel collapsible expanded={!this.state.panel}>
-          <QListForm />
+          <QListForm userId={userId} />
         </Panel>
       </div>
     );

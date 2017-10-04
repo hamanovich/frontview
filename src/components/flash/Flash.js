@@ -20,12 +20,14 @@ const Flash = ({ close, message }) => (
   </Alert>
 );
 
+const { func, shape, string } = PropTypes;
+
 Flash.propTypes = {
-  message: PropTypes.shape({
-    type: PropTypes.string,
-    text: PropTypes.string
+  message: shape({
+    type: string,
+    text: string
   }).isRequired,
-  close: PropTypes.func.isRequired
+  close: func.isRequired
 };
 
 export default Flash;

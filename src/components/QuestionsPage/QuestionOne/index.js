@@ -17,27 +17,30 @@ import { addComment } from '../../../actions/comments';
 import { getUser } from '../../../actions/signup';
 import { addFlashMessage } from '../../../actions/flash';
 
+import { UserType, QuestionType } from '../../../propTypes';
+
+const { shape, func, string } = PropTypes;
+
 class QuestionOne extends Component {
   static propTypes = {
-    addFlashMessage: PropTypes.func.isRequired,
-    getQuestionBySlug: PropTypes.func.isRequired,
-    getUser: PropTypes.func.isRequired,
-    addComment: PropTypes.func.isRequired,
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        slug: PropTypes.string.isRequired
+    addFlashMessage: func.isRequired,
+    getQuestionBySlug: func.isRequired,
+    getUser: func.isRequired,
+    addComment: func.isRequired,
+    match: shape({
+      params: shape({
+        slug: string.isRequired
       }).isRequired
     }).isRequired,
-    question: PropTypes.object,
-    user: PropTypes.object.isRequired,
-    editQuestionField: PropTypes.func.isRequired,
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired
+    question: QuestionType,
+    user: UserType.isRequired,
+    editQuestionField: func.isRequired,
+    history: shape({
+      push: func.isRequired
     }).isRequired
   };
 
   static defaultProps = {
-    userId: '',
     question: null
   };
 
@@ -51,8 +54,8 @@ class QuestionOne extends Component {
   getQuestion = (slug) => {
     const { getQuestionBySlug, addFlashMessage, history } = this.props;
 
-    getQuestionBySlug(slug).then(
-      (res) => {
+    getQuestionBySlug(slug)
+      .then((res) => {
         if (res.status === 500) {
           addFlashMessage({
             type: 'error',
@@ -61,22 +64,21 @@ class QuestionOne extends Component {
 
           history.push('/questions/add');
         }
-      },
-      (err) => {
+      })
+      .catch((err) => {
         addFlashMessage({
           type: 'error',
           text: err.response.data.error
         });
 
         history.push('/questions/add');
-      }
-    );
+      });
   }
 
   render() {
-    const { question, addComment, editQuestionField, user } = this.props;
-    const panelHeader = (<span><FontAwesome name="comments-o" /> Comments <Badge>{question && question.comments.length}</Badge></span>);
-    const panelAddHeader = (<span><FontAwesome name="commenting-o" /> Add comment</span>);
+    const { question, addComment, editQuestionField, user, match } = this.props;
+    const panelHeader = <span><FontAwesome name="comments-o" /> Comments <Badge>{question && question.comments.length}</Badge></span>;
+    const panelAddHeader = <span><FontAwesome name="commenting-o" /> Add a comment</span>;
 
     return (
       <div>
@@ -101,6 +103,7 @@ class QuestionOne extends Component {
                 addComment={addComment}
                 getQuestion={this.getQuestion}
                 user={user}
+                slug={match.params.slug}
               />
             </Panel>
           )}

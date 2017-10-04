@@ -15,12 +15,30 @@ import { addFlashMessage } from '../../actions/flash';
 
 import { PropsRoute } from '../../utils/helpers';
 
-const LoginPage = ({ login, forgot, resetToken, getReset, addFlashMessage }) => (
+const LoginPage = ({
+  login,
+  forgot,
+  resetToken,
+  getReset,
+  addFlashMessage
+}) => (
   <Row>
     <Col md={6} mdOffset={3}>
       <Switch>
-        <PropsRoute exact path="/login" component={Login} login={login} />
-        <PropsRoute exact path="/login/forgot" component={Forgot} forgot={forgot} />
+        <PropsRoute
+          exact
+          path="/login"
+          component={Login}
+          login={login}
+        />
+
+        <PropsRoute
+          exact
+          path="/login/forgot"
+          component={Forgot}
+          forgot={forgot}
+        />
+
         <PropsRoute
           path="/login/reset/:token"
           component={Reset}
@@ -28,18 +46,27 @@ const LoginPage = ({ login, forgot, resetToken, getReset, addFlashMessage }) => 
           getReset={getReset}
           addFlashMessage={addFlashMessage}
         />
+
         <Redirect to="/login" />
       </Switch>
     </Col>
   </Row>
 );
 
+const { func } = PropTypes;
+
 LoginPage.propTypes = {
-  login: PropTypes.func.isRequired,
-  forgot: PropTypes.func.isRequired,
-  resetToken: PropTypes.func.isRequired,
-  getReset: PropTypes.func.isRequired,
-  addFlashMessage: PropTypes.func.isRequired
+  login: func.isRequired,
+  forgot: func.isRequired,
+  resetToken: func.isRequired,
+  getReset: func.isRequired,
+  addFlashMessage: func.isRequired
 };
 
-export default connect(null, { login, forgot, resetToken, getReset, addFlashMessage })(LoginPage);
+export default connect(null, {
+  login,
+  forgot,
+  resetToken,
+  getReset,
+  addFlashMessage
+})(LoginPage);

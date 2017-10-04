@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
+import styled from 'styled-components';
 
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
@@ -17,16 +18,31 @@ import { addFlashMessage } from '../../actions/flash';
 
 import SearchForm from './SearchForm';
 
+import { UserType } from '../../propTypes';
+
+const Menu = styled(Navbar) `
+  border-radius: 0;
+`;
+
+const { shape, func, bool } = PropTypes;
+
 class Header extends Component {
   static propTypes = {
-    auth: PropTypes.object.isRequired,
-    getSearchedQuestions: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired,
-    logout: PropTypes.func.isRequired
+    auth: shape({
+      isAuthenticated: bool.isRequired,
+      user: UserType.isRequired
+    }).isRequired,
+    getSearchedQuestions: func.isRequired,
+    addFlashMessage: func.isRequired,
+    logout: func.isRequired
   };
 
   static contextTypes = {
-    router: PropTypes.object.isRequired
+    router: shape({
+      history: shape({
+        push: func.isRequired
+      }).isRequired
+    }).isRequired
   };
 
   onSearch = (values) => {
@@ -127,7 +143,7 @@ class Header extends Component {
     );
 
     return (
-      <Navbar style={{ borderRadius: 0 }}>
+      <Menu>
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/">Frontview /</Link>
@@ -142,7 +158,7 @@ class Header extends Component {
           />
           {auth.isAuthenticated ? userLinks : guestLinks}
         </Navbar.Collapse>
-      </Navbar>
+      </Menu>
     );
   }
 }
