@@ -19,14 +19,14 @@ const enhance = compose(
     addFlashMessage
   }),
 
-  withState('success', 'setState', false),
+  withState('success', 'setSuccess', false),
 
   lifecycle({
     componentDidMount() {
-      const { confirm, addFlashMessage, match, setState } = this.props;
+      const { confirm, addFlashMessage, match, setSuccess } = this.props;
 
       confirm(match.params.token)
-        .then(() => setState({ success: true }))
+        .then(() => setSuccess(true))
         .catch(err =>
           addFlashMessage({
             type: 'error',

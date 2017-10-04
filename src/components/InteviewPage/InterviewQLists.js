@@ -74,7 +74,7 @@ class InterviewQLists extends Component {
   };
 
   render() {
-    const { qlists } = this.props;
+    const { qlists, userId } = this.props;
     const chooseQLists = map(qlists, qlist => (<option
       value={qlist._id}
       key={qlist._id}
@@ -83,6 +83,8 @@ class InterviewQLists extends Component {
     return (
       <div>
         <h2>Add a QList</h2>
+
+        <p className="text-info">If you decide to create new QList. Don&apos;t forget to add questions into it.</p>
 
         <p>
           <Button bsSize="small" onClick={this.chooseFromList}>
@@ -110,7 +112,7 @@ class InterviewQLists extends Component {
         </Panel>
 
         <Panel collapsible expanded={!this.state.panel}>
-          <QListForm />
+          <QListForm userId={userId} />
         </Panel>
       </div>
     );

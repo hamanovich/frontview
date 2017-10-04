@@ -43,6 +43,15 @@ const enhance = compose(
 
         history.push('/interview/qlists');
       }
+
+      if (!location.state.qlist.length) {
+        addFlashMessage({
+          type: 'warn',
+          text: `Before you go next, please add questions to QList: ${location.state.qlist.title}`
+        });
+
+        history.push('/questions');
+      }
     }
   })
 );
