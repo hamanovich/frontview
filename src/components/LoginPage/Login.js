@@ -32,7 +32,7 @@ const enhance = compose(
 
   withHandlers({
     onSubmit: props => (values) => {
-      const { login, history, setState } = props;
+      const { login, history, getUser, setState } = props;
 
       setState({
         error: '',
@@ -40,7 +40,10 @@ const enhance = compose(
       });
 
       login(values)
-        .then(() => history.push('/'))
+        .then(() => {
+          getUser(values.identifier);
+          history.push('/');
+        })
         .catch(err => setState({
           error: err.response.data.error,
           isLoading: false

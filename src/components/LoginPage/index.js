@@ -11,6 +11,7 @@ import Forgot from './Forgot';
 import Reset from './Reset';
 
 import { login, forgot, resetToken, getReset } from '../../actions/auth';
+import { getUser } from '../../actions/signup';
 import { addFlashMessage } from '../../actions/flash';
 
 import { PropsRoute } from '../../utils/helpers';
@@ -20,6 +21,7 @@ const LoginPage = ({
   forgot,
   resetToken,
   getReset,
+  getUser,
   addFlashMessage
 }) => (
   <Row>
@@ -30,6 +32,7 @@ const LoginPage = ({
           path="/login"
           component={Login}
           login={login}
+          getUser={getUser}
         />
 
         <PropsRoute
@@ -60,6 +63,7 @@ LoginPage.propTypes = {
   forgot: func.isRequired,
   resetToken: func.isRequired,
   getReset: func.isRequired,
+  getUser: func.isRequired,
   addFlashMessage: func.isRequired
 };
 
@@ -68,5 +72,6 @@ export default connect(null, {
   forgot,
   resetToken,
   getReset,
+  getUser,
   addFlashMessage
 })(LoginPage);
