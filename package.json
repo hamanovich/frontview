@@ -1,7 +1,7 @@
 {
   "name": "frontview",
   "version": "1.0.0",
-  "description": "Front View. It's pretty simple website for adding, editing and asking any kind of questions in an Technical Interview",
+  "description": "Front View. It's pretty simple website for adding, editing and asking any kind of questions in a Technical Interview",
   "private": true,
   "keywords": [
     "react",
@@ -49,9 +49,9 @@
     "morgan": "^1.8.2",
     "nodemailer": "^4.0.1",
     "pug": "^2.0.0-rc.3",
-    "react": "^15.6.1",
+    "react": "^16.0.0",
     "react-bootstrap": "^0.31.2",
-    "react-dom": "^15.6.1",
+    "react-dom": "^16.0.0",
     "react-fontawesome": "^1.6.1",
     "react-markdown-renderer": "^1.4.0",
     "react-redux": "^5.0.6",

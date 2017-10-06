@@ -100,7 +100,7 @@ class Header extends Component {
           </LinkContainer>
           <MenuItem divider />
           <IndexLinkContainer to="/questions">
-            <MenuItem>Show All</MenuItem>
+            <MenuItem>Show all questions</MenuItem>
           </IndexLinkContainer>
           <LinkContainer to="/questions/top">
             <MenuItem>

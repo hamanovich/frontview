@@ -6,60 +6,37 @@ import PageHeader from 'react-bootstrap/lib/PageHeader';
 import Questions from './Questions';
 import QuestionsBar from './QuestionsBar';
 
-import { QuestionType, UserType, QListType } from '../../propTypes';
-
-const QuestionsTags = ({
-  auth,
-  questions,
-  qlists,
-  editQuestionField,
-  state
-}) => (
+const QuestionsTags = ({ state, match }) => (
   <div>
-    <PageHeader>Questions by &apos;{state.filters.filter}&apos;</PageHeader>
+    <PageHeader>Questions by &apos;{match.params.filter}&apos;</PageHeader>
 
     <QuestionsBar
-      active={state.filters.tag}
-      tags={state.filters.tags}
-      filter={state.filters.filter}
+      active={match.params.tag}
+      tags={state.tags}
+      filter={match.params.filter}
     />
 
     <hr />
 
-    <Questions
-      user={auth.user}
-      questions={questions}
-      qlists={qlists}
-      editQuestionField={editQuestionField}
-    />
+    <Questions />
   </div>
 );
 
-const { shape, arrayOf, func, string, bool, number } = PropTypes;
+const { shape, arrayOf, string, number } = PropTypes;
 
 QuestionsTags.propTypes = {
-  auth: shape({
-    user: UserType,
-    isAuthenticated: bool.isRequired
-  }).isRequired,
-  qlists: arrayOf(QListType).isRequired,
-  questions: arrayOf(QuestionType).isRequired,
-  editQuestionField: func.isRequired,
-  state: shape({
-    pagination: shape({
-      activePage: number,
-      pages: number,
-      count: number
-    }),
-    searchQuery: string,
-    filters: shape({
+  match: shape({
+    params: shape({
       filter: string,
-      tags: arrayOf(shape({
-        _id: string,
-        count: number
-      })),
       tag: string
-    }).isRequired
+    }),
+    path: string
+  }).isRequired,
+  state: shape({
+    tags: arrayOf(shape({
+      _id: string,
+      count: number
+    }))
   }).isRequired
 };
 

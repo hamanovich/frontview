@@ -39,8 +39,8 @@ export const getQLists = _id =>
   dispatch => api.qlists.getByAuthor(_id)
     .then(qlists => dispatch(addQlists(qlists)));
 
-export const getQListQuestions = _id =>
-dispatch => api.qlists.getQListQuestions(_id)
+export const getQListQuestions = slug =>
+dispatch => api.qlists.getQListQuestions(slug)
 .then(qlist => dispatch(qlistGot(qlist)));
 
 export const removeQList = _id =>

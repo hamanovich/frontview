@@ -25,7 +25,7 @@ const { shape, string, arrayOf, number } = PropTypes;
 
 QuestionsBar.propTypes = {
   style: string,
-  active: string.isRequired,
+  active: string,
   filter: string.isRequired,
   tags: arrayOf(
     shape({
@@ -36,6 +36,7 @@ QuestionsBar.propTypes = {
 };
 
 QuestionsBar.defaultProps = {
+  active: '',
   style: 'primary'
 };
 

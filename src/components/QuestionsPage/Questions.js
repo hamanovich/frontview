@@ -1,11 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import map from 'lodash/map';
+import { connect } from 'react-redux';
+
+import compose from 'recompose/compose';
 
 import Question from './Question';
 import Loader from '../../utils/Loader';
 
+import { editQuestionField } from '../../actions/questions';
+
 import { QuestionType, UserType, QListType } from '../../propTypes';
+
+const enhance = compose(
+  connect(
+    state => ({
+      user: state.auth.user,
+      questions: state.questions,
+      qlists: state.qlists
+    }), {
+      editQuestionField
+    }),
+
+  Loader('questions')
+);
 
 const Questions = ({ user, qlists, questions, editQuestionField }) => (
   <div>
@@ -30,4 +48,4 @@ Questions.propTypes = {
   editQuestionField: func.isRequired
 };
 
-export default Loader('questions')(Questions);
+export default enhance(Questions);

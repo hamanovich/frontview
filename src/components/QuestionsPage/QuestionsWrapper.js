@@ -38,7 +38,8 @@ export default (WrappedComponent) => {
           filter: string,
           tag: string,
           page: string,
-          username: string
+          username: string,
+          slug: string
         }),
         path: string
       }).isRequired,
@@ -56,17 +57,12 @@ export default (WrappedComponent) => {
         pages: 0,
         count: 0
       },
-      searchQuery: '',
-      filters: {
-        filter: '',
-        tags: [],
-        tag: ''
-      }
+      tags: []
     };
 
-    componentDidMount() {
+    componentWillMount() {
       const { match, getTopQuestions, getQLists, location, auth } = this.props;
-      const { filter, tag, page = 1, username } = match.params;
+      const { filter, tag, page = 1, username, slug } = match.params;
       const searchQuery = new URLSearchParams(location.search).get('q');
 
       getQLists(auth.user._id);
@@ -79,6 +75,8 @@ export default (WrappedComponent) => {
         getTopQuestions();
       } else if (username) {
         this.getAuthorsQuestions(username);
+      } else if (slug) {
+        //
       } else {
         this.getPageQuestions(page);
       }
@@ -119,8 +117,6 @@ export default (WrappedComponent) => {
     getQueryQuestions = (query) => {
       const { getSearchedQuestions, addFlashMessage, questions, history } = this.props;
 
-      this.setState({ searchQuery: query });
-
       if (questions.length > 0) return;
 
       getSearchedQuestions(query).then((res) => {
@@ -157,7 +153,7 @@ export default (WrappedComponent) => {
           });
         }
 
-        this.setState({ filters: { filter, tags, tag } });
+        this.setState({ tags });
       });
     };
 

@@ -6,54 +6,21 @@ import PageHeader from 'react-bootstrap/lib/PageHeader';
 
 import Questions from './Questions';
 
-import { QuestionType, UserType, QListType } from '../../propTypes';
-
-const QuestionsSearch = ({
-  auth,
-  questions,
-  qlists,
-  editQuestionField,
-  state
-}) => (
+const QuestionsSearch = ({ location }) => (
   <div>
     <PageHeader>
-      <FontAwesome name="search-plus" /> Search: &apos;{state.searchQuery}&apos;
-    </PageHeader>
+      <FontAwesome name="search-plus" /> Search: &apos;{new URLSearchParams(location.search).get('q')}&apos;
+  </PageHeader>
 
-    <Questions
-      user={auth.user}
-      questions={questions}
-      qlists={qlists}
-      editQuestionField={editQuestionField}
-    />
+    <Questions />
   </div>
 );
 
-const { shape, arrayOf, func, string, bool, number } = PropTypes;
+const { shape, string } = PropTypes;
 
 QuestionsSearch.propTypes = {
-  auth: shape({
-    user: UserType,
-    isAuthenticated: bool.isRequired
-  }).isRequired,
-  qlists: arrayOf(QListType).isRequired,
-  questions: arrayOf(QuestionType).isRequired,
-  editQuestionField: func.isRequired,
-  state: shape({
-    pagination: shape({
-      activePage: number,
-      pages: number,
-      count: number
-    }),
-    searchQuery: string,
-    filters: shape({
-      filter: string,
-      tags: arrayOf(shape({
-        _id: string,
-        count: number
-      })),
-      tag: string
-    }).isRequired
+  location: shape({
+    search: string
   }).isRequired
 };
 
