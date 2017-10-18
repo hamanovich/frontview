@@ -6,9 +6,7 @@ import { addFlashMessage } from '../../actions/flash';
 import {
   getQuestions,
   getTopQuestions,
-  editQuestionField,
   getSearchedQuestions,
-  getQuestionsByFilter,
   getQuestionsByAuthor
 } from '../../actions/questions';
 import { getQLists } from '../../actions/qlists';
@@ -24,14 +22,12 @@ export default (WrappedComponent) => {
       getQuestions: func.isRequired,
       getQLists: func.isRequired,
       getTopQuestions: func.isRequired,
-      getQuestionsByFilter: func.isRequired,
       getQuestionsByAuthor: func.isRequired,
       getSearchedQuestions: func.isRequired,
       addFlashMessage: func.isRequired,
-      auth: shape({
-        user: shape({
-          username: string
-        })
+      user: shape({
+        username: string,
+        _id: string
       }).isRequired,
       match: shape({
         params: shape({
@@ -56,40 +52,35 @@ export default (WrappedComponent) => {
         activePage: 1,
         pages: 0,
         count: 0
-      },
-      tags: []
+      }
     };
 
-    componentWillMount() {
-      const { match, getTopQuestions, getQLists, location, auth } = this.props;
-      const { filter, tag, page = 1, username, slug } = match.params;
+    componentDidMount() {
+      const { match, getTopQuestions, location } = this.props;
+      const { page = 1, username } = match.params;
       const searchQuery = new URLSearchParams(location.search).get('q');
-
-      getQLists(auth.user._id);
 
       if (searchQuery) {
         this.getQueryQuestions(searchQuery);
-      } else if (filter) {
-        this.filter(filter, tag);
       } else if (match.path === '/questions/top') {
         getTopQuestions();
       } else if (username) {
         this.getAuthorsQuestions(username);
-      } else if (slug) {
-        //
       } else {
         this.getPageQuestions(page);
       }
     }
 
     getPageQuestions = (page) => {
-      const { getQuestions, addFlashMessage, history } = this.props;
+      const { getQuestions, getQLists, addFlashMessage, history, user } = this.props;
 
       getQuestions(Number(page))
         .then(({ pages, count }) => {
           this.setState({
             pagination: { pages, activePage: Number(page), count }
           });
+
+          getQLists(user._id);
         }).catch((err) => {
           addFlashMessage({
             type: 'error',
@@ -101,9 +92,12 @@ export default (WrappedComponent) => {
     };
 
     getAuthorsQuestions = (author) => {
-      const { getQuestionsByAuthor, addFlashMessage, history } = this.props;
+      const { getQuestionsByAuthor, getQLists, user, addFlashMessage, history } = this.props;
 
       getQuestionsByAuthor(author)
+        .then(() => {
+          getQLists(user._id);
+        })
         .catch((err) => {
           addFlashMessage({
             type: 'error',
@@ -115,7 +109,7 @@ export default (WrappedComponent) => {
     };
 
     getQueryQuestions = (query) => {
-      const { getSearchedQuestions, addFlashMessage, questions, history } = this.props;
+      const { getSearchedQuestions, getQLists, addFlashMessage, questions, history, user } = this.props;
 
       if (questions.length > 0) return;
 
@@ -128,32 +122,8 @@ export default (WrappedComponent) => {
 
           history.push('/questions/page/1');
         }
-      });
-    };
 
-    filter = (filter, tag = '') => {
-      const { match, getQuestionsByFilter, addFlashMessage, history } = this.props;
-
-      getQuestionsByFilter(filter, tag).then(({ tags, questions }) => {
-        if (!tags.length) {
-          addFlashMessage({
-            type: 'warn',
-            text: `There is no filter - ${match.params.filter}. Please change filter`
-          });
-
-          history.push('/questions');
-
-          return;
-        }
-
-        if (!questions.length) {
-          addFlashMessage({
-            type: 'warn',
-            text: 'No questions found. Please change filter'
-          });
-        }
-
-        this.setState({ tags });
+        getQLists(user._id);
       });
     };
 
@@ -168,7 +138,7 @@ export default (WrappedComponent) => {
   }
 
   const mapStateToProps = state => ({
-    auth: state.auth,
+    user: state.auth.user,
     questions: state.questions,
     qlists: state.qlists
   });
@@ -178,9 +148,7 @@ export default (WrappedComponent) => {
     getQLists,
     getQuestions,
     getTopQuestions,
-    getQuestionsByFilter,
     getQuestionsByAuthor,
-    editQuestionField,
     getSearchedQuestions
   })(QuestionsWrapper);
 };

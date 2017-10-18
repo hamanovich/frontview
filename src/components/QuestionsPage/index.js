@@ -23,7 +23,7 @@ const QuestionsPage = () => (
     <Route path="/questions/qlist/:slug" component={QuestionsWrapper(QuestionsQList)} />
     <Route path="/questions/:_id/edit" component={AddQuestion} />
     <Route path="/questions/:slug/one" component={QuestionOne} />
-    <Route path="/questions/:filter/:tag?" component={QuestionsWrapper(QuestionsTags)} />
+    <Route path="/questions/:filter/:tag?" component={QuestionsTags} />
     <Redirect to="/questions/page/1" />
   </Switch>
 );

@@ -6,13 +6,12 @@ import PageHeader from 'react-bootstrap/lib/PageHeader';
 import Questions from './Questions';
 import QuestionsBar from './QuestionsBar';
 
-const QuestionsTags = ({ state, match }) => (
+const QuestionsTags = ({ match }) => (
   <div>
     <PageHeader>Questions by &apos;{match.params.filter}&apos;</PageHeader>
 
     <QuestionsBar
       active={match.params.tag}
-      tags={state.tags}
       filter={match.params.filter}
     />
 
@@ -22,7 +21,7 @@ const QuestionsTags = ({ state, match }) => (
   </div>
 );
 
-const { shape, arrayOf, string, number } = PropTypes;
+const { shape, string } = PropTypes;
 
 QuestionsTags.propTypes = {
   match: shape({
@@ -31,12 +30,6 @@ QuestionsTags.propTypes = {
       tag: string
     }),
     path: string
-  }).isRequired,
-  state: shape({
-    tags: arrayOf(shape({
-      _id: string,
-      count: number
-    }))
   }).isRequired
 };
 
