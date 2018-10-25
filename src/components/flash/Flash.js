@@ -10,7 +10,7 @@ const Flash = ({ close, message }) => (
   <Alert bsStyle={classNames({
     danger: message.type === 'error',
     success: message.type === 'success',
-    warning: message.type === 'warn'
+    warning: message.type === 'warn',
   })}
   >
     {message.text}
@@ -25,9 +25,9 @@ const { func, shape, string } = PropTypes;
 Flash.propTypes = {
   message: shape({
     type: string,
-    text: string
+    text: string,
   }).isRequired,
-  close: func.isRequired
+  close: func.isRequired,
 };
 
 export default Flash;

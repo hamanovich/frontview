@@ -19,9 +19,9 @@ const history = createHistory();
 const middleware = routerMiddleware(history);
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(thunk, middleware))
+  composeWithDevTools(applyMiddleware(thunk, middleware)),
 );
-const localJwtToken = localStorage.jwtToken;
+const localJwtToken = window.localStorage.jwtToken;
 
 if (localJwtToken) {
   const jwtDecoded = jwtDecode(localJwtToken);
@@ -32,7 +32,7 @@ if (localJwtToken) {
 const Root = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <App {...this.props} />
+      <App />
     </ConnectedRouter>
   </Provider>
 );

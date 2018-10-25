@@ -18,24 +18,26 @@ import { getQLists } from '../../actions/qlists';
 
 const enhance = compose(
   connect(state => ({
-    user: state.auth.user
+    user: state.auth.user,
   }), {
     getQuestionsByFilter,
     getQLists,
-    addFlashMessage
+    addFlashMessage,
   }),
 
   withState('tags', 'setTags', []),
 
   lifecycle({
     componentDidMount() {
-      const { getQuestionsByFilter, getQLists, addFlashMessage, history, user, active, filter, setTags } = this.props;
+      const {
+        getQuestionsByFilter, getQLists, addFlashMessage, history, user, active, filter, setTags,
+      } = this.props;
 
       getQuestionsByFilter(filter, active).then(({ tags, questions }) => {
         if (!tags.length) {
           addFlashMessage({
             type: 'warn',
-            text: `There is no filter - ${active}. Please change filter`
+            text: `There is no filter - ${active}. Please change filter`,
           });
 
           history.push('/questions');
@@ -46,7 +48,7 @@ const enhance = compose(
         if (!questions.length) {
           addFlashMessage({
             type: 'warn',
-            text: 'No questions found. Please change filter'
+            text: 'No questions found. Please change filter',
           });
         }
 
@@ -54,11 +56,13 @@ const enhance = compose(
 
         getQLists(user._id);
       });
-    }
-  })
+    },
+  }),
 );
 
-const QuestionsBar = ({ active, filter, tags, style }) => (
+const QuestionsBar = ({
+  active, filter, tags, style,
+}) => (
   <ButtonToolbar>
     {map(tags, tag => (
       <Link
@@ -66,13 +70,17 @@ const QuestionsBar = ({ active, filter, tags, style }) => (
         key={tag._id}
         to={`/questions/${filter}/${tag._id}`}
       >
-        {tag._id} <Badge>{tag.count}</Badge>
+        {tag._id}
+        {' '}
+        <Badge>{tag.count}</Badge>
       </Link>
     ))}
   </ButtonToolbar>
 );
 
-const { shape, string, arrayOf, number } = PropTypes;
+const {
+  shape, string, arrayOf, number,
+} = PropTypes;
 
 QuestionsBar.propTypes = {
   style: string,
@@ -81,14 +89,14 @@ QuestionsBar.propTypes = {
   tags: arrayOf(
     shape({
       _id: string.isRequired,
-      count: number.isRequired
-    })
-  ).isRequired
+      count: number.isRequired,
+    }),
+  ).isRequired,
 };
 
 QuestionsBar.defaultProps = {
   active: '',
-  style: 'primary'
+  style: 'primary',
 };
 
 export default enhance(QuestionsBar);

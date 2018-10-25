@@ -28,11 +28,13 @@ const InterviewPage = ({
   getCandidates,
   provideFeedback,
   getQLists,
-  qlists
+  qlists,
 }) => (
   <div>
     <PageHeader>
-      <FontAwesome name="id-badge" /> Interview
+      <FontAwesome name="id-badge" />
+      {' '}
+Interview
     </PageHeader>
 
     <Switch>
@@ -91,20 +93,20 @@ InterviewPage.propTypes = {
   getQLists: func.isRequired,
   provideFeedback: func.isRequired,
   auth: shape({
-    user: UserType.isRequired
+    user: UserType.isRequired,
   }).isRequired,
   candidates: arrayOf(CandidateType),
-  qlists: arrayOf(QListType)
+  qlists: arrayOf(QListType),
 };
 
 InterviewPage.defaultProps = {
   candidates: [],
-  qlists: []
+  qlists: [],
 };
 
 const mapStateToProps = state => ({
   candidates: state.candidates,
-  qlists: state.qlists
+  qlists: state.qlists,
 });
 
 export default connect(mapStateToProps, {
@@ -112,5 +114,5 @@ export default connect(mapStateToProps, {
   getCandidates,
   addFlashMessage,
   getQLists,
-  provideFeedback
+  provideFeedback,
 })(InterviewPage);

@@ -12,6 +12,13 @@ const Foot = styled.footer`
   color: #fff;
 `;
 
-const Footer = () => (<Foot>&copy; Front View <br /> 2017-2018</Foot>);
+const Footer = () => (
+  <Foot>
+&copy; Front View
+    <br />
+    {' '}
+2017-2018
+  </Foot>
+);
 
 export default Footer;

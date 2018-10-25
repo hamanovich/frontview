@@ -13,8 +13,8 @@ export default PropTypes.shape({
   questions: PropTypes.arrayOf(PropTypes.string),
   interviewer: PropTypes.oneOfType([
     PropTypes.string,
-    UserType
+    UserType,
   ]).isRequired,
   result: PropTypes.string,
-  notes: PropTypes.string
+  notes: PropTypes.string,
 });

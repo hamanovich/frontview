@@ -61,8 +61,8 @@ const { shape, bool } = PropTypes;
 AccountPage.propTypes = {
   auth: shape({
     isAuthenticated: bool.isRequired,
-    user: UserType.isRequired
-  }).isRequired
+    user: UserType.isRequired,
+  }).isRequired,
 };
 
 export default AccountPage;

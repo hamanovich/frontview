@@ -25,13 +25,13 @@ Comments.propTypes = {
   comments: arrayOf(CommentType).isRequired,
   match: shape({
     params: shape({
-      username: string.isRequired
-    }).isRequired
-  })
+      username: string.isRequired,
+    }).isRequired,
+  }),
 };
 
 Comments.defaultProps = {
-  match: null
+  match: null,
 };
 
 export default Loader('comments')(Comments);

@@ -24,7 +24,7 @@ import validate from '../../validations/account';
 
 import { getUser, updateUser } from '../../actions/signup';
 
-const MediaImage = styled(Image) `
+const MediaImage = styled(Image)`
   width: 100px;
   height: 100px;
   max-width: 100px;
@@ -38,7 +38,7 @@ const enhance = compose(
 
   reduxForm({
     form: 'AccountEdit',
-    validate
+    validate,
   }),
 
   withState('isLoading', 'setLoading', false),
@@ -49,7 +49,7 @@ const enhance = compose(
 
       getUser(user.username)
         .then(res => initialize(res.user));
-    }
+    },
   }),
 
   withHandlers({
@@ -61,15 +61,19 @@ const enhance = compose(
       updateUser(values)
         .then(() => history.push('/me'))
         .catch(() => setLoading(false));
-    }
-  })
+    },
+  }),
 );
 
-const AccountEdit = ({ isLoading, handleSubmit, onSubmit, user }) => (
+const AccountEdit = ({
+  isLoading, handleSubmit, onSubmit, user,
+}) => (
   <section>
     <PageHeader>
-      <FontAwesome name="pencil-square-o" /> Edit your account
-  </PageHeader>
+      <FontAwesome name="pencil-square-o" />
+      {' '}
+Edit your account
+    </PageHeader>
 
     <Form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Media>
@@ -81,8 +85,19 @@ const AccountEdit = ({ isLoading, handleSubmit, onSubmit, user }) => (
         </Media.Left>
         <Media.Body>
           <Media.Heading>Gravatar image</Media.Heading>
-          <p>A Gravatar is a <b>G</b>lobally <b>R</b>ecognized <b>Avatar</b>. You upload it and create your profile just once, and then when you participate in any Gravatar-enabled site, your Gravatar image will automatically follow you there.</p>
-          <p>To change avatar: <a href="https://gravatar.com" target="_blank" rel="noopener noreferrer">Go to gravatar</a></p>
+          <p>
+A Gravatar is a
+            <b>G</b>
+lobally
+            <b>R</b>
+ecognized
+            <b>Avatar</b>
+. You upload it and create your profile just once, and then when you participate in any Gravatar-enabled site, your Gravatar image will automatically follow you there.
+          </p>
+          <p>
+To change avatar:
+            <a href="https://gravatar.com" target="_blank" rel="noopener noreferrer">Go to gravatar</a>
+          </p>
         </Media.Body>
       </Media>
 
@@ -200,12 +215,16 @@ const AccountEdit = ({ isLoading, handleSubmit, onSubmit, user }) => (
         bsStyle="primary"
         bsSize="large"
         disabled={isLoading}
-      >Update profile</Button>
+      >
+Update profile
+      </Button>
     </Form>
   </section>
 );
 
-const { func, shape, string, bool } = PropTypes;
+const {
+  func, shape, string, bool,
+} = PropTypes;
 
 AccountEdit.propTypes = {
   handleSubmit: func.isRequired,
@@ -213,7 +232,7 @@ AccountEdit.propTypes = {
   isLoading: bool.isRequired,
   user: shape({
     username: string,
-    gravatar: string
+    gravatar: string,
   }).isRequired,
 };
 

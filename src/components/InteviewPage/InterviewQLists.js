@@ -21,21 +21,20 @@ class InterviewQLists extends Component {
     addFlashMessage: func.isRequired,
     getQLists: func.isRequired,
     history: shape({
-      push: func.isRequired
+      push: func.isRequired,
     }).isRequired,
     location: shape({
-      state: CandidateType
-    }).isRequired
+      state: CandidateType,
+    }).isRequired,
   };
 
   static defaultProps = {
-    qlists: []
+    qlists: [],
   };
 
   state = {
     panel: false,
     isLoaded: false,
-    isLoading: false
   };
 
   componentWillMount() {
@@ -44,7 +43,7 @@ class InterviewQLists extends Component {
     if (!location.state) {
       addFlashMessage({
         type: 'warn',
-        text: 'Before you go next, please choose a candidate'
+        text: 'Before you go next, please choose a candidate',
       });
 
       history.push('/interview/candidates');
@@ -58,7 +57,7 @@ class InterviewQLists extends Component {
 
     history.push({
       pathname: '/interview/progress',
-      state: { qlist, candidate }
+      state: { qlist, candidate },
     });
   };
 
@@ -71,27 +70,29 @@ class InterviewQLists extends Component {
     if (!this.state.panel && !isLoaded) {
       getQLists(userId)
         .then(() => this.setState({ isLoaded: true }))
-        .catch(err => this.setState({ errors: err.response.data }));
     }
   };
 
   render() {
     const { qlists, userId } = this.props;
-    const chooseQLists = map(qlists, qlist => (<option
-      value={qlist._id}
-      key={qlist._id}
-    >{qlist.title}</option>));
+    const chooseQLists = map(qlists, qlist => (
+      <option value={qlist._id} key={qlist._id}>
+        {qlist.title}
+      </option>
+    ));
 
     return (
       <div>
         <h2>Add a QList</h2>
 
-        <p className="text-info">If you decide to create new QList. Don&apos;t forget to add questions into it.</p>
+        <p className="text-info">
+          If you decide to create new QList. Don&apos;t forget to add questions into it.
+        </p>
 
         <p>
           <Button bsSize="small" onClick={this.chooseFromList}>
             or choose one
-            </Button>
+          </Button>
         </p>
 
         <Panel collapsible expanded={this.state.panel}>
@@ -101,16 +102,16 @@ class InterviewQLists extends Component {
               name="qlists"
               component="select"
               className="form-control"
-              ref={(ref) => { this.qlistOne = ref; }}
-            >
+              ref={ref => {
+                this.qlistOne = ref;
+              }}>
               <option value="">Select a QList...</option>
               {chooseQLists}
             </Field>
           </FormGroup>
-          <Button
-            bsStyle="success"
-            onClick={this.chooseOne}
-          >Choose</Button>
+          <Button bsStyle="success" onClick={this.chooseOne}>
+            Choose
+          </Button>
         </Panel>
 
         <Panel collapsible expanded={!this.state.panel}>

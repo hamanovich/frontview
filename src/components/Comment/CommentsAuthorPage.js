@@ -17,30 +17,34 @@ import { CommentType } from '../../propTypes';
 const enhance = compose(
   connect(
     state => ({ comments: state.comments }),
-    { addFlashMessage, getCommentsByAuthor }
+    { addFlashMessage, getCommentsByAuthor },
   ),
 
   lifecycle({
     componentDidMount() {
-      const { match, addFlashMessage, getCommentsByAuthor, history, auth } = this.props;
+      const {
+        match, addFlashMessage, getCommentsByAuthor, history, auth,
+      } = this.props;
 
       getCommentsByAuthor(match.params.username)
         .catch((err) => {
           addFlashMessage({
             type: 'error',
-            text: err.response.data.error
+            text: err.response.data.error,
           });
 
           history.push(`/comments/${auth.user.username}`);
         });
-    }
-  })
+    },
+  }),
 );
 
 const CommentsAuthorPage = ({ comments, match }) => (
   <section>
     <PageHeader>
-      <FontAwesome name="comments-o" /> All Your Comments
+      <FontAwesome name="comments-o" />
+      {' '}
+All Your Comments
     </PageHeader>
 
     <Comments comments={comments} match={match} />
@@ -53,9 +57,9 @@ CommentsAuthorPage.propTypes = {
   comments: arrayOf(CommentType).isRequired,
   match: shape({
     params: shape({
-      username: string.isRequired
-    }).isRequired
-  }).isRequired
+      username: string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default enhance(CommentsAuthorPage);

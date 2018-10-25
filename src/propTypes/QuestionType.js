@@ -10,18 +10,18 @@ export default PropTypes.shape({
   answer: PropTypes.string.isRequired,
   answers: PropTypes.arrayOf(
     PropTypes.shape({
-      text: PropTypes.string.isRequired
-    }).isRequired
+      text: PropTypes.string.isRequired,
+    }).isRequired,
   ),
   votes: PropTypes.shape({
     like: PropTypes.arrayOf(PropTypes.string),
-    dislike: PropTypes.arrayOf(PropTypes.string)
+    dislike: PropTypes.arrayOf(PropTypes.string),
   }),
   notes: PropTypes.string,
   author: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.shape({
-      username: PropTypes.string.isRequired
-    })
-  ]).isRequired
+      username: PropTypes.string.isRequired,
+    }),
+  ]).isRequired,
 });

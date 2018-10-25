@@ -1,36 +1,41 @@
 import mongoose from 'mongoose';
 import slug from 'slug';
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
-const qlistSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: 'Title can not be an empty value.'
+const qlistSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: 'Title can not be an empty value.',
+    },
+    slug: {
+      type: String,
+      lowercase: true,
+    },
+    questions: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'question',
+      },
+    ],
+    author: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+      required: 'You must supply an author',
+    },
+    notes: {
+      type: String,
+      required: 'Notes should be filled',
+    },
   },
-  slug: {
-    type: String,
-    lowercase: true
+  {
+    toJSON: { virtuals: true },
+    toOjbect: { virtuals: true },
   },
-  questions: [{
-    type: Schema.Types.ObjectId,
-    ref: 'question'
-  }],
-  author: {
-    type: Schema.Types.ObjectId,
-    ref: 'user',
-    required: 'You must supply an author'
-  },
-  notes: {
-    type: String,
-    required: 'Notes should be filled'
-  }
-}, {
-  toJSON: { virtuals: true },
-  toOjbect: { virtuals: true }
-});
+);
 
-qlistSchema.pre('save', async function (next) {
+qlistSchema.pre('save', async function qlistSchema(next) {
   this.slug = slug(this.title);
   const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i');
   const qlistWithSlug = await this.constructor.find({ slug: slugRegEx });

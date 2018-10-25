@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import axios from 'axios';
 
-import Authorization from '../utils/Authorization';
+import Authorization from './Authorization';
 
 export const isLoggedIn = Authorization();
 export const User = Authorization(['user', 'owner', 'admin']);
@@ -20,7 +20,7 @@ export const PropsRoute = ({ component, ...rest }) => (
 );
 
 PropsRoute.propTypes = {
-  component: PropTypes.func.isRequired
+  component: PropTypes.func.isRequired,
 };
 
 export const setAuthorizationToken = (token) => {

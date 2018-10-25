@@ -16,50 +16,58 @@ import { addFlashMessage } from '../../actions/flash';
 const enhance = compose(
   connect(null, {
     confirm,
-    addFlashMessage
+    addFlashMessage,
   }),
 
   withState('success', 'setSuccess', false),
 
   lifecycle({
     componentDidMount() {
-      const { confirm, addFlashMessage, match, setSuccess } = this.props;
+      const {
+        confirm, addFlashMessage, match, setSuccess,
+      } = this.props;
 
       confirm(match.params.token)
         .then(() => setSuccess(true))
-        .catch(err =>
-          addFlashMessage({
-            type: 'error',
-            text: err.response.data.error
-          })
-        );
-    }
-  })
+        .catch(err => addFlashMessage({
+          type: 'error',
+          text: err.response.data.error,
+        }));
+    },
+  }),
 );
 
-const confirmSuccess = (<Jumbotron>
-  <h1>Hey!</h1>
-  <p className="lead">This is a simple hero unit, a simple Jumbotron-style component for calling extra attention to featured content or information.</p>
-  <hr />
-  <p className="lead">
-    <Link to="/">
-      <Button bsStyle="success">Welcome on board!</Button>
-    </Link>
-  </p>
-</Jumbotron>);
+const confirmSuccess = (
+  <Jumbotron>
+    <h1>Hey!</h1>
+    <p className="lead">This is a simple hero unit, a simple Jumbotron-style component for calling extra attention to featured content or information.</p>
+    <hr />
+    <p className="lead">
+      <Link to="/">
+        <Button bsStyle="success">Welcome on board!</Button>
+      </Link>
+    </p>
+  </Jumbotron>
+);
 
-const confirmError = (<Jumbotron>
-  <h1>Ooops!</h1>
-  <p className="lead text-danger">Bad news. You don&apos;t have full access to this website <b>OR</b> you&apos;ve already confirmed email.</p>
-</Jumbotron>);
+const confirmError = (
+  <Jumbotron>
+    <h1>Ooops!</h1>
+    <p className="lead text-danger">
+Bad news. You don&apos;t have full access to this website
+      <b>OR</b>
+      {' '}
+you&apos;ve already confirmed email.
+    </p>
+  </Jumbotron>
+);
 
-const Confirmation = ({ success }) =>
-  success ?
-    confirmSuccess :
-    confirmError;
+const Confirmation = ({ success }) => success
+  ? confirmSuccess
+  : confirmError;
 
 Confirmation.propTypes = {
-  success: PropTypes.bool.isRequired
+  success: PropTypes.bool.isRequired,
 };
 
 export default enhance(Confirmation);

@@ -25,9 +25,11 @@ export default (values) => {
     errors.passwordConfirmation = 'Confirmation is required';
   }
 
-  if (values.password &&
-    values.passwordConfirmation &&
-    !equals(values.password, values.passwordConfirmation)) {
+  if (
+    values.password
+    && values.passwordConfirmation
+    && !equals(values.password, values.passwordConfirmation)
+  ) {
     errors.passwordConfirmation = 'Passwords must match';
   }
 

@@ -21,7 +21,7 @@ import Loader from '../../utils/Loader';
 const enhance = compose(
   reduxForm({
     form: 'CommentForm',
-    validate
+    validate,
   }),
 
   lifecycle({
@@ -29,12 +29,14 @@ const enhance = compose(
       const { initialize, user } = this.props;
 
       initialize({ username: user.username });
-    }
+    },
   }),
 
   withHandlers({
     onSubmit: props => (values) => {
-      const { addComment, reset, user, question, getQuestion, slug } = props;
+      const {
+        addComment, reset, user, question, getQuestion, slug,
+      } = props;
       const query = { ...values, userId: user._id, questionId: question._id };
 
       addComment(query)
@@ -42,12 +44,12 @@ const enhance = compose(
           reset();
           getQuestion(slug);
         });
-    }
+    },
   }),
 
   Loader('question'),
 
-  pure
+  pure,
 );
 
 const CommentForm = ({ handleSubmit, onSubmit }) => (
@@ -82,7 +84,9 @@ const CommentForm = ({ handleSubmit, onSubmit }) => (
           type="submit"
           bsStyle="info"
           bsSize="large"
-        >Add a Comment</Button>
+        >
+Add a Comment
+        </Button>
       </Form>
     </Col>
   </Row>
@@ -92,7 +96,7 @@ const { func } = PropTypes;
 
 CommentForm.propTypes = {
   handleSubmit: func.isRequired,
-  onSubmit: func.isRequired
+  onSubmit: func.isRequired,
 };
 
 export default enhance(CommentForm);

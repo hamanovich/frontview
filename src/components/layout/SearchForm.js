@@ -35,10 +35,10 @@ const { func } = PropTypes;
 
 SearchForm.propTypes = {
   handleSubmit: func.isRequired,
-  onSearch: func.isRequired
+  onSearch: func.isRequired,
 };
 
 export default reduxForm({
   form: 'SearchForm',
-  validate
+  validate,
 })(SearchForm);

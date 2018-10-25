@@ -19,12 +19,12 @@ import validate from '../../validations/reset';
 const enhance = compose(
   reduxForm({
     form: 'Reset',
-    validate
+    validate,
   }),
 
   withState('state', 'setState', {
     error: '',
-    isLoading: false
+    isLoading: false,
   }),
 
   lifecycle({
@@ -32,18 +32,18 @@ const enhance = compose(
       const { getReset, addFlashMessage, match } = this.props;
 
       getReset(match.params.token)
-        .catch(err =>
-          addFlashMessage({
-            type: 'error',
-            text: err.response.data.error
-          })
-        );
-    }
+        .catch(err => addFlashMessage({
+          type: 'error',
+          text: err.response.data.error,
+        }));
+    },
   }),
 
   withHandlers({
     onSubmit: props => (values) => {
-      const { resetToken, addFlashMessage, match, history, setState } = props;
+      const {
+        resetToken, addFlashMessage, match, history, setState,
+      } = props;
 
       setState({ errors: {}, isLoading: true });
 
@@ -52,7 +52,7 @@ const enhance = compose(
           if (res.error) {
             setState({
               error: res.error,
-              isLoading: false
+              isLoading: false,
             });
 
             return;
@@ -60,17 +60,17 @@ const enhance = compose(
 
           addFlashMessage({
             type: 'success',
-            text: 'Password successfully updated. Please login'
+            text: 'Password successfully updated. Please login',
           });
 
           history.push('/');
         })
         .catch(err => setState({
           error: err.response.data.error,
-          isLoading: false
+          isLoading: false,
         }));
-    }
-  })
+    },
+  }),
 );
 
 const Reset = ({ handleSubmit, onSubmit, state }) => (
@@ -101,20 +101,24 @@ const Reset = ({ handleSubmit, onSubmit, state }) => (
         bsStyle="warning"
         bsSize="large"
         disabled={state.isLoading}
-      >Reset</Button>
+      >
+Reset
+      </Button>
     </Form>
   </section>
 );
 
-const { shape, func, string, bool } = PropTypes;
+const {
+  shape, func, string, bool,
+} = PropTypes;
 
 Reset.propTypes = {
   handleSubmit: func.isRequired,
   onSubmit: func.isRequired,
   state: shape({
     error: string,
-    isLoading: bool.isRequired
-  }).isRequired
+    isLoading: bool.isRequired,
+  }).isRequired,
 };
 
 export default enhance(Reset);

@@ -21,12 +21,16 @@ app.use(express.static(path.join(__dirname, '/../public')));
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'pug');
 
-mongoose.connect(process.env.DATABASE, {
-  useCreateIndex: true,
-  useNewUrlParser: true
-});
+mongoose.connect(
+  process.env.DATABASE,
+  {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+  },
+);
 
 app.use('/api', routes);
 app.use(notFound);
 
+// eslint-disable-next-line no-console
 app.listen(process.env.PORT, () => console.log(`Running on ${process.env.PORT}`));

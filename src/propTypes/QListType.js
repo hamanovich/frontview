@@ -10,11 +10,11 @@ export default PropTypes.shape({
   questions: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.arrayOf(QuestionType),
-    QuestionType
+    QuestionType,
   ]).isRequired,
   author: PropTypes.oneOfType([
     PropTypes.string,
-    UserType
+    UserType,
   ]).isRequired,
-  notes: PropTypes.string
+  notes: PropTypes.string,
 });

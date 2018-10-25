@@ -20,7 +20,9 @@ import { addFlashMessage } from '../../../actions/flash';
 
 import { UserType, QuestionType, QListType } from '../../../propTypes';
 
-const { shape, arrayOf, func, string } = PropTypes;
+const {
+  shape, arrayOf, func, string,
+} = PropTypes;
 
 class QuestionOne extends Component {
   static propTypes = {
@@ -31,24 +33,26 @@ class QuestionOne extends Component {
     addComment: func.isRequired,
     match: shape({
       params: shape({
-        slug: string.isRequired
-      }).isRequired
+        slug: string.isRequired,
+      }).isRequired,
     }).isRequired,
     question: QuestionType,
     user: UserType.isRequired,
     qlists: arrayOf(QListType).isRequired,
     editQuestionField: func.isRequired,
     history: shape({
-      push: func.isRequired
-    }).isRequired
+      push: func.isRequired,
+    }).isRequired,
   };
 
   static defaultProps = {
-    question: null
+    question: null,
   };
 
   componentDidMount = () => {
-    const { getUser, getQLists, match, user } = this.props;
+    const {
+      getUser, getQLists, match, user,
+    } = this.props;
 
     getUser(user.username);
     getQLists(user._id);
@@ -63,7 +67,7 @@ class QuestionOne extends Component {
         if (res.status === 500) {
           addFlashMessage({
             type: 'error',
-            text: res.data.error
+            text: res.data.error,
           });
 
           history.push('/questions/add');
@@ -72,7 +76,7 @@ class QuestionOne extends Component {
       .catch((err) => {
         addFlashMessage({
           type: 'error',
-          text: err.response.data.error
+          text: err.response.data.error,
         });
 
         history.push('/questions/add');
@@ -80,9 +84,25 @@ class QuestionOne extends Component {
   }
 
   render() {
-    const { question, addComment, editQuestionField, user, qlists, match } = this.props;
-    const panelHeader = <span><FontAwesome name="comments-o" /> Comments <Badge>{question && question.comments.length}</Badge></span>;
-    const panelAddHeader = <span><FontAwesome name="commenting-o" /> Add a comment</span>;
+    const {
+      question, addComment, editQuestionField, user, qlists, match,
+    } = this.props;
+    const panelHeader = (
+      <span>
+        <FontAwesome name="comments-o" />
+        {' '}
+Comments
+        {' '}
+        <Badge>{question && question.comments.length}</Badge>
+      </span>
+    );
+    const panelAddHeader = (
+      <span>
+        <FontAwesome name="commenting-o" />
+        {' '}
+Add a comment
+      </span>
+    );
 
     return (
       <div>
@@ -124,7 +144,7 @@ const mapStateToProps = (state, props) => {
   return {
     user: state.auth.user,
     qlists: state.qlists,
-    question
+    question,
   };
 };
 
@@ -134,5 +154,5 @@ export default connect(mapStateToProps, {
   getQLists,
   editQuestionField,
   addComment,
-  addFlashMessage
+  addFlashMessage,
 })(QuestionOne);

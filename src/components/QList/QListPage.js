@@ -9,7 +9,9 @@ import QListForm from './QListForm';
 const QListPage = ({ userId }) => (
   <div>
     <PageHeader>
-      <FontAwesome name="list-ul" /> Create new Question&apos;s List (QList)
+      <FontAwesome name="list-ul" />
+      {' '}
+Create new Question&apos;s List (QList)
     </PageHeader>
 
     <QListForm userId={userId} />
@@ -17,7 +19,7 @@ const QListPage = ({ userId }) => (
 );
 
 QListPage.propTypes = {
-  userId: PropTypes.string.isRequired
+  userId: PropTypes.string.isRequired,
 };
 
 export default QListPage;

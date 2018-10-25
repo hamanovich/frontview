@@ -30,25 +30,25 @@ class InterviewCandidates extends Component {
     handleSubmit: func.isRequired,
     reset: func.isRequired,
     history: shape({
-      push: func.isRequired
-    }).isRequired
+      push: func.isRequired,
+    }).isRequired,
   };
 
   static defaultProps = {
-    candidates: []
+    candidates: [],
   };
 
   state = {
     panel: false,
     isLoaded: false,
-    isLoading: false
+    isLoading: false,
   };
 
-  onSubmit = (values) => {
+  onSubmit = values => {
     const { candidateAdd, addFlashMessage, userId, reset } = this.props;
     const query = { ...values, userId };
 
-    this.setState({ errors: {}, isLoading: true });
+    this.setState({ isLoading: true });
 
     candidateAdd(query)
       .then(() => {
@@ -56,13 +56,10 @@ class InterviewCandidates extends Component {
 
         addFlashMessage({
           type: 'success',
-          text: `Candidate ${values.firstName} ${values.lastName} has created`
+          text: `Candidate ${values.firstName} ${values.lastName} has created`,
         });
 
-        this.setState({
-          isLoading: false,
-          panel: !this.state.panel
-        });
+        this.setState(prevState => ({ isLoading: false, panel: !prevState.panel }));
       })
       .catch(() => this.setState({ isLoading: false }));
   };
@@ -73,7 +70,7 @@ class InterviewCandidates extends Component {
 
     history.push({
       pathname: '/interview/qlists',
-      state: candidate
+      state: candidate,
     });
   };
 
@@ -84,18 +81,19 @@ class InterviewCandidates extends Component {
     this.setState({ panel: !panel });
 
     if (!panel && !isLoaded) {
-      getCandidates(userId)
-        .then(() => this.setState({ isLoaded: true }));
+      getCandidates(userId).then(() => this.setState({ isLoaded: true }));
     }
   };
 
   render() {
     const { isLoading } = this.state;
     const { candidates, handleSubmit } = this.props;
-    const chooseCandidates = map(candidates, candidate => (<option
-      value={candidate._id}
-      key={candidate._id}
-    >{candidate.firstName} {candidate.lastName} - {candidate.primarySkill} ({candidate.techLevel})</option>));
+    const chooseCandidates = map(candidates, candidate => (
+      <option value={candidate._id} key={candidate._id}>
+        {candidate.firstName} {candidate.lastName} - {candidate.primarySkill} ({candidate.techLevel}
+        )
+      </option>
+    ));
 
     return (
       <div>
@@ -113,16 +111,16 @@ class InterviewCandidates extends Component {
                 name="candidates"
                 component="select"
                 className="form-control"
-                ref={(ref) => { this.candidateOne = ref; }}
-              >
+                ref={ref => {
+                  this.candidateOne = ref;
+                }}>
                 <option value="">Select a candidate...</option>
                 {chooseCandidates}
               </Field>
             </FormGroup>
-            <Button
-              bsStyle="success"
-              onClick={this.chooseOne}
-            >Choose</Button>
+            <Button bsStyle="success" onClick={this.chooseOne}>
+              Choose
+            </Button>
           </Panel>
         </div>
 
@@ -188,12 +186,9 @@ class InterviewCandidates extends Component {
               placeholder="Add some notes (optional)"
             />
 
-            <Button
-              type="submit"
-              bsStyle="primary"
-              bsSize="large"
-              disabled={isLoading}
-            >Register a candidate</Button>
+            <Button type="submit" bsStyle="primary" bsSize="large" disabled={isLoading}>
+              Register a candidate
+            </Button>
           </Form>
         </Panel>
       </div>
@@ -203,5 +198,5 @@ class InterviewCandidates extends Component {
 
 export default reduxForm({
   form: 'InterviewCandidates',
-  validate
+  validate,
 })(InterviewCandidates);

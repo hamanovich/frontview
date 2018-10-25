@@ -20,19 +20,21 @@ import validate from '../../validations/qlist';
 const enhance = compose(
   connect(null, {
     qlistAdd,
-    addFlashMessage
+    addFlashMessage,
   }),
 
   reduxForm({
     form: 'QListForm',
-    validate
+    validate,
   }),
 
   withState('isLoading', 'setLoading', false),
 
   withHandlers({
     onSubmit: props => (values) => {
-      const { qlistAdd, userId, reset, addFlashMessage, setLoading } = props;
+      const {
+        qlistAdd, userId, reset, addFlashMessage, setLoading,
+      } = props;
       const query = { ...values, userId };
 
       setLoading(true);
@@ -44,12 +46,12 @@ const enhance = compose(
 
           addFlashMessage({
             type: 'success',
-            text: `QLists ${values.title} has created`
+            text: `QLists ${values.title} has created`,
           });
         })
         .catch(() => setLoading(false));
-    }
-  })
+    },
+  }),
 );
 
 const QListForm = ({ isLoading, handleSubmit, onSubmit }) => (
@@ -75,7 +77,9 @@ const QListForm = ({ isLoading, handleSubmit, onSubmit }) => (
       bsStyle="primary"
       bsSize="large"
       disabled={isLoading}
-    >Create</Button>
+    >
+Create
+    </Button>
   </Form>
 );
 
@@ -84,7 +88,7 @@ const { func, bool } = PropTypes;
 QListForm.propTypes = {
   handleSubmit: func.isRequired,
   onSubmit: func.isRequired,
-  isLoading: bool.isRequired
+  isLoading: bool.isRequired,
 };
 
 export default enhance(QListForm);

@@ -15,12 +15,12 @@ const TextareaField = ({
   feedback,
   defaultValue,
   errorsVisible,
-  meta: { touched, error, warning }
+  meta: { touched, error, warning },
 }) => (
   <FormGroup
     controlId={`label-${input.name}`}
-    validationState={touched && error ? 'error' :
-      touched && !error ? 'success' : null}
+    validationState={touched && error ? 'error'
+      : touched && !error ? 'success' : null}
   >
     <ControlLabel>{label}</ControlLabel>
     <FormControl
@@ -33,18 +33,20 @@ const TextareaField = ({
       value={defaultValue || input.value}
     />
     {feedback && <FormControl.Feedback />}
-    {errorsVisible && touched &&
-      ((error && <HelpBlock>{error}</HelpBlock>) ||
-        (warning && <span>{warning}</span>))}
+    {errorsVisible && touched
+      && ((error && <HelpBlock>{error}</HelpBlock>)
+        || (warning && <span>{warning}</span>))}
   </FormGroup>
 );
 
-const { shape, string, bool, number } = PropTypes;
+const {
+  shape, string, bool, number,
+} = PropTypes;
 
 TextareaField.propTypes = {
   input: shape({
     name: string,
-    value: string
+    value: string,
   }).isRequired,
   label: string.isRequired,
   defaultValue: string,
@@ -55,9 +57,9 @@ TextareaField.propTypes = {
   meta: shape({
     touched: bool,
     error: string,
-    warning: string
+    warning: string,
   }).isRequired,
-  rows: number
+  rows: number,
 };
 
 TextareaField.defaultProps = {
@@ -66,7 +68,7 @@ TextareaField.defaultProps = {
   feedback: true,
   errorsVisible: true,
   defaultValue: '',
-  placeholder: ''
+  placeholder: '',
 };
 
 export default TextareaField;

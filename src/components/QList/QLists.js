@@ -25,7 +25,7 @@ const RemoveIcon = styled.button`
   background: none;
   border: none;
 
-  &:hover{
+  &:hover {
     color: #23527c;
   }
 `;
@@ -37,12 +37,12 @@ class QLists extends Component {
     getQLists: func.isRequired,
     removeQList: func.isRequired,
     qlists: arrayOf(QListType).isRequired,
-    userId: string.isRequired
+    userId: string.isRequired,
   };
 
   state = {
     showModal: false,
-    id: ''
+    id: '',
   };
 
   componentDidMount() {
@@ -51,7 +51,8 @@ class QLists extends Component {
     getQLists(userId);
   }
 
-  toggleModal = (id = null) => this.setState({ showModal: !this.state.showModal, id });
+  toggleModal = (id = null) =>
+    this.setState(prevState => ({ showModal: !prevState.showModal, id }));
 
   remove = () => {
     this.props.removeQList(this.state.id);
@@ -64,13 +65,17 @@ class QLists extends Component {
 
     return (
       <div>
-        <PageHeader><FontAwesome name="list-ol" /> QLists</PageHeader>
+        <PageHeader>
+          <FontAwesome name="list-ol" /> QLists
+        </PageHeader>
 
         <ListGroup>
           {map(qlists, qlist => (
             <ListGroupItem key={qlist.slug}>
               <h4>
-                <Link to={`/questions/qlist/${qlist.slug}`}>{qlist.title} <Badge>{qlist.questions.length}</Badge></Link>
+                <Link to={`/questions/qlist/${qlist.slug}`}>
+                  {qlist.title} <Badge>{qlist.questions.length}</Badge>
+                </Link>
               </h4>
               <p>{qlist.notes}</p>
               <RemoveIcon onClick={() => this.toggleModal(qlist._id)}>
@@ -89,8 +94,12 @@ class QLists extends Component {
           </Modal.Body>
           <Modal.Footer>
             <ButtonGroup>
-              <Button bsStyle="default" onClick={this.toggleModal}>Cancel</Button>
-              <Button bsStyle="danger" onClick={this.remove}>Remove</Button>
+              <Button bsStyle="default" onClick={this.toggleModal}>
+                Cancel
+              </Button>
+              <Button bsStyle="danger" onClick={this.remove}>
+                Remove
+              </Button>
             </ButtonGroup>
           </Modal.Footer>
         </Modal>
@@ -100,7 +109,10 @@ class QLists extends Component {
 }
 
 const mapStateToProps = state => ({
-  qlists: state.qlists
+  qlists: state.qlists,
 });
 
-export default connect(mapStateToProps, { getQLists, removeQList })(QLists);
+export default connect(
+  mapStateToProps,
+  { getQLists, removeQList },
+)(QLists);

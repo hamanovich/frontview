@@ -17,7 +17,9 @@ import { qlistAddQuestion } from '../../actions/qlists';
 
 import { QuestionType, QListType } from '../../propTypes';
 
-const Toolbar = ({ user, question, voteQuestion, qlistAddQuestion, qlists }) => (
+const Toolbar = ({
+  user, question, voteQuestion, qlistAddQuestion, qlists,
+}) => (
   <ButtonToolbar>
     <ButtonGroup bsSize="small">
       <Button
@@ -25,7 +27,9 @@ const Toolbar = ({ user, question, voteQuestion, qlistAddQuestion, qlists }) => 
         active={question.votes.like.includes(user._id)}
         onClick={voteQuestion(question, 'like', user._id)}
       >
-        <FontAwesome name="thumbs-up" /> {question.votes.like.length}
+        <FontAwesome name="thumbs-up" />
+        {' '}
+        {question.votes.like.length}
       </Button>
 
       <Button
@@ -33,7 +37,9 @@ const Toolbar = ({ user, question, voteQuestion, qlistAddQuestion, qlists }) => 
         active={question.votes.dislike.includes(user._id)}
         onClick={voteQuestion(question, 'dislike', user._id)}
       >
-        <FontAwesome name="thumbs-down" /> {question.votes.dislike.length}
+        <FontAwesome name="thumbs-down" />
+        {' '}
+        {question.votes.dislike.length}
       </Button>
     </ButtonGroup>
 
@@ -51,8 +57,8 @@ const Toolbar = ({ user, question, voteQuestion, qlistAddQuestion, qlists }) => 
             onClick={qlistAddQuestion(qlist, question)}
           >
             {qlist.title}
-            {map(qlist.questions, q => q._id).includes(question._id) &&
-              <FontAwesome name="check" />
+            {map(qlist.questions, q => q._id).includes(question._id)
+              && <FontAwesome name="check" />
             }
           </MenuItem>
         ))}
@@ -65,19 +71,21 @@ const Toolbar = ({ user, question, voteQuestion, qlistAddQuestion, qlists }) => 
   </ButtonToolbar>
 );
 
-const { arrayOf, shape, func, string } = PropTypes;
+const {
+  arrayOf, shape, func, string,
+} = PropTypes;
 
 Toolbar.propTypes = {
   user: shape({
-    _id: string
+    _id: string,
   }).isRequired,
   question: QuestionType.isRequired,
   qlists: arrayOf(QListType).isRequired,
   qlistAddQuestion: func.isRequired,
-  voteQuestion: func.isRequired
+  voteQuestion: func.isRequired,
 };
 
 export default connect(null, {
   voteQuestion,
-  qlistAddQuestion
+  qlistAddQuestion,
 })(Toolbar);

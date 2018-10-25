@@ -2,7 +2,7 @@ import Question from '../models/question';
 import User from '../models/user';
 
 exports.getQuestionInterface = (req, res) => {
-  const schema = Question.schema;
+  const { schema } = Question;
   const skill = schema.path('skill').caster.enumValues;
   const level = schema.path('level').caster.enumValues;
   const practice = schema.path('practice').enumValues;
@@ -13,14 +13,20 @@ exports.getQuestionInterface = (req, res) => {
 exports.getQuestions = async (req, res) => {
   const page = req.params.page || 1;
   const limit = 2;
-  const skip = (page * limit) - limit;
+  const skip = page * limit - limit;
   const countPromise = Question.countDocuments();
-  const questionsPromise = Question.find().skip(skip).limit(limit);
+  const questionsPromise = Question.find()
+    .skip(skip)
+    .limit(limit);
   const [questions, count] = await Promise.all([questionsPromise, countPromise]);
   const pages = Math.ceil(count / limit);
 
   if (!questions.length && skip) {
-    res.status(500).json({ error: `You asked for page ${page}. But that doesn't exist. Maximum page is ${pages}` });
+    res
+      .status(500)
+      .json({
+        error: `You asked for page ${page}. But that doesn't exist. Maximum page is ${pages}`,
+      });
     return;
   }
 
@@ -28,7 +34,7 @@ exports.getQuestions = async (req, res) => {
 };
 
 exports.getQuestionById = async (req, res) => {
-  const question = await Question.findById(req.params.id, (err) => {
+  const question = await Question.findById(req.params.id, err => {
     if (err) {
       res.status(500).json({ error: `Question with id='${req.params.id}' didn't find` });
     }
@@ -51,11 +57,32 @@ exports.getQuestionBySlug = async (req, res) => {
 };
 
 exports.add = async (req, res) => {
-  const { question, skill, level, practice, answer, answers, notes, userId, lastModified } = req.body;
-  const newQuestion = await Question.create({ question, skill, level, practice, answer, answers, notes, author: userId, lastModified });
-  const user = await User.findByIdAndUpdate(userId,
+  const {
+    question,
+    skill,
+    level,
+    practice,
+    answer,
+    answers,
+    notes,
+    userId,
+    lastModified,
+  } = req.body;
+  const newQuestion = await Question.create({
+    question,
+    skill,
+    level,
+    practice,
+    answer,
+    answers,
+    notes,
+    author: userId,
+    lastModified,
+  });
+  const user = await User.findByIdAndUpdate(
+    userId,
     { $push: { questions: newQuestion._id } },
-    { safe: true, upsert: true, new: true }
+    { safe: true, upsert: true, new: true },
   );
 
   if (newQuestion && user) {
@@ -63,7 +90,11 @@ exports.add = async (req, res) => {
     return;
   }
 
-  res.status(500).json({ error: 'Author of this question didn\'t find in database. Please relogin and try again' });
+  res
+    .status(500)
+    .json({
+      error: "Author of this question didn't find in database. Please relogin and try again",
+    });
 };
 
 exports.edit = async (req, res) => {
@@ -76,7 +107,7 @@ exports.edit = async (req, res) => {
     return;
   }
 
-  res.status(500).json({ error: 'Question didn\'t update' });
+  res.status(500).json({ error: "Question didn't update" });
 };
 
 exports.editField = async (req, res) => {
@@ -97,14 +128,16 @@ exports.editField = async (req, res) => {
 
 exports.remove = async (req, res) => {
   const question = await Question.findByIdAndRemove(req.params.id);
-  const user = await User.findByIdAndUpdate(question.author, { $pull: { questions: question._id } });
+  const user = await User.findByIdAndUpdate(question.author, {
+    $pull: { questions: question._id },
+  });
 
   if (question && user) {
     res.json(question);
     return;
   }
 
-  res.status(500).json({ error: 'Question didn\'t remove' });
+  res.status(500).json({ error: "Question didn't remove" });
 };
 
 exports.getQuestionsByFilter = async (req, res) => {
@@ -122,7 +155,7 @@ exports.getQuestionsByAuthor = async (req, res) => {
   const user = await User.findOne({ username });
 
   if (!user) {
-    res.status(404).json({ error: 'User didn\'t find' });
+    res.status(404).json({ error: "User didn't find" });
     return;
   }
 
@@ -132,15 +165,17 @@ exports.getQuestionsByAuthor = async (req, res) => {
 };
 
 exports.searchQuestions = async (req, res) => {
-  const questions = await Question.find({
-    $text: {
-      $search: req.query.q
-    }
-  }, {
-    score: { $meta: 'textScore' }
-  })
-  .sort({
-    score: { $meta: 'textScore' }
+  const questions = await Question.find(
+    {
+      $text: {
+        $search: req.query.q,
+      },
+    },
+    {
+      score: { $meta: 'textScore' },
+    },
+  ).sort({
+    score: { $meta: 'textScore' },
   });
 
   res.json(questions);
@@ -150,13 +185,15 @@ exports.voteQuestion = async (req, res) => {
   const { action, question, userId } = req.body;
   const votes = question.votes[action].map(obj => obj.toString());
   const operator = votes.includes(userId) ? '$pull' : '$addToSet';
-  const newQuestion = await Question.findByIdAndUpdate(req.params.id,
+  const newQuestion = await Question.findByIdAndUpdate(
+    req.params.id,
     { [operator]: { [`votes.${action}`]: userId } },
-    { new: true }
+    { new: true },
   ).populate('author comments');
-  const user = await User.findByIdAndUpdate(userId,
+  const user = await User.findByIdAndUpdate(
+    userId,
     { [operator]: { [`votes.${action}`]: question._id } },
-    { new: true }
+    { new: true },
   ).populate('questions');
 
   if (user && newQuestion) {

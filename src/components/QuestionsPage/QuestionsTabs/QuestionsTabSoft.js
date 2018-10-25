@@ -12,7 +12,9 @@ const QuestionsTabSoft = () => (
         rel="noopener noreferrer"
       >
         <FontAwesome name="link" />
-      </a> 45 behavioral questions to use during non-technical interview with developers
+      </a>
+      {' '}
+45 behavioral questions to use during non-technical interview with developers
     </PageHeader>
 
     <p>The way we formulate questions is crucial. If you ask the question in an ambiguous way, don’t be surprised that you will not be able to draw valuable conclusions. Behavioral-based interview questions generally start with any one of the following phrases:</p>

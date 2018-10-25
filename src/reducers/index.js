@@ -17,7 +17,7 @@ const reducer = combineReducers({
   qlists,
   candidates,
   form: formReducer,
-  routing: routerReducer
+  routing: routerReducer,
 });
 
 export default reducer;

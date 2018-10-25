@@ -36,7 +36,9 @@ const LabelVoted = styled.span`
 const QuestionsTop = ({ questions }) => (
   <div>
     <PageHeader>
-      <FontAwesome name="exclamation" /> Top 10 Questions
+      <FontAwesome name="exclamation" />
+      {' '}
+Top 10 Questions
     </PageHeader>
 
     <ListGroup>
@@ -62,7 +64,9 @@ const QuestionsTop = ({ questions }) => (
             ))}
           </LabelGroup>
           <LabelVoted>
-            <FontAwesome name="thumbs-o-up" /> {question.votes.like.length}
+            <FontAwesome name="thumbs-o-up" />
+            {' '}
+            {question.votes.like.length}
           </LabelVoted>
         </ListGroupItem>
       ))}
@@ -71,7 +75,7 @@ const QuestionsTop = ({ questions }) => (
 );
 
 QuestionsTop.propTypes = {
-  questions: PropTypes.arrayOf(QuestionType).isRequired
+  questions: PropTypes.arrayOf(QuestionType).isRequired,
 };
 
 export default Loader('questions')(QuestionsTop);

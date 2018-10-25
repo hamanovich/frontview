@@ -16,7 +16,9 @@ const SignupPage = ({ signup, addFlashMessage, isUserExists }) => (
   <Row>
     <Col md={6} mdOffset={3}>
       <PageHeader>
-        <FontAwesome name="user-plus" /> Register. Welcome
+        <FontAwesome name="user-plus" />
+        {' '}
+Register. Welcome
       </PageHeader>
 
       <SignupForm
@@ -33,11 +35,11 @@ const { func } = PropTypes;
 SignupPage.propTypes = {
   signup: func.isRequired,
   addFlashMessage: func.isRequired,
-  isUserExists: func.isRequired
+  isUserExists: func.isRequired,
 };
 
 export default connect(null, {
   signup,
   addFlashMessage,
-  isUserExists
+  isUserExists,
 })(SignupPage);

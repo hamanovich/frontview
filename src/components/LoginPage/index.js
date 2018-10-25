@@ -10,7 +10,9 @@ import Login from './Login';
 import Forgot from './Forgot';
 import Reset from './Reset';
 
-import { login, forgot, resetToken, getReset } from '../../actions/auth';
+import {
+  login, forgot, resetToken, getReset,
+} from '../../actions/auth';
 import { getUser } from '../../actions/signup';
 import { addFlashMessage } from '../../actions/flash';
 
@@ -22,7 +24,7 @@ const LoginPage = ({
   resetToken,
   getReset,
   getUser,
-  addFlashMessage
+  addFlashMessage,
 }) => (
   <Row>
     <Col md={6} mdOffset={3}>
@@ -64,7 +66,7 @@ LoginPage.propTypes = {
   resetToken: func.isRequired,
   getReset: func.isRequired,
   getUser: func.isRequired,
-  addFlashMessage: func.isRequired
+  addFlashMessage: func.isRequired,
 };
 
 export default connect(null, {
@@ -73,5 +75,5 @@ export default connect(null, {
   resetToken,
   getReset,
   getUser,
-  addFlashMessage
+  addFlashMessage,
 })(LoginPage);

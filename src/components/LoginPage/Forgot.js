@@ -18,13 +18,13 @@ import validate from '../../validations/forgot';
 const enhance = compose(
   reduxForm({
     form: 'Forgot',
-    validate
+    validate,
   }),
 
   withState('state', 'setState', {
     error: '',
     emailed: '',
-    isLoading: false
+    isLoading: false,
   }),
 
   withHandlers({
@@ -33,25 +33,30 @@ const enhance = compose(
 
       setState({
         error: '',
-        isLoading: true
+        isLoading: true,
       });
 
       forgot(email)
         .then(res => setState({
           emailed: res.emailed,
-          isLoading: false
+          isLoading: false,
         }))
         .catch(err => setState({
           error: err.response.data.error,
-          isLoading: false
+          isLoading: false,
         }));
-    }
-  })
+    },
+  }),
 );
 
 const Forgot = ({ handleSubmit, onSubmit, state }) => (
   <section>
-    <PageHeader>Forgot your password? <br /> Don&apos;t worry!</PageHeader>
+    <PageHeader>
+Forgot your password?
+      <br />
+      {' '}
+Don&apos;t worry!
+    </PageHeader>
     <p>Just put your email and we will send you instructions.</p>
 
     <Form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -71,12 +76,16 @@ const Forgot = ({ handleSubmit, onSubmit, state }) => (
         bsStyle="warning"
         bsSize="large"
         disabled={state.isLoading}
-      >Send a reset</Button>
+      >
+Send a reset
+      </Button>
     </Form>
   </section>
 );
 
-const { shape, func, string, bool } = PropTypes;
+const {
+  shape, func, string, bool,
+} = PropTypes;
 
 Forgot.propTypes = {
   handleSubmit: func.isRequired,
@@ -84,8 +93,8 @@ Forgot.propTypes = {
   state: shape({
     emailed: string,
     error: string,
-    isLoading: bool.isRequired
-  }).isRequired
+    isLoading: bool.isRequired,
+  }).isRequired,
 };
 
 export default enhance(Forgot);

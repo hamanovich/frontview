@@ -10,11 +10,12 @@ export const transport = nodemailer.createTransport({
   port: process.env.MAIL_PORT,
   auth: {
     user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS
-  }
+    pass: process.env.MAIL_PASS,
+  },
 });
 
-const generateHTML = (filename, options = {}) => juice(pug.renderFile(`${__dirname}/../views/email/${filename}.pug`, options));
+const generateHTML = (filename, options = {}) =>
+  juice(pug.renderFile(`${__dirname}/../views/email/${filename}.pug`, options));
 
 export function send(options) {
   const html = generateHTML(options.filename, options);
@@ -24,7 +25,7 @@ export function send(options) {
     to: options.user.email,
     subject: options.subject,
     text,
-    html
+    html,
   };
 
   return transport.sendMail(mailOptions);

@@ -16,7 +16,7 @@ import validate from '../../validations/interviewNotes';
 const enhance = compose(
   reduxForm({
     form: 'InterviewNotesForm',
-    validate
+    validate,
   }),
 
   withHandlers({
@@ -27,10 +27,10 @@ const enhance = compose(
 
       push({
         pathname: '/interview/finish',
-        state: { feedback, candidate }
+        state: { feedback, candidate },
       });
-    }
-  })
+    },
+  }),
 );
 
 const InterviewNotesForm = ({ handleSubmit, onSubmit }) => (
@@ -49,7 +49,9 @@ const InterviewNotesForm = ({ handleSubmit, onSubmit }) => (
       type="submit"
       bsStyle="primary"
       bsSize="large"
-    >Finish Interview</Button>
+    >
+Finish Interview
+    </Button>
   </Form>
 );
 
@@ -57,7 +59,7 @@ const { func } = PropTypes;
 
 InterviewNotesForm.propTypes = {
   handleSubmit: func.isRequired,
-  onSubmit: func.isRequired
+  onSubmit: func.isRequired,
 };
 
 export default enhance(InterviewNotesForm);
