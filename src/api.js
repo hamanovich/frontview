@@ -23,7 +23,7 @@ export default {
     getUser: identifier => axios.get(`/api/users/${identifier}`)
       .then(res => res.data),
 
-    remove: username => axios.delete(`/api/users/${username}`),
+    remove: username => axios.delete(`/api/user/${username}`),
 
     update: user => axios.put(`/api/user/${user.username}`, user)
   },
@@ -43,7 +43,7 @@ export default {
     addQuestion: (qlist, question) => axios.post('/api/qlist/add/question', { qlist, question })
       .then(res => res.data),
 
-    getQListQuestions: _id => axios.get(`/qlists/${_id}/questions`)
+    getQListQuestions: slug => axios.get(`/api/qlists/${slug}/questions`)
       .then(res => res.data),
 
     getByAuthor: _id => axios.get(`/api/qlists/${_id}`)

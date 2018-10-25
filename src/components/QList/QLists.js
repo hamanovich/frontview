@@ -8,6 +8,7 @@ import styled from 'styled-components';
 
 import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
+import Badge from 'react-bootstrap/lib/Badge';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
 import ListGroup from 'react-bootstrap/lib/ListGroup';
 import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
@@ -68,9 +69,9 @@ class QLists extends Component {
         <ListGroup>
           {map(qlists, qlist => (
             <ListGroupItem key={qlist.slug}>
-              <h5>
-                <Link to={`/qlists/${qlist.slug}/one`}>{qlist.title}</Link>
-              </h5>
+              <h4>
+                <Link to={`/questions/qlist/${qlist.slug}`}>{qlist.title} <Badge>{qlist.questions.length}</Badge></Link>
+              </h4>
               <p>{qlist.notes}</p>
               <RemoveIcon onClick={() => this.toggleModal(qlist._id)}>
                 <FontAwesome name="trash" />

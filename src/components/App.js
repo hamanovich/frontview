@@ -34,7 +34,7 @@ const App = () => (
           <Route path="/login" component={isLoggedIn(LoginPage)} />
           <Route path="/signup" component={isLoggedIn(SignupPage)} />
           <Route path="/me" component={User(AccountPage)} />
-          <Route path="/questions" component={User(QuestionsPage)} />
+          <Route path="/questions" component={QuestionsPage} />
           <Route path="/interview" component={User(InterviewPage)} />
           <Route path="/comments/:username" component={User(CommentsAuthorPage)} />
           <Route path="/confirmation/:token" component={ConfirmationPage} />

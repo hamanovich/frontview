@@ -13,6 +13,10 @@ a[role=tab]{
   cursor: pointer;
 }
 
+p:last-child {
+  margin-bottom: 0;
+}
+
 .panel{
   box-shadow: none;
 }

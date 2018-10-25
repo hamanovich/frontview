@@ -11,8 +11,10 @@ import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
+import Image from 'react-bootstrap/lib/Image';
 
 import { logout } from '../../actions/auth';
+import { getUser } from '../../actions/signup';
 import { getSearchedQuestions } from '../../actions/questions';
 import { addFlashMessage } from '../../actions/flash';
 
@@ -24,6 +26,13 @@ const Menu = styled(Navbar) `
   border-radius: 0;
 `;
 
+const MediaImage = styled(Image) `
+  width: 25px;
+  height: 25px;
+  max-width: 25px;
+  margin: -10px 5px -10px 0;
+`;
+
 const { shape, func, bool } = PropTypes;
 
 class Header extends Component {
@@ -33,6 +42,7 @@ class Header extends Component {
       user: UserType.isRequired
     }).isRequired,
     getSearchedQuestions: func.isRequired,
+    getUser: func.isRequired,
     addFlashMessage: func.isRequired,
     logout: func.isRequired
   };
@@ -44,6 +54,13 @@ class Header extends Component {
       }).isRequired
     }).isRequired
   };
+
+  componentDidMount() {
+    const { getUser, auth } = this.props;
+    if (auth.isAuthenticated) {
+      getUser(auth.user.username);
+    }
+  }
 
   onSearch = (values) => {
     const { getSearchedQuestions, addFlashMessage } = this.props;
@@ -69,15 +86,21 @@ class Header extends Component {
 
   render() {
     const { auth, logout, getSearchedQuestions, addFlashMessage } = this.props;
-    const username = auth.user ? (auth.user.username || '') : '';
+    const userPick = (<span>
+      <MediaImage src={auth.user.gravatar} circle />
+      {auth.user.username}
+    </span>);
     const userLinks = (
       <Nav pullRight>
-        <LinkContainer to="/interview">
-          <NavItem><FontAwesome name="id-badge" /> Interview</NavItem>
-        </LinkContainer>
-        <NavDropdown title="Questions" id="questions-dropdown">
+        <NavDropdown title="Menu" id="menu-dropdown">
+          <LinkContainer to="/interview">
+            <MenuItem>
+              <FontAwesome name="id-badge" /> Interview
+            </MenuItem>
+          </LinkContainer>
+          <MenuItem divider />
           <IndexLinkContainer to="/questions">
-            <MenuItem>Show All</MenuItem>
+            <MenuItem>Show all questions</MenuItem>
           </IndexLinkContainer>
           <LinkContainer to="/questions/top">
             <MenuItem>
@@ -112,7 +135,7 @@ class Header extends Component {
             </MenuItem>
           </LinkContainer>
         </NavDropdown>
-        <NavDropdown title={username} id="account-dropdown">
+        <NavDropdown title={userPick} id="account-dropdown">
           <IndexLinkContainer to="/me">
             <MenuItem>
               <FontAwesome name="user" /> Account
@@ -167,7 +190,7 @@ const mapStateToProps = state => ({ auth: state.auth });
 
 export default connect(
   mapStateToProps,
-  { logout, getSearchedQuestions, addFlashMessage },
+  { logout, getUser, getSearchedQuestions, addFlashMessage },
   null,
   { pure: false }
 )(Header);

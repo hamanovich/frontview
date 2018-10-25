@@ -20,7 +20,7 @@ const questionSchema = new Schema({
   }],
   level: [{
     type: String,
-    enum: ['Junioe', 'Middle', 'Senior', 'Lead', 'Chief', 'Not specified'],
+    enum: ['Junior', 'Middle', 'Senior', 'Lead', 'Chief', 'Not specified'],
     required: 'Level field is required'
   }],
   practice: {

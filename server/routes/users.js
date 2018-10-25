@@ -33,7 +33,7 @@ exports.createUser = async (req, res) => {
   const passwordDigest = bcrypt.hashSync(password, 10);
 
   if (!isValid) {
-    res.status(400).json(errors);
+    res.status(409).json(errors);
   }
 
   const user = new User({
@@ -65,6 +65,39 @@ exports.createUser = async (req, res) => {
     subject: 'Confirmation Email',
     confirmURL
   });
+
+  // let transporter = nodemailer.createTransport({
+  //   host: "smtp.mailtrap.io",
+  //   port: 2525,
+  //   auth: {
+  //     user: "52e422bebb3360",
+  //     pass: "d49d4dc8e8cad6"
+  //   }
+  // });
+  
+  // // setup email data with unicode symbols
+  
+  // let mailOptions = {
+  //   from: '"Fred Foo 👻" <foo@example.com>', // sender address
+  //   to: '!!!bar@example.com, baz@example.com', // list of receivers
+  //   subject: 'Hello ✔', // Subject line
+  //   text: 'Hello world?', // plain text body
+  //   html: '<b>Hello world?</b>' // html body
+  // };
+  
+  // // send mail with defined transport object
+  // transporter.sendMail(mailOptions, (error, info) => {
+  //   if (error) {
+  //       return console.log(error);
+  //   }
+  //   console.log('Message sent: %s', info.messageId);
+  //   // Preview only available when sending through an Ethereal account
+  //   console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+  
+  //   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+  //   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+  // });
+  
 
   res.send(user);
 };

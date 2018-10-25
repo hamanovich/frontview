@@ -41,10 +41,13 @@ exports.getQLists = async (req, res) => {
 };
 
 exports.getQListQuestions = async (req, res) => {
-  const qlist = await QList.findById(req.params._id);
+  console.log(req.params.slug, '----M<')
+  const qlist = await QList.findOne({ slug: req.params.slug });
+
+  console.log(qlist);
 
   if (!qlist) {
-    res.status(404).json({ error: 'QList didn\'t find' });
+    res.status(404).json({ error: `QList ${slug} didn't find` });
     return;
   }
 
