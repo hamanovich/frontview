@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import map from 'lodash/map';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import compose from 'recompose/compose';
 
@@ -27,7 +28,7 @@ const enhance = compose(
 
 const Questions = ({ user, qlists, questions, editQuestionField }) => (
   <div>
-    {map(questions, question => (
+    {questions.length ? map(questions, question => (
       <Question
         question={question}
         editQuestionField={editQuestionField}
@@ -35,7 +36,7 @@ const Questions = ({ user, qlists, questions, editQuestionField }) => (
         user={user}
         qlists={qlists}
       />
-    ))}
+    )) : <span>You have no added questions. <Link to="/questions/add">Try it now</Link></span>}
   </div>
 );
 

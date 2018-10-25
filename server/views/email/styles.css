@@ -112,7 +112,6 @@ ol {
     margin-left: 5px; }
 
 a {
-  color: maroon;
   text-decoration: underline; }
 
 /* -------------------------------------
@@ -134,7 +133,6 @@ a {
     border: solid 1px maroon;
     border-radius: 5px;
     box-sizing: border-box;
-    color: maroon;
     cursor: pointer;
     display: inline-block;
     font-size: 14px;
@@ -144,11 +142,7 @@ a {
     text-decoration: none;
     text-transform: capitalize; }
 
-.btn-primary table td {
-  background-color: maroon; }
-
 .btn-primary a {
-  background-color: maroon;
   border-color: maroon;
   color: #3a3a3a; }
 

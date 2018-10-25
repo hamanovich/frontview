@@ -14,7 +14,7 @@ exports.getQuestions = async (req, res) => {
   const page = req.params.page || 1;
   const limit = 2;
   const skip = (page * limit) - limit;
-  const countPromise = Question.count();
+  const countPromise = Question.countDocuments();
   const questionsPromise = Question.find().skip(skip).limit(limit);
   const [questions, count] = await Promise.all([questionsPromise, countPromise]);
   const pages = Math.ceil(count / limit);
@@ -28,12 +28,11 @@ exports.getQuestions = async (req, res) => {
 };
 
 exports.getQuestionById = async (req, res) => {
-  const question = await Question.findById(req.params.id)
-    .exec((err) => {
-      if (err) {
-        res.status(500).json({ error: `Question with id='${req.params.id}' didn't find` });
-      }
-    });
+  const question = await Question.findById(req.params.id, (err) => {
+    if (err) {
+      res.status(500).json({ error: `Question with id='${req.params.id}' didn't find` });
+    }
+  });
 
   if (question) {
     res.json(question);

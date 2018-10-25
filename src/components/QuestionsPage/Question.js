@@ -11,8 +11,6 @@ import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
 import Label from 'react-bootstrap/lib/Label';
 import Well from 'react-bootstrap/lib/Well';
-import ListGroup from 'react-bootstrap/lib/ListGroup';
-import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 import Modal from 'react-bootstrap/lib/Modal';
 import Panel from 'react-bootstrap/lib/Panel';
 import FormControl from 'react-bootstrap/lib/FormControl';
@@ -30,10 +28,6 @@ const Badge = styled(Label) `
 
 const LinkStyled = styled(Link) `
   margin-top: 7px;
-`;
-
-const ListItem = styled(ListGroupItem) `
-  white-space: pre-wrap
 `;
 
 const { arrayOf, func } = PropTypes;
@@ -110,28 +104,29 @@ class Question extends Component {
 
     return (
       <Panel header={panelHeader} footer={panelFooter}>
-        <ListGroup fill>
-          <ListItem onClick={this.open(question.answer, 'answer')}>
-            <MarkdownRenderer markdown={question.answer} />
-          </ListItem>
-          {map(question.answers, (question, index) => (
-            <ListItem
-              key={shortid.generate()}
-              onClick={this.open(question, `answers.${index}.text`)}
-            >
-              <MarkdownRenderer markdown={question.text} />
-            </ListItem>
-          ))}
-        </ListGroup>
+        <div onClick={this.open(question.answer, 'answer')}>
+          <MarkdownRenderer markdown={question.answer} />
+        </div>
+        {map(question.answers, (question, index) => (
+          <div
+            key={shortid.generate()}
+            onClick={this.open(question, `answers.${index}.text`)}
+          >
+            <MarkdownRenderer markdown={question.text} />
+          </div>
+        ))}
+
+        <hr />
 
         {question.notes &&
           <Well onClick={this.open(question.notes, 'notes')}>
             <MarkdownRenderer markdown={question.notes} />
           </Well>}
 
-        <small><strong>Author</strong>:
-          <Link to={`/questions/author/${question.author.username}`}>{question.author.username}</Link>
-        </small>
+        {question.author &&
+          <small><strong>Author</strong>:
+            <Link to={`/questions/author/${question.author.username}`}>{question.author.username}</Link>
+          </small>}
 
         <Link to={`/questions/${question.slug}/one`} className="pull-right">
           <FontAwesome name="comments-o" /> {question.comments && question.comments.length}
@@ -139,7 +134,7 @@ class Question extends Component {
 
         <hr />
 
-        {user.username === question.author.username &&
+        {question.author && user.username === question.author.username &&
           <ButtonGroup bsSize="small" className="pull-right">
             <Link to={`/questions/${question._id}/edit`} className="btn btn-warning">Edit</Link>
           </ButtonGroup>

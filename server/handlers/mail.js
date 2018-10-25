@@ -2,7 +2,6 @@ import nodemailer from 'nodemailer';
 import pug from 'pug';
 import juice from 'juice';
 import htmlToText from 'html-to-text';
-import promisify from 'es6-promisify';
 
 require('dotenv').config({ path: 'variables.env' });
 
@@ -24,10 +23,9 @@ export function send(options) {
     from: options.from,
     to: options.user.email,
     subject: options.subject,
-    html,
-    text
+    text,
+    html
   };
-  const sendMail = promisify(transport.sendMail, transport);
 
-  return sendMail(mailOptions);
+  return transport.sendMail(mailOptions);
 }

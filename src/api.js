@@ -23,7 +23,7 @@ export default {
     getUser: identifier => axios.get(`/api/users/${identifier}`)
       .then(res => res.data),
 
-    remove: username => axios.delete(`/api/users/${username}`),
+    remove: username => axios.delete(`/api/user/${username}`),
 
     update: user => axios.put(`/api/user/${user.username}`, user)
   },
