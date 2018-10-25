@@ -99,10 +99,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "eslint"
-    ],
-    "*.{js,css}": [
-      "prettier-eslint --list-different"
+      "./node_modules/.bin/eslint"
     ]
   }
 }
