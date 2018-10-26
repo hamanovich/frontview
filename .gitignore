@@ -23,5 +23,7 @@ yarn-error.log*
 variables.env
 
 .vscode
+.idea
 
 package-lock.json
+yarn.lock

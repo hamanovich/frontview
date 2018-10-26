@@ -13,7 +13,7 @@ exports.auth = async (req, res) => {
   }
 
   if (!user.confirmed) {
-    res.status(401).json({ error: 'You didn\'t confirm your email. Before login, please do it' });
+    res.status(401).json({ error: "You didn't confirm your email. Before login, please do it" });
     return;
   }
 
@@ -25,15 +25,17 @@ exports.auth = async (req, res) => {
 };
 
 exports.confirm = async (req, res) => {
-  const token = req.body.token;
+  const { token } = req.body;
   const user = await User.findOneAndUpdate(
     { confirmationToken: token },
     { confirmationToken: undefined, confirmed: true },
-    { new: true }
+    { new: true },
   );
 
   if (!user) {
-    res.status(400).json({ error: 'Ooops. Invalid token it seems. Or you have already confirmed it' });
+    res
+      .status(400)
+      .json({ error: 'Ooops. Invalid token it seems. Or you have already confirmed it' });
     return;
   }
 
@@ -53,14 +55,16 @@ exports.forgot = async (req, res) => {
 
   await user.save();
 
-  const resetURL = `http://${req.headers['x-forwarded-host']}/login/reset/${user.resetPasswordToken}`;
+  const resetURL = `http://${req.headers['x-forwarded-host']}/login/reset/${
+    user.resetPasswordToken
+  }`;
 
   await send({
     user,
     from: 'Siarhei Hamanovich <siarhei_hamanovich@epam.com>',
     filename: 'password-reset',
     subject: 'Password Reset',
-    resetURL
+    resetURL,
   });
 
   res.json({ emailed: 'You have been emailed a password reset link. Please, check your email.' });
@@ -69,7 +73,7 @@ exports.forgot = async (req, res) => {
 exports.reset = async (req, res) => {
   const user = await User.findOne({
     resetPasswordToken: req.params.token,
-    resetPasswordExpires: { $gt: Date.now() }
+    resetPasswordExpires: { $gt: Date.now() },
   });
 
   if (!user) {
@@ -92,7 +96,7 @@ exports.confirmedPasswords = (req, res, next) => {
 exports.update = async (req, res) => {
   const user = await User.findOne({
     resetPasswordToken: req.params.token,
-    resetPasswordExpires: { $gt: Date.now() }
+    resetPasswordExpires: { $gt: Date.now() },
   });
 
   if (!user) {

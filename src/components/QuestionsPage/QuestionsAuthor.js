@@ -9,7 +9,8 @@ import Questions from './Questions';
 const QuestionsAuthor = ({ user }) => (
   <div>
     <PageHeader>
-      <FontAwesome name="file-text-o" /> {user.username}&apos;s Questions
+      <FontAwesome name="file-text-o" /> {user.username}
+      &apos;s Questions
     </PageHeader>
 
     <Questions />
@@ -20,8 +21,8 @@ const { shape, string } = PropTypes;
 
 QuestionsAuthor.propTypes = {
   user: shape({
-    username: string
-  }).isRequired
+    username: string,
+  }).isRequired,
 };
 
 export default QuestionsAuthor;

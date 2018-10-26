@@ -12,10 +12,10 @@ export default PropTypes.shape({
   questions: PropTypes.arrayOf(PropTypes.string),
   votes: PropTypes.shape({
     like: PropTypes.arrayOf(PropTypes.string),
-    dislike: PropTypes.arrayOf(PropTypes.string)
+    dislike: PropTypes.arrayOf(PropTypes.string),
   }),
   phone: PropTypes.string,
   notes: PropTypes.string,
   gravatar: PropTypes.string,
-  role: PropTypes.oneOf(['user', 'owner', 'admin'])
+  role: PropTypes.oneOf(['user', 'owner', 'admin']),
 });

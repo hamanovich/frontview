@@ -24,21 +24,24 @@ import validate from '../../validations/account';
 
 import { getUser, updateUser } from '../../actions/signup';
 
-const MediaImage = styled(Image) `
+const MediaImage = styled(Image)`
   width: 100px;
   height: 100px;
   max-width: 100px;
 `;
 
 const enhance = compose(
-  connect(null, {
-    getUser,
-    updateUser,
-  }),
+  connect(
+    null,
+    {
+      getUser,
+      updateUser,
+    },
+  ),
 
   reduxForm({
     form: 'AccountEdit',
-    validate
+    validate,
   }),
 
   withState('isLoading', 'setLoading', false),
@@ -47,13 +50,12 @@ const enhance = compose(
     componentDidMount() {
       const { getUser, user, initialize } = this.props;
 
-      getUser(user.username)
-        .then(res => initialize(res.user));
-    }
+      getUser(user.username).then(res => initialize(res.user));
+    },
   }),
 
   withHandlers({
-    onSubmit: props => (values) => {
+    onSubmit: props => values => {
       const { updateUser, history, setLoading } = props;
 
       setLoading(true);
@@ -61,28 +63,38 @@ const enhance = compose(
       updateUser(values)
         .then(() => history.push('/me'))
         .catch(() => setLoading(false));
-    }
-  })
+    },
+  }),
 );
 
 const AccountEdit = ({ isLoading, handleSubmit, onSubmit, user }) => (
   <section>
     <PageHeader>
       <FontAwesome name="pencil-square-o" /> Edit your account
-  </PageHeader>
+    </PageHeader>
 
     <Form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Media>
         <Media.Left>
-          <MediaImage
-            src={user.gravatar}
-            thumbnail
-          />
+          <MediaImage src={user.gravatar} thumbnail />
         </Media.Left>
         <Media.Body>
           <Media.Heading>Gravatar image</Media.Heading>
-          <p>A Gravatar is a <b>G</b>lobally <b>R</b>ecognized <b>Avatar</b>. You upload it and create your profile just once, and then when you participate in any Gravatar-enabled site, your Gravatar image will automatically follow you there.</p>
-          <p>To change avatar: <a href="https://gravatar.com" target="_blank" rel="noopener noreferrer">Go to gravatar</a></p>
+          <p>
+            A Gravatar is a<b>G</b>
+            lobally
+            <b>R</b>
+            ecognized
+            <b>Avatar</b>. You upload it and create your profile just once, and then when you
+            participate in any Gravatar-enabled site, your Gravatar image will automatically follow
+            you there.
+          </p>
+          <p>
+            To change avatar:
+            <a href="https://gravatar.com" target="_blank" rel="noopener noreferrer">
+              Go to gravatar
+            </a>
+          </p>
         </Media.Body>
       </Media>
 
@@ -195,12 +207,9 @@ const AccountEdit = ({ isLoading, handleSubmit, onSubmit, user }) => (
         placeholder="Repeat your password"
       />
 
-      <Button
-        type="submit"
-        bsStyle="primary"
-        bsSize="large"
-        disabled={isLoading}
-      >Update profile</Button>
+      <Button type="submit" bsStyle="primary" bsSize="large" disabled={isLoading}>
+        Update profile
+      </Button>
     </Form>
   </section>
 );
@@ -213,7 +222,7 @@ AccountEdit.propTypes = {
   isLoading: bool.isRequired,
   user: shape({
     username: string,
-    gravatar: string
+    gravatar: string,
   }).isRequired,
 };
 

@@ -22,11 +22,11 @@ import SearchForm from './SearchForm';
 
 import { UserType } from '../../propTypes';
 
-const Menu = styled(Navbar) `
+const Menu = styled(Navbar)`
   border-radius: 0;
 `;
 
-const MediaImage = styled(Image) `
+const MediaImage = styled(Image)`
   width: 25px;
   height: 25px;
   max-width: 25px;
@@ -39,20 +39,20 @@ class Header extends Component {
   static propTypes = {
     auth: shape({
       isAuthenticated: bool.isRequired,
-      user: UserType.isRequired
+      user: UserType.isRequired,
     }).isRequired,
     getSearchedQuestions: func.isRequired,
     getUser: func.isRequired,
     addFlashMessage: func.isRequired,
-    logout: func.isRequired
+    logout: func.isRequired,
   };
 
   static contextTypes = {
     router: shape({
       history: shape({
-        push: func.isRequired
-      }).isRequired
-    }).isRequired
+        push: func.isRequired,
+      }).isRequired,
+    }).isRequired,
   };
 
   componentDidMount() {
@@ -62,34 +62,34 @@ class Header extends Component {
     }
   }
 
-  onSearch = (values) => {
+  onSearch = values => {
     const { getSearchedQuestions, addFlashMessage } = this.props;
     const { history } = this.context.router;
 
     if (!values.search) return;
 
-    getSearchedQuestions(values.search).then(
-      (res) => {
-        if (!res.length) {
-          addFlashMessage({
-            type: 'warn',
-            text: `Nothing found by search = ${values.search}`
-          });
+    getSearchedQuestions(values.search).then(res => {
+      if (!res.length) {
+        addFlashMessage({
+          type: 'warn',
+          text: `Nothing found by search = ${values.search}`,
+        });
 
-          return;
-        }
-
-        history.push(`/questions/search?q=${values.search}`);
+        return;
       }
-    );
+
+      history.push(`/questions/search?q=${values.search}`);
+    });
   };
 
   render() {
     const { auth, logout, getSearchedQuestions, addFlashMessage } = this.props;
-    const userPick = (<span>
-      <MediaImage src={auth.user.gravatar} circle />
-      {auth.user.username}
-    </span>);
+    const userPick = (
+      <span>
+        <MediaImage src={auth.user.gravatar} circle />
+        {auth.user.username}
+      </span>
+    );
     const userLinks = (
       <Nav pullRight>
         <NavDropdown title="Menu" id="menu-dropdown">
@@ -157,10 +157,14 @@ class Header extends Component {
     const guestLinks = (
       <Nav pullRight>
         <LinkContainer to="/signup">
-          <NavItem><FontAwesome name="user-plus" /> Sign Up</NavItem>
+          <NavItem>
+            <FontAwesome name="user-plus" /> Sign Up
+          </NavItem>
         </LinkContainer>
         <LinkContainer to="/login">
-          <NavItem><FontAwesome name="user-circle" /> Login</NavItem>
+          <NavItem>
+            <FontAwesome name="user-circle" /> Login
+          </NavItem>
         </LinkContainer>
       </Nav>
     );
@@ -190,7 +194,12 @@ const mapStateToProps = state => ({ auth: state.auth });
 
 export default connect(
   mapStateToProps,
-  { logout, getUser, getSearchedQuestions, addFlashMessage },
+  {
+    logout,
+    getUser,
+    getSearchedQuestions,
+    addFlashMessage,
+  },
   null,
-  { pure: false }
+  { pure: false },
 )(Header);

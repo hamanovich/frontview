@@ -7,7 +7,7 @@ exports.add = async (req, res) => {
     author: userId,
     question: questionId,
     text: comment,
-    topic
+    topic,
   });
 
   res.send(newComment);

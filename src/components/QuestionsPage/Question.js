@@ -22,11 +22,11 @@ import Loader from '../../utils/Loader';
 
 import { QuestionType, UserType, QListType } from '../../propTypes';
 
-const Badge = styled(Label) `
+const Badge = styled(Label)`
   margin: 0 3px;
 `;
 
-const LinkStyled = styled(Link) `
+const LinkStyled = styled(Link)`
   margin-top: 7px;
 `;
 
@@ -37,17 +37,17 @@ class Question extends Component {
     question: QuestionType.isRequired,
     user: UserType.isRequired,
     qlists: arrayOf(QListType),
-    editQuestionField: func.isRequired
+    editQuestionField: func.isRequired,
   };
 
   static defaultProps = {
-    qlists: []
+    qlists: [],
   };
 
   state = {
     showModal: false,
     textField: null,
-    answerField: null
+    answerField: null,
   };
 
   open = (answerField, field) => () => {
@@ -57,7 +57,7 @@ class Question extends Component {
       this.setState({
         showModal: true,
         answerField,
-        textField: field
+        textField: field,
       });
     }
   };
@@ -65,7 +65,7 @@ class Question extends Component {
   close = () => {
     this.setState({
       showModal: false,
-      answerField: null
+      answerField: null,
     });
   };
 
@@ -93,7 +93,10 @@ class Question extends Component {
         <h5 className="pull-left">
           <strong>Skill</strong>:
           {map(question.skill, skill => (
-            <Link to={`/questions/skill/${skill}`} key={skill}>{' '}{skill}</Link>
+            <Link to={`/questions/skill/${skill}`} key={skill}>
+              {' '}
+              {skill}
+            </Link>
           ))}
         </h5>
         <LinkStyled to={`/questions/practice/${question.practice}`} className="pull-right">
@@ -103,76 +106,86 @@ class Question extends Component {
     );
 
     return (
-      <Panel header={panelHeader} footer={panelFooter}>
-        <div onClick={this.open(question.answer, 'answer')}>
-          <MarkdownRenderer markdown={question.answer} />
-        </div>
-        {map(question.answers, (question, index) => (
-          <div
-            key={shortid.generate()}
-            onClick={this.open(question, `answers.${index}.text`)}
-          >
-            <MarkdownRenderer markdown={question.text} />
+      <Panel>
+        <Panel.Heading>{panelHeader}</Panel.Heading>
+        <Panel.Body>
+          <div onClick={this.open(question.answer, 'answer')}>
+            <MarkdownRenderer markdown={question.answer} />
           </div>
-        ))}
+          {map(question.answers, (question, index) => (
+            <div key={shortid.generate()} onClick={this.open(question, `answers.${index}.text`)}>
+              <MarkdownRenderer markdown={question.text} />
+            </div>
+          ))}
 
-        <hr />
+          <hr />
 
-        {question.notes &&
-          <Well onClick={this.open(question.notes, 'notes')}>
-            <MarkdownRenderer markdown={question.notes} />
-          </Well>}
+          {question.notes && (
+            <Well onClick={this.open(question.notes, 'notes')}>
+              <MarkdownRenderer markdown={question.notes} />
+            </Well>
+          )}
 
-        {question.author &&
-          <small><strong>Author</strong>:
-            <Link to={`/questions/author/${question.author.username}`}>{question.author.username}</Link>
-          </small>}
+          {question.author && (
+            <small>
+              <strong>Author</strong>:
+              <Link to={`/questions/author/${question.author.username}`}>
+                {question.author.username}
+              </Link>
+            </small>
+          )}
 
-        <Link to={`/questions/${question.slug}/one`} className="pull-right">
-          <FontAwesome name="comments-o" /> {question.comments && question.comments.length}
-        </Link>
+          <Link to={`/questions/${question.slug}/one`} className="pull-right">
+            <FontAwesome name="comments-o" /> {question.comments && question.comments.length}
+          </Link>
 
-        <hr />
+          <hr />
 
-        {question.author && user.username === question.author.username &&
-          <ButtonGroup bsSize="small" className="pull-right">
-            <Link to={`/questions/${question._id}/edit`} className="btn btn-warning">Edit</Link>
-          </ButtonGroup>
-        }
+          {question.author &&
+            user.username === question.author.username && (
+              <ButtonGroup bsSize="small" className="pull-right">
+                <Link to={`/questions/${question._id}/edit`} className="btn btn-warning">
+                  Edit
+                </Link>
+              </ButtonGroup>
+            )}
 
-        {user.username &&
-          <Toolbar
-            question={question}
-            user={user}
-            qlists={qlists}
-          />
-        }
+          {user.username && <Toolbar question={question} user={user} qlists={qlists} />}
 
-        <Modal show={this.state.showModal} onHide={this.close}>
-          <Modal.Header closeButton>
-            <Modal.Title>Change value: <strong>{textField}</strong></Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <form>
-              <FormGroup controlId="formControlsTextarea">
-                <ControlLabel>Change Field and press Update button</ControlLabel>
-                <FormControl
-                  name={textField}
-                  componentClass="textarea"
-                  inputRef={(ref) => { this.textField = ref; }}
-                  defaultValue={(answerField && answerField.text)
-                    ? answerField.text
-                    : answerField}
-                  rows="10"
-                />
-              </FormGroup>
-              <Button
-                bsStyle="primary"
-                onClick={() => { editQuestionField(question._id, textField, this.textField.value); this.close(); }}
-              >Update</Button>
-            </form>
-          </Modal.Body>
-        </Modal>
+          <Modal show={this.state.showModal} onHide={this.close}>
+            <Modal.Header closeButton>
+              <Modal.Title>
+                Change value:
+                <strong>{textField}</strong>
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <form>
+                <FormGroup controlId="formControlsTextarea">
+                  <ControlLabel>Change Field and press Update button</ControlLabel>
+                  <FormControl
+                    name={textField}
+                    componentClass="textarea"
+                    inputRef={ref => {
+                      this.textField = ref;
+                    }}
+                    defaultValue={answerField && answerField.text ? answerField.text : answerField}
+                    rows="10"
+                  />
+                </FormGroup>
+                <Button
+                  bsStyle="primary"
+                  onClick={() => {
+                    editQuestionField(question._id, textField, this.textField.value);
+                    this.close();
+                  }}>
+                  Update
+                </Button>
+              </form>
+            </Modal.Body>
+          </Modal>
+        </Panel.Body>
+        <Panel.Footer>{panelFooter}</Panel.Footer>
       </Panel>
     );
   }

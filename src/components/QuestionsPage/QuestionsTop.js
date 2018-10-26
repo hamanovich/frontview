@@ -17,11 +17,11 @@ const LabelGroup = styled.span`
   .label {
     margin: 0 3px;
 
-    &:first-child{
+    &:first-child {
       margin-left: 0;
     }
 
-    &:last-child{
+    &:last-child {
       margin-right: 0;
     }
   }
@@ -44,22 +44,27 @@ const QuestionsTop = ({ questions }) => (
         <ListGroupItem
           header={`${index + 1}. ${question.question}`}
           href={`/questions/${question.slug}/one`}
-          key={question.slug}
-        >
+          key={question.slug}>
           <LabelGroup>
             <Label bsStyle="warning">{question.practice}</Label>
           </LabelGroup>
           {' | '}
           <LabelGroup>
-            {question.level && map(question.level, level => (
-              <Label bsStyle="primary" key={level}>{level}</Label>
-            ))}
+            {question.level &&
+              map(question.level, level => (
+                <Label bsStyle="primary" key={level}>
+                  {level}
+                </Label>
+              ))}
           </LabelGroup>
           {' | '}
           <LabelGroup>
-            {question.skill && map(question.skill, skill => (
-              <Label bsStyle="primary" key={skill}>{skill}</Label>
-            ))}
+            {question.skill &&
+              map(question.skill, skill => (
+                <Label bsStyle="primary" key={skill}>
+                  {skill}
+                </Label>
+              ))}
           </LabelGroup>
           <LabelVoted>
             <FontAwesome name="thumbs-o-up" /> {question.votes.like.length}
@@ -71,7 +76,7 @@ const QuestionsTop = ({ questions }) => (
 );
 
 QuestionsTop.propTypes = {
-  questions: PropTypes.arrayOf(QuestionType).isRequired
+  questions: PropTypes.arrayOf(QuestionType).isRequired,
 };
 
 export default Loader('questions')(QuestionsTop);

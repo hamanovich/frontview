@@ -13,13 +13,13 @@ import Loader from '../../utils/Loader';
 
 import { CommentType } from '../../propTypes';
 
-const MediaImage = styled(Image) `
+const MediaImage = styled(Image)`
   width: 50px;
   height: 50px;
   max-width: 50px;
 `;
 
-const Question = styled(Link) `
+const Question = styled(Link)`
   display: inline-block;
   margin-bottom: 5px;
   font-size: 24px;
@@ -28,18 +28,14 @@ const Question = styled(Link) `
 const Comment = ({ comment, match }) => (
   <Media>
     <Media.Left>
-      <MediaImage
-        src={comment.author.gravatar}
-        alt={comment.author.username}
-        thumbnail
-      />
+      <MediaImage src={comment.author.gravatar} alt={comment.author.username} thumbnail />
     </Media.Left>
     <Media.Body>
-      {match &&
+      {match && (
         <Question to={`/questions/${comment.question.slug}/one`}>
           {comment.question.question}
         </Question>
-      }
+      )}
       <Media.Heading>{comment.topic}</Media.Heading>
       <MarkdownRenderer markdown={comment.text} />
       <Label bsStyle="info">{comment.author.username}</Label>
@@ -58,13 +54,13 @@ Comment.propTypes = {
   comment: CommentType.isRequired,
   match: shape({
     params: shape({
-      username: string.isRequired
-    }).isRequired
-  })
+      username: string.isRequired,
+    }).isRequired,
+  }),
 };
 
 Comment.defaultProps = {
-  match: null
+  match: null,
 };
 
 export default Loader('comment')(Comment);

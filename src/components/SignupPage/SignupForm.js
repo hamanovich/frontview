@@ -18,19 +18,19 @@ class SignupForm extends Component {
     reset: func.isRequired,
     addFlashMessage: func.isRequired,
     isUserExists: func.isRequired,
-    handleSubmit: func.isRequired
+    handleSubmit: func.isRequired,
   };
 
   state = {
     errors: {
       username: '',
-      email: ''
+      email: '',
     },
     isLoading: false,
-    invalid: false
+    invalid: false,
   };
 
-  onSubmit = (values) => {
+  onSubmit = values => {
     const { addFlashMessage, signup, reset } = this.props;
 
     this.setState({ errors: {}, isLoading: true });
@@ -39,21 +39,21 @@ class SignupForm extends Component {
       .then(() => {
         addFlashMessage({
           type: 'warn',
-          text: 'Please, verify your email to confirm'
+          text: 'Please, verify your email to confirm',
         });
 
         reset();
       })
       .catch(err => this.setState({ errors: err.response.data, isLoading: false }));
-  }
+  };
 
-  checkUserExists = (e) => {
+  checkUserExists = e => {
     const { isUserExists } = this.props;
     const { name, value } = e.target;
-    const errors = this.state.errors;
+    const { errors } = this.state;
 
     if (value !== '') {
-      isUserExists(value).then((res) => {
+      isUserExists(value).then(res => {
         let invalid;
 
         if (res.data.username) {
@@ -120,8 +120,10 @@ class SignupForm extends Component {
           type="submit"
           bsStyle="primary"
           bsSize="large"
-          disabled={isLoading || invalid || !!(errors.username || errors.email)}
-        >Register <FontAwesome name="users" /></Button>
+          disabled={isLoading || invalid || !!(errors.username || errors.email)}>
+          Register
+          <FontAwesome name="users" />
+        </Button>
       </Form>
     );
   }
@@ -129,5 +131,5 @@ class SignupForm extends Component {
 
 export default reduxForm({
   form: 'SignupForm',
-  validate
+  validate,
 })(SignupForm);

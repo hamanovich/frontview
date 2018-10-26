@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import axios from 'axios';
 
-import Authorization from '../utils/Authorization';
+import Authorization from './Authorization';
 
 export const isLoggedIn = Authorization();
 export const User = Authorization(['user', 'owner', 'admin']);
@@ -13,17 +13,15 @@ export const Admin = Authorization(['admin']);
 export const PropsRoute = ({ component, ...rest }) => (
   <Route
     {...rest}
-    render={
-      routeProps => React.createElement(component, { ...routeProps, ...rest })
-    }
+    render={routeProps => React.createElement(component, { ...routeProps, ...rest })}
   />
 );
 
 PropsRoute.propTypes = {
-  component: PropTypes.func.isRequired
+  component: PropTypes.func.isRequired,
 };
 
-export const setAuthorizationToken = (token) => {
+export const setAuthorizationToken = token => {
   if (token) {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   } else {

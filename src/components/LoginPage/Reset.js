@@ -19,40 +19,39 @@ import validate from '../../validations/reset';
 const enhance = compose(
   reduxForm({
     form: 'Reset',
-    validate
+    validate,
   }),
 
   withState('state', 'setState', {
     error: '',
-    isLoading: false
+    isLoading: false,
   }),
 
   lifecycle({
     componentDidMount() {
       const { getReset, addFlashMessage, match } = this.props;
 
-      getReset(match.params.token)
-        .catch(err =>
-          addFlashMessage({
-            type: 'error',
-            text: err.response.data.error
-          })
-        );
-    }
+      getReset(match.params.token).catch(err =>
+        addFlashMessage({
+          type: 'error',
+          text: err.response.data.error,
+        }),
+      );
+    },
   }),
 
   withHandlers({
-    onSubmit: props => (values) => {
+    onSubmit: props => values => {
       const { resetToken, addFlashMessage, match, history, setState } = props;
 
       setState({ errors: {}, isLoading: true });
 
       resetToken(match.params.token, values)
-        .then((res) => {
+        .then(res => {
           if (res.error) {
             setState({
               error: res.error,
-              isLoading: false
+              isLoading: false,
             });
 
             return;
@@ -60,17 +59,19 @@ const enhance = compose(
 
           addFlashMessage({
             type: 'success',
-            text: 'Password successfully updated. Please login'
+            text: 'Password successfully updated. Please login',
           });
 
           history.push('/');
         })
-        .catch(err => setState({
-          error: err.response.data.error,
-          isLoading: false
-        }));
-    }
-  })
+        .catch(err =>
+          setState({
+            error: err.response.data.error,
+            isLoading: false,
+          }),
+        );
+    },
+  }),
 );
 
 const Reset = ({ handleSubmit, onSubmit, state }) => (
@@ -96,12 +97,9 @@ const Reset = ({ handleSubmit, onSubmit, state }) => (
         placeholder="Repeat your mad password"
       />
 
-      <Button
-        type="submit"
-        bsStyle="warning"
-        bsSize="large"
-        disabled={state.isLoading}
-      >Reset</Button>
+      <Button type="submit" bsStyle="warning" bsSize="large" disabled={state.isLoading}>
+        Reset
+      </Button>
     </Form>
   </section>
 );
@@ -113,8 +111,8 @@ Reset.propTypes = {
   onSubmit: func.isRequired,
   state: shape({
     error: string,
-    isLoading: bool.isRequired
-  }).isRequired
+    isLoading: bool.isRequired,
+  }).isRequired,
 };
 
 export default enhance(Reset);

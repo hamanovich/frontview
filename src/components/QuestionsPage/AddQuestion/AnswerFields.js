@@ -11,7 +11,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 
 import { TextareaField } from '../../formElements';
 
-const Remove = styled(Button) `
+const Remove = styled(Button)`
   margin-top: 24px;
 `;
 
@@ -41,7 +41,9 @@ const AnswerFields = ({ fields, meta: { touched, error, submitFailed } }) => (
     ))}
 
     <FormGroup>
-      <Button bsStyle="success" onClick={fields.push}>Add Answer</Button>
+      <Button bsStyle="success" onClick={fields.push}>
+        Add Answer
+      </Button>
     </FormGroup>
   </div>
 );
@@ -57,8 +59,8 @@ AnswerFields.propTypes = {
   meta: shape({
     touched: bool,
     error: string,
-    submitFailed: bool
-  }).isRequired
+    submitFailed: bool,
+  }).isRequired,
 };
 
 export default AnswerFields;

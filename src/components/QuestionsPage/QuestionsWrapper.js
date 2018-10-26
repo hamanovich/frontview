@@ -7,7 +7,7 @@ import {
   getQuestions,
   getTopQuestions,
   getSearchedQuestions,
-  getQuestionsByAuthor
+  getQuestionsByAuthor,
 } from '../../actions/questions';
 import { getQLists } from '../../actions/qlists';
 
@@ -15,7 +15,7 @@ import { QuestionType } from '../../propTypes';
 
 const { shape, func, string, arrayOf } = PropTypes;
 
-export default (WrappedComponent) => {
+export default WrappedComponent => {
   class QuestionsWrapper extends Component {
     static propTypes = {
       questions: arrayOf(QuestionType).isRequired,
@@ -27,7 +27,7 @@ export default (WrappedComponent) => {
       addFlashMessage: func.isRequired,
       user: shape({
         username: string,
-        _id: string
+        _id: string,
       }).isRequired,
       match: shape({
         params: shape({
@@ -35,28 +35,28 @@ export default (WrappedComponent) => {
           tag: string,
           page: string,
           username: string,
-          slug: string
+          slug: string,
         }),
-        path: string
+        path: string,
       }).isRequired,
       location: shape({
-        search: string
+        search: string,
       }).isRequired,
       history: shape({
-        push: func.isRequired
-      }).isRequired
+        push: func.isRequired,
+      }).isRequired,
     };
 
     state = {
       pagination: {
         activePage: 1,
         pages: 0,
-        count: 0
-      }
+        count: 0,
+      },
     };
 
     componentDidMount() {
-      const { match, getTopQuestions, location } = this.props;
+      const { match, location } = this.props;
       const { page = 1, username } = match.params;
       const searchQuery = new URLSearchParams(location.search).get('q');
 
@@ -71,53 +71,61 @@ export default (WrappedComponent) => {
       }
     }
 
-    getPageQuestions = (page) => {
+    getPageQuestions = page => {
       const { getQuestions, getQLists, addFlashMessage, history, user } = this.props;
 
       getQuestions(Number(page))
         .then(({ pages, count }) => {
           this.setState({
-            pagination: { pages, activePage: Number(page), count }
+            pagination: { pages, activePage: Number(page), count },
           });
 
-          getQLists(user._id);
-        }).catch((err) => {
+          if (user._id) getQLists(user._id);
+        })
+        .catch(err => {
           addFlashMessage({
             type: 'error',
-            text: err.response.data.error
+            text: err.response.data.error,
           });
 
           history.push('/questions');
         });
     };
 
-    getAuthorsQuestions = (author) => {
+    getAuthorsQuestions = author => {
       const { getQuestionsByAuthor, getQLists, user, addFlashMessage, history } = this.props;
 
       getQuestionsByAuthor(author)
         .then(() => {
           getQLists(user._id);
         })
-        .catch((err) => {
+        .catch(err => {
           addFlashMessage({
             type: 'error',
-            text: err.response.data.error
+            text: err.response.data.error,
           });
 
           history.push('/questions');
         });
     };
 
-    getQueryQuestions = (query) => {
-      const { getSearchedQuestions, getQLists, addFlashMessage, questions, history, user } = this.props;
+    getQueryQuestions = query => {
+      const {
+        getSearchedQuestions,
+        getQLists,
+        addFlashMessage,
+        questions,
+        history,
+        user,
+      } = this.props;
 
       if (questions.length > 0) return;
 
-      getSearchedQuestions(query).then((res) => {
+      getSearchedQuestions(query).then(res => {
         if (!res.length) {
           addFlashMessage({
             type: 'warn',
-            text: `Nothing found by search = ${query}`
+            text: `Nothing found by search = ${query}`,
           });
 
           history.push('/questions/page/1');
@@ -128,27 +136,25 @@ export default (WrappedComponent) => {
     };
 
     render() {
-      return (
-        <WrappedComponent
-          {...this.props}
-          state={this.state}
-        />
-      );
+      return <WrappedComponent {...this.props} state={this.state} />;
     }
   }
 
   const mapStateToProps = state => ({
     user: state.auth.user,
     questions: state.questions,
-    qlists: state.qlists
+    qlists: state.qlists,
   });
 
-  return connect(mapStateToProps, {
-    addFlashMessage,
-    getQLists,
-    getQuestions,
-    getTopQuestions,
-    getQuestionsByAuthor,
-    getSearchedQuestions
-  })(QuestionsWrapper);
+  return connect(
+    mapStateToProps,
+    {
+      addFlashMessage,
+      getQLists,
+      getQuestions,
+      getTopQuestions,
+      getQuestionsByAuthor,
+      getSearchedQuestions,
+    },
+  )(QuestionsWrapper);
 };

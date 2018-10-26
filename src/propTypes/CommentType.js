@@ -9,5 +9,5 @@ export default PropTypes.shape({
   question: PropTypes.oneOfType([QuestionType, PropTypes.string]),
   topic: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  created: PropTypes.string.isRequired
+  created: PropTypes.string.isRequired,
 });

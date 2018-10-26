@@ -31,20 +31,20 @@ class QuestionOne extends Component {
     addComment: func.isRequired,
     match: shape({
       params: shape({
-        slug: string.isRequired
-      }).isRequired
+        slug: string.isRequired,
+      }).isRequired,
     }).isRequired,
     question: QuestionType,
     user: UserType.isRequired,
     qlists: arrayOf(QListType).isRequired,
     editQuestionField: func.isRequired,
     history: shape({
-      push: func.isRequired
-    }).isRequired
+      push: func.isRequired,
+    }).isRequired,
   };
 
   static defaultProps = {
-    question: null
+    question: null,
   };
 
   componentDidMount = () => {
@@ -55,34 +55,43 @@ class QuestionOne extends Component {
     this.getQuestion(match.params.slug);
   };
 
-  getQuestion = (slug) => {
+  getQuestion = slug => {
     const { getQuestionBySlug, addFlashMessage, history } = this.props;
 
     getQuestionBySlug(slug)
-      .then((res) => {
+      .then(res => {
         if (res.status === 500) {
           addFlashMessage({
             type: 'error',
-            text: res.data.error
+            text: res.data.error,
           });
 
           history.push('/questions/add');
         }
       })
-      .catch((err) => {
+      .catch(err => {
         addFlashMessage({
           type: 'error',
-          text: err.response.data.error
+          text: err.response.data.error,
         });
 
         history.push('/questions/add');
       });
-  }
+  };
 
   render() {
     const { question, addComment, editQuestionField, user, qlists, match } = this.props;
-    const panelHeader = <span><FontAwesome name="comments-o" /> Comments <Badge>{question && question.comments.length}</Badge></span>;
-    const panelAddHeader = <span><FontAwesome name="commenting-o" /> Add a comment</span>;
+    const panelHeader = (
+      <span>
+        <FontAwesome name="comments-o" /> Comments{' '}
+        <Badge>{question && question.comments.length}</Badge>
+      </span>
+    );
+    const panelAddHeader = (
+      <span>
+        <FontAwesome name="commenting-o" /> Add a comment
+      </span>
+    );
 
     return (
       <div>
@@ -95,21 +104,32 @@ class QuestionOne extends Component {
           qlists={qlists}
         />
 
-        <PanelGroup defaultActiveKey="1" accordion>
-          {question && question.comments.length > 0 && (
-            <Panel header={panelHeader} eventKey="1" bsStyle="info">
-              <Comments comments={question.comments} />
-            </Panel>
-          )}
+        <PanelGroup id="accordion-controlled-one" defaultActiveKey="1" accordion>
+          {question &&
+            question.comments.length > 0 && (
+              <Panel eventKey="1" bsStyle="info">
+                <Panel.Heading>
+                  <Panel.Title toggle>{panelHeader}</Panel.Title>
+                </Panel.Heading>
+                <Panel.Body collapsible>
+                  <Comments comments={question.comments} />
+                </Panel.Body>
+              </Panel>
+            )}
           {user.username && (
-            <Panel header={panelAddHeader} eventKey="2" bsStyle="primary">
-              <CommentForm
-                question={question}
-                addComment={addComment}
-                getQuestion={this.getQuestion}
-                user={user}
-                slug={match.params.slug}
-              />
+            <Panel eventKey="2" bsStyle="primary">
+              <Panel.Heading>
+                <Panel.Title toggle>{panelAddHeader}</Panel.Title>
+              </Panel.Heading>
+              <Panel.Body collapsible>
+                <CommentForm
+                  question={question}
+                  addComment={addComment}
+                  getQuestion={this.getQuestion}
+                  user={user}
+                  slug={match.params.slug}
+                />
+              </Panel.Body>
             </Panel>
           )}
         </PanelGroup>
@@ -124,15 +144,18 @@ const mapStateToProps = (state, props) => {
   return {
     user: state.auth.user,
     qlists: state.qlists,
-    question
+    question,
   };
 };
 
-export default connect(mapStateToProps, {
-  getQuestionBySlug,
-  getUser,
-  getQLists,
-  editQuestionField,
-  addComment,
-  addFlashMessage
-})(QuestionOne);
+export default connect(
+  mapStateToProps,
+  {
+    getQuestionBySlug,
+    getUser,
+    getQLists,
+    editQuestionField,
+    addComment,
+    addFlashMessage,
+  },
+)(QuestionOne);

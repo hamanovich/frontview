@@ -22,21 +22,21 @@ import validate from '../../validations/login';
 const enhance = compose(
   reduxForm({
     form: 'Login',
-    validate
+    validate,
   }),
 
   withState('state', 'setState', {
     error: '',
-    isLoading: false
+    isLoading: false,
   }),
 
   withHandlers({
-    onSubmit: props => (values) => {
+    onSubmit: props => values => {
       const { login, history, getUser, setState } = props;
 
       setState({
         error: '',
-        isLoading: true
+        isLoading: true,
       });
 
       login(values)
@@ -44,12 +44,14 @@ const enhance = compose(
           getUser(values.identifier);
           history.push('/');
         })
-        .catch(err => setState({
-          error: err.response.data.error,
-          isLoading: false
-        }));
-    }
-  })
+        .catch(err =>
+          setState({
+            error: err.response.data.error,
+            isLoading: false,
+          }),
+        );
+    },
+  }),
 );
 
 const Login = ({ handleSubmit, onSubmit, state }) => (
@@ -84,13 +86,9 @@ const Login = ({ handleSubmit, onSubmit, state }) => (
         </FormControl.Static>
       </FormGroup>
 
-      <Button
-        type="submit"
-        bsStyle="primary"
-        bsSize="large"
-        disabled={state.isLoading}
-      >
-        Login <FontAwesome name="sign-in" />
+      <Button type="submit" bsStyle="primary" bsSize="large" disabled={state.isLoading}>
+        Login
+        <FontAwesome name="sign-in" />
       </Button>
     </Form>
   </section>
@@ -103,8 +101,8 @@ Login.propTypes = {
   onSubmit: func.isRequired,
   state: shape({
     error: string,
-    isLoading: bool.isRequired
-  }).isRequired
+    isLoading: bool.isRequired,
+  }).isRequired,
 };
 
 export default enhance(Login);

@@ -17,24 +17,23 @@ import { CommentType } from '../../propTypes';
 const enhance = compose(
   connect(
     state => ({ comments: state.comments }),
-    { addFlashMessage, getCommentsByAuthor }
+    { addFlashMessage, getCommentsByAuthor },
   ),
 
   lifecycle({
     componentDidMount() {
       const { match, addFlashMessage, getCommentsByAuthor, history, auth } = this.props;
 
-      getCommentsByAuthor(match.params.username)
-        .catch((err) => {
-          addFlashMessage({
-            type: 'error',
-            text: err.response.data.error
-          });
-
-          history.push(`/comments/${auth.user.username}`);
+      getCommentsByAuthor(match.params.username).catch(err => {
+        addFlashMessage({
+          type: 'error',
+          text: err.response.data.error,
         });
-    }
-  })
+
+        history.push(`/comments/${auth.user.username}`);
+      });
+    },
+  }),
 );
 
 const CommentsAuthorPage = ({ comments, match }) => (
@@ -53,9 +52,9 @@ CommentsAuthorPage.propTypes = {
   comments: arrayOf(CommentType).isRequired,
   match: shape({
     params: shape({
-      username: string.isRequired
-    }).isRequired
-  }).isRequired
+      username: string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default enhance(CommentsAuthorPage);

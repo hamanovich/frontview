@@ -4,18 +4,16 @@ import api from '../api';
 
 export const addComments = comments => ({
   type: COMMENTS_ADD,
-  comments
+  comments,
 });
 
 export const commentAdded = comment => ({
   type: COMMENT_ADD,
-  comment
+  comment,
 });
 
-export const addComment = comment =>
-  dispatch => api.comments.add(comment)
-    .then(comment => dispatch(commentAdded(comment)));
+export const addComment = comment => dispatch =>
+  api.comments.add(comment).then(comment => dispatch(commentAdded(comment)));
 
-export const getCommentsByAuthor = username =>
-  dispatch => api.comments.getByAuthor(username)
-    .then(comments => dispatch(addComments(comments)));
+export const getCommentsByAuthor = username => dispatch =>
+  api.comments.getByAuthor(username).then(comments => dispatch(addComments(comments)));

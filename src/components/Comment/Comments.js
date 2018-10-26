@@ -10,11 +10,7 @@ import { CommentType } from '../../propTypes';
 const Comments = ({ comments, match }) => (
   <section>
     {map(comments, comment => (
-      <Comment
-        comment={comment}
-        match={match}
-        key={comment._id}
-      />
+      <Comment comment={comment} match={match} key={comment._id} />
     ))}
   </section>
 );
@@ -25,13 +21,13 @@ Comments.propTypes = {
   comments: arrayOf(CommentType).isRequired,
   match: shape({
     params: shape({
-      username: string.isRequired
-    }).isRequired
-  })
+      username: string.isRequired,
+    }).isRequired,
+  }),
 };
 
 Comments.defaultProps = {
-  match: null
+  match: null,
 };
 
 export default Loader('comments')(Comments);

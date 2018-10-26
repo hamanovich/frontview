@@ -18,25 +18,34 @@ const enhance = compose(
     state => ({
       user: state.auth.user,
       questions: state.questions,
-      qlists: state.qlists
-    }), {
-      editQuestionField
+      qlists: state.qlists,
     }),
+    {
+      editQuestionField,
+    },
+  ),
 
-  Loader('questions')
+  Loader('questions'),
 );
 
 const Questions = ({ user, qlists, questions, editQuestionField }) => (
   <div>
-    {questions.length ? map(questions, question => (
-      <Question
-        question={question}
-        editQuestionField={editQuestionField}
-        key={question._id}
-        user={user}
-        qlists={qlists}
-      />
-    )) : <span>You have no added questions. <Link to="/questions/add">Try it now</Link></span>}
+    {questions.length ? (
+      map(questions, question => (
+        <Question
+          question={question}
+          editQuestionField={editQuestionField}
+          key={question._id}
+          user={user}
+          qlists={qlists}
+        />
+      ))
+    ) : (
+      <span>
+        You have no added questions.
+        <Link to="/questions/add">Try it now</Link>
+      </span>
+    )}
   </div>
 );
 
@@ -46,7 +55,7 @@ Questions.propTypes = {
   user: UserType.isRequired,
   qlists: arrayOf(QListType).isRequired,
   questions: arrayOf(QuestionType).isRequired,
-  editQuestionField: func.isRequired
+  editQuestionField: func.isRequired,
 };
 
 export default enhance(Questions);

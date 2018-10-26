@@ -2,15 +2,14 @@ import { ADD_FLASH_MESSAGE, DELETE_FLASH_MESSAGE, DELETE_FLASH_MESSAGES } from '
 
 export const addFlashMessage = payload => ({
   type: ADD_FLASH_MESSAGE,
-  payload
+  payload,
 });
 
 export const deleteFlashMessage = payload => ({
   type: DELETE_FLASH_MESSAGE,
-  payload
+  payload,
 });
 
-
 export const deleteFlashMessages = () => ({
-  type: DELETE_FLASH_MESSAGES
+  type: DELETE_FLASH_MESSAGES,
 });

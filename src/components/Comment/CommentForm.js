@@ -21,7 +21,7 @@ import Loader from '../../utils/Loader';
 const enhance = compose(
   reduxForm({
     form: 'CommentForm',
-    validate
+    validate,
   }),
 
   lifecycle({
@@ -29,38 +29,31 @@ const enhance = compose(
       const { initialize, user } = this.props;
 
       initialize({ username: user.username });
-    }
+    },
   }),
 
   withHandlers({
-    onSubmit: props => (values) => {
+    onSubmit: props => values => {
       const { addComment, reset, user, question, getQuestion, slug } = props;
       const query = { ...values, userId: user._id, questionId: question._id };
 
-      addComment(query)
-        .then(() => {
-          reset();
-          getQuestion(slug);
-        });
-    }
+      addComment(query).then(() => {
+        reset();
+        getQuestion(slug);
+      });
+    },
   }),
 
   Loader('question'),
 
-  pure
+  pure,
 );
 
 const CommentForm = ({ handleSubmit, onSubmit }) => (
   <Row>
     <Col md={6} sm={8}>
       <Form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <Field
-          label="Username:"
-          component={TextField}
-          type="text"
-          name="username"
-          readonly
-        />
+        <Field label="Username:" component={TextField} type="text" name="username" readonly />
 
         <Field
           label="Topic*:"
@@ -78,11 +71,9 @@ const CommentForm = ({ handleSubmit, onSubmit }) => (
           placeholder="Put your comment about this question"
         />
 
-        <Button
-          type="submit"
-          bsStyle="info"
-          bsSize="large"
-        >Add a Comment</Button>
+        <Button type="submit" bsStyle="info" bsSize="large">
+          Add a Comment
+        </Button>
       </Form>
     </Col>
   </Row>
@@ -92,7 +83,7 @@ const { func } = PropTypes;
 
 CommentForm.propTypes = {
   handleSubmit: func.isRequired,
-  onSubmit: func.isRequired
+  onSubmit: func.isRequired,
 };
 
 export default enhance(CommentForm);

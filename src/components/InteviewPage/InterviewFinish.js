@@ -19,19 +19,28 @@ const enhance = compose(
       if (!location.state) {
         history.push('/');
       }
-    }
-  })
+    },
+  }),
 );
 
 const InterviewFinish = ({ location }) => (
   <div>
-    {location.state && <div>
-      <h2>Feedback on {location.state.candidate.firstName} {location.state.candidate.lastName}:</h2>
-      <Well className="text-left">
-        <MarkdownRenderer markdown={location.state.feedback.result} />
-      </Well>
-      <p><Link to="/"><FontAwesome name="home" /> Go to the home page</Link></p>
-    </div>}
+    {location.state && (
+      <div>
+        <h2>
+          Feedback on
+          {location.state.candidate.firstName} {location.state.candidate.lastName}:
+        </h2>
+        <Well className="text-left">
+          <MarkdownRenderer markdown={location.state.feedback.result} />
+        </Well>
+        <p>
+          <Link to="/">
+            <FontAwesome name="home" /> Go to the home page
+          </Link>
+        </p>
+      </div>
+    )}
   </div>
 );
 
@@ -42,10 +51,10 @@ InterviewFinish.propTypes = {
     state: shape({
       candidate: CandidateType,
       feedback: shape({
-        result: string
-      })
-    })
-  }).isRequired
+        result: string,
+      }),
+    }),
+  }).isRequired,
 };
 
 export default enhance(InterviewFinish);

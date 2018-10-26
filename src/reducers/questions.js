@@ -7,7 +7,7 @@ import {
   QUESTION_GET,
   QUESTION_REMOVE,
   VOTE_LIKE,
-  VOTE_DISLIKE
+  VOTE_DISLIKE,
 } from '../actions/types';
 
 export default (state = [], action) => {
@@ -18,11 +18,11 @@ export default (state = [], action) => {
     case QUESTION_ADD:
       return [...state, action.question];
 
-    case QUESTION_GET:
+    case QUESTION_GET: {
       const gotIndex = state.findIndex(question => question._id === action.question._id);
 
       if (gotIndex > -1) {
-        return map(state, (question) => {
+        return map(state, question => {
           if (question._id === action.question._id) {
             return action.question;
           }
@@ -32,14 +32,15 @@ export default (state = [], action) => {
       }
 
       return [action.question];
+    }
 
     case QUESTION_EDIT:
     case VOTE_LIKE:
-    case VOTE_DISLIKE:
+    case VOTE_DISLIKE: {
       const editIndex = state.findIndex(question => question._id === action.question._id);
 
       if (editIndex > -1) {
-        return map(state, (question) => {
+        return map(state, question => {
           if (question._id === action.question._id) {
             return action.question;
           }
@@ -49,18 +50,17 @@ export default (state = [], action) => {
       }
 
       return [action.question];
+    }
 
-    case QUESTION_REMOVE:
+    case QUESTION_REMOVE: {
       const removeIndex = state.findIndex(question => question._id === action.question._id);
 
       if (removeIndex > -1) {
-        return [
-          ...state.slice(0, removeIndex),
-          ...state.slice(removeIndex + 1)
-        ];
+        return [...state.slice(0, removeIndex), ...state.slice(removeIndex + 1)];
       }
 
       return state;
+    }
 
     default:
       return state;

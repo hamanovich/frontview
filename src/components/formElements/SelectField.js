@@ -13,28 +13,20 @@ const SelectField = ({
   multiple,
   options,
   size,
-  meta: { touched, error, warning }
+  meta: { touched, error, warning },
 }) => (
   <FormGroup
     controlId={input.name}
-    validationState={touched && error ? 'error' :
-      touched && !error ? 'success' : null}
-  >
+    validationState={touched && error ? 'error' : touched && !error ? 'success' : null}>
     <ControlLabel>{label}</ControlLabel>
-    <select
-      {...input}
-      id={id}
-      size={size}
-      multiple={multiple}
-      className="form-control"
-    >
-      {map(options, o =>
-        <option value={o.value} key={o.value}>{o.title}</option>
-      )}
+    <select {...input} id={id} size={size} multiple={multiple} className="form-control">
+      {map(options, o => (
+        <option value={o.value} key={o.value}>
+          {o.title}
+        </option>
+      ))}
     </select>
-    {touched &&
-      ((error && <HelpBlock>{error}</HelpBlock>) ||
-        (warning && <span>{warning}</span>))}
+    {touched && ((error && <HelpBlock>{error}</HelpBlock>) || (warning && <span>{warning}</span>))}
   </FormGroup>
 );
 
@@ -43,7 +35,7 @@ const { arrayOf, number, shape, string, bool } = PropTypes;
 SelectField.propTypes = {
   input: shape({
     name: string,
-    value: arrayOf(string)
+    value: arrayOf(string),
   }).isRequired,
   id: string.isRequired,
   label: string.isRequired,
@@ -52,17 +44,18 @@ SelectField.propTypes = {
   options: arrayOf(
     shape({
       value: string,
-      title: string
-    })).isRequired,
+      title: string,
+    }),
+  ).isRequired,
   meta: shape({
     touched: bool,
     error: string,
-    warning: string
-  }).isRequired
+    warning: string,
+  }).isRequired,
 };
 
 SelectField.defaultProps = {
-  size: 4
+  size: 4,
 };
 
 export default SelectField;

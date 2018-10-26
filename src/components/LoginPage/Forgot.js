@@ -18,40 +18,47 @@ import validate from '../../validations/forgot';
 const enhance = compose(
   reduxForm({
     form: 'Forgot',
-    validate
+    validate,
   }),
 
   withState('state', 'setState', {
     error: '',
     emailed: '',
-    isLoading: false
+    isLoading: false,
   }),
 
   withHandlers({
-    onSubmit: props => (email) => {
+    onSubmit: props => email => {
       const { forgot, setState } = props;
 
       setState({
         error: '',
-        isLoading: true
+        isLoading: true,
       });
 
       forgot(email)
-        .then(res => setState({
-          emailed: res.emailed,
-          isLoading: false
-        }))
-        .catch(err => setState({
-          error: err.response.data.error,
-          isLoading: false
-        }));
-    }
-  })
+        .then(res =>
+          setState({
+            emailed: res.emailed,
+            isLoading: false,
+          }),
+        )
+        .catch(err =>
+          setState({
+            error: err.response.data.error,
+            isLoading: false,
+          }),
+        );
+    },
+  }),
 );
 
 const Forgot = ({ handleSubmit, onSubmit, state }) => (
   <section>
-    <PageHeader>Forgot your password? <br /> Don&apos;t worry!</PageHeader>
+    <PageHeader>
+      Forgot your password?
+      <br /> Don&apos;t worry!
+    </PageHeader>
     <p>Just put your email and we will send you instructions.</p>
 
     <Form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -66,12 +73,9 @@ const Forgot = ({ handleSubmit, onSubmit, state }) => (
         placeholder="Type your email"
       />
 
-      <Button
-        type="submit"
-        bsStyle="warning"
-        bsSize="large"
-        disabled={state.isLoading}
-      >Send a reset</Button>
+      <Button type="submit" bsStyle="warning" bsSize="large" disabled={state.isLoading}>
+        Send a reset
+      </Button>
     </Form>
   </section>
 );
@@ -84,8 +88,8 @@ Forgot.propTypes = {
   state: shape({
     emailed: string,
     error: string,
-    isLoading: bool.isRequired
-  }).isRequired
+    isLoading: bool.isRequired,
+  }).isRequired,
 };
 
 export default enhance(Forgot);

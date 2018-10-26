@@ -16,21 +16,21 @@ import validate from '../../validations/interviewNotes';
 const enhance = compose(
   reduxForm({
     form: 'InterviewNotesForm',
-    validate
+    validate,
   }),
 
   withHandlers({
-    onSubmit: props => (feedback) => {
+    onSubmit: props => feedback => {
       const { provideFeedback, candidate, push } = props;
 
       provideFeedback(candidate._id, feedback);
 
       push({
         pathname: '/interview/finish',
-        state: { feedback, candidate }
+        state: { feedback, candidate },
       });
-    }
-  })
+    },
+  }),
 );
 
 const InterviewNotesForm = ({ handleSubmit, onSubmit }) => (
@@ -45,11 +45,9 @@ const InterviewNotesForm = ({ handleSubmit, onSubmit }) => (
 
     <HelpBlock>Before Finish be sure that you asked all questions!</HelpBlock>
 
-    <Button
-      type="submit"
-      bsStyle="primary"
-      bsSize="large"
-    >Finish Interview</Button>
+    <Button type="submit" bsStyle="primary" bsSize="large">
+      Finish Interview
+    </Button>
   </Form>
 );
 
@@ -57,7 +55,7 @@ const { func } = PropTypes;
 
 InterviewNotesForm.propTypes = {
   handleSubmit: func.isRequired,
-  onSubmit: func.isRequired
+  onSubmit: func.isRequired,
 };
 
 export default enhance(InterviewNotesForm);

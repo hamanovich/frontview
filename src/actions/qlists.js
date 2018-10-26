@@ -4,45 +4,40 @@ import { QLISTS_ADD, QLIST_ADD, QLIST_GET, QLIST_ADD_QUESTION, QLIST_REMOVE } fr
 
 export const addQlists = qlists => ({
   type: QLISTS_ADD,
-  qlists
+  qlists,
 });
 
 export const qlistAdded = qlist => ({
   type: QLIST_ADD,
-  qlist
+  qlist,
 });
 
 export const qlistGot = qlist => ({
   type: QLIST_GET,
-  qlist
+  qlist,
 });
 
 export const qlistQuestionAdded = qlist => ({
   type: QLIST_ADD_QUESTION,
-  qlist
+  qlist,
 });
 
 export const qlistRemoved = qlist => ({
   type: QLIST_REMOVE,
-  qlist
+  qlist,
 });
 
-export const qlistAdd = qlist =>
-  dispatch => api.qlists.add(qlist)
-    .then(qlist => dispatch(qlistAdded(qlist)));
+export const qlistAdd = qlist => dispatch =>
+  api.qlists.add(qlist).then(qlist => dispatch(qlistAdded(qlist)));
 
-export const qlistAddQuestion = (qlist, question) =>
-  dispatch => () => api.qlists.addQuestion(qlist, question)
-    .then(qlist => dispatch(qlistQuestionAdded(qlist)));
+export const qlistAddQuestion = (qlist, question) => dispatch => () =>
+  api.qlists.addQuestion(qlist, question).then(qlist => dispatch(qlistQuestionAdded(qlist)));
 
-export const getQLists = _id =>
-  dispatch => api.qlists.getByAuthor(_id)
-    .then(qlists => dispatch(addQlists(qlists)));
+export const getQLists = _id => dispatch =>
+  api.qlists.getByAuthor(_id).then(qlists => dispatch(addQlists(qlists)));
 
-export const getQListQuestions = slug =>
-dispatch => api.qlists.getQListQuestions(slug)
-.then(qlist => dispatch(qlistGot(qlist)));
+export const getQListQuestions = slug => dispatch =>
+  api.qlists.getQListQuestions(slug).then(qlist => dispatch(qlistGot(qlist)));
 
-export const removeQList = _id =>
-  dispatch => api.qlists.remove(_id)
-    .then(qlist => dispatch(qlistRemoved(qlist)));
+export const removeQList = _id => dispatch =>
+  api.qlists.remove(_id).then(qlist => dispatch(qlistRemoved(qlist)));

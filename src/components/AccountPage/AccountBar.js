@@ -12,7 +12,7 @@ import { logout } from '../../actions/auth';
 
 import { UserType } from '../../propTypes';
 
-const List = styled(ListGroup) `
+const List = styled(ListGroup)`
   margin-top: 45px;
 `;
 
@@ -35,7 +35,7 @@ const AccountBar = ({ auth, logout }) => (
     </Link>
     <Link to="/me/qlists" className="list-group-item">
       <FontAwesome name="list-ol" /> Show my QLists
-     </Link>
+    </Link>
     <Button block bsStyle="danger" onClick={logout}>
       <FontAwesome name="sign-out" /> Logout
     </Button>
@@ -47,9 +47,12 @@ const { func, shape, bool } = PropTypes;
 AccountBar.propTypes = {
   auth: shape({
     isAuthenticated: bool.isRequired,
-    user: UserType.isRequired
+    user: UserType.isRequired,
   }).isRequired,
-  logout: func.isRequired
+  logout: func.isRequired,
 };
 
-export default connect(null, { logout })(AccountBar);
+export default connect(
+  null,
+  { logout },
+)(AccountBar);

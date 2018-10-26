@@ -12,18 +12,18 @@ class QuestionsFromInternet extends Component {
   static propTypes = {
     match: shape({
       params: shape({
-        source: string
-      }).isRequired
+        source: string,
+      }).isRequired,
     }).isRequired,
     history: shape({
-      push: func.isRequired
-    }).isRequired
+      push: func.isRequired,
+    }).isRequired,
   };
 
   state = {
     prefixHistory: '/questions/internet',
     routes: ['Frontend', 'Soft', 'NodeJS', 'React'],
-    source: ''
+    source: '',
   };
 
   componentWillMount() {
@@ -32,13 +32,13 @@ class QuestionsFromInternet extends Component {
 
     if (!routes.includes(match.params.source)) {
       history.push(`${prefixHistory}/${routes[0]}`);
-      match.params.source = routes[0];
+      [match.params.source] = routes;
     }
 
     this.setState({ source: match.params.source });
   }
 
-  tabSelect = (source) => {
+  tabSelect = source => {
     const { history } = this.props;
     const { prefixHistory } = this.state;
 

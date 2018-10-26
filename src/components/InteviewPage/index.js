@@ -28,7 +28,7 @@ const InterviewPage = ({
   getCandidates,
   provideFeedback,
   getQLists,
-  qlists
+  qlists,
 }) => (
   <div>
     <PageHeader>
@@ -36,11 +36,7 @@ const InterviewPage = ({
     </PageHeader>
 
     <Switch>
-      <Route
-        exact
-        path="/interview"
-        component={InterviewHero}
-      />
+      <Route exact path="/interview" component={InterviewHero} />
 
       <PropsRoute
         exact
@@ -71,11 +67,7 @@ const InterviewPage = ({
         provideFeedback={provideFeedback}
       />
 
-      <Route
-        exact
-        path="/interview/finish"
-        component={InterviewFinish}
-      />
+      <Route exact path="/interview/finish" component={InterviewFinish} />
 
       <Redirect to="/interview" />
     </Switch>
@@ -91,26 +83,29 @@ InterviewPage.propTypes = {
   getQLists: func.isRequired,
   provideFeedback: func.isRequired,
   auth: shape({
-    user: UserType.isRequired
+    user: UserType.isRequired,
   }).isRequired,
   candidates: arrayOf(CandidateType),
-  qlists: arrayOf(QListType)
+  qlists: arrayOf(QListType),
 };
 
 InterviewPage.defaultProps = {
   candidates: [],
-  qlists: []
+  qlists: [],
 };
 
 const mapStateToProps = state => ({
   candidates: state.candidates,
-  qlists: state.qlists
+  qlists: state.qlists,
 });
 
-export default connect(mapStateToProps, {
-  candidateAdd,
-  getCandidates,
-  addFlashMessage,
-  getQLists,
-  provideFeedback
-})(InterviewPage);
+export default connect(
+  mapStateToProps,
+  {
+    candidateAdd,
+    getCandidates,
+    addFlashMessage,
+    getQLists,
+    provideFeedback,
+  },
+)(InterviewPage);

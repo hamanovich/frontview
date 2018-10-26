@@ -8,12 +8,13 @@ import QuestionsBar from './QuestionsBar';
 
 const QuestionsTags = ({ match }) => (
   <div>
-    <PageHeader>Questions by &apos;{match.params.filter}&apos;</PageHeader>
+    <PageHeader>
+      Questions by &apos;
+      {match.params.filter}
+      &apos;
+    </PageHeader>
 
-    <QuestionsBar
-      active={match.params.tag}
-      filter={match.params.filter}
-    />
+    <QuestionsBar active={match.params.tag} filter={match.params.filter} />
 
     <hr />
 
@@ -27,10 +28,10 @@ QuestionsTags.propTypes = {
   match: shape({
     params: shape({
       filter: string,
-      tag: string
+      tag: string,
     }),
-    path: string
-  }).isRequired
+    path: string,
+  }).isRequired,
 };
 
 export default QuestionsTags;

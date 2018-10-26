@@ -4,7 +4,7 @@ import { SET_CURRENT_USER, CLEANUP_CURRENT_USER, USER_GET } from '../actions/typ
 
 const initialState = {
   isAuthenticated: false,
-  user: {}
+  user: {},
 };
 
 export default (state = initialState, action) => {
@@ -14,7 +14,7 @@ export default (state = initialState, action) => {
     case USER_GET:
       return {
         isAuthenticated: !isEmpty(action.user),
-        user: action.user
+        user: action.user,
       };
 
     default:

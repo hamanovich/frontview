@@ -17,7 +17,7 @@ const QListPage = ({ userId }) => (
 );
 
 QListPage.propTypes = {
-  userId: PropTypes.string.isRequired
+  userId: PropTypes.string.isRequired,
 };
 
 export default QListPage;

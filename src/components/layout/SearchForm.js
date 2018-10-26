@@ -22,8 +22,7 @@ const SearchForm = ({ handleSubmit, onSearch }) => (
         placeholder="Search question"
         feedback={false}
         errorsVisible={false}
-      />
-      {' '}
+      />{' '}
       <Button type="submit">
         <FontAwesome name="search" />
       </Button>
@@ -35,10 +34,10 @@ const { func } = PropTypes;
 
 SearchForm.propTypes = {
   handleSubmit: func.isRequired,
-  onSearch: func.isRequired
+  onSearch: func.isRequired,
 };
 
 export default reduxForm({
   form: 'SearchForm',
-  validate
+  validate,
 })(SearchForm);

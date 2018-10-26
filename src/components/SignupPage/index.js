@@ -19,11 +19,7 @@ const SignupPage = ({ signup, addFlashMessage, isUserExists }) => (
         <FontAwesome name="user-plus" /> Register. Welcome
       </PageHeader>
 
-      <SignupForm
-        signup={signup}
-        addFlashMessage={addFlashMessage}
-        isUserExists={isUserExists}
-      />
+      <SignupForm signup={signup} addFlashMessage={addFlashMessage} isUserExists={isUserExists} />
     </Col>
   </Row>
 );
@@ -33,11 +29,14 @@ const { func } = PropTypes;
 SignupPage.propTypes = {
   signup: func.isRequired,
   addFlashMessage: func.isRequired,
-  isUserExists: func.isRequired
+  isUserExists: func.isRequired,
 };
 
-export default connect(null, {
-  signup,
-  addFlashMessage,
-  isUserExists
-})(SignupPage);
+export default connect(
+  null,
+  {
+    signup,
+    addFlashMessage,
+    isUserExists,
+  },
+)(SignupPage);

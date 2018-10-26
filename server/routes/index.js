@@ -20,7 +20,11 @@ router.post('/auth', authController.auth);
 router.post('/auth/confirmation', authController.confirm);
 router.post('/auth/forgot', catchErrors(authController.forgot));
 router.get('/auth/reset/:token', catchErrors(authController.reset));
-router.post('/auth/reset/:token', authController.confirmedPasswords, catchErrors(authController.update));
+router.post(
+  '/auth/reset/:token',
+  authController.confirmedPasswords,
+  catchErrors(authController.update),
+);
 
 router.post('/questions/add', authenticate, catchErrors(questionsController.add));
 router.put('/question/:id/edit', authenticate, catchErrors(questionsController.edit));

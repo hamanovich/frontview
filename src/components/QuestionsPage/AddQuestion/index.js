@@ -25,7 +25,7 @@ import {
   removeQuestion,
   editQuestion,
   getQuestionById,
-  getQuestionInterface
+  getQuestionInterface,
 } from '../../../actions/questions';
 
 const { func, shape, string } = PropTypes;
@@ -42,96 +42,105 @@ class AddQuestion extends Component {
     logout: func.isRequired,
     match: shape({
       params: shape({
-        _id: string
-      })
+        _id: string,
+      }),
     }),
     userId: string,
     history: shape({
-      push: func.isRequired
-    }).isRequired
+      push: func.isRequired,
+    }).isRequired,
   };
 
   static defaultProps = {
     userId: '',
-    match: null
+    match: null,
   };
 
   state = {
-    errors: {},
     isLoading: false,
     showRemoveModal: false,
     level: [],
     practice: [],
-    skill: []
+    skill: [],
   };
 
   componentDidMount = () => {
     const { getQuestionById, getQuestionInterface, addFlashMessage, match, history } = this.props;
 
-    getQuestionInterface()
-      .then(({ skill, level, practice }) => this.setState({ skill, level, practice }));
+    getQuestionInterface().then(({ skill, level, practice }) =>
+      this.setState({ skill, level, practice }),
+    );
 
     if (match.params._id) {
       getQuestionById(match.params._id).then(
-        (res) => {
+        res => {
           if (res.status === 500) {
             addFlashMessage({
               type: 'error',
-              text: res.data.error
+              text: res.data.error,
             });
 
             history.push('/questions/add');
           }
         },
-        (err) => {
+        err => {
           addFlashMessage({
             type: 'error',
-            text: err.response.data.error
+            text: err.response.data.error,
           });
 
           history.push('/questions/add');
-        }
+        },
       );
     }
   };
 
-  onSubmit = (values) => {
-    const { userId, match, logout, addQuestion, editQuestion, addFlashMessage, history } = this.props;
+  onSubmit = values => {
+    const {
+      userId,
+      match,
+      logout,
+      addQuestion,
+      editQuestion,
+      addFlashMessage,
+      history,
+    } = this.props;
     const query = { ...values, userId, lastModified: new Date() };
 
     if (match.params._id) {
-      editQuestion(query)
-        .then(() => {
-          addFlashMessage({
-            type: 'success',
-            text: 'Question updated successfully.'
-          });
-
-          history.push('/questions');
+      editQuestion(query).then(() => {
+        addFlashMessage({
+          type: 'success',
+          text: 'Question updated successfully.',
         });
+
+        history.push('/questions');
+      });
     } else {
-      addQuestion(query)
-        .then(() => {
+      addQuestion(query).then(
+        () => {
           addFlashMessage({
             type: 'success',
-            text: 'New question created successfully.'
+            text: 'New question created successfully.',
           });
 
           history.push('/questions');
         },
-        (err) => {
+        err => {
           addFlashMessage({
             type: 'error',
-            text: err.response.data.error
+            text: err.response.data.error,
           });
 
           logout();
           history.push('/');
-        });
+        },
+      );
     }
-  }
+  };
 
-  toggleRemoveModal = () => this.setState({ showRemoveModal: !this.state.showRemoveModal });
+  toggleRemoveModal = () =>
+    this.setState(prevState => ({ showRemoveModal: !prevState.showRemoveModal }));
 
   remove = id => () => {
     const { removeQuestion, addFlashMessage, history } = this.props;
@@ -139,12 +148,11 @@ class AddQuestion extends Component {
     removeQuestion(id).then(() => {
       addFlashMessage({
         type: 'success',
-        text: `Question with id=${id} was successfully removed`
+        text: `Question with id=${id} was successfully removed`,
       });
 
       history.push('/questions');
-    }
-    );
+    });
   };
 
   render() {
@@ -217,10 +225,7 @@ class AddQuestion extends Component {
               placeholder="Write down the answer"
             />
 
-            <FieldArray
-              name="answers"
-              component={AnswerFields}
-            />
+            <FieldArray name="answers" component={AnswerFields} />
 
             <hr />
 
@@ -231,54 +236,71 @@ class AddQuestion extends Component {
               placeholder="Add some notes, if needed"
             />
 
-            <Button
-              type="submit"
-              bsStyle="info"
-              bsSize="large"
-              disabled={isLoading}
-            >{_id ? (<span>Update <FontAwesome name="refresh" /></span>) : 'Add new question'}</Button>
+            <Button type="submit" bsStyle="info" bsSize="large" disabled={isLoading}>
+              {_id ? (
+                <span>
+                  Update
+                  <FontAwesome name="refresh" />
+                </span>
+              ) : (
+                'Add new question'
+              )}
+            </Button>
 
-            {_id && <div className="pull-right">
-              <Button bsStyle="danger" onClick={this.toggleRemoveModal}>
-                <FontAwesome name="trash-o" /> Remove
-              </Button>
+            {_id && (
+              <div className="pull-right">
+                <Button bsStyle="danger" onClick={this.toggleRemoveModal}>
+                  <FontAwesome name="trash-o" /> Remove
+                </Button>
 
-              <Modal bsSize="sm" show={showRemoveModal} onHide={this.toggleRemoveModal}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Are you sure?</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <p>If so, you will not be able to restore this question.</p>
-                </Modal.Body>
-                <Modal.Footer>
-                  <ButtonGroup>
-                    <Button bsStyle="default" onClick={this.toggleRemoveModal}>Cancel</Button>
-                    <Button bsStyle="danger" onClick={this.remove(_id)}>Remove</Button>
-                  </ButtonGroup>
-                </Modal.Footer>
-              </Modal>
-            </div>}
+                <Modal bsSize="sm" show={showRemoveModal} onHide={this.toggleRemoveModal}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Are you sure?</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <p>If so, you will not be able to restore this question.</p>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <ButtonGroup>
+                      <Button bsStyle="default" onClick={this.toggleRemoveModal}>
+                        Cancel
+                      </Button>
+                      <Button bsStyle="danger" onClick={this.remove(_id)}>
+                        Remove
+                      </Button>
+                    </ButtonGroup>
+                  </Modal.Footer>
+                </Modal>
+              </div>
+            )}
           </Form>
         </Col>
-      </Row >
+      </Row>
     );
   }
 }
 
 const mapStateToProps = (state, props) => ({
-  initialValues: props.match.params._id ? state.questions.find(q => q._id === props.match.params._id) : {},
-  userId: state.auth.user._id
+  initialValues: props.match.params._id
+    ? state.questions.find(q => q._id === props.match.params._id)
+    : {},
+  userId: state.auth.user._id,
 });
 
-export default connect(mapStateToProps, {
-  logout,
-  addQuestion,
-  getQuestionById,
-  removeQuestion,
-  editQuestion,
-  getQuestionInterface,
-  addFlashMessage
-})(reduxForm({
-  form: 'addQuestion',
-  validate
-})(AddQuestion));
+export default connect(
+  mapStateToProps,
+  {
+    logout,
+    addQuestion,
+    getQuestionById,
+    removeQuestion,
+    editQuestion,
+    getQuestionInterface,
+    addFlashMessage,
+  },
+)(
+  reduxForm({
+    form: 'addQuestion',
+    validate,
+  })(AddQuestion),
+);

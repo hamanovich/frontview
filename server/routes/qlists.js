@@ -8,7 +8,7 @@ exports.addQlist = async (req, res) => {
   const newQList = await QList.create({
     title,
     notes,
-    author: userId
+    author: userId,
   });
 
   res.send(newQList);
@@ -17,9 +17,10 @@ exports.addQlist = async (req, res) => {
 exports.addQuestion = async (req, res) => {
   const { qlist, question } = req.body;
   const operator = map(qlist.questions, q => q._id).includes(question._id) ? '$pull' : '$addToSet';
-  const newQlist = await QList.findByIdAndUpdate(qlist._id,
+  const newQlist = await QList.findByIdAndUpdate(
+    qlist._id,
     { [operator]: { questions: question._id } },
-    { new: true }
+    { new: true },
   ).populate('questions');
 
   res.json(newQlist);
@@ -29,7 +30,7 @@ exports.getQLists = async (req, res) => {
   const user = await User.findById(req.params._id);
 
   if (!user) {
-    res.status(404).json({ error: 'User didn\'t find' });
+    res.status(404).json({ error: "User didn't find" });
     return;
   }
 
@@ -41,13 +42,10 @@ exports.getQLists = async (req, res) => {
 };
 
 exports.getQListQuestions = async (req, res) => {
-  console.log(req.params.slug, '----M<')
   const qlist = await QList.findOne({ slug: req.params.slug });
 
-  console.log(qlist);
-
   if (!qlist) {
-    res.status(404).json({ error: `QList ${slug} didn't find` });
+    res.status(404).json({ error: `QList ${req.params.slug} didn't find` });
     return;
   }
 
@@ -62,5 +60,5 @@ exports.remove = async (req, res) => {
     return;
   }
 
-  res.status(500).json({ error: 'QList didn\'t remove' });
+  res.status(500).json({ error: "QList didn't remove" });
 };

@@ -16,13 +16,17 @@ const TextField = ({
   readonly,
   feedback,
   errorsVisible,
-  meta: { touched, error, warning }
+  meta: { touched, error, warning },
 }) => (
   <FormGroup
     controlId={`label-${input.name}`}
-    validationState={(touched && error) || errorState ? 'error' :
-      touched && !error && !errorState ? 'success' : null}
-  >
+    validationState={
+      (touched && error) || errorState
+        ? 'error'
+        : touched && !error && !errorState
+          ? 'success'
+          : null
+    }>
     {label && <ControlLabel>{label}</ControlLabel>}
     <FormControl
       {...input}
@@ -34,11 +38,10 @@ const TextField = ({
       onBlur={input.onBlur}
     />
     {feedback && <FormControl.Feedback />}
-    {errorsVisible && errorState &&
-      <HelpBlock>{errorState}</HelpBlock>}
-    {errorsVisible && touched &&
-      ((error && <HelpBlock>{error}</HelpBlock>) ||
-        (warning && <span>{warning}</span>))}
+    {errorsVisible && errorState && <HelpBlock>{errorState}</HelpBlock>}
+    {errorsVisible &&
+      touched &&
+      ((error && <HelpBlock>{error}</HelpBlock>) || (warning && <span>{warning}</span>))}
   </FormGroup>
 );
 
@@ -47,7 +50,7 @@ const { shape, string, bool } = PropTypes;
 TextField.propTypes = {
   input: shape({
     name: string,
-    value: string
+    value: string,
   }).isRequired,
   readonly: bool,
   feedback: bool,
@@ -60,8 +63,8 @@ TextField.propTypes = {
   meta: shape({
     touched: bool,
     error: string,
-    warning: string
-  }).isRequired
+    warning: string,
+  }).isRequired,
 };
 
 TextField.defaultProps = {
@@ -71,7 +74,7 @@ TextField.defaultProps = {
   label: '',
   placeholder: '',
   defaultValue: '',
-  errorState: null
+  errorState: null,
 };
 
 export default TextField;
