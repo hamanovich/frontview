@@ -22,7 +22,7 @@ export default (state = [], action) => {
       const gotIndex = state.findIndex(question => question._id === action.question._id);
 
       if (gotIndex > -1) {
-        return map(state, (question) => {
+        return map(state, question => {
           if (question._id === action.question._id) {
             return action.question;
           }
@@ -40,7 +40,7 @@ export default (state = [], action) => {
       const editIndex = state.findIndex(question => question._id === action.question._id);
 
       if (editIndex > -1) {
-        return map(state, (question) => {
+        return map(state, question => {
           if (question._id === action.question._id) {
             return action.question;
           }
@@ -56,10 +56,7 @@ export default (state = [], action) => {
       const removeIndex = state.findIndex(question => question._id === action.question._id);
 
       if (removeIndex > -1) {
-        return [
-          ...state.slice(0, removeIndex),
-          ...state.slice(removeIndex + 1),
-        ];
+        return [...state.slice(0, removeIndex), ...state.slice(removeIndex + 1)];
       }
 
       return state;

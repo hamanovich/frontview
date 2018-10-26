@@ -80,7 +80,7 @@ export default WrappedComponent => {
             pagination: { pages, activePage: Number(page), count },
           });
 
-          getQLists(user._id);
+          if (user._id) getQLists(user._id);
         })
         .catch(err => {
           addFlashMessage({

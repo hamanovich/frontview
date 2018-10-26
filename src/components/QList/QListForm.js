@@ -18,10 +18,13 @@ import { addFlashMessage } from '../../actions/flash';
 import validate from '../../validations/qlist';
 
 const enhance = compose(
-  connect(null, {
-    qlistAdd,
-    addFlashMessage,
-  }),
+  connect(
+    null,
+    {
+      qlistAdd,
+      addFlashMessage,
+    },
+  ),
 
   reduxForm({
     form: 'QListForm',
@@ -31,10 +34,8 @@ const enhance = compose(
   withState('isLoading', 'setLoading', false),
 
   withHandlers({
-    onSubmit: props => (values) => {
-      const {
-        qlistAdd, userId, reset, addFlashMessage, setLoading,
-      } = props;
+    onSubmit: props => values => {
+      const { qlistAdd, userId, reset, addFlashMessage, setLoading } = props;
       const query = { ...values, userId };
 
       setLoading(true);
@@ -72,13 +73,8 @@ const QListForm = ({ isLoading, handleSubmit, onSubmit }) => (
       placeholder="Add some notes, if needed"
     />
 
-    <Button
-      type="submit"
-      bsStyle="primary"
-      bsSize="large"
-      disabled={isLoading}
-    >
-Create
+    <Button type="submit" bsStyle="primary" bsSize="large" disabled={isLoading}>
+      Create
     </Button>
   </Form>
 );

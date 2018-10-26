@@ -20,9 +20,7 @@ import { addFlashMessage } from '../../../actions/flash';
 
 import { UserType, QuestionType, QListType } from '../../../propTypes';
 
-const {
-  shape, arrayOf, func, string,
-} = PropTypes;
+const { shape, arrayOf, func, string } = PropTypes;
 
 class QuestionOne extends Component {
   static propTypes = {
@@ -50,20 +48,18 @@ class QuestionOne extends Component {
   };
 
   componentDidMount = () => {
-    const {
-      getUser, getQLists, match, user,
-    } = this.props;
+    const { getUser, getQLists, match, user } = this.props;
 
     getUser(user.username);
     getQLists(user._id);
     this.getQuestion(match.params.slug);
   };
 
-  getQuestion = (slug) => {
+  getQuestion = slug => {
     const { getQuestionBySlug, addFlashMessage, history } = this.props;
 
     getQuestionBySlug(slug)
-      .then((res) => {
+      .then(res => {
         if (res.status === 500) {
           addFlashMessage({
             type: 'error',
@@ -73,7 +69,7 @@ class QuestionOne extends Component {
           history.push('/questions/add');
         }
       })
-      .catch((err) => {
+      .catch(err => {
         addFlashMessage({
           type: 'error',
           text: err.response.data.error,
@@ -81,26 +77,19 @@ class QuestionOne extends Component {
 
         history.push('/questions/add');
       });
-  }
+  };
 
   render() {
-    const {
-      question, addComment, editQuestionField, user, qlists, match,
-    } = this.props;
+    const { question, addComment, editQuestionField, user, qlists, match } = this.props;
     const panelHeader = (
       <span>
-        <FontAwesome name="comments-o" />
-        {' '}
-Comments
-        {' '}
+        <FontAwesome name="comments-o" /> Comments{' '}
         <Badge>{question && question.comments.length}</Badge>
       </span>
     );
     const panelAddHeader = (
       <span>
-        <FontAwesome name="commenting-o" />
-        {' '}
-Add a comment
+        <FontAwesome name="commenting-o" /> Add a comment
       </span>
     );
 
@@ -115,21 +104,32 @@ Add a comment
           qlists={qlists}
         />
 
-        <PanelGroup defaultActiveKey="1" accordion>
-          {question && question.comments.length > 0 && (
-            <Panel header={panelHeader} eventKey="1" bsStyle="info">
-              <Comments comments={question.comments} />
-            </Panel>
-          )}
+        <PanelGroup id="accordion-controlled-one" defaultActiveKey="1" accordion>
+          {question &&
+            question.comments.length > 0 && (
+              <Panel eventKey="1" bsStyle="info">
+                <Panel.Heading>
+                  <Panel.Title toggle>{panelHeader}</Panel.Title>
+                </Panel.Heading>
+                <Panel.Body collapsible>
+                  <Comments comments={question.comments} />
+                </Panel.Body>
+              </Panel>
+            )}
           {user.username && (
-            <Panel header={panelAddHeader} eventKey="2" bsStyle="primary">
-              <CommentForm
-                question={question}
-                addComment={addComment}
-                getQuestion={this.getQuestion}
-                user={user}
-                slug={match.params.slug}
-              />
+            <Panel eventKey="2" bsStyle="primary">
+              <Panel.Heading>
+                <Panel.Title toggle>{panelAddHeader}</Panel.Title>
+              </Panel.Heading>
+              <Panel.Body collapsible>
+                <CommentForm
+                  question={question}
+                  addComment={addComment}
+                  getQuestion={this.getQuestion}
+                  user={user}
+                  slug={match.params.slug}
+                />
+              </Panel.Body>
             </Panel>
           )}
         </PanelGroup>
@@ -148,11 +148,14 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-export default connect(mapStateToProps, {
-  getQuestionBySlug,
-  getUser,
-  getQLists,
-  editQuestionField,
-  addComment,
-  addFlashMessage,
-})(QuestionOne);
+export default connect(
+  mapStateToProps,
+  {
+    getQuestionBySlug,
+    getUser,
+    getQLists,
+    editQuestionField,
+    addComment,
+    addFlashMessage,
+  },
+)(QuestionOne);

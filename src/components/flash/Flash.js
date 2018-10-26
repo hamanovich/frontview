@@ -7,12 +7,12 @@ import Alert from 'react-bootstrap/lib/Alert';
 import Button from 'react-bootstrap/lib/Button';
 
 const Flash = ({ close, message }) => (
-  <Alert bsStyle={classNames({
-    danger: message.type === 'error',
-    success: message.type === 'success',
-    warning: message.type === 'warn',
-  })}
-  >
+  <Alert
+    bsStyle={classNames({
+      danger: message.type === 'error',
+      success: message.type === 'success',
+      warning: message.type === 'warn',
+    })}>
     {message.text}
     <Button onClick={close} className="close">
       <FontAwesome name="times" />

@@ -22,8 +22,7 @@ const SearchForm = ({ handleSubmit, onSearch }) => (
         placeholder="Search question"
         feedback={false}
         errorsVisible={false}
-      />
-      {' '}
+      />{' '}
       <Button type="submit">
         <FontAwesome name="search" />
       </Button>

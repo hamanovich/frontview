@@ -22,19 +22,16 @@ const enhance = compose(
 
   lifecycle({
     componentDidMount() {
-      const {
-        match, addFlashMessage, getCommentsByAuthor, history, auth,
-      } = this.props;
+      const { match, addFlashMessage, getCommentsByAuthor, history, auth } = this.props;
 
-      getCommentsByAuthor(match.params.username)
-        .catch((err) => {
-          addFlashMessage({
-            type: 'error',
-            text: err.response.data.error,
-          });
-
-          history.push(`/comments/${auth.user.username}`);
+      getCommentsByAuthor(match.params.username).catch(err => {
+        addFlashMessage({
+          type: 'error',
+          text: err.response.data.error,
         });
+
+        history.push(`/comments/${auth.user.username}`);
+      });
     },
   }),
 );
@@ -42,9 +39,7 @@ const enhance = compose(
 const CommentsAuthorPage = ({ comments, match }) => (
   <section>
     <PageHeader>
-      <FontAwesome name="comments-o" />
-      {' '}
-All Your Comments
+      <FontAwesome name="comments-o" /> All Your Comments
     </PageHeader>
 
     <Comments comments={comments} match={match} />

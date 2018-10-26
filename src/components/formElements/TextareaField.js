@@ -19,9 +19,7 @@ const TextareaField = ({
 }) => (
   <FormGroup
     controlId={`label-${input.name}`}
-    validationState={touched && error ? 'error'
-      : touched && !error ? 'success' : null}
-  >
+    validationState={touched && error ? 'error' : touched && !error ? 'success' : null}>
     <ControlLabel>{label}</ControlLabel>
     <FormControl
       {...input}
@@ -33,15 +31,13 @@ const TextareaField = ({
       value={defaultValue || input.value}
     />
     {feedback && <FormControl.Feedback />}
-    {errorsVisible && touched
-      && ((error && <HelpBlock>{error}</HelpBlock>)
-        || (warning && <span>{warning}</span>))}
+    {errorsVisible &&
+      touched &&
+      ((error && <HelpBlock>{error}</HelpBlock>) || (warning && <span>{warning}</span>))}
   </FormGroup>
 );
 
-const {
-  shape, string, bool, number,
-} = PropTypes;
+const { shape, string, bool, number } = PropTypes;
 
 TextareaField.propTypes = {
   input: shape({

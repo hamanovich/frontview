@@ -13,9 +13,7 @@ export const Admin = Authorization(['admin']);
 export const PropsRoute = ({ component, ...rest }) => (
   <Route
     {...rest}
-    render={
-      routeProps => React.createElement(component, { ...routeProps, ...rest })
-    }
+    render={routeProps => React.createElement(component, { ...routeProps, ...rest })}
   />
 );
 
@@ -23,7 +21,7 @@ PropsRoute.propTypes = {
   component: PropTypes.func.isRequired,
 };
 
-export const setAuthorizationToken = (token) => {
+export const setAuthorizationToken = token => {
   if (token) {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   } else {

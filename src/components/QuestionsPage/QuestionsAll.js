@@ -10,7 +10,6 @@ import PaginationBar from '../layout/PaginationBar';
 const QuestionsAll = ({ state, history }) => (
   <div>
     <PageHeader>
-
       Questions
       <Badge>{state.pagination.count}</Badge>
     </PageHeader>
@@ -20,15 +19,14 @@ const QuestionsAll = ({ state, history }) => (
     <PaginationBar
       activePage={state.pagination.activePage}
       pages={state.pagination.pages}
-      onSelect={activePage => (state.pagination.activePage !== activePage)
-        && history.push(`/questions/page/${activePage}`)}
+      onSelect={activePage =>
+        state.pagination.activePage !== activePage && history.push(`/questions/page/${activePage}`)
+      }
     />
   </div>
 );
 
-const {
-  shape, arrayOf, func, string, number,
-} = PropTypes;
+const { shape, arrayOf, func, string, number } = PropTypes;
 
 QuestionsAll.propTypes = {
   state: shape({
@@ -37,10 +35,12 @@ QuestionsAll.propTypes = {
       pages: number,
       count: number,
     }),
-    tags: arrayOf(shape({
-      _id: string,
-      count: number,
-    })),
+    tags: arrayOf(
+      shape({
+        _id: string,
+        count: number,
+      }),
+    ),
   }).isRequired,
   history: shape({
     push: func,

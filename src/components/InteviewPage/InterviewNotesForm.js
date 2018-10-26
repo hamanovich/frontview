@@ -20,7 +20,7 @@ const enhance = compose(
   }),
 
   withHandlers({
-    onSubmit: props => (feedback) => {
+    onSubmit: props => feedback => {
       const { provideFeedback, candidate, push } = props;
 
       provideFeedback(candidate._id, feedback);
@@ -45,12 +45,8 @@ const InterviewNotesForm = ({ handleSubmit, onSubmit }) => (
 
     <HelpBlock>Before Finish be sure that you asked all questions!</HelpBlock>
 
-    <Button
-      type="submit"
-      bsStyle="primary"
-      bsSize="large"
-    >
-Finish Interview
+    <Button type="submit" bsStyle="primary" bsSize="large">
+      Finish Interview
     </Button>
   </Form>
 );

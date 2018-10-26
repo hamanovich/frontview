@@ -10,7 +10,7 @@ exports.add = async (req, res) => {
     primarySkill,
     techLevel,
     notes,
-    interviewer: userId
+    interviewer: userId,
   });
 
   if (newCandidate) {
@@ -18,14 +18,16 @@ exports.add = async (req, res) => {
     return;
   }
 
-  res.status(500).json({ error: 'Author of this question didn\'t find in database. Please relogin and try again' });
+  res.status(500).json({
+    error: "Author of this question didn't find in database. Please relogin and try again",
+  });
 };
 
 exports.getCandidates = async (req, res) => {
   const user = await User.findById(req.params._id);
 
   if (!user) {
-    res.status(404).json({ error: 'User didn\'t find' });
+    res.status(404).json({ error: "User didn't find" });
     return;
   }
 
@@ -35,12 +37,11 @@ exports.getCandidates = async (req, res) => {
 };
 
 exports.getCandidate = async (req, res) => {
-  const candidate = await Candidate.findById(req.params._id)
-    .exec((err) => {
-      if (err) {
-        res.status(500).json({ error: `Candidate with id='${req.params._id}' didn't find` });
-      }
-    });
+  const candidate = await Candidate.findById(req.params._id).exec(err => {
+    if (err) {
+      res.status(500).json({ error: `Candidate with id='${req.params._id}' didn't find` });
+    }
+  });
 
   if (candidate) {
     res.json(candidate);
@@ -48,9 +49,9 @@ exports.getCandidate = async (req, res) => {
 };
 
 exports.provideFeedack = async (req, res) => {
-  const candidate = await Candidate
-    .findByIdAndUpdate(req.params._id, req.body, { new: true })
-    .exec();
+  const candidate = await Candidate.findByIdAndUpdate(req.params._id, req.body, {
+    new: true,
+  }).exec();
 
   await candidate.save();
 
@@ -59,5 +60,5 @@ exports.provideFeedack = async (req, res) => {
     return;
   }
 
-  res.status(500).json({ error: 'Candidate didn\'t update' });
+  res.status(500).json({ error: "Candidate didn't update" });
 };

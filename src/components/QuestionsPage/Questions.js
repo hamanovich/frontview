@@ -19,7 +19,8 @@ const enhance = compose(
       user: state.auth.user,
       questions: state.questions,
       qlists: state.qlists,
-    }), {
+    }),
+    {
       editQuestionField,
     },
   ),
@@ -27,21 +28,21 @@ const enhance = compose(
   Loader('questions'),
 );
 
-const Questions = ({
-  user, qlists, questions, editQuestionField,
-}) => (
+const Questions = ({ user, qlists, questions, editQuestionField }) => (
   <div>
-    {questions.length ? map(questions, question => (
-      <Question
-        question={question}
-        editQuestionField={editQuestionField}
-        key={question._id}
-        user={user}
-        qlists={qlists}
-      />
-    )) : (
+    {questions.length ? (
+      map(questions, question => (
+        <Question
+          question={question}
+          editQuestionField={editQuestionField}
+          key={question._id}
+          user={user}
+          qlists={qlists}
+        />
+      ))
+    ) : (
       <span>
-You have no added questions.
+        You have no added questions.
         <Link to="/questions/add">Try it now</Link>
       </span>
     )}

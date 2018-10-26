@@ -9,10 +9,8 @@ import Questions from './Questions';
 const QuestionsAuthor = ({ user }) => (
   <div>
     <PageHeader>
-      <FontAwesome name="file-text-o" />
-      {' '}
-      {user.username}
-&apos;s Questions
+      <FontAwesome name="file-text-o" /> {user.username}
+      &apos;s Questions
     </PageHeader>
 
     <Questions />

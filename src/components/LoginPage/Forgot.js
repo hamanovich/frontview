@@ -28,7 +28,7 @@ const enhance = compose(
   }),
 
   withHandlers({
-    onSubmit: props => (email) => {
+    onSubmit: props => email => {
       const { forgot, setState } = props;
 
       setState({
@@ -37,14 +37,18 @@ const enhance = compose(
       });
 
       forgot(email)
-        .then(res => setState({
-          emailed: res.emailed,
-          isLoading: false,
-        }))
-        .catch(err => setState({
-          error: err.response.data.error,
-          isLoading: false,
-        }));
+        .then(res =>
+          setState({
+            emailed: res.emailed,
+            isLoading: false,
+          }),
+        )
+        .catch(err =>
+          setState({
+            error: err.response.data.error,
+            isLoading: false,
+          }),
+        );
     },
   }),
 );
@@ -52,10 +56,8 @@ const enhance = compose(
 const Forgot = ({ handleSubmit, onSubmit, state }) => (
   <section>
     <PageHeader>
-Forgot your password?
-      <br />
-      {' '}
-Don&apos;t worry!
+      Forgot your password?
+      <br /> Don&apos;t worry!
     </PageHeader>
     <p>Just put your email and we will send you instructions.</p>
 
@@ -71,21 +73,14 @@ Don&apos;t worry!
         placeholder="Type your email"
       />
 
-      <Button
-        type="submit"
-        bsStyle="warning"
-        bsSize="large"
-        disabled={state.isLoading}
-      >
-Send a reset
+      <Button type="submit" bsStyle="warning" bsSize="large" disabled={state.isLoading}>
+        Send a reset
       </Button>
     </Form>
   </section>
 );
 
-const {
-  shape, func, string, bool,
-} = PropTypes;
+const { shape, func, string, bool } = PropTypes;
 
 Forgot.propTypes = {
   handleSubmit: func.isRequired,

@@ -28,20 +28,14 @@ const Question = styled(Link)`
 const Comment = ({ comment, match }) => (
   <Media>
     <Media.Left>
-      <MediaImage
-        src={comment.author.gravatar}
-        alt={comment.author.username}
-        thumbnail
-      />
+      <MediaImage src={comment.author.gravatar} alt={comment.author.username} thumbnail />
     </Media.Left>
     <Media.Body>
-      {match
-        && (
+      {match && (
         <Question to={`/questions/${comment.question.slug}/one`}>
           {comment.question.question}
         </Question>
-        )
-      }
+      )}
       <Media.Heading>{comment.topic}</Media.Heading>
       <MarkdownRenderer markdown={comment.text} />
       <Label bsStyle="info">{comment.author.username}</Label>

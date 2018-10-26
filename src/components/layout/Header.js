@@ -62,32 +62,28 @@ class Header extends Component {
     }
   }
 
-  onSearch = (values) => {
+  onSearch = values => {
     const { getSearchedQuestions, addFlashMessage } = this.props;
     const { history } = this.context.router;
 
     if (!values.search) return;
 
-    getSearchedQuestions(values.search).then(
-      (res) => {
-        if (!res.length) {
-          addFlashMessage({
-            type: 'warn',
-            text: `Nothing found by search = ${values.search}`,
-          });
+    getSearchedQuestions(values.search).then(res => {
+      if (!res.length) {
+        addFlashMessage({
+          type: 'warn',
+          text: `Nothing found by search = ${values.search}`,
+        });
 
-          return;
-        }
+        return;
+      }
 
-        history.push(`/questions/search?q=${values.search}`);
-      },
-    );
+      history.push(`/questions/search?q=${values.search}`);
+    });
   };
 
   render() {
-    const {
-      auth, logout, getSearchedQuestions, addFlashMessage,
-    } = this.props;
+    const { auth, logout, getSearchedQuestions, addFlashMessage } = this.props;
     const userPick = (
       <span>
         <MediaImage src={auth.user.gravatar} circle />
@@ -99,9 +95,7 @@ class Header extends Component {
         <NavDropdown title="Menu" id="menu-dropdown">
           <LinkContainer to="/interview">
             <MenuItem>
-              <FontAwesome name="id-badge" />
-              {' '}
-Interview
+              <FontAwesome name="id-badge" /> Interview
             </MenuItem>
           </LinkContainer>
           <MenuItem divider />
@@ -110,69 +104,51 @@ Interview
           </IndexLinkContainer>
           <LinkContainer to="/questions/top">
             <MenuItem>
-              <FontAwesome name="exclamation" />
-              {' '}
-Top 10
+              <FontAwesome name="exclamation" /> Top 10
             </MenuItem>
           </LinkContainer>
           <LinkContainer to="/questions/internet">
             <MenuItem>
-              <FontAwesome name="internet-explorer" />
-              {' '}
-From Internet
+              <FontAwesome name="internet-explorer" /> From Internet
             </MenuItem>
           </LinkContainer>
           <MenuItem divider />
           <LinkContainer to="/questions/level">
             <MenuItem>
-              <FontAwesome name="line-chart" />
-              {' '}
-By Levels
+              <FontAwesome name="line-chart" /> By Levels
             </MenuItem>
           </LinkContainer>
           <LinkContainer to="/questions/skill">
             <MenuItem>
-              <FontAwesome name="star-half-o" />
-              {' '}
-By Skills
+              <FontAwesome name="star-half-o" /> By Skills
             </MenuItem>
           </LinkContainer>
           <LinkContainer to="/questions/practice">
             <MenuItem>
-              <FontAwesome name="keyboard-o" />
-              {' '}
-By Practice
+              <FontAwesome name="keyboard-o" /> By Practice
             </MenuItem>
           </LinkContainer>
           <MenuItem divider />
           <LinkContainer to="/questions/add">
             <MenuItem>
-              <FontAwesome name="question-circle-o" />
-              {' '}
-Add new
+              <FontAwesome name="question-circle-o" /> Add new
             </MenuItem>
           </LinkContainer>
         </NavDropdown>
         <NavDropdown title={userPick} id="account-dropdown">
           <IndexLinkContainer to="/me">
             <MenuItem>
-              <FontAwesome name="user" />
-              {' '}
-Account
+              <FontAwesome name="user" /> Account
             </MenuItem>
           </IndexLinkContainer>
           <LinkContainer to="/me/edit">
             <MenuItem>
-              <FontAwesome name="pencil-square-o" />
-              {' '}
-Edit profile
+              <FontAwesome name="pencil-square-o" /> Edit profile
             </MenuItem>
           </LinkContainer>
           <MenuItem divider />
           <MenuItem onClick={logout}>
-            <FontAwesome name="lock" />
-            {' '}
-Logout
+            <FontAwesome name="lock" /> Logout
           </MenuItem>
         </NavDropdown>
       </Nav>
@@ -182,16 +158,12 @@ Logout
       <Nav pullRight>
         <LinkContainer to="/signup">
           <NavItem>
-            <FontAwesome name="user-plus" />
-            {' '}
-Sign Up
+            <FontAwesome name="user-plus" /> Sign Up
           </NavItem>
         </LinkContainer>
         <LinkContainer to="/login">
           <NavItem>
-            <FontAwesome name="user-circle" />
-            {' '}
-Login
+            <FontAwesome name="user-circle" /> Login
           </NavItem>
         </LinkContainer>
       </Nav>
@@ -223,7 +195,10 @@ const mapStateToProps = state => ({ auth: state.auth });
 export default connect(
   mapStateToProps,
   {
-    logout, getUser, getSearchedQuestions, addFlashMessage,
+    logout,
+    getUser,
+    getSearchedQuestions,
+    addFlashMessage,
   },
   null,
   { pure: false },

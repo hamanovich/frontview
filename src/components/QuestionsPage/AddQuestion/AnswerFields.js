@@ -41,14 +41,14 @@ const AnswerFields = ({ fields, meta: { touched, error, submitFailed } }) => (
     ))}
 
     <FormGroup>
-      <Button bsStyle="success" onClick={fields.push}>Add Answer</Button>
+      <Button bsStyle="success" onClick={fields.push}>
+        Add Answer
+      </Button>
     </FormGroup>
   </div>
 );
 
-const {
-  shape, func, string, bool,
-} = PropTypes;
+const { shape, func, string, bool } = PropTypes;
 
 AnswerFields.propTypes = {
   fields: shape({

@@ -10,7 +10,6 @@ export const deleteFlashMessage = payload => ({
   payload,
 });
 
-
 export const deleteFlashMessages = () => ({
   type: DELETE_FLASH_MESSAGES,
 });

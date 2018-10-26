@@ -16,16 +16,10 @@ const SignupPage = ({ signup, addFlashMessage, isUserExists }) => (
   <Row>
     <Col md={6} mdOffset={3}>
       <PageHeader>
-        <FontAwesome name="user-plus" />
-        {' '}
-Register. Welcome
+        <FontAwesome name="user-plus" /> Register. Welcome
       </PageHeader>
 
-      <SignupForm
-        signup={signup}
-        addFlashMessage={addFlashMessage}
-        isUserExists={isUserExists}
-      />
+      <SignupForm signup={signup} addFlashMessage={addFlashMessage} isUserExists={isUserExists} />
     </Col>
   </Row>
 );
@@ -38,8 +32,11 @@ SignupPage.propTypes = {
   isUserExists: func.isRequired,
 };
 
-export default connect(null, {
-  signup,
-  addFlashMessage,
-  isUserExists,
-})(SignupPage);
+export default connect(
+  null,
+  {
+    signup,
+    addFlashMessage,
+    isUserExists,
+  },
+)(SignupPage);

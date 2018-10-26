@@ -11,10 +11,7 @@ export default PropTypes.shape({
   techLevel: PropTypes.string.isRequired,
   skype: PropTypes.string,
   questions: PropTypes.arrayOf(PropTypes.string),
-  interviewer: PropTypes.oneOfType([
-    PropTypes.string,
-    UserType,
-  ]).isRequired,
+  interviewer: PropTypes.oneOfType([PropTypes.string, UserType]).isRequired,
   result: PropTypes.string,
   notes: PropTypes.string,
 });

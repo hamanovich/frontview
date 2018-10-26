@@ -22,33 +22,13 @@ const AccountPage = ({ auth }) => (
     </Col>
     <Col md={9} sm={8}>
       <Switch>
-        <PropsRoute
-          exact
-          path="/me"
-          component={Account}
-          user={auth.user}
-        />
+        <PropsRoute exact path="/me" component={Account} user={auth.user} />
 
-        <PropsRoute
-          exact
-          path="/me/edit"
-          component={AccountEdit}
-          user={auth.user}
-        />
+        <PropsRoute exact path="/me/edit" component={AccountEdit} user={auth.user} />
 
-        <PropsRoute
-          exact
-          path="/me/qlist/create"
-          component={QListPage}
-          userId={auth.user._id}
-        />
+        <PropsRoute exact path="/me/qlist/create" component={QListPage} userId={auth.user._id} />
 
-        <PropsRoute
-          exact
-          path="/me/qlists"
-          component={QLists}
-          userId={auth.user._id}
-        />
+        <PropsRoute exact path="/me/qlists" component={QLists} userId={auth.user._id} />
 
         <Redirect to="/me" />
       </Switch>

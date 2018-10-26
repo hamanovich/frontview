@@ -31,24 +31,23 @@ const enhance = compose(
     componentDidMount() {
       const { getReset, addFlashMessage, match } = this.props;
 
-      getReset(match.params.token)
-        .catch(err => addFlashMessage({
+      getReset(match.params.token).catch(err =>
+        addFlashMessage({
           type: 'error',
           text: err.response.data.error,
-        }));
+        }),
+      );
     },
   }),
 
   withHandlers({
-    onSubmit: props => (values) => {
-      const {
-        resetToken, addFlashMessage, match, history, setState,
-      } = props;
+    onSubmit: props => values => {
+      const { resetToken, addFlashMessage, match, history, setState } = props;
 
       setState({ errors: {}, isLoading: true });
 
       resetToken(match.params.token, values)
-        .then((res) => {
+        .then(res => {
           if (res.error) {
             setState({
               error: res.error,
@@ -65,10 +64,12 @@ const enhance = compose(
 
           history.push('/');
         })
-        .catch(err => setState({
-          error: err.response.data.error,
-          isLoading: false,
-        }));
+        .catch(err =>
+          setState({
+            error: err.response.data.error,
+            isLoading: false,
+          }),
+        );
     },
   }),
 );
@@ -96,21 +97,14 @@ const Reset = ({ handleSubmit, onSubmit, state }) => (
         placeholder="Repeat your mad password"
       />
 
-      <Button
-        type="submit"
-        bsStyle="warning"
-        bsSize="large"
-        disabled={state.isLoading}
-      >
-Reset
+      <Button type="submit" bsStyle="warning" bsSize="large" disabled={state.isLoading}>
+        Reset
       </Button>
     </Form>
   </section>
 );
 
-const {
-  shape, func, string, bool,
-} = PropTypes;
+const { shape, func, string, bool } = PropTypes;
 
 Reset.propTypes = {
   handleSubmit: func.isRequired,

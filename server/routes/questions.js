@@ -22,11 +22,9 @@ exports.getQuestions = async (req, res) => {
   const pages = Math.ceil(count / limit);
 
   if (!questions.length && skip) {
-    res
-      .status(500)
-      .json({
-        error: `You asked for page ${page}. But that doesn't exist. Maximum page is ${pages}`,
-      });
+    res.status(500).json({
+      error: `You asked for page ${page}. But that doesn't exist. Maximum page is ${pages}`,
+    });
     return;
   }
 
@@ -90,11 +88,9 @@ exports.add = async (req, res) => {
     return;
   }
 
-  res
-    .status(500)
-    .json({
-      error: "Author of this question didn't find in database. Please relogin and try again",
-    });
+  res.status(500).json({
+    error: "Author of this question didn't find in database. Please relogin and try again",
+  });
 };
 
 exports.edit = async (req, res) => {

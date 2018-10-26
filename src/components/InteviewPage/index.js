@@ -32,17 +32,11 @@ const InterviewPage = ({
 }) => (
   <div>
     <PageHeader>
-      <FontAwesome name="id-badge" />
-      {' '}
-Interview
+      <FontAwesome name="id-badge" /> Interview
     </PageHeader>
 
     <Switch>
-      <Route
-        exact
-        path="/interview"
-        component={InterviewHero}
-      />
+      <Route exact path="/interview" component={InterviewHero} />
 
       <PropsRoute
         exact
@@ -73,11 +67,7 @@ Interview
         provideFeedback={provideFeedback}
       />
 
-      <Route
-        exact
-        path="/interview/finish"
-        component={InterviewFinish}
-      />
+      <Route exact path="/interview/finish" component={InterviewFinish} />
 
       <Redirect to="/interview" />
     </Switch>
@@ -109,10 +99,13 @@ const mapStateToProps = state => ({
   qlists: state.qlists,
 });
 
-export default connect(mapStateToProps, {
-  candidateAdd,
-  getCandidates,
-  addFlashMessage,
-  getQLists,
-  provideFeedback,
-})(InterviewPage);
+export default connect(
+  mapStateToProps,
+  {
+    candidateAdd,
+    getCandidates,
+    addFlashMessage,
+    getQLists,
+    provideFeedback,
+  },
+)(InterviewPage);

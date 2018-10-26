@@ -4,6 +4,4 @@ import CommentType from './CommentType';
 import QListType from './QListType';
 import CandidateType from './CandidateType';
 
-export {
-  QuestionType, UserType, CommentType, QListType, CandidateType,
-};
+export { QuestionType, UserType, CommentType, QListType, CandidateType };

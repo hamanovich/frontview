@@ -17,20 +17,30 @@ import { getQuestionsByFilter } from '../../actions/questions';
 import { getQLists } from '../../actions/qlists';
 
 const enhance = compose(
-  connect(state => ({
-    user: state.auth.user,
-  }), {
-    getQuestionsByFilter,
-    getQLists,
-    addFlashMessage,
-  }),
+  connect(
+    state => ({
+      user: state.auth.user,
+    }),
+    {
+      getQuestionsByFilter,
+      getQLists,
+      addFlashMessage,
+    },
+  ),
 
   withState('tags', 'setTags', []),
 
   lifecycle({
     componentDidMount() {
       const {
-        getQuestionsByFilter, getQLists, addFlashMessage, history, user, active, filter, setTags,
+        getQuestionsByFilter,
+        getQLists,
+        addFlashMessage,
+        history,
+        user,
+        active,
+        filter,
+        setTags,
       } = this.props;
 
       getQuestionsByFilter(filter, active).then(({ tags, questions }) => {
@@ -60,27 +70,20 @@ const enhance = compose(
   }),
 );
 
-const QuestionsBar = ({
-  active, filter, tags, style,
-}) => (
+const QuestionsBar = ({ active, filter, tags, style }) => (
   <ButtonToolbar>
     {map(tags, tag => (
       <Link
         className={classNames('btn', `btn-${style}`, { active: active === tag._id })}
         key={tag._id}
-        to={`/questions/${filter}/${tag._id}`}
-      >
-        {tag._id}
-        {' '}
-        <Badge>{tag.count}</Badge>
+        to={`/questions/${filter}/${tag._id}`}>
+        {tag._id} <Badge>{tag.count}</Badge>
       </Link>
     ))}
   </ButtonToolbar>
 );
 
-const {
-  shape, string, arrayOf, number,
-} = PropTypes;
+const { shape, string, arrayOf, number } = PropTypes;
 
 QuestionsBar.propTypes = {
   style: string,

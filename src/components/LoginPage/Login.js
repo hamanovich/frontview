@@ -31,10 +31,8 @@ const enhance = compose(
   }),
 
   withHandlers({
-    onSubmit: props => (values) => {
-      const {
-        login, history, getUser, setState,
-      } = props;
+    onSubmit: props => values => {
+      const { login, history, getUser, setState } = props;
 
       setState({
         error: '',
@@ -46,10 +44,12 @@ const enhance = compose(
           getUser(values.identifier);
           history.push('/');
         })
-        .catch(err => setState({
-          error: err.response.data.error,
-          isLoading: false,
-        }));
+        .catch(err =>
+          setState({
+            error: err.response.data.error,
+            isLoading: false,
+          }),
+        );
     },
   }),
 );
@@ -57,9 +57,7 @@ const enhance = compose(
 const Login = ({ handleSubmit, onSubmit, state }) => (
   <section>
     <PageHeader>
-      <FontAwesome name="user-circle-o" />
-      {' '}
-Please, login
+      <FontAwesome name="user-circle-o" /> Please, login
     </PageHeader>
 
     <Form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -88,13 +86,7 @@ Please, login
         </FormControl.Static>
       </FormGroup>
 
-      <Button
-        type="submit"
-        bsStyle="primary"
-        bsSize="large"
-        disabled={state.isLoading}
-      >
-
+      <Button type="submit" bsStyle="primary" bsSize="large" disabled={state.isLoading}>
         Login
         <FontAwesome name="sign-in" />
       </Button>
@@ -102,9 +94,7 @@ Please, login
   </section>
 );
 
-const {
-  shape, func, string, bool,
-} = PropTypes;
+const { shape, func, string, bool } = PropTypes;
 
 Login.propTypes = {
   handleSubmit: func.isRequired,

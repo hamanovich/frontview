@@ -68,8 +68,7 @@ class InterviewQLists extends Component {
     this.setState({ panel: !panel });
 
     if (!this.state.panel && !isLoaded) {
-      getQLists(userId)
-        .then(() => this.setState({ isLoaded: true }))
+      getQLists(userId).then(() => this.setState({ isLoaded: true }));
     }
   };
 

@@ -19,39 +19,25 @@ const List = styled(ListGroup)`
 const AccountBar = ({ auth, logout }) => (
   <List>
     <Link to="/questions" className="list-group-item">
-      <FontAwesome name="question-circle-o" />
-      {' '}
-All Questions
+      <FontAwesome name="question-circle-o" /> All Questions
     </Link>
     <Link to={`/questions/author/${auth.user.username}`} className="list-group-item">
-      <FontAwesome name="copyright" />
-      {' '}
-Your Questions
+      <FontAwesome name="copyright" /> Your Questions
     </Link>
     <Link to={`/comments/${auth.user.username}`} className="list-group-item">
-      <FontAwesome name="comments-o" />
-      {' '}
-Your Comments
+      <FontAwesome name="comments-o" /> Your Comments
     </Link>
     <Link to="/questions/add" className="list-group-item">
-      <FontAwesome name="file-text-o" />
-      {' '}
-Add a question
+      <FontAwesome name="file-text-o" /> Add a question
     </Link>
     <Link to="/me/qlist/create" className="list-group-item">
-      <FontAwesome name="list-ul" />
-      {' '}
-Create a QList
+      <FontAwesome name="list-ul" /> Create a QList
     </Link>
     <Link to="/me/qlists" className="list-group-item">
-      <FontAwesome name="list-ol" />
-      {' '}
-Show my QLists
+      <FontAwesome name="list-ol" /> Show my QLists
     </Link>
     <Button block bsStyle="danger" onClick={logout}>
-      <FontAwesome name="sign-out" />
-      {' '}
-Logout
+      <FontAwesome name="sign-out" /> Logout
     </Button>
   </List>
 );
@@ -66,4 +52,7 @@ AccountBar.propTypes = {
   logout: func.isRequired,
 };
 
-export default connect(null, { logout })(AccountBar);
+export default connect(
+  null,
+  { logout },
+)(AccountBar);

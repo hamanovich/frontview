@@ -49,49 +49,49 @@ export const voteDislike = question => ({
 
 export const getQuestionInterface = () => () => api.questions.getInterface();
 
-export const getQuestions = (page = 1) => dispatch => api.questions.getQuestions(page)
-  .then(({ questions, count, pages }) => {
+export const getQuestions = (page = 1) => dispatch =>
+  api.questions.getQuestions(page).then(({ questions, count, pages }) => {
     dispatch(addQuestions(questions, count, pages));
 
     return { count, pages };
   });
 
-export const getTopQuestions = () => dispatch => api.questions.getTop()
-  .then(questions => dispatch(addQuestions(questions)));
+export const getTopQuestions = () => dispatch =>
+  api.questions.getTop().then(questions => dispatch(addQuestions(questions)));
 
-export const getQuestionsByFilter = (filter, tag = '') => dispatch => api.questions.getByFilter(filter, tag)
-  .then(({ tags, questions }) => {
+export const getQuestionsByFilter = (filter, tag = '') => dispatch =>
+  api.questions.getByFilter(filter, tag).then(({ tags, questions }) => {
     dispatch(addQuestions(questions));
 
     return { tags, questions };
   });
 
-export const getQuestionsByQList = qlist => dispatch => api.questions.getByQList(qlist)
-  .then(questions => dispatch(addQuestions(questions)));
+export const getQuestionsByQList = qlist => dispatch =>
+  api.questions.getByQList(qlist).then(questions => dispatch(addQuestions(questions)));
 
-export const getQuestionById = id => dispatch => api.questions.getById(id)
-  .then(question => dispatch(questionGot(question)));
+export const getQuestionById = id => dispatch =>
+  api.questions.getById(id).then(question => dispatch(questionGot(question)));
 
-export const getQuestionBySlug = slug => dispatch => api.questions.getBySlug(slug)
-  .then(question => dispatch(questionGot(question)));
+export const getQuestionBySlug = slug => dispatch =>
+  api.questions.getBySlug(slug).then(question => dispatch(questionGot(question)));
 
-export const getQuestionsByAuthor = username => dispatch => api.questions.getByAuthor(username)
-  .then(questions => dispatch(addQuestions(questions)));
+export const getQuestionsByAuthor = username => dispatch =>
+  api.questions.getByAuthor(username).then(questions => dispatch(addQuestions(questions)));
 
-export const addQuestion = question => dispatch => api.questions.add(question)
-  .then(question => dispatch(questionAdded(question)));
+export const addQuestion = question => dispatch =>
+  api.questions.add(question).then(question => dispatch(questionAdded(question)));
 
-export const editQuestion = data => dispatch => api.questions.edit(data)
-  .then(question => dispatch(questionEdited(question)));
+export const editQuestion = data => dispatch =>
+  api.questions.edit(data).then(question => dispatch(questionEdited(question)));
 
-export const editQuestionField = (id, field, value) => dispatch => api.questions.editField(id, field, value)
-  .then(question => dispatch(questionEdited(question)));
+export const editQuestionField = (id, field, value) => dispatch =>
+  api.questions.editField(id, field, value).then(question => dispatch(questionEdited(question)));
 
-export const removeQuestion = id => dispatch => api.questions.remove(id)
-  .then(question => dispatch(questionRemoved(question)));
+export const removeQuestion = id => dispatch =>
+  api.questions.remove(id).then(question => dispatch(questionRemoved(question)));
 
-export const getSearchedQuestions = query => dispatch => api.questions.getSearched(query)
-  .then((questions) => {
+export const getSearchedQuestions = query => dispatch =>
+  api.questions.getSearched(query).then(questions => {
     if (questions.length) {
       dispatch(addQuestions(questions));
     }
@@ -99,7 +99,10 @@ export const getSearchedQuestions = query => dispatch => api.questions.getSearch
     return questions;
   });
 
-export const voteQuestion = (question, action, userId) => dispatch => () => api.questions.vote(question, action, userId)
-  .then(question => action === 'like'
-    ? dispatch(voteLike(question))
-    : dispatch(voteDislike(question)));
+export const voteQuestion = (question, action, userId) => dispatch => () =>
+  api.questions
+    .vote(question, action, userId)
+    .then(
+      question =>
+        action === 'like' ? dispatch(voteLike(question)) : dispatch(voteDislike(question)),
+    );

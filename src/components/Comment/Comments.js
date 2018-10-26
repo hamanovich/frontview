@@ -10,11 +10,7 @@ import { CommentType } from '../../propTypes';
 const Comments = ({ comments, match }) => (
   <section>
     {map(comments, comment => (
-      <Comment
-        comment={comment}
-        match={match}
-        key={comment._id}
-      />
+      <Comment comment={comment} match={match} key={comment._id} />
     ))}
   </section>
 );

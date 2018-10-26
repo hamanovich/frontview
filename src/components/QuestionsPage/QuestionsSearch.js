@@ -9,11 +9,9 @@ import Questions from './Questions';
 const QuestionsSearch = ({ location }) => (
   <div>
     <PageHeader>
-      <FontAwesome name="search-plus" />
-      {' '}
-Search: &apos;
+      <FontAwesome name="search-plus" /> Search: &apos;
       {new URLSearchParams(location.search).get('q')}
-&apos;
+      &apos;
     </PageHeader>
 
     <Questions />

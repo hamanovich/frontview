@@ -17,10 +17,7 @@ import '../index.css';
 
 const history = createHistory();
 const middleware = routerMiddleware(history);
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(thunk, middleware)),
-);
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, middleware)));
 const localJwtToken = window.localStorage.jwtToken;
 
 if (localJwtToken) {

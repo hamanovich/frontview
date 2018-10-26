@@ -10,39 +10,19 @@ import Login from './Login';
 import Forgot from './Forgot';
 import Reset from './Reset';
 
-import {
-  login, forgot, resetToken, getReset,
-} from '../../actions/auth';
+import { login, forgot, resetToken, getReset } from '../../actions/auth';
 import { getUser } from '../../actions/signup';
 import { addFlashMessage } from '../../actions/flash';
 
 import { PropsRoute } from '../../utils/helpers';
 
-const LoginPage = ({
-  login,
-  forgot,
-  resetToken,
-  getReset,
-  getUser,
-  addFlashMessage,
-}) => (
+const LoginPage = ({ login, forgot, resetToken, getReset, getUser, addFlashMessage }) => (
   <Row>
     <Col md={6} mdOffset={3}>
       <Switch>
-        <PropsRoute
-          exact
-          path="/login"
-          component={Login}
-          login={login}
-          getUser={getUser}
-        />
+        <PropsRoute exact path="/login" component={Login} login={login} getUser={getUser} />
 
-        <PropsRoute
-          exact
-          path="/login/forgot"
-          component={Forgot}
-          forgot={forgot}
-        />
+        <PropsRoute exact path="/login/forgot" component={Forgot} forgot={forgot} />
 
         <PropsRoute
           path="/login/reset/:token"
@@ -69,11 +49,14 @@ LoginPage.propTypes = {
   addFlashMessage: func.isRequired,
 };
 
-export default connect(null, {
-  login,
-  forgot,
-  resetToken,
-  getReset,
-  getUser,
-  addFlashMessage,
-})(LoginPage);
+export default connect(
+  null,
+  {
+    login,
+    forgot,
+    resetToken,
+    getReset,
+    getUser,
+    addFlashMessage,
+  },
+)(LoginPage);

@@ -9,15 +9,12 @@ import QuestionsBar from './QuestionsBar';
 const QuestionsTags = ({ match }) => (
   <div>
     <PageHeader>
-Questions by &apos;
+      Questions by &apos;
       {match.params.filter}
-&apos;
+      &apos;
     </PageHeader>
 
-    <QuestionsBar
-      active={match.params.tag}
-      filter={match.params.filter}
-    />
+    <QuestionsBar active={match.params.tag} filter={match.params.filter} />
 
     <hr />
 

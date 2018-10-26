@@ -2,7 +2,7 @@ import isEmail from 'validator/lib/isEmail';
 import equals from 'validator/lib/equals';
 import isEmpty from 'lodash/isEmpty';
 
-export default (values) => {
+export default values => {
   const errors = {};
 
   if (!values.username) {
@@ -26,9 +26,9 @@ export default (values) => {
   }
 
   if (
-    values.password
-    && values.passwordConfirmation
-    && !equals(values.password, values.passwordConfirmation)
+    values.password &&
+    values.passwordConfirmation &&
+    !equals(values.password, values.passwordConfirmation)
   ) {
     errors.passwordConfirmation = 'Passwords must match';
   }

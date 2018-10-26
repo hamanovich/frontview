@@ -41,5 +41,4 @@ export const confirm = token => dispatch =>
 
 export const forgot = email => () => api.user.forgot(email);
 export const getReset = token => () => api.user.getReset(token);
-export const resetToken = (token, passwords) => () =>
-  api.user.reset(token, passwords);
+export const resetToken = (token, passwords) => () => api.user.reset(token, passwords);

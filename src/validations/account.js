@@ -3,7 +3,7 @@ import isMobilePhone from 'validator/lib/isMobilePhone';
 import equals from 'validator/lib/equals';
 import isEmpty from 'lodash/isEmpty';
 
-export default (values) => {
+export default values => {
   const errors = {};
 
   if (!values.username) {
@@ -30,9 +30,11 @@ export default (values) => {
     errors.passwordConfirmation = 'Confirmation is required';
   }
 
-  if (values.password
-    && values.passwordConfirmation
-    && !equals(values.password, values.passwordConfirmation)) {
+  if (
+    values.password &&
+    values.passwordConfirmation &&
+    !equals(values.password, values.passwordConfirmation)
+  ) {
     errors.passwordConfirmation = 'Passwords must match';
   }
 

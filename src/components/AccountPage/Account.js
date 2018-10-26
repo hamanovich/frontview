@@ -21,12 +21,15 @@ import Loader from '../../utils/Loader';
 import { UserType } from '../../propTypes';
 
 const enhance = compose(
-  connect(null, {
-    getUser,
-    removeUser,
-    logout,
-    addFlashMessage,
-  }),
+  connect(
+    null,
+    {
+      getUser,
+      removeUser,
+      logout,
+      addFlashMessage,
+    },
+  ),
 
   Loader('user'),
 );
@@ -57,19 +60,15 @@ class Account extends Component {
   open = () => this.setState({ modal: true });
 
   remove = () => {
-    const {
-      user, removeUser, logout, addFlashMessage,
-    } = this.props;
+    const { user, removeUser, logout, addFlashMessage } = this.props;
 
-    removeUser(user.username).then(
-      () => {
-        addFlashMessage({
-          type: 'error',
-          text: `The user @${user.username} is no longer available`,
-        });
-        logout();
-      },
-    );
+    removeUser(user.username).then(() => {
+      addFlashMessage({
+        type: 'error',
+        text: `The user @${user.username} is no longer available`,
+      });
+      logout();
+    });
   };
 
   render() {
@@ -78,17 +77,13 @@ class Account extends Component {
     return (
       <div>
         <PageHeader>
-          {user.firstName && user.lastName
-            ? (
-              <span>
-                <FontAwesome name="user" />
-                {' '}
-                {user.firstName}
-                {' '}
-                {user.lastName}
-              </span>
-            )
-            : 'Your account'}
+          {user.firstName && user.lastName ? (
+            <span>
+              <FontAwesome name="user" /> {user.firstName} {user.lastName}
+            </span>
+          ) : (
+            'Your account'
+          )}
         </PageHeader>
 
         <Image src={user.gravatar} thumbnail />
@@ -98,46 +93,36 @@ class Account extends Component {
         <dl>
           <dt>Email:</dt>
           <dd>
-            <FontAwesome name="envelope-open-o" />
-            {' '}
-            <a href={`mailto:${user.email}`}>{user.email}</a>
+            <FontAwesome name="envelope-open-o" /> <a href={`mailto:${user.email}`}>{user.email}</a>
           </dd>
-          {user.primarySkill
-            && (
+          {user.primarySkill && (
             <div>
               <dt>Primary Skill:</dt>
               <dd>{user.primarySkill}</dd>
             </div>
-            )}
-          {user.jobFunction
-            && (
+          )}
+          {user.jobFunction && (
             <div>
               <dt>Job Function:</dt>
               <dd>{user.jobFunction}</dd>
             </div>
-            )}
-          {user.skype
-            && (
+          )}
+          {user.skype && (
             <div>
               <dt>Skype nickname:</dt>
               <dd>
-                <FontAwesome name="skype" />
-                {' '}
-                {user.skype}
+                <FontAwesome name="skype" /> {user.skype}
               </dd>
             </div>
-            )}
-          {user.phone
-            && (
+          )}
+          {user.phone && (
             <div>
               <dt>Mobile phone:</dt>
               <dd>
-                <FontAwesome name="phone" />
-                {' '}
-                {user.phone}
+                <FontAwesome name="phone" /> {user.phone}
               </dd>
             </div>
-            )}
+          )}
         </dl>
 
         <Well>{user.notes}</Well>
@@ -146,19 +131,13 @@ class Account extends Component {
 
         <ButtonGroup bsSize="small" className="pull-right">
           <Link to="/me/edit" className="btn btn-info">
-            <FontAwesome name="pencil" />
-            {' '}
-Edit profile
+            <FontAwesome name="pencil" /> Edit profile
           </Link>
           <Button bsStyle="warning" onClick={logout}>
-            <FontAwesome name="sign-out" />
-            {' '}
-Logout
+            <FontAwesome name="sign-out" /> Logout
           </Button>
           <Button bsStyle="danger" onClick={this.open}>
-            <FontAwesome name="times" />
-            {' '}
-Remove
+            <FontAwesome name="times" /> Remove
           </Button>
         </ButtonGroup>
 
@@ -167,12 +146,19 @@ Remove
             <Modal.Title>Are you sure?</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>If so, you will not be able to restore your private data. And you will also lost access to adding questions.</p>
+            <p>
+              If so, you will not be able to restore your private data. And you will also lost
+              access to adding questions.
+            </p>
           </Modal.Body>
           <Modal.Footer>
             <ButtonGroup>
-              <Button bsStyle="default" onClick={this.close}>Cancel</Button>
-              <Button bsStyle="danger" onClick={this.remove}>Remove</Button>
+              <Button bsStyle="default" onClick={this.close}>
+                Cancel
+              </Button>
+              <Button bsStyle="danger" onClick={this.remove}>
+                Remove
+              </Button>
             </ButtonGroup>
           </Modal.Footer>
         </Modal>

@@ -9,17 +9,12 @@ import { deleteFlashMessage, deleteFlashMessages } from '../../actions/flash';
 const FlashList = ({ messages, deleteFlashMessage }) => (
   <div>
     {map(messages, message => (
-      <Flash
-        key={message.id}
-        message={message}
-        close={() => deleteFlashMessage(message.id)}
-      />))}
+      <Flash key={message.id} message={message} close={() => deleteFlashMessage(message.id)} />
+    ))}
   </div>
 );
 
-const {
-  func, arrayOf, shape, string,
-} = PropTypes;
+const { func, arrayOf, shape, string } = PropTypes;
 
 FlashList.propTypes = {
   messages: arrayOf(
@@ -34,4 +29,7 @@ FlashList.propTypes = {
 
 const mapStateToProps = state => ({ messages: state.flash });
 
-export default connect(mapStateToProps, { deleteFlashMessage, deleteFlashMessages })(FlashList);
+export default connect(
+  mapStateToProps,
+  { deleteFlashMessage, deleteFlashMessages },
+)(FlashList);

@@ -10,9 +10,7 @@ const InterviewHero = () => (
     <h2>Start your interview process right now</h2>
     <Link to="/interview/candidates">
       <Button bsStyle="primary" bsSize="large" block>
-        <FontAwesome name="angle-double-down" />
-        {' '}
-Start
+        <FontAwesome name="angle-double-down" /> Start
         <FontAwesome name="angle-double-down" />
       </Button>
     </Link>

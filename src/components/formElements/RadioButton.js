@@ -7,13 +7,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Radio from 'react-bootstrap/lib/Radio';
 
-const RadioButton = ({
-  input,
-  label,
-  options,
-  inline,
-  meta: { touched, error, warning },
-}) => (
+const RadioButton = ({ input, label, options, inline, meta: { touched, error, warning } }) => (
   <FormGroup validationState={touched && error ? 'error' : touched && !error ? 'success' : null}>
     <ControlLabel>{label}</ControlLabel>
     {map(options, o => (
@@ -23,20 +17,15 @@ const RadioButton = ({
         key={o.value}
         value={o.value}
         inline={inline}
-        checked={input.value === o.value}
-      >
+        checked={input.value === o.value}>
         {o.title}
       </Radio>
     ))}
-    {touched
-      && ((error && <HelpBlock>{error}</HelpBlock>)
-        || (warning && <span>{warning}</span>))}
+    {touched && ((error && <HelpBlock>{error}</HelpBlock>) || (warning && <span>{warning}</span>))}
   </FormGroup>
 );
 
-const {
-  arrayOf, shape, string, bool,
-} = PropTypes;
+const { arrayOf, shape, string, bool } = PropTypes;
 
 RadioButton.propTypes = {
   options: arrayOf(

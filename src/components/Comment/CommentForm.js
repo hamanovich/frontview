@@ -33,17 +33,14 @@ const enhance = compose(
   }),
 
   withHandlers({
-    onSubmit: props => (values) => {
-      const {
-        addComment, reset, user, question, getQuestion, slug,
-      } = props;
+    onSubmit: props => values => {
+      const { addComment, reset, user, question, getQuestion, slug } = props;
       const query = { ...values, userId: user._id, questionId: question._id };
 
-      addComment(query)
-        .then(() => {
-          reset();
-          getQuestion(slug);
-        });
+      addComment(query).then(() => {
+        reset();
+        getQuestion(slug);
+      });
     },
   }),
 
@@ -56,13 +53,7 @@ const CommentForm = ({ handleSubmit, onSubmit }) => (
   <Row>
     <Col md={6} sm={8}>
       <Form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <Field
-          label="Username:"
-          component={TextField}
-          type="text"
-          name="username"
-          readonly
-        />
+        <Field label="Username:" component={TextField} type="text" name="username" readonly />
 
         <Field
           label="Topic*:"
@@ -80,12 +71,8 @@ const CommentForm = ({ handleSubmit, onSubmit }) => (
           placeholder="Put your comment about this question"
         />
 
-        <Button
-          type="submit"
-          bsStyle="info"
-          bsSize="large"
-        >
-Add a Comment
+        <Button type="submit" bsStyle="info" bsSize="large">
+          Add a Comment
         </Button>
       </Form>
     </Col>

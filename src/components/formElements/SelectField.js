@@ -17,28 +17,20 @@ const SelectField = ({
 }) => (
   <FormGroup
     controlId={input.name}
-    validationState={touched && error ? 'error'
-      : touched && !error ? 'success' : null}
-  >
+    validationState={touched && error ? 'error' : touched && !error ? 'success' : null}>
     <ControlLabel>{label}</ControlLabel>
-    <select
-      {...input}
-      id={id}
-      size={size}
-      multiple={multiple}
-      className="form-control"
-    >
-      {map(options, o => <option value={o.value} key={o.value}>{o.title}</option>)}
+    <select {...input} id={id} size={size} multiple={multiple} className="form-control">
+      {map(options, o => (
+        <option value={o.value} key={o.value}>
+          {o.title}
+        </option>
+      ))}
     </select>
-    {touched
-      && ((error && <HelpBlock>{error}</HelpBlock>)
-        || (warning && <span>{warning}</span>))}
+    {touched && ((error && <HelpBlock>{error}</HelpBlock>) || (warning && <span>{warning}</span>))}
   </FormGroup>
 );
 
-const {
-  arrayOf, number, shape, string, bool,
-} = PropTypes;
+const { arrayOf, number, shape, string, bool } = PropTypes;
 
 SelectField.propTypes = {
   input: shape({
