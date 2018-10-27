@@ -20,7 +20,7 @@
   "scripts": {
     "precommit": "lint-staged",
     "server": "nodemon --watch server --exec babel-node -- server/index.js",
-    "start": "concurrently \"npm run start:react\" \"npm run server\"",
+    "start": "./node_modules/.bin/concurrently \"npm run start:react\" \"npm run server\"",
     "start:react": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
