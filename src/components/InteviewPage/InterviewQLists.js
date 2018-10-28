@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import map from 'lodash/map';
@@ -81,7 +81,7 @@ class InterviewQLists extends Component {
     ));
 
     return (
-      <div>
+      <Fragment>
         <h2>Add a QList</h2>
 
         <p className="text-info">
@@ -94,7 +94,7 @@ class InterviewQLists extends Component {
           </Button>
         </p>
 
-        <Panel collapsible expanded={this.state.panel}>
+        <Panel id="collapsible-panel-1" expanded={this.state.panel} onToggle={() => {}}>
           <FormGroup>
             <ControlLabel>Choose QList from the list below:</ControlLabel>
             <Field
@@ -113,10 +113,10 @@ class InterviewQLists extends Component {
           </Button>
         </Panel>
 
-        <Panel collapsible expanded={!this.state.panel}>
+        <Panel id="collapsible-panel-2" expanded={!this.state.panel} onToggle={() => {}}>
           <QListForm userId={userId} />
         </Panel>
-      </div>
+      </Fragment>
     );
   }
 }

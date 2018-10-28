@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -24,7 +24,7 @@ const Main = styled.main`
 `;
 
 const App = () => (
-  <div>
+  <Fragment>
     <Header />
     <Grid>
       <FlashList />
@@ -43,7 +43,7 @@ const App = () => (
       </Main>
     </Grid>
     <Footer />
-  </div>
+  </Fragment>
 );
 
 export default App;

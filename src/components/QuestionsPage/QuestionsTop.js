@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import map from 'lodash/map';
@@ -34,7 +34,7 @@ const LabelVoted = styled.span`
 `;
 
 const QuestionsTop = ({ questions }) => (
-  <div>
+  <Fragment>
     <PageHeader>
       <FontAwesome name="exclamation" /> Top 10 Questions
     </PageHeader>
@@ -72,7 +72,7 @@ const QuestionsTop = ({ questions }) => (
         </ListGroupItem>
       ))}
     </ListGroup>
-  </div>
+  </Fragment>
 );
 
 QuestionsTop.propTypes = {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 
@@ -75,7 +75,7 @@ const enhance = compose(
 );
 
 const Reset = ({ handleSubmit, onSubmit, state }) => (
-  <section>
+  <Fragment>
     <PageHeader>Reset my password</PageHeader>
 
     <Form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -101,7 +101,7 @@ const Reset = ({ handleSubmit, onSubmit, state }) => (
         Reset
       </Button>
     </Form>
-  </section>
+  </Fragment>
 );
 
 const { shape, func, string, bool } = PropTypes;

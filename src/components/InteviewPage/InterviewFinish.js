@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import MarkdownRenderer from 'react-markdown-renderer';
@@ -24,7 +24,7 @@ const enhance = compose(
 );
 
 const InterviewFinish = ({ location }) => (
-  <div>
+  <Fragment>
     {location.state && (
       <div>
         <h2>
@@ -41,7 +41,7 @@ const InterviewFinish = ({ location }) => (
         </p>
       </div>
     )}
-  </div>
+  </Fragment>
 );
 
 const { shape, string } = PropTypes;

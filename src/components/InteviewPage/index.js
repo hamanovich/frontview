@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -30,7 +30,7 @@ const InterviewPage = ({
   getQLists,
   qlists,
 }) => (
-  <div>
+  <Fragment>
     <PageHeader>
       <FontAwesome name="id-badge" /> Interview
     </PageHeader>
@@ -71,7 +71,7 @@ const InterviewPage = ({
 
       <Redirect to="/interview" />
     </Switch>
-  </div>
+  </Fragment>
 );
 
 const { arrayOf, shape, func } = PropTypes;

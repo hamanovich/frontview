@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -64,7 +64,7 @@ class QLists extends Component {
     const { showModal } = this.state;
 
     return (
-      <div>
+      <Fragment>
         <PageHeader>
           <FontAwesome name="list-ol" /> QLists
         </PageHeader>
@@ -103,7 +103,7 @@ class QLists extends Component {
             </ButtonGroup>
           </Modal.Footer>
         </Modal>
-      </div>
+      </Fragment>
     );
   }
 }

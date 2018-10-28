@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import map from 'lodash/map';
@@ -93,7 +93,7 @@ const InterviewProgress = ({ step, provideFeedback, location, history, onSelectS
   ));
 
   return (
-    <div>
+    <Fragment>
       <Tabs activeKey={step} onSelect={onSelectStep} id="progress-tabs">
         {tab}
       </Tabs>
@@ -105,7 +105,7 @@ const InterviewProgress = ({ step, provideFeedback, location, history, onSelectS
         candidate={candidate}
         push={history.push}
       />
-    </div>
+    </Fragment>
   );
 };
 

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import FontAwesome from 'react-fontawesome';
 
 import PageHeader from 'react-bootstrap/lib/PageHeader';
 
 const QuestionsTabSoft = () => (
-  <div>
+  <Fragment>
     <PageHeader>
       <a
         href="https://devskiller.com/45-behavioral-questions-to-use-during-non-technical-interview-with-developers/"
@@ -276,7 +276,7 @@ const QuestionsTabSoft = () => (
         handle it?
       </li>
     </ul>
-  </div>
+  </Fragment>
 );
 
 export default QuestionsTabSoft;

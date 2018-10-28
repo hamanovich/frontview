@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import FontAwesome from 'react-fontawesome';
 
 import PageHeader from 'react-bootstrap/lib/PageHeader';
 
 const QuestionsTabReact = () => (
-  <div>
+  <Fragment>
     <PageHeader>
       <a
         href="https://tylermcginnis.com/react-interview-questions/"
@@ -65,7 +65,7 @@ const QuestionsTabReact = () => (
         <strong>setState</strong> and what is its purpose?
       </li>
     </ul>
-  </div>
+  </Fragment>
 );
 
 export default QuestionsTabReact;

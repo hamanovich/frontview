@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
@@ -68,7 +68,7 @@ const enhance = compose(
 );
 
 const AccountEdit = ({ isLoading, handleSubmit, onSubmit, user }) => (
-  <section>
+  <Fragment>
     <PageHeader>
       <FontAwesome name="pencil-square-o" /> Edit your account
     </PageHeader>
@@ -211,7 +211,7 @@ const AccountEdit = ({ isLoading, handleSubmit, onSubmit, user }) => (
         Update profile
       </Button>
     </Form>
-  </section>
+  </Fragment>
 );
 
 const { func, shape, string, bool } = PropTypes;

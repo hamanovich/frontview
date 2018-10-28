@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -55,9 +55,7 @@ class Account extends Component {
     getUser(user.username);
   }
 
-  close = () => this.setState({ modal: false });
-
-  open = () => this.setState({ modal: true });
+  toggle = () => this.setState(prevState => ({ modal: !prevState.modal }));
 
   remove = () => {
     const { user, removeUser, logout, addFlashMessage } = this.props;
@@ -75,7 +73,7 @@ class Account extends Component {
     const { user, logout } = this.props;
 
     return (
-      <div>
+      <Fragment>
         <PageHeader>
           {user.firstName && user.lastName ? (
             <span>
@@ -136,12 +134,12 @@ class Account extends Component {
           <Button bsStyle="warning" onClick={logout}>
             <FontAwesome name="sign-out" /> Logout
           </Button>
-          <Button bsStyle="danger" onClick={this.open}>
+          <Button bsStyle="danger" onClick={this.toggle}>
             <FontAwesome name="times" /> Remove
           </Button>
         </ButtonGroup>
 
-        <Modal bsSize="sm" show={this.state.modal} onHide={this.close}>
+        <Modal bsSize="sm" show={this.state.modal} onHide={this.toggle}>
           <Modal.Header closeButton>
             <Modal.Title>Are you sure?</Modal.Title>
           </Modal.Header>
@@ -153,7 +151,7 @@ class Account extends Component {
           </Modal.Body>
           <Modal.Footer>
             <ButtonGroup>
-              <Button bsStyle="default" onClick={this.close}>
+              <Button bsStyle="default" onClick={this.toggle}>
                 Cancel
               </Button>
               <Button bsStyle="danger" onClick={this.remove}>
@@ -162,7 +160,7 @@ class Account extends Component {
             </ButtonGroup>
           </Modal.Footer>
         </Modal>
-      </div>
+      </Fragment>
     );
   }
 }

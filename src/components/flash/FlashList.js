@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import map from 'lodash/map';
@@ -7,11 +7,11 @@ import Flash from './Flash';
 import { deleteFlashMessage, deleteFlashMessages } from '../../actions/flash';
 
 const FlashList = ({ messages, deleteFlashMessage }) => (
-  <div>
+  <Fragment>
     {map(messages, message => (
       <Flash key={message.id} message={message} close={() => deleteFlashMessage(message.id)} />
     ))}
-  </div>
+  </Fragment>
 );
 
 const { func, arrayOf, shape, string } = PropTypes;

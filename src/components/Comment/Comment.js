@@ -43,8 +43,6 @@ const Comment = ({ comment, match }) => (
         {distanceInWordsToNow(comment.created, { addSuffix: true })}
       </Label>
     </Media.Body>
-
-    <hr />
   </Media>
 );
 

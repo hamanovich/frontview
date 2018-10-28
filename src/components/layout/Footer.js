@@ -14,8 +14,7 @@ const Foot = styled.footer`
 
 const Footer = () => (
   <Foot>
-    &copy; Front View
-    <br /> 2017-2018
+    &copy; Front View <br /> 2017-2018
   </Foot>
 );
 

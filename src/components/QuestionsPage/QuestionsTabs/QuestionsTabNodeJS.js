@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import FontAwesome from 'react-fontawesome';
 
 import PageHeader from 'react-bootstrap/lib/PageHeader';
 
 const QuestionsTabNodeJS = () => (
-  <div>
+  <Fragment>
     <PageHeader>
       <a
         href="https://blog.risingstack.com/node-js-interview-questions-and-answers-2017/"
@@ -29,7 +29,7 @@ const QuestionsTabNodeJS = () => (
       <li>How can you secure your HTTP cookies against XSS attacks?</li>
       <li>How can you make sure your dependencies are safe?</li>
     </ul>
-  </div>
+  </Fragment>
 );
 
 export default QuestionsTabNodeJS;

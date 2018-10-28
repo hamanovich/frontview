@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import PageHeader from 'react-bootstrap/lib/PageHeader';
@@ -8,7 +8,7 @@ import Questions from './Questions';
 import PaginationBar from '../layout/PaginationBar';
 
 const QuestionsAll = ({ state, history }) => (
-  <div>
+  <Fragment>
     <PageHeader>
       Questions
       <Badge>{state.pagination.count}</Badge>
@@ -23,7 +23,7 @@ const QuestionsAll = ({ state, history }) => (
         state.pagination.activePage !== activePage && history.push(`/questions/page/${activePage}`)
       }
     />
-  </div>
+  </Fragment>
 );
 
 const { shape, arrayOf, func, string, number } = PropTypes;

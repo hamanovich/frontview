@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import map from 'lodash/map';
 
@@ -8,11 +8,11 @@ import Loader from '../../utils/Loader';
 import { CommentType } from '../../propTypes';
 
 const Comments = ({ comments, match }) => (
-  <section>
+  <Fragment>
     {map(comments, comment => (
       <Comment comment={comment} match={match} key={comment._id} />
     ))}
-  </section>
+  </Fragment>
 );
 
 const { arrayOf, shape, string } = PropTypes;
