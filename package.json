@@ -53,6 +53,7 @@
     "react": "^16.6.0",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.6.0",
+    "react-dropzone": "^7.0.1",
     "react-fontawesome": "^1.6.1",
     "react-markdown-renderer": "^1.4.0",
     "react-redux": "^5.1.0",

@@ -1,0 +1,20 @@
+{
+  "questions": {
+    "0": {
+      "answer": "fake answer 1",
+      "level": ["Junior"],
+      "notes": "fake note",
+      "practice": "theory",
+      "question": "fake question 1",
+      "skill": ["Soft"]
+    },
+    "1": {
+      "answer": "fake answer 2",
+      "level": ["Middle"],
+      "notes": "fake note 2",
+      "practice": "practice",
+      "question": "fake question 2",
+      "skill": ["Hard"]
+    }
+  }
+}

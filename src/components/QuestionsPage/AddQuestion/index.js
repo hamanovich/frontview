@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, FieldArray, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
+import Dropzone from 'react-dropzone';
 import map from 'lodash/map';
 
 import Button from 'react-bootstrap/lib/Button';
@@ -62,6 +63,7 @@ class AddQuestion extends Component {
     level: [],
     practice: [],
     skill: [],
+    fileName: '',
   };
 
   componentDidMount = () => {
@@ -107,36 +109,73 @@ class AddQuestion extends Component {
     } = this.props;
     const query = { ...values, userId, lastModified: new Date() };
 
-    if (match.params._id) {
-      editQuestion(query).then(() => {
-        addFlashMessage({
-          type: 'success',
-          text: 'Question updated successfully.',
-        });
+    const fakeQuestion = {
+      answer: 'fake answer',
+      level: ['Junior'],
+      notes: 'fake note',
+      practice: 'theory',
+      question: 'fake question',
+      skill: ['Soft'],
+    };
 
-        history.push('/questions');
+    console.log('Q', { ...fakeQuestion, userId, lastModified: new Date() });
+
+    // if (match.params._id) {
+    //   editQuestion(query).then(() => {
+    //     addFlashMessage({
+    //       type: 'success',
+    //       text: 'Question updated successfully.',
+    //     });
+
+    //     history.push('/questions');
+    //   });
+    // } else {
+    //   addQuestion(query).then(
+    //     () => {
+    //       addFlashMessage({
+    //         type: 'success',
+    //         text: 'New question created successfully.',
+    //       });
+
+    //       history.push('/questions');
+    //     },
+    //     err => {
+    //       addFlashMessage({
+    //         type: 'error',
+    //         text: err.response.data.error,
+    //       });
+
+    //       logout();
+    //       history.push('/');
+    //     },
+    //   );
+    // }
+  };
+
+  handleDrop = (accepted, rejected) => {
+    const [file] = accepted;
+
+    console.log(accepted, rejected);
+
+    if (
+      typeof file === 'undefined' ||
+      typeof rejected[0] !== 'undefined' ||
+      file.type !== 'application/json'
+    )
+      return;
+
+    const reader = new FileReader();
+    reader.onload = e => {
+      this.setState({
+        fileName: file.name,
       });
-    } else {
-      addQuestion(query).then(
-        () => {
-          addFlashMessage({
-            type: 'success',
-            text: 'New question created successfully.',
-          });
+      console.log('DATA----> ', JSON.parse(e.target.result));
+    };
+    reader.readAsText(file);
+  };
 
-          history.push('/questions');
-        },
-        err => {
-          addFlashMessage({
-            type: 'error',
-            text: err.response.data.error,
-          });
-
-          logout();
-          history.push('/');
-        },
-      );
-    }
+  handleDropRejected = rejected => {
+    console.log('re', rejected);
   };
 
   toggleRemoveModal = () =>
@@ -156,7 +195,7 @@ class AddQuestion extends Component {
   };
 
   render() {
-    const { isLoading, showRemoveModal, skill, practice, level } = this.state;
+    const { isLoading, showRemoveModal, skill, practice, level, fileName } = this.state;
     const { match, handleSubmit } = this.props;
     const { _id } = match.params;
 
@@ -167,6 +206,20 @@ class AddQuestion extends Component {
             <PageHeader>
               <FontAwesome name="question-circle-o" /> {_id ? 'Edit question' : 'Add new question'}
             </PageHeader>
+            <Dropzone
+              accept="application/json"
+              multiple={false}
+              onDrop={this.handleDrop}
+              onDropRejected={this.handleDropRejected}
+              className="drop-class"
+              activeClassName="drop-class-active"
+              rejectClassName="drop-class-reject">
+              <p>Only *.json files will be accepted</p>
+            </Dropzone>
+
+            {fileName}
+
+            <hr />
 
             <Field
               label="Question*:"
@@ -175,7 +228,6 @@ class AddQuestion extends Component {
               name="question"
               placeholder="Type new question"
             />
-
             <Row>
               <Col sm={6}>
                 <Field
@@ -205,7 +257,6 @@ class AddQuestion extends Component {
                 />
               </Col>
             </Row>
-
             <Field
               component={RadioButton}
               name="practice"
@@ -215,27 +266,21 @@ class AddQuestion extends Component {
               inline
               options={map(practice, s => ({ title: s, value: s }))}
             />
-
             <hr />
-
             <Field
               label="Answer"
               name="answer"
               component={TextareaField}
               placeholder="Write down the answer"
             />
-
             <FieldArray name="answers" component={AnswerFields} />
-
             <hr />
-
             <Field
               label="Notes"
               name="notes"
               component={TextareaField}
               placeholder="Add some notes, if needed"
             />
-
             <Button type="submit" bsStyle="info" bsSize="large" disabled={isLoading}>
               {_id ? (
                 <span>
@@ -246,7 +291,6 @@ class AddQuestion extends Component {
                 'Add new question'
               )}
             </Button>
-
             {_id && (
               <div className="pull-right">
                 <Button bsStyle="danger" onClick={this.toggleRemoveModal}>
