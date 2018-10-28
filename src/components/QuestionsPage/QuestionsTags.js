@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import PageHeader from 'react-bootstrap/lib/PageHeader';
@@ -7,7 +7,7 @@ import Questions from './Questions';
 import QuestionsBar from './QuestionsBar';
 
 const QuestionsTags = ({ match }) => (
-  <div>
+  <Fragment>
     <PageHeader>
       Questions by &apos;
       {match.params.filter}
@@ -19,7 +19,7 @@ const QuestionsTags = ({ match }) => (
     <hr />
 
     <Questions />
-  </div>
+  </Fragment>
 );
 
 const { shape, string } = PropTypes;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
@@ -55,7 +55,7 @@ const enhance = compose(
 );
 
 const Login = ({ handleSubmit, onSubmit, state }) => (
-  <section>
+  <Fragment>
     <PageHeader>
       <FontAwesome name="user-circle-o" /> Please, login
     </PageHeader>
@@ -91,7 +91,7 @@ const Login = ({ handleSubmit, onSubmit, state }) => (
         <FontAwesome name="sign-in" />
       </Button>
     </Form>
-  </section>
+  </Fragment>
 );
 
 const { shape, func, string, bool } = PropTypes;

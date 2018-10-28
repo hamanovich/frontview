@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
@@ -37,13 +37,13 @@ const enhance = compose(
 );
 
 const CommentsAuthorPage = ({ comments, match }) => (
-  <section>
+  <Fragment>
     <PageHeader>
       <FontAwesome name="comments-o" /> All Your Comments
     </PageHeader>
 
     <Comments comments={comments} match={match} />
-  </section>
+  </Fragment>
 );
 
 const { arrayOf, shape, string } = PropTypes;

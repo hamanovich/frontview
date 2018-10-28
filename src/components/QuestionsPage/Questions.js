@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import map from 'lodash/map';
 import { connect } from 'react-redux';
@@ -29,7 +29,7 @@ const enhance = compose(
 );
 
 const Questions = ({ user, qlists, questions, editQuestionField }) => (
-  <div>
+  <Fragment>
     {questions.length ? (
       map(questions, question => (
         <Question
@@ -46,7 +46,7 @@ const Questions = ({ user, qlists, questions, editQuestionField }) => (
         <Link to="/questions/add">Try it now</Link>
       </span>
     )}
-  </div>
+  </Fragment>
 );
 
 const { arrayOf, func } = PropTypes;

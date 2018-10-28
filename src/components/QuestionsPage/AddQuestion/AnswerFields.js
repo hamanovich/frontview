@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import FontAwesome from 'react-fontawesome';
@@ -16,7 +16,7 @@ const Remove = styled(Button)`
 `;
 
 const AnswerFields = ({ fields, meta: { touched, error, submitFailed } }) => (
-  <div>
+  <Fragment>
     {(touched || submitFailed) && error && <span>{error}</span>}
 
     {fields.map((answer, index) => (
@@ -45,7 +45,7 @@ const AnswerFields = ({ fields, meta: { touched, error, submitFailed } }) => (
         Add Answer
       </Button>
     </FormGroup>
-  </div>
+  </Fragment>
 );
 
 const { shape, func, string, bool } = PropTypes;

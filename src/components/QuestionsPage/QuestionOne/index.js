@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
@@ -94,7 +94,7 @@ class QuestionOne extends Component {
     );
 
     return (
-      <div>
+      <Fragment>
         <PageHeader>Single Question</PageHeader>
 
         <Question
@@ -133,7 +133,7 @@ class QuestionOne extends Component {
             </Panel>
           )}
         </PanelGroup>
-      </div>
+      </Fragment>
     );
   }
 }

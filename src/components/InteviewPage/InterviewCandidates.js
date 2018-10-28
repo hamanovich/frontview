@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import map from 'lodash/map';
@@ -96,102 +96,113 @@ class InterviewCandidates extends Component {
     ));
 
     return (
-      <div>
+      <Fragment>
         <h2>Add a Candidate</h2>
-        <div>
-          <p>
-            <Button bsSize="small" onClick={this.chooseFromList}>
-              or choose one
-            </Button>
-          </p>
-          <Panel collapsible expanded={this.state.panel}>
-            <FormGroup>
-              <ControlLabel>Choose candidate from the list below:</ControlLabel>
-              <Field
-                name="candidates"
-                component="select"
-                className="form-control"
-                ref={ref => {
-                  this.candidateOne = ref;
-                }}>
-                <option value="">Select a candidate...</option>
-                {chooseCandidates}
-              </Field>
-            </FormGroup>
-            <Button bsStyle="success" onClick={this.chooseOne}>
-              Choose
-            </Button>
-          </Panel>
-        </div>
+        <p>
+          <Button bsSize="small" onClick={this.chooseFromList}>
+            or choose one
+          </Button>
+        </p>
 
-        <Panel collapsible expanded={!this.state.panel}>
-          <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
-            <Row>
-              <Col sm={6}>
+        <Panel id="collapsible-panel-1" expanded={this.state.panel} onToggle={() => {}}>
+          <Panel.Collapse>
+            <Panel.Body>
+              <FormGroup>
+                <ControlLabel>Choose candidate from the list below:</ControlLabel>
                 <Field
-                  label="First name:"
-                  component={TextField}
-                  type="text"
-                  name="firstName"
-                  placeholder="Candidate's first name"
-                />
-              </Col>
-
-              <Col sm={6}>
-                <Field
-                  label="Last name:"
-                  component={TextField}
-                  type="text"
-                  name="lastName"
-                  placeholder="Candidate's surname"
-                />
-              </Col>
-            </Row>
-
-            <Field
-              label="Email:"
-              component={TextField}
-              type="email"
-              name="email"
-              placeholder="Add email (optional)"
-            />
-
-            <Row>
-              <Col sm={6}>
-                <Field
-                  label="Primary skill:"
-                  component={TextField}
-                  type="text"
-                  name="primarySkill"
-                  placeholder="Add Primary Skill"
-                />
-              </Col>
-
-              <Col sm={6}>
-                <Field
-                  label="Technical Level:"
-                  component={TextField}
-                  type="text"
-                  name="techLevel"
-                  placeholder="Add Technical Level"
-                />
-              </Col>
-            </Row>
-
-            <Field
-              label="Notes"
-              name="notes"
-              rows={6}
-              component={TextareaField}
-              placeholder="Add some notes (optional)"
-            />
-
-            <Button type="submit" bsStyle="primary" bsSize="large" disabled={isLoading}>
-              Register a candidate
-            </Button>
-          </Form>
+                  name="candidates"
+                  component="select"
+                  className="form-control"
+                  ref={ref => {
+                    this.candidateOne = ref;
+                  }}>
+                  <option value="">Select a candidate...</option>
+                  {chooseCandidates}
+                </Field>
+              </FormGroup>
+              <Button bsStyle="success" onClick={this.chooseOne}>
+                Choose
+              </Button>
+            </Panel.Body>
+          </Panel.Collapse>
         </Panel>
-      </div>
+
+        <Panel
+          id="collapsible-panel-2"
+          expanded={!this.state.panel}
+          defaultExpanded
+          onToggle={() => {}}>
+          <Panel.Collapse>
+            <Panel.Body>
+              <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
+                <Row>
+                  <Col sm={6}>
+                    <Field
+                      label="First name:"
+                      component={TextField}
+                      type="text"
+                      name="firstName"
+                      placeholder="Candidate's first name"
+                    />
+                  </Col>
+
+                  <Col sm={6}>
+                    <Field
+                      label="Last name:"
+                      component={TextField}
+                      type="text"
+                      name="lastName"
+                      placeholder="Candidate's surname"
+                    />
+                  </Col>
+                </Row>
+
+                <Field
+                  label="Email:"
+                  component={TextField}
+                  type="email"
+                  name="email"
+                  placeholder="Add email (optional)"
+                />
+
+                <Row>
+                  <Col sm={6}>
+                    <Field
+                      label="Primary skill:"
+                      component={TextField}
+                      type="text"
+                      name="primarySkill"
+                      placeholder="Add Primary Skill"
+                    />
+                  </Col>
+
+                  <Col sm={6}>
+                    <Field
+                      label="Technical Level:"
+                      component={TextField}
+                      type="text"
+                      name="techLevel"
+                      placeholder="Add Technical Level"
+                    />
+                  </Col>
+                </Row>
+
+                <Field
+                  label="Notes"
+                  name="notes"
+                  rows={6}
+                  component={TextareaField}
+                  placeholder="Add some notes (optional)"
+                />
+
+                <Button type="submit" bsStyle="primary" bsSize="large" disabled={isLoading}>
+                  Register a candidate
+                </Button>
+              </Form>
+            </Panel.Body>
+          </Panel.Collapse>
+        </Panel>
+      </Fragment>
     );
   }
 }

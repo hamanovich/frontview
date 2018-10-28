@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import FontAwesome from 'react-fontawesome';
 
 import PageHeader from 'react-bootstrap/lib/PageHeader';
 
 const QuestionsTabFrontend = () => (
-  <div>
+  <Fragment>
     <PageHeader>
       <a
         href="https://github.com/h5bp/Front-end-Developer-Interview-Questions"
@@ -355,7 +355,7 @@ const QuestionsTabFrontend = () => (
       <li>What&apos;s your favorite feature of Internet Explorer?</li>
       <li>How do you like your coffee?</li>
     </ul>
-  </div>
+  </Fragment>
 );
 
 export default QuestionsTabFrontend;

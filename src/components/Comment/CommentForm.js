@@ -15,7 +15,6 @@ import Form from 'react-bootstrap/lib/Form';
 import { TextField, TextareaField } from '../formElements';
 
 import validate from '../../validations/comment';
-
 import Loader from '../../utils/Loader';
 
 const enhance = compose(

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 
@@ -54,7 +54,7 @@ const enhance = compose(
 );
 
 const Forgot = ({ handleSubmit, onSubmit, state }) => (
-  <section>
+  <Fragment>
     <PageHeader>
       Forgot your password?
       <br /> Don&apos;t worry!
@@ -77,7 +77,7 @@ const Forgot = ({ handleSubmit, onSubmit, state }) => (
         Send a reset
       </Button>
     </Form>
-  </section>
+  </Fragment>
 );
 
 const { shape, func, string, bool } = PropTypes;

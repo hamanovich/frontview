@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
@@ -7,7 +7,7 @@ import PageHeader from 'react-bootstrap/lib/PageHeader';
 import Questions from './Questions';
 
 const QuestionsSearch = ({ location }) => (
-  <div>
+  <Fragment>
     <PageHeader>
       <FontAwesome name="search-plus" /> Search: &apos;
       {new URLSearchParams(location.search).get('q')}
@@ -15,7 +15,7 @@ const QuestionsSearch = ({ location }) => (
     </PageHeader>
 
     <Questions />
-  </div>
+  </Fragment>
 );
 
 const { shape, string } = PropTypes;
