@@ -98,7 +98,6 @@ exports.add = async (req, res) => {
 exports.addFromFile = async (req, res) => {
   const { questions } = req.body;
 
-  // TODO: Also needs to more precise check
   if (
     typeof questions === 'undefined' ||
     questions.length === 0 ||
@@ -136,12 +135,13 @@ exports.addFromFile = async (req, res) => {
     return { newQuestion, newUser };
   };
 
-  const mapQuesitons = req.body.questions.map(createQuestionAndUser);
+  const mapQuestions = req.body.questions.map(createQuestionAndUser);
 
-  const addAll = await Promise.all(mapQuesitons);
+  const addAll = await Promise.all(mapQuestions);
+  const newQuestions = addAll.map(item => item.newQuestion);
 
   if (addAll) {
-    res.json(addAll);
+    res.json(newQuestions);
     return;
   }
 
