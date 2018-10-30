@@ -4,6 +4,7 @@ import { Field, FieldArray, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 import Dropzone from 'react-dropzone';
+import styled from 'styled-components';
 import map from 'lodash/map';
 
 import Button from 'react-bootstrap/lib/Button';
@@ -23,6 +24,7 @@ import { logout } from '../../../actions/auth';
 import { addFlashMessage } from '../../../actions/flash';
 import {
   addQuestion,
+  addQuestionsFromFile,
   removeQuestion,
   editQuestion,
   getQuestionById,
@@ -31,10 +33,38 @@ import {
 
 const { func, shape, string } = PropTypes;
 
+const DropMe = styled(Dropzone)`
+  border-radius: 4px;
+  border: 1px dashed #ccc;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  cursor: pointer;
+  padding: 2rem 3rem 2rem 1rem;
+
+  &:hover {
+    border-color: #66afe9;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  }
+
+  &.dropzone--active {
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
+    border-color: #3c763d;
+  }
+
+  &.dropzone--reject {
+    border-color: #a94442;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+`;
+
 class AddQuestion extends Component {
   static propTypes = {
     handleSubmit: func.isRequired,
     addQuestion: func.isRequired,
+    addQuestionsFromFile: func.isRequired,
     editQuestion: func.isRequired,
     getQuestionInterface: func.isRequired,
     addFlashMessage: func.isRequired,
@@ -109,73 +139,77 @@ class AddQuestion extends Component {
     } = this.props;
     const query = { ...values, userId, lastModified: new Date() };
 
-    const fakeQuestion = {
-      answer: 'fake answer',
-      level: ['Junior'],
-      notes: 'fake note',
-      practice: 'theory',
-      question: 'fake question',
-      skill: ['Soft'],
-    };
+    if (match.params._id) {
+      editQuestion(query).then(() => {
+        addFlashMessage({
+          type: 'success',
+          text: 'Question updated successfully.',
+        });
 
-    console.log('Q', { ...fakeQuestion, userId, lastModified: new Date() });
+        history.push('/questions');
+      });
+    } else {
+      addQuestion(query).then(
+        () => {
+          addFlashMessage({
+            type: 'success',
+            text: 'New question created successfully.',
+          });
 
-    // if (match.params._id) {
-    //   editQuestion(query).then(() => {
-    //     addFlashMessage({
-    //       type: 'success',
-    //       text: 'Question updated successfully.',
-    //     });
+          history.push('/questions');
+        },
+        err => {
+          addFlashMessage({
+            type: 'error',
+            text: err.response.data.error,
+          });
 
-    //     history.push('/questions');
-    //   });
-    // } else {
-    //   addQuestion(query).then(
-    //     () => {
-    //       addFlashMessage({
-    //         type: 'success',
-    //         text: 'New question created successfully.',
-    //       });
-
-    //       history.push('/questions');
-    //     },
-    //     err => {
-    //       addFlashMessage({
-    //         type: 'error',
-    //         text: err.response.data.error,
-    //       });
-
-    //       logout();
-    //       history.push('/');
-    //     },
-    //   );
-    // }
+          logout();
+          history.push('/');
+        },
+      );
+    }
   };
 
-  handleDrop = (accepted, rejected) => {
+  handleDropAccepted = accepted => {
+    const { addQuestionsFromFile, addFlashMessage, history } = this.props;
     const [file] = accepted;
-
-    console.log(accepted, rejected);
-
-    if (
-      typeof file === 'undefined' ||
-      typeof rejected[0] !== 'undefined' ||
-      file.type !== 'application/json'
-    )
-      return;
-
     const reader = new FileReader();
+
     reader.onload = e => {
       this.setState({
         fileName: file.name,
       });
-      console.log('DATA----> ', JSON.parse(e.target.result));
+      const query = {
+        questions: JSON.parse(e.target.result),
+        userId: this.props.userId,
+        lastModified: new Date(),
+      };
+
+      addQuestionsFromFile(query)
+        .then(() => {
+          addFlashMessage({
+            type: 'success',
+            text: 'New questions created successfully.',
+          });
+
+          history.push('/questions');
+        })
+        .catch(err =>
+          addFlashMessage({
+            type: 'error',
+            text: err.response.data.error,
+          }),
+        );
     };
     reader.readAsText(file);
   };
 
-  handleDropRejected = rejected => {
-    console.log('re', rejected);
+  handleDropRejected = () => {
+    this.props.addFlashMessage({
+      type: 'error',
+      text: 'Only *.json file is accepted',
+    });
   };
 
   toggleRemoveModal = () =>
@@ -206,18 +240,20 @@ class AddQuestion extends Component {
             <PageHeader>
               <FontAwesome name="question-circle-o" /> {_id ? 'Edit question' : 'Add new question'}
             </PageHeader>
-            <Dropzone
+            <DropMe
               accept="application/json"
               multiple={false}
               onDrop={this.handleDrop}
+              onDropAccepted={this.handleDropAccepted}
               onDropRejected={this.handleDropRejected}
-              className="drop-class"
-              activeClassName="drop-class-active"
-              rejectClassName="drop-class-reject">
-              <p>Only *.json files will be accepted</p>
-            </Dropzone>
-
-            {fileName}
+              className="dropzone"
+              activeClassName="dropzone--active"
+              rejectClassName="dropzone--reject">
+              <p>
+                Only *.json file is accepted <br />
+                {fileName !== '' ? `You have added - ${fileName}` : ''}
+              </p>
+            </DropMe>
 
             <hr />
 
@@ -336,6 +372,7 @@ export default connect(
   {
     logout,
     addQuestion,
+    addQuestionsFromFile,
     getQuestionById,
     removeQuestion,
     editQuestion,

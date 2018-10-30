@@ -66,6 +66,7 @@ exports.add = async (req, res) => {
     userId,
     lastModified,
   } = req.body;
+
   const newQuestion = await Question.create({
     question,
     skill,
@@ -77,6 +78,7 @@ exports.add = async (req, res) => {
     author: userId,
     lastModified,
   });
+
   const user = await User.findByIdAndUpdate(
     userId,
     { $push: { questions: newQuestion._id } },
@@ -85,6 +87,61 @@ exports.add = async (req, res) => {
 
   if (newQuestion && user) {
     res.json(newQuestion);
+    return;
+  }
+
+  res.status(500).json({
+    error: "Author of this question didn't find in database. Please relogin and try again",
+  });
+};
+
+exports.addFromFile = async (req, res) => {
+  const { questions } = req.body;
+
+  // TODO: Also needs to more precise check
+  if (
+    typeof questions === 'undefined' ||
+    questions.length === 0 ||
+    Object.prototype.toString.call(questions).slice(8, -1) !== 'Array'
+  ) {
+    res.status(500).json({
+      error: 'This JSON has invalid format',
+    });
+
+    return;
+  }
+
+  const createQuestionAndUser = async singleQuestion => {
+    const { question, skill, level, practice, answer, answers, notes } = singleQuestion;
+    const { userId, lastModified } = req.body;
+
+    const newQuestion = await Question.create({
+      question,
+      skill,
+      level,
+      practice,
+      answer,
+      answers,
+      notes,
+      author: userId,
+      lastModified,
+    });
+
+    const newUser = await User.findByIdAndUpdate(
+      userId,
+      { $push: { questions: newQuestion._id } },
+      { safe: true, upsert: true, new: true },
+    );
+
+    return { newQuestion, newUser };
+  };
+
+  const mapQuesitons = req.body.questions.map(createQuestionAndUser);
+
+  const addAll = await Promise.all(mapQuesitons);
+
+  if (addAll) {
+    res.json(addAll);
     return;
   }
 

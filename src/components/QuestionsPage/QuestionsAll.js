@@ -10,8 +10,7 @@ import PaginationBar from '../layout/PaginationBar';
 const QuestionsAll = ({ state, history }) => (
   <Fragment>
     <PageHeader>
-      Questions
-      <Badge>{state.pagination.count}</Badge>
+      Questions <Badge>{state.pagination.count}</Badge>
     </PageHeader>
 
     <Questions />

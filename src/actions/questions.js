@@ -2,6 +2,7 @@ import api from '../api';
 
 import {
   QUESTIONS_ADD,
+  QUESTIONS_FROM_FILE_ADD,
   QUESTION_ADD,
   QUESTION_EDIT,
   QUESTION_GET,
@@ -25,6 +26,11 @@ export const questionGot = question => ({
 export const questionAdded = question => ({
   type: QUESTION_ADD,
   question,
+});
+
+export const questionsFromFileAdded = questions => ({
+  type: QUESTIONS_FROM_FILE_ADD,
+  questions,
 });
 
 export const questionEdited = question => ({
@@ -80,6 +86,9 @@ export const getQuestionsByAuthor = username => dispatch =>
 
 export const addQuestion = question => dispatch =>
   api.questions.add(question).then(question => dispatch(questionAdded(question)));
+
+export const addQuestionsFromFile = questions => dispatch =>
+  api.questions.addFromFile(questions).then(questions => dispatch(questionsFromFileAdded(questions)));
 
 export const editQuestion = data => dispatch =>
   api.questions.edit(data).then(question => dispatch(questionEdited(question)));
