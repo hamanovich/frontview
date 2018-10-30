@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import MarkdownRenderer from 'react-markdown-renderer';
@@ -106,87 +106,96 @@ class Question extends Component {
     );
 
     return (
-      <Panel>
-        <Panel.Heading>{panelHeader}</Panel.Heading>
-        <Panel.Body>
-          <div onClick={this.open(question.answer, 'answer')}>
-            <MarkdownRenderer markdown={question.answer} />
-          </div>
-          {map(question.answers, (question, index) => (
-            <div key={shortid.generate()} onClick={this.open(question, `answers.${index}.text`)}>
-              <MarkdownRenderer markdown={question.text} />
+      <Fragment>
+        <h2>{question.question}</h2>
+
+        <Panel>
+          <Panel.Heading>{panelHeader}</Panel.Heading>
+          <Panel.Body>
+            <div onClick={this.open(question.answer, 'answer')}>
+              <MarkdownRenderer markdown={question.answer} />
             </div>
-          ))}
 
-          <hr />
+            <hr />
 
-          {question.notes && (
-            <Well onClick={this.open(question.notes, 'notes')}>
-              <MarkdownRenderer markdown={question.notes} />
-            </Well>
-          )}
+            {map(question.answers, (question, index) => (
+              <em key={shortid.generate()} onClick={this.open(question, `answers.${index}.text`)}>
+                <MarkdownRenderer markdown={question.text} />
+              </em>
+            ))}
 
-          {question.author && (
-            <small>
-              <strong>Author</strong>:
-              <Link to={`/questions/author/${question.author.username}`}>
-                {question.author.username}
-              </Link>
-            </small>
-          )}
+            <hr />
 
-          <Link to={`/questions/${question.slug}/one`} className="pull-right">
-            <FontAwesome name="comments-o" /> {question.comments && question.comments.length}
-          </Link>
-
-          <hr />
-
-          {question.author &&
-            user.username === question.author.username && (
-              <ButtonGroup bsSize="small" className="pull-right">
-                <Link to={`/questions/${question._id}/edit`} className="btn btn-warning">
-                  Edit
-                </Link>
-              </ButtonGroup>
+            {question.notes && (
+              <Well onClick={this.open(question.notes, 'notes')}>
+                <MarkdownRenderer markdown={question.notes} />
+              </Well>
             )}
 
-          {user.username && <Toolbar question={question} user={user} qlists={qlists} />}
+            {question.author && (
+              <small>
+                <strong>Author</strong>:
+                <Link to={`/questions/author/${question.author.username}`}>
+                  {question.author.username}
+                </Link>
+              </small>
+            )}
 
-          <Modal show={this.state.showModal} onHide={this.close}>
-            <Modal.Header closeButton>
-              <Modal.Title>
-                Change value:
-                <strong>{textField}</strong>
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <form>
-                <FormGroup controlId="formControlsTextarea">
-                  <ControlLabel>Change Field and press Update button</ControlLabel>
-                  <FormControl
-                    name={textField}
-                    componentClass="textarea"
-                    inputRef={ref => {
-                      this.textField = ref;
-                    }}
-                    defaultValue={answerField && answerField.text ? answerField.text : answerField}
-                    rows="10"
-                  />
-                </FormGroup>
-                <Button
-                  bsStyle="primary"
-                  onClick={() => {
-                    editQuestionField(question._id, textField, this.textField.value);
-                    this.close();
-                  }}>
-                  Update
-                </Button>
-              </form>
-            </Modal.Body>
-          </Modal>
-        </Panel.Body>
-        <Panel.Footer>{panelFooter}</Panel.Footer>
-      </Panel>
+            <Link to={`/questions/${question.slug}/one`} className="pull-right">
+              <FontAwesome name="comments-o" /> {question.comments && question.comments.length}
+            </Link>
+
+            <hr />
+
+            {question.author &&
+              user.username === question.author.username && (
+                <ButtonGroup bsSize="small" className="pull-right">
+                  <Link to={`/questions/${question._id}/edit`} className="btn btn-warning">
+                    Edit
+                  </Link>
+                </ButtonGroup>
+              )}
+
+            {user.username && <Toolbar question={question} user={user} qlists={qlists} />}
+
+            <Modal show={this.state.showModal} onHide={this.close}>
+              <Modal.Header closeButton>
+                <Modal.Title>
+                  Change value:
+                  <strong>{textField}</strong>
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <form>
+                  <FormGroup controlId="formControlsTextarea">
+                    <ControlLabel>Change Field and press Update button</ControlLabel>
+                    <FormControl
+                      name={textField}
+                      componentClass="textarea"
+                      inputRef={ref => {
+                        this.textField = ref;
+                      }}
+                      defaultValue={
+                        answerField && answerField.text ? answerField.text : answerField
+                      }
+                      rows="10"
+                    />
+                  </FormGroup>
+                  <Button
+                    bsStyle="primary"
+                    onClick={() => {
+                      editQuestionField(question._id, textField, this.textField.value);
+                      this.close();
+                    }}>
+                    Update
+                  </Button>
+                </form>
+              </Modal.Body>
+            </Modal>
+          </Panel.Body>
+          <Panel.Footer>{panelFooter}</Panel.Footer>
+        </Panel>
+      </Fragment>
     );
   }
 }

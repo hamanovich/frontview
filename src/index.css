@@ -19,4 +19,5 @@ p:last-child {
 
 .panel{
   box-shadow: none;
+  margin-bottom: 40px;
 }
