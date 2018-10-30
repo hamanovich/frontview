@@ -3,6 +3,7 @@ import map from 'lodash/map';
 import {
   QUESTIONS_ADD,
   QUESTION_ADD,
+  QUESTIONS_FROM_FILE_ADD,
   QUESTION_EDIT,
   QUESTION_GET,
   QUESTION_REMOVE,
@@ -17,6 +18,9 @@ export default (state = [], action) => {
 
     case QUESTION_ADD:
       return [...state, action.question];
+
+    case QUESTIONS_FROM_FILE_ADD:
+      return [...state, ...action.questions];
 
     case QUESTION_GET: {
       const gotIndex = state.findIndex(question => question._id === action.question._id);

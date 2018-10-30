@@ -56,7 +56,7 @@ export default WrappedComponent => {
     };
 
     componentDidMount() {
-      const { match, location } = this.props;
+      const { match, location, getTopQuestions } = this.props;
       const { page = 1, username } = match.params;
       const searchQuery = new URLSearchParams(location.search).get('q');
 

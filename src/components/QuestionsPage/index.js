@@ -23,7 +23,10 @@ const QuestionsPage = () => (
     <Route path="/questions/qlist/:slug" component={QuestionsWrapper(QuestionsQList)} />
     <Route path="/questions/:_id/edit" component={AddQuestion} />
     <Route path="/questions/:slug/one" component={QuestionOne} />
-    <Route path="/questions/:filter/:tag?" component={QuestionsTags} />
+    <Route
+      path="/questions/:filter/:tag?"
+      component={props => <QuestionsTags timestamp={new Date().toString()} {...props} />}
+    />
     <Redirect to="/questions/page/1" />
   </Switch>
 );

@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Field, FieldArray, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
+import Dropzone from 'react-dropzone';
+import styled from 'styled-components';
 import map from 'lodash/map';
 
 import Button from 'react-bootstrap/lib/Button';
@@ -22,6 +24,7 @@ import { logout } from '../../../actions/auth';
 import { addFlashMessage } from '../../../actions/flash';
 import {
   addQuestion,
+  addQuestionsFromFile,
   removeQuestion,
   editQuestion,
   getQuestionById,
@@ -30,10 +33,39 @@ import {
 
 const { func, shape, string } = PropTypes;
 
+const DropMe = styled(Dropzone)`
+  border-radius: 4px;
+  border: 1px dashed #ccc;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  cursor: pointer;
+  padding: 5rem 2rem;
+  font-size: 1.5rem;
+
+  &:hover {
+    border-color: #66afe9;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  }
+
+  &.dropzone--active {
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
+    border-color: #3c763d;
+  }
+
+  &.dropzone--reject {
+    border-color: #a94442;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+`;
+
 class AddQuestion extends Component {
   static propTypes = {
     handleSubmit: func.isRequired,
     addQuestion: func.isRequired,
+    addQuestionsFromFile: func.isRequired,
     editQuestion: func.isRequired,
     getQuestionInterface: func.isRequired,
     addFlashMessage: func.isRequired,
@@ -62,6 +94,8 @@ class AddQuestion extends Component {
     level: [],
     practice: [],
     skill: [],
+    dropzone: false,
+    fileName: '',
   };
 
   componentDidMount = () => {
@@ -139,6 +173,49 @@ class AddQuestion extends Component {
     }
   };
 
+  handleDropAccepted = accepted => {
+    const { addQuestionsFromFile, addFlashMessage, history } = this.props;
+    const [file] = accepted;
+    const reader = new FileReader();
+
+    reader.onload = e => {
+      this.setState({
+        fileName: file.name,
+      });
+      const query = {
+        questions: JSON.parse(e.target.result),
+        userId: this.props.userId,
+        lastModified: new Date(),
+      };
+
+      addQuestionsFromFile(query)
+        .then(() => {
+          addFlashMessage({
+            type: 'success',
+            text: 'New questions were added successfully.',
+          });
+
+          history.push('/questions');
+        })
+        .catch(err =>
+          addFlashMessage({
+            type: 'error',
+            text: err.response.data.error,
+          }),
+        );
+    };
+    reader.readAsText(file);
+  };
+
+  handleDropRejected = () => {
+    this.props.addFlashMessage({
+      type: 'error',
+      text: 'Only *.json file is accepted',
+    });
+  };
+
+  toggleDropzone = () => this.setState(prevState => ({ dropzone: !prevState.dropzone }));
+
   toggleRemoveModal = () =>
     this.setState(prevState => ({ showRemoveModal: !prevState.showRemoveModal }));
 
@@ -156,7 +233,7 @@ class AddQuestion extends Component {
   };
 
   render() {
-    const { isLoading, showRemoveModal, skill, practice, level } = this.state;
+    const { isLoading, showRemoveModal, skill, practice, level, fileName, dropzone } = this.state;
     const { match, handleSubmit } = this.props;
     const { _id } = match.params;
 
@@ -168,110 +245,130 @@ class AddQuestion extends Component {
               <FontAwesome name="question-circle-o" /> {_id ? 'Edit question' : 'Add new question'}
             </PageHeader>
 
-            <Field
-              label="Question*:"
-              component={TextField}
-              type="text"
-              name="question"
-              placeholder="Type new question"
-            />
-
-            <Row>
-              <Col sm={6}>
-                <Field
-                  component={SelectField}
-                  name="skill"
-                  id="skill"
-                  label="Choose skill* (multiple):"
-                  multiple
-                  size={5}
-                  type="select-multiple"
-                  required
-                  options={map(skill, s => ({ title: s, value: s }))}
-                />
-              </Col>
-
-              <Col sm={6}>
-                <Field
-                  component={SelectField}
-                  name="level"
-                  id="level"
-                  label="Choose level* (multiple):"
-                  multiple
-                  size={6}
-                  type="select-multiple"
-                  required
-                  options={map(level, s => ({ title: s, value: s }))}
-                />
-              </Col>
-            </Row>
-
-            <Field
-              component={RadioButton}
-              name="practice"
-              id="practice"
-              label="Is it practical question?*:&emsp;"
-              required
-              inline
-              options={map(practice, s => ({ title: s, value: s }))}
-            />
+            <p>
+              <Button bsSize="small" bsStyle="info" onClick={this.toggleDropzone}>
+                {dropzone === true
+                  ? 'Add a new question manually'
+                  : 'Import questions from .json file'}
+              </Button>
+            </p>
 
             <hr />
 
-            <Field
-              label="Answer"
-              name="answer"
-              component={TextareaField}
-              placeholder="Write down the answer"
-            />
+            {dropzone === true ? (
+              <DropMe
+                accept="application/json"
+                multiple={false}
+                onDrop={this.handleDrop}
+                onDropAccepted={this.handleDropAccepted}
+                onDropRejected={this.handleDropRejected}
+                className="dropzone"
+                activeClassName="dropzone--active"
+                rejectClassName="dropzone--reject">
+                <p>
+                  Click or drag&amp;drop file here. Only *.json file is accepted <br />
+                  {fileName !== '' ? `You have added - ${fileName}` : ''}
+                </p>
+              </DropMe>
+            ) : (
+              <Fragment>
+                <Field
+                  label="Question*:"
+                  component={TextField}
+                  type="text"
+                  name="question"
+                  placeholder="Type new question"
+                />
+                <Row>
+                  <Col sm={6}>
+                    <Field
+                      component={SelectField}
+                      name="skill"
+                      id="skill"
+                      label="Choose skill* (multiple):"
+                      multiple
+                      size={5}
+                      type="select-multiple"
+                      required
+                      options={map(skill, s => ({ title: s, value: s }))}
+                    />
+                  </Col>
 
-            <FieldArray name="answers" component={AnswerFields} />
-
-            <hr />
-
-            <Field
-              label="Notes"
-              name="notes"
-              component={TextareaField}
-              placeholder="Add some notes, if needed"
-            />
-
-            <Button type="submit" bsStyle="info" bsSize="large" disabled={isLoading}>
-              {_id ? (
-                <span>
-                  Update
-                  <FontAwesome name="refresh" />
-                </span>
-              ) : (
-                'Add new question'
-              )}
-            </Button>
-
-            {_id && (
-              <div className="pull-right">
-                <Button bsStyle="danger" onClick={this.toggleRemoveModal}>
-                  <FontAwesome name="trash-o" /> Remove
+                  <Col sm={6}>
+                    <Field
+                      component={SelectField}
+                      name="level"
+                      id="level"
+                      label="Choose level* (multiple):"
+                      multiple
+                      size={6}
+                      type="select-multiple"
+                      required
+                      options={map(level, s => ({ title: s, value: s }))}
+                    />
+                  </Col>
+                </Row>
+                <Field
+                  component={RadioButton}
+                  name="practice"
+                  id="practice"
+                  label="Is it practical question?*:&emsp;"
+                  required
+                  inline
+                  options={map(practice, s => ({ title: s, value: s }))}
+                />
+                <hr />
+                <Field
+                  label="Answer"
+                  name="answer"
+                  component={TextareaField}
+                  placeholder="Write down the answer"
+                />
+                <FieldArray name="answers" component={AnswerFields} />
+                <hr />
+                <Field
+                  label="Notes"
+                  name="notes"
+                  component={TextareaField}
+                  placeholder="Add some notes, if needed"
+                />
+                <Button type="submit" bsStyle="info" bsSize="large" disabled={isLoading}>
+                  {_id ? (
+                    <span>
+                      Update
+                      <FontAwesome name="refresh" />
+                    </span>
+                  ) : (
+                    'Add new question'
+                  )}
                 </Button>
+                {_id && (
+                  <div className="pull-right">
+                    <Button bsStyle="danger" onClick={this.toggleRemoveModal}>
+                      <FontAwesome name="trash-o" /> Remove
+                    </Button>
 
-                <Modal bsSize="sm" show={showRemoveModal} onHide={this.toggleRemoveModal}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>Are you sure?</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <p>If so, you will not be able to restore this question.</p>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <ButtonGroup>
-                      <Button bsStyle="default" onClick={this.toggleRemoveModal}>
-                        Cancel
-                      </Button>
-                      <Button bsStyle="danger" onClick={this.remove(_id)}>
-                        Remove
-                      </Button>
-                    </ButtonGroup>
-                  </Modal.Footer>
-                </Modal>
-              </div>
+                    <Modal bsSize="sm" show={showRemoveModal} onHide={this.toggleRemoveModal}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Are you sure?</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <p>If so, you will not be able to restore this question.</p>
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <ButtonGroup>
+                          <Button bsStyle="default" onClick={this.toggleRemoveModal}>
+                            Cancel
+                          </Button>
+                          <Button bsStyle="danger" onClick={this.remove(_id)}>
+                            Remove
+                          </Button>
+                        </ButtonGroup>
+                      </Modal.Footer>
+                    </Modal>
+                  </div>
+                )}
+              </Fragment>
             )}
           </Form>
         </Col>
@@ -292,6 +389,7 @@ export default connect(
   {
     logout,
     addQuestion,
+    addQuestionsFromFile,
     getQuestionById,
     removeQuestion,
     editQuestion,
