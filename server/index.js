@@ -33,5 +33,6 @@ mongoose.connect(
 app.use('/api', routes);
 app.use(notFound);
 
+const port = process.env.PORT || 3001;
 // eslint-disable-next-line no-console
-app.listen(process.env.PORT, () => console.log(`Running on ${process.env.PORT}`));
+app.listen(port, () => console.log(`Running on ${port}`));
