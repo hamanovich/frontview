@@ -30,7 +30,6 @@ const AnswerFields = ({ fields, meta: { touched, error, submitFailed } }) => (
               placeholder="Add more answers"
             />
           </Col>
-
           <Col xs={2}>
             <Remove bsStyle="danger" onClick={() => fields.remove(index)}>
               <FontAwesome name="times" />

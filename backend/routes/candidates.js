@@ -2,7 +2,9 @@ import Candidate from '../models/candidate';
 import User from '../models/user';
 
 exports.add = async (req, res) => {
-  const { firstName, lastName, email, primarySkill, techLevel, notes, userId } = req.body;
+  const {
+ firstName, lastName, email, primarySkill, techLevel, notes, userId 
+} = req.body;
   const newCandidate = await Candidate.create({
     firstName,
     lastName,
@@ -37,7 +39,7 @@ exports.getCandidates = async (req, res) => {
 };
 
 exports.getCandidate = async (req, res) => {
-  const candidate = await Candidate.findById(req.params._id).exec(err => {
+  const candidate = await Candidate.findById(req.params._id).exec((err) => {
     if (err) {
       res.status(500).json({ error: `Candidate with id='${req.params._id}' didn't find` });
     }

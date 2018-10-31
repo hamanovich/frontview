@@ -17,7 +17,8 @@ app.use(cors());
 app.use(bodyParser.json({ limit: '50mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
-app.use(express.static(path.join(__dirname, '/../public')));
+const staticFiles = express.static(path.join(__dirname, '../../frontend/build'));
+app.use(staticFiles);
 
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'pug');
@@ -34,5 +35,6 @@ app.use('/api', routes);
 app.use(notFound);
 
 const port = process.env.PORT || 3001;
+
 // eslint-disable-next-line no-console
-app.listen(port, () => console.log(`Running on ${port}`));
+app.listen(port, () => console.log(`Running on ${port}`)); 
