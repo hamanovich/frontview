@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon --watch server --exec babel-node -- index.js",
-    "start:prod": "node build/server.js",
+    "start:prod": "node build/index.js",
     "build": "babel . --ignore node_modules,build --out-dir build"
   },
   "dependencies": {
