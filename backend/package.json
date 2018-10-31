@@ -1,0 +1,62 @@
+{
+  "name": "frontview-backend",
+  "version": "1.0.0",
+  "description": "Front View. It's pretty simple website for adding, editing and asking any kind of questions in a Technical Interview",
+  "author": "Siarhei Hamanovich <hamanovich@gmail.com> (http://github.com/hamanovich)",
+  "license": "MIT",
+  "scripts": {
+    "precommit": "lint-staged",
+    "start": "nodemon --watch server --exec babel-node -- index.js",
+    "test:lint": "eslint **/*.js"
+  },
+  "dependencies": {
+    "babel-eslint": "^10.0.1",
+    "bcrypt": "^3.0.2",
+    "body-parser": "^1.18.3",
+    "classnames": "^2.2.6",
+    "cors": "^2.8.4",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "html-to-text": "^4.0.0",
+    "jsonwebtoken": "^8.3.0",
+    "juice": "^5.0.0",
+    "lodash": "^4.17.11",
+    "md5": "^2.2.1",
+    "mongoose": "^5.3.6",
+    "mongoose-mongodb-errors": "0.0.2",
+    "mongoose-unique-validator": "^2.0.2",
+    "morgan": "^1.9.1",
+    "nodemailer": "^4.6.8",
+    "nodemon": "^1.18.4",
+    "pug": "^2.0.3",
+    "slug": "^0.9.2",
+    "validator": "^10.8.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/node": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "husky": "^1.1.2",
+    "lint-staged": "^7.3.0",
+    "prettier-eslint": "^8.8.2"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "lint-staged": {
+    "*.js": [
+      "./node_modules/.bin/eslint"
+    ]
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
