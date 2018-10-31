@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/hamanovich/frontview/issues"
   },
-  "homepage": "https://github.com/hamanovich/frontview",
+  "homepage": "https://frontview.netlify.com/",
   "license": "ISC",
   "scripts": {
     "precommit": "lint-staged",
