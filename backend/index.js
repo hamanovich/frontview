@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 
 import routes from './routes';
-import { notFound } from './handlers/errors';
+// import { notFound } from './handlers/errors';
 
 const app = express();
 
@@ -33,7 +33,7 @@ mongoose.connect(
 );
 
 app.use('/api', routes);
-app.use(notFound);
+// app.use(notFound);
 
 const port = process.env.PORT || 3001;
 
