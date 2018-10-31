@@ -7,7 +7,6 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 
 import routes from './routes';
-// import { notFound } from './handlers/errors';
 
 const app = express();
 
@@ -34,9 +33,8 @@ mongoose.connect(
 
 app.use('/api', routes);
 app.use('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../frontend/public/index.html'));
+  res.sendFile(path.join(__dirname, '../../frontend/build/index.html'));
 });
-// app.use(notFound);
 
 const port = process.env.PORT || 3001;
 
