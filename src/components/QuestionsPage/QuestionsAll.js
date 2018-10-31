@@ -15,13 +15,16 @@ const QuestionsAll = ({ state, history }) => (
 
     <Questions />
 
-    <PaginationBar
-      activePage={state.pagination.activePage}
-      pages={state.pagination.pages}
-      onSelect={activePage =>
-        state.pagination.activePage !== activePage && history.push(`/questions/page/${activePage}`)
-      }
-    />
+    {state.pagination.pages > 1 ? (
+      <PaginationBar
+        activePage={state.pagination.activePage}
+        pages={state.pagination.pages}
+        onSelect={activePage =>
+          state.pagination.activePage !== activePage &&
+          history.push(`/questions/page/${activePage}`)
+        }
+      />
+    ) : null}
   </Fragment>
 );
 

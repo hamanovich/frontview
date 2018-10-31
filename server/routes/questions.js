@@ -12,7 +12,7 @@ exports.getQuestionInterface = (req, res) => {
 
 exports.getQuestions = async (req, res) => {
   const page = req.params.page || 1;
-  const limit = 2;
+  const limit = 5;
   const skip = page * limit - limit;
   const countPromise = Question.countDocuments();
   const questionsPromise = Question.find()

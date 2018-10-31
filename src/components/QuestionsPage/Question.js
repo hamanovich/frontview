@@ -107,7 +107,11 @@ class Question extends Component {
 
     return (
       <Fragment>
-        <h2>{question.question}</h2>
+        <h2>
+          <Link to={`/questions/${question.slug}/one`}>
+            {question.question}
+          </Link>
+        </h2>
 
         <Panel>
           <Panel.Heading>{panelHeader}</Panel.Heading>
