@@ -33,9 +33,12 @@ mongoose.connect(
 );
 
 app.use('/api', routes);
+app.use('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../frontend/public/index.html'));
+});
 // app.use(notFound);
 
 const port = process.env.PORT || 3001;
 
 // eslint-disable-next-line no-console
-app.listen(port, () => console.log(`Running on ${port}`)); 
+app.listen(port, () => console.log(`Running on ${port}`));
