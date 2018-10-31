@@ -10,6 +10,8 @@
     "build": "babel . --ignore node_modules,build --out-dir build"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "@babel/runtime": "^7.1.2",
     "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "classnames": "^2.2.6",
@@ -34,12 +36,16 @@
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
     "@babel/node": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "nodemon": "^1.18.4"
   },
   "babel": {
     "presets": [
       "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-runtime"
     ]
   },
   "browserslist": [
