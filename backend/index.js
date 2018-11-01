@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 
 import routes from './routes';
+import { notFound } from './handlers/errors';
 
 const app = express();
 
@@ -32,9 +33,16 @@ mongoose.connect(
 );
 
 app.use('/api', routes);
-app.use('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../frontend/build/index.html'));
-});
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(notFound);
+}
+
+if (process.env.NODE_ENV === 'production') {
+  app.use('/*', (req, res) =>
+    res.sendFile(path.join(__dirname, '../../frontend/build/index.html')),
+  );
+}
 
 const port = process.env.PORT || 3001;
 

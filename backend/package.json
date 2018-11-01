@@ -5,7 +5,7 @@
   "author": "Siarhei Hamanovich <hamanovich@gmail.com> (http://github.com/hamanovich)",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --watch server --exec babel-node -- index.js",
+    "start": "nodemon --exec babel-node -- index.js",
     "start:prod": "node build/index.js",
     "build": "babel . --ignore node_modules,build --out-dir build"
   },
