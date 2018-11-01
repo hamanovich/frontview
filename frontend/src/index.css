@@ -1,0 +1,23 @@
+html{
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding-bottom: 60px;
+  position: relative;
+  min-height: 100%;
+}
+
+a[role=tab]{
+  cursor: pointer;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+.panel{
+  box-shadow: none;
+  margin-bottom: 40px;
+}
