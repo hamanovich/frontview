@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 import express from 'express';
 import morgan from 'morgan';
 import path from 'path';
@@ -17,7 +18,8 @@ app.use(cors());
 app.use(bodyParser.json({ limit: '50mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
-app.use(express.static(path.join(__dirname, '/../public')));
+const staticFiles = express.static(path.join(__dirname, '../../frontend/build'));
+app.use(staticFiles);
 
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'pug');
@@ -31,8 +33,18 @@ mongoose.connect(
 );
 
 app.use('/api', routes);
-app.use(notFound);
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(notFound);
+}
+
+if (process.env.NODE_ENV === 'production') {
+  app.use('/*', (req, res) =>
+    res.sendFile(path.join(__dirname, '../../frontend/build/index.html')),
+  );
+}
 
 const port = process.env.PORT || 3001;
+
 // eslint-disable-next-line no-console
 app.listen(port, () => console.log(`Running on ${port}`));

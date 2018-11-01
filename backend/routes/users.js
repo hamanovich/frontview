@@ -4,7 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 import User from '../models/user';
 import { send } from '../handlers/mail';
 
-import validate from '../../src/validations/signup';
+import validate from '../validations/signup';
 
 const validateUser = async (data, otherValidations) => {
   const { username, email } = data;

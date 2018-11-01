@@ -108,9 +108,7 @@ class Question extends Component {
     return (
       <Fragment>
         <h2>
-          <Link to={`/questions/${question.slug}/one`}>
-            {question.question}
-          </Link>
+          <Link to={`/questions/${question.slug}/one`}>{question.question}</Link>
         </h2>
 
         <Panel>

@@ -1,6 +1,7 @@
 {
   "extends": ["airbnb", "prettier", "prettier/react"],
   "parser": "babel-eslint",
+
   "plugins": ["react", "jsx-a11y", "import"],
   "rules": {
     "no-underscore-dangle": 0,
@@ -16,8 +17,7 @@
   },
   "env": {
     "browser": true,
-    "node": true,
-    "jest": true
+    "node": true
   },
   "globals": {
     "document": true,

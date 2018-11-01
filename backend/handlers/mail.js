@@ -15,7 +15,7 @@ export const transport = nodemailer.createTransport({
 });
 
 const generateHTML = (filename, options = {}) =>
-  juice(pug.renderFile(`${__dirname}/../views/email/${filename}.pug`, options));
+  juice(pug.renderFile(`${__dirname}/../views/${filename}.pug`, options));
 
 export function send(options) {
   const html = generateHTML(options.filename, options);

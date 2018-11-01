@@ -140,10 +140,10 @@ export default WrappedComponent => {
     }
   }
 
-  const mapStateToProps = state => ({
-    user: state.auth.user,
-    questions: state.questions,
-    qlists: state.qlists,
+  const mapStateToProps = ({ auth, questions, qlists }) => ({
+    user: auth.user,
+    questions,
+    qlists,
   });
 
   return connect(

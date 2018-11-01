@@ -1,0 +1,50 @@
+{
+  "name": "frontview-frontend",
+  "version": "1.0.0",
+  "description": "the frontend of FrontView",
+  "author": "Siarhei Hamanovich <hamanovich@gmail.com> (http://github.com/hamanovich)",
+  "license": "ISC",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "classnames": "^2.2.6",
+    "date-fns": "^1.29.0",
+    "history": "^4.7.2",
+    "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.11",
+    "prop-types": "^15.6.2",
+    "react": "^16.6.0",
+    "react-bootstrap": "^0.32.4",
+    "react-dom": "^16.6.0",
+    "react-dropzone": "^7.0.1",
+    "react-fontawesome": "^1.6.1",
+    "react-markdown-renderer": "^1.4.0",
+    "react-redux": "^5.1.0",
+    "react-router": "^4.3.1",
+    "react-router-bootstrap": "^0.24.4",
+    "react-router-dom": "^4.3.1",
+    "react-router-redux": "5.0.0-alpha.8",
+    "react-scripts": "^2.0.5",
+    "react-transition-group": "^2.5.0",
+    "recompose": "^0.30.0",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-form": "^7.0.3",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
+    "shortid": "^2.2.13",
+    "styled-components": "^4.0.2",
+    "validator": "^10.8.0"
+  },
+  "proxy": "http://localhost:3001",
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
