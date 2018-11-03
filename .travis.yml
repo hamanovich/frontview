@@ -10,6 +10,6 @@ branches:
 
 deploy:
   provider: heroku
-  app: frontview
+  app: front-view
   api_key:
-    secure: "21c159ae-8532-4eab-acbe-191ce1698b6e"
+    secure: HEROKU_SECURE
