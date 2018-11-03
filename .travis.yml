@@ -7,3 +7,9 @@ node_js:
 branches:
   only:
     - master
+
+deploy:
+  provider: heroku
+  app: frontview
+  api_key:
+    secure: "21c159ae-8532-4eab-acbe-191ce1698b6e"

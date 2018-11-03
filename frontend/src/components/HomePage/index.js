@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/lib/Button';
 
 const HomePage = () => (
   <Jumbotron>
-    <h1>Welcome!</h1>
+    <h1>Welcome all!</h1>
     <p className="lead">
       This is a simple hero unit, a simple Jumbotron-style component for calling extra attention
       to featured content or information.
