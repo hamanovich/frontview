@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf, func } from 'prop-types';
 import { Link } from 'react-router-dom';
 import MarkdownRenderer from 'react-markdown-renderer';
 import map from 'lodash/map';
@@ -29,8 +29,6 @@ const Badge = styled(Label)`
 const LinkStyled = styled(Link)`
   margin-top: 7px;
 `;
-
-const { arrayOf, func } = PropTypes;
 
 class Question extends Component {
   static propTypes = {

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { shape, func, number } from 'prop-types';
 import { Link } from 'react-router-dom';
 import map from 'lodash/map';
 import MarkdownRenderer from 'react-markdown-renderer';
@@ -108,8 +108,6 @@ const InterviewProgress = ({ step, provideFeedback, location, history, onSelectS
     </Fragment>
   );
 };
-
-const { shape, func, number } = PropTypes;
 
 InterviewProgress.propTypes = {
   location: shape({

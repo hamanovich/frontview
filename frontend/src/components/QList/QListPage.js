@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { string } from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
 import PageHeader from 'react-bootstrap/lib/PageHeader';
@@ -17,7 +17,7 @@ const QListPage = ({ userId }) => (
 );
 
 QListPage.propTypes = {
-  userId: PropTypes.string.isRequired,
+  userId: string.isRequired,
 };
 
 export default QListPage;

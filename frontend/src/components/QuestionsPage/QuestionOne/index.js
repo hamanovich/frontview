@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { shape, arrayOf, func, string } from 'prop-types';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 
@@ -19,8 +19,6 @@ import { getQLists } from '../../../actions/qlists';
 import { addFlashMessage } from '../../../actions/flash';
 
 import { UserType, QuestionType, QListType } from '../../../propTypes';
-
-const { shape, arrayOf, func, string } = PropTypes;
 
 class QuestionOne extends Component {
   static propTypes = {

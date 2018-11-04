@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { func } from 'prop-types';
 import { connect } from 'react-redux';
 
 import Row from 'react-bootstrap/lib/Row';
@@ -23,8 +23,6 @@ const SignupPage = ({ signup, addFlashMessage, isUserExists }) => (
     </Col>
   </Row>
 );
-
-const { func } = PropTypes;
 
 SignupPage.propTypes = {
   signup: func.isRequired,

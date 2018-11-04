@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { func, string, arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
@@ -29,8 +29,6 @@ const RemoveIcon = styled.button`
     color: #23527c;
   }
 `;
-
-const { func, string, arrayOf } = PropTypes;
 
 class QLists extends Component {
   static propTypes = {

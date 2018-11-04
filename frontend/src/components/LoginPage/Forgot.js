@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import PropTypes from 'prop-types';
+import { shape, func, string, bool } from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 
 import compose from 'recompose/compose';
@@ -79,8 +79,6 @@ const Forgot = ({ handleSubmit, onSubmit, state }) => (
     </Form>
   </Fragment>
 );
-
-const { shape, func, string, bool } = PropTypes;
 
 Forgot.propTypes = {
   handleSubmit: func.isRequired,

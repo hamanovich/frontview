@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { func, shape, string } from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames';
 
@@ -19,8 +19,6 @@ const Flash = ({ close, message }) => (
     </Button>
   </Alert>
 );
-
-const { func, shape, string } = PropTypes;
 
 Flash.propTypes = {
   message: shape({

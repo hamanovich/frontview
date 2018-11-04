@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { shape, arrayOf, func, string, number } from 'prop-types';
 
 import PageHeader from 'react-bootstrap/lib/PageHeader';
 import Badge from 'react-bootstrap/lib/Badge';
@@ -27,8 +27,6 @@ const QuestionsAll = ({ state, history }) => (
     ) : null}
   </Fragment>
 );
-
-const { shape, arrayOf, func, string, number } = PropTypes;
 
 QuestionsAll.propTypes = {
   state: shape({

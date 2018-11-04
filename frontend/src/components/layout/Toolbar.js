@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf, shape, func, string } from 'prop-types';
 import { connect } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import FontAwesome from 'react-fontawesome';
@@ -52,8 +52,6 @@ const Toolbar = ({ user, question, voteQuestion, qlistAddQuestion, qlists }) => 
     </ButtonGroup>
   </ButtonToolbar>
 );
-
-const { arrayOf, shape, func, string } = PropTypes;
 
 Toolbar.propTypes = {
   user: shape({

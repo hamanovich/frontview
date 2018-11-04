@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf, shape, func } from 'prop-types';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
@@ -73,8 +73,6 @@ const InterviewPage = ({
     </Switch>
   </Fragment>
 );
-
-const { arrayOf, shape, func } = PropTypes;
 
 InterviewPage.propTypes = {
   candidateAdd: func.isRequired,

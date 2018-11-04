@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf, shape, string, func } from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import map from 'lodash/map';
 
@@ -17,8 +17,6 @@ import TextField from '../formElements/TextField';
 import TextareaField from '../formElements/TextareaField';
 
 import { CandidateType } from '../../propTypes';
-
-const { arrayOf, shape, string, func } = PropTypes;
 
 class InterviewCandidates extends Component {
   static propTypes = {

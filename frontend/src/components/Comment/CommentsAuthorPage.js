@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf, shape, string } from 'prop-types';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 import compose from 'recompose/compose';
@@ -45,8 +45,6 @@ const CommentsAuthorPage = ({ comments, match }) => (
     <Comments comments={comments} match={match} />
   </Fragment>
 );
-
-const { arrayOf, shape, string } = PropTypes;
 
 CommentsAuthorPage.propTypes = {
   comments: arrayOf(CommentType).isRequired,

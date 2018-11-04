@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { func, shape, string } from 'prop-types';
 import { Field, FieldArray, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
@@ -30,8 +30,6 @@ import {
   getQuestionById,
   getQuestionInterface,
 } from '../../../actions/questions';
-
-const { func, shape, string } = PropTypes;
 
 const DropMe = styled(Dropzone)`
   border-radius: 4px;

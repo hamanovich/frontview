@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { shape, bool } from 'prop-types';
 import { Switch, Redirect } from 'react-router-dom';
 
 import Row from 'react-bootstrap/lib/Row';
@@ -35,8 +35,6 @@ const AccountPage = ({ auth }) => (
     </Col>
   </Row>
 );
-
-const { shape, bool } = PropTypes;
 
 AccountPage.propTypes = {
   auth: shape({

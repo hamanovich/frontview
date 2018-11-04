@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { bool } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -69,7 +69,7 @@ const confirmError = (
 const Confirmation = ({ success }) => (success ? confirmSuccess : confirmError);
 
 Confirmation.propTypes = {
-  success: PropTypes.bool.isRequired,
+  success: bool.isRequired,
 };
 
 export default enhance(Confirmation);

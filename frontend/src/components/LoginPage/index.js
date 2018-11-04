@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { func } from 'prop-types';
 import { Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -37,8 +37,6 @@ const LoginPage = ({ login, forgot, resetToken, getReset, getUser, addFlashMessa
     </Col>
   </Row>
 );
-
-const { func } = PropTypes;
 
 LoginPage.propTypes = {
   login: func.isRequired,

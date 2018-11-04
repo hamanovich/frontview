@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf, func } from 'prop-types';
 import map from 'lodash/map';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -48,8 +48,6 @@ const Questions = ({ user, qlists, questions, editQuestionField }) => (
     )}
   </Fragment>
 );
-
-const { arrayOf, func } = PropTypes;
 
 Questions.propTypes = {
   user: UserType.isRequired,

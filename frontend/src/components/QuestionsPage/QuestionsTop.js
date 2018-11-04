@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf } from 'prop-types';
 import styled from 'styled-components';
 import map from 'lodash/map';
 import FontAwesome from 'react-fontawesome';
@@ -76,7 +76,7 @@ const QuestionsTop = ({ questions }) => (
 );
 
 QuestionsTop.propTypes = {
-  questions: PropTypes.arrayOf(QuestionType).isRequired,
+  questions: arrayOf(QuestionType).isRequired,
 };
 
 export default Loader('questions')(QuestionsTop);

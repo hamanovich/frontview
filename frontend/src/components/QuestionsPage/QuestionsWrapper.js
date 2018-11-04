@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { shape, func, string, arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 
 import { addFlashMessage } from '../../actions/flash';
@@ -12,8 +12,6 @@ import {
 import { getQLists } from '../../actions/qlists';
 
 import { QuestionType } from '../../propTypes';
-
-const { shape, func, string, arrayOf } = PropTypes;
 
 export default WrappedComponent => {
   class QuestionsWrapper extends Component {

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { shape, string } from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
 import PageHeader from 'react-bootstrap/lib/PageHeader';
@@ -16,8 +16,6 @@ const QuestionsAuthor = ({ user }) => (
     <Questions />
   </Fragment>
 );
-
-const { shape, string } = PropTypes;
 
 QuestionsAuthor.propTypes = {
   user: shape({

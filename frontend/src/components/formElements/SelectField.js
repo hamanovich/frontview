@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf, number, shape, string, bool } from 'prop-types';
 import map from 'lodash/map';
 
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
@@ -29,8 +29,6 @@ const SelectField = ({
     {touched && ((error && <HelpBlock>{error}</HelpBlock>) || (warning && <span>{warning}</span>))}
   </FormGroup>
 );
-
-const { arrayOf, number, shape, string, bool } = PropTypes;
 
 SelectField.propTypes = {
   input: shape({

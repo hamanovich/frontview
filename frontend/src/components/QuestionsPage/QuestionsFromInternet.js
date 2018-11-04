@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { shape, func, string } from 'prop-types';
 
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
 
 import * as QuestionsTab from './QuestionsTabs';
-
-const { shape, func, string } = PropTypes;
 
 class QuestionsFromInternet extends Component {
   static propTypes = {

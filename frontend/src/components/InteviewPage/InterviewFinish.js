@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { shape, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import MarkdownRenderer from 'react-markdown-renderer';
 import FontAwesome from 'react-fontawesome';
@@ -43,8 +43,6 @@ const InterviewFinish = ({ location }) => (
     )}
   </Fragment>
 );
-
-const { shape, string } = PropTypes;
 
 InterviewFinish.propTypes = {
   location: shape({

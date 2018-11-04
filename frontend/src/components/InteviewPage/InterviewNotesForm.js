@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { func } from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 
 import compose from 'recompose/compose';
@@ -50,8 +50,6 @@ const InterviewNotesForm = ({ handleSubmit, onSubmit }) => (
     </Button>
   </Form>
 );
-
-const { func } = PropTypes;
 
 InterviewNotesForm.propTypes = {
   handleSubmit: func.isRequired,

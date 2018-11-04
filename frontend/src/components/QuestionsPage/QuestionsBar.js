@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { shape, string, arrayOf, number } from 'prop-types';
 import map from 'lodash/map';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
@@ -88,8 +88,6 @@ const QuestionsBar = ({ active, filter, tags, style }) => (
     ))}
   </Buttons>
 );
-
-const { shape, string, arrayOf, number } = PropTypes;
 
 QuestionsBar.propTypes = {
   style: string,

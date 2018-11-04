@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { func, shape, string, bool } from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
@@ -213,8 +213,6 @@ const AccountEdit = ({ isLoading, handleSubmit, onSubmit, user }) => (
     </Form>
   </Fragment>
 );
-
-const { func, shape, string, bool } = PropTypes;
 
 AccountEdit.propTypes = {
   handleSubmit: func.isRequired,

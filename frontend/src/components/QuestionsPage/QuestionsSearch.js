@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { shape, string } from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
 import PageHeader from 'react-bootstrap/lib/PageHeader';
@@ -17,8 +17,6 @@ const QuestionsSearch = ({ location }) => (
     <Questions />
   </Fragment>
 );
-
-const { shape, string } = PropTypes;
 
 QuestionsSearch.propTypes = {
   location: shape({

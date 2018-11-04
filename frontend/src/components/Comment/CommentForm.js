@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { func } from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 
 import compose from 'recompose/compose';
@@ -77,8 +77,6 @@ const CommentForm = ({ handleSubmit, onSubmit }) => (
     </Col>
   </Row>
 );
-
-const { func } = PropTypes;
 
 CommentForm.propTypes = {
   handleSubmit: func.isRequired,

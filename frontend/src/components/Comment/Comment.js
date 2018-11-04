@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { shape, string } from 'prop-types';
 import MarkdownRenderer from 'react-markdown-renderer';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -45,8 +45,6 @@ const Comment = ({ comment, match }) => (
     </Media.Body>
   </Media>
 );
-
-const { shape, string } = PropTypes;
 
 Comment.propTypes = {
   comment: CommentType.isRequired,

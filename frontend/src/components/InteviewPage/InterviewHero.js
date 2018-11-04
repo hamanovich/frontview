@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/lib/Button';
 const InterviewHero = () => (
   <Jumbotron className="text-center">
     <h2>Start your interview process right now</h2>
+
     <Link to="/interview/candidates">
       <Button bsStyle="primary" bsSize="large" block>
         <FontAwesome name="angle-double-down" /> Start

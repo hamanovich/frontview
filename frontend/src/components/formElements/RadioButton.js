@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf, shape, string, bool } from 'prop-types';
 import map from 'lodash/map';
 
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
@@ -25,8 +25,6 @@ const RadioButton = ({ input, label, options, inline, meta: { touched, error, wa
   </FormGroup>
 );
 
-const { arrayOf, shape, string, bool } = PropTypes;
-
 RadioButton.propTypes = {
   options: arrayOf(
     shape({
@@ -39,7 +37,7 @@ RadioButton.propTypes = {
   }).isRequired,
   label: string.isRequired,
   inline: bool,
-  meta: PropTypes.shape({
+  meta: shape({
     touched: bool,
     error: string,
     warning: string,

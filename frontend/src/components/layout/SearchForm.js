@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { func } from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import FontAwesome from 'react-fontawesome';
 
@@ -29,8 +29,6 @@ const SearchForm = ({ handleSubmit, onSearch }) => (
     </Form>
   </Navbar.Form>
 );
-
-const { func } = PropTypes;
 
 SearchForm.propTypes = {
   handleSubmit: func.isRequired,

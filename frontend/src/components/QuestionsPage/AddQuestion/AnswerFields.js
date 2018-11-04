@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { shape, func, string, bool } from 'prop-types';
 import { Field } from 'redux-form';
 import FontAwesome from 'react-fontawesome';
 import styled from 'styled-components';
@@ -46,8 +46,6 @@ const AnswerFields = ({ fields, meta: { touched, error, submitFailed } }) => (
     </FormGroup>
   </Fragment>
 );
-
-const { shape, func, string, bool } = PropTypes;
 
 AnswerFields.propTypes = {
   fields: shape({

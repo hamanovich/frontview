@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { func } from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import FontAwesome from 'react-fontawesome';
 
@@ -9,8 +9,6 @@ import Form from 'react-bootstrap/lib/Form';
 import { TextField } from '../formElements';
 
 import validate from '../../validations/signup';
-
-const { func } = PropTypes;
 
 class SignupForm extends Component {
   static propTypes = {

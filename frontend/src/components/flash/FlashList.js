@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { func, arrayOf, shape, string } from 'prop-types';
 import { connect } from 'react-redux';
 import map from 'lodash/map';
 
@@ -13,8 +13,6 @@ const FlashList = ({ messages, deleteFlashMessage }) => (
     ))}
   </Fragment>
 );
-
-const { func, arrayOf, shape, string } = PropTypes;
 
 FlashList.propTypes = {
   messages: arrayOf(

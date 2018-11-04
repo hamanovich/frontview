@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf, shape, string } from 'prop-types';
 import map from 'lodash/map';
 
 import Comment from './Comment';
@@ -14,8 +14,6 @@ const Comments = ({ comments, match }) => (
     ))}
   </Fragment>
 );
-
-const { arrayOf, shape, string } = PropTypes;
 
 Comments.propTypes = {
   comments: arrayOf(CommentType).isRequired,

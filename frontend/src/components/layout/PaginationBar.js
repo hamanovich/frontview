@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { number, func } from 'prop-types';
 
 import Pagination from 'react-bootstrap/lib/Pagination';
 
@@ -24,8 +24,6 @@ const PaginationBar = ({ activePage, pages, onSelect }) => {
     </Pagination>
   );
 };
-
-const { number, func } = PropTypes;
 
 PaginationBar.propTypes = {
   activePage: number.isRequired,

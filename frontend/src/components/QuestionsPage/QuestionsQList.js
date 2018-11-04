@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { shape, arrayOf, string } from 'prop-types';
 
 import PageHeader from 'react-bootstrap/lib/PageHeader';
 
@@ -24,8 +24,6 @@ const QuestionsQList = ({ qlists, match }) => (
     />
   </Fragment>
 );
-
-const { shape, arrayOf, string } = PropTypes;
 
 QuestionsQList.propTypes = {
   match: shape({

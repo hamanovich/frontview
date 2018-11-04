@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf, shape, string, func } from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import map from 'lodash/map';
 
@@ -11,8 +11,6 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import QListForm from '../QList/QListForm';
 
 import { QListType, CandidateType } from '../../propTypes';
-
-const { arrayOf, shape, string, func } = PropTypes;
 
 class InterviewQLists extends Component {
   static propTypes = {

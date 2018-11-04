@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { shape, string, bool } from 'prop-types';
 
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -44,8 +44,6 @@ const TextField = ({
       ((error && <HelpBlock>{error}</HelpBlock>) || (warning && <span>{warning}</span>))}
   </FormGroup>
 );
-
-const { shape, string, bool } = PropTypes;
 
 TextField.propTypes = {
   input: shape({

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { func } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
@@ -33,8 +33,6 @@ const enhance = compose(
 
   Loader('user'),
 );
-
-const { func } = PropTypes;
 
 class Account extends Component {
   static propTypes = {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { shape, func, bool } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
 import { connect } from 'react-redux';
@@ -32,8 +32,6 @@ const MediaImage = styled(Image)`
   max-width: 25px;
   margin: -10px 5px -10px 0;
 `;
-
-const { shape, func, bool } = PropTypes;
 
 class Header extends Component {
   static propTypes = {
