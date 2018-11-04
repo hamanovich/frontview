@@ -7,7 +7,7 @@
   "scripts": {
     "precommit": "lint-staged",
     "build": "concurrently \"cd frontend && yarn build\" \"cd backend && yarn build\"",
-    "install": "concurrently \"cd frontend && yarn\" \"cd backend && yarn\"",
+    "install": "(cd frontend && yarn) && (cd backend && yarn)",
     "start": "concurrently \"cd frontend && SET PORT=5000 && yarn start\" \"cd backend && SET PORT=3001 && yarn start\"",
     "start:prod": "cd backend && yarn start:prod",
     "heroku-postbuild": "yarn build",
