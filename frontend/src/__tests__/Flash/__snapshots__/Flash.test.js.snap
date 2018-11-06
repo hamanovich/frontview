@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Flash/> renders <Flash /> component 1`] = `
+<Alert
+  bsClass="alert"
+  bsStyle="danger"
+  closeLabel="Close alert"
+>
+  <span>
+    Error
+  </span>
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsStyle="default"
+    className="close"
+    disabled={false}
+    onClick={[MockFunction]}
+  >
+    <FontAwesome
+      name="times"
+    />
+  </Button>
+</Alert>
+`;
+
+exports[`<Flash/> updates via props 1`] = `
+<Alert
+  bsClass="alert"
+  bsStyle="success"
+  closeLabel="Close alert"
+>
+  <span>
+    Success
+  </span>
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsStyle="default"
+    className="close"
+    disabled={false}
+    onClick={[MockFunction]}
+  >
+    <FontAwesome
+      name="times"
+    />
+  </Button>
+</Alert>
+`;

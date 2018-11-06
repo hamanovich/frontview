@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Flash/> renders <Flash /> component 1`] = `
+<Fragment>
+  <Flash
+    close={[Function]}
+    key="ABC"
+    message={
+      Object {
+        "id": "ABC",
+        "text": "Very negative text",
+        "type": "error",
+      }
+    }
+  />
+</Fragment>
+`;
+
+exports[`<Flash/> updates props correctly 1`] = `
+<Fragment>
+  <Flash
+    close={[Function]}
+    key="ABC"
+    message={
+      Object {
+        "id": "ABC",
+        "text": "Very negative text",
+        "type": "error",
+      }
+    }
+  />
+  <Flash
+    close={[Function]}
+    key="DEF"
+    message={
+      Object {
+        "id": "DEF",
+        "text": "Very positive text",
+        "type": "success",
+      }
+    }
+  />
+</Fragment>
+`;

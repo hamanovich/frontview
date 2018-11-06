@@ -6,7 +6,7 @@ import map from 'lodash/map';
 import Flash from './Flash';
 import { deleteFlashMessage, deleteFlashMessages } from '../../actions/flash';
 
-const FlashList = ({ messages, deleteFlashMessage }) => (
+export const FlashList = ({ messages, deleteFlashMessage }) => (
   <Fragment>
     {map(messages, message => (
       <Flash key={message.id} message={message} close={() => deleteFlashMessage(message.id)} />
