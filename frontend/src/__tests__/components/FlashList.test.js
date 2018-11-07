@@ -15,32 +15,30 @@ describe('<Flash/>', () => {
     deleteFlashMessage: jest.fn(),
   };
 
-  const flashList = shallow(<FlashList {...props} />);
+  const component = shallow(<FlashList {...props} />);
 
   it('renders <Flash /> component', () => {
-    expect(flashList).toMatchSnapshot();
+    expect(component).toMatchSnapshot();
   });
 
   it('updates props correctly', () => {
-    expect(flashList.find('Fragment').children()).toHaveLength(1);
+    expect(component.find('Fragment').children()).toHaveLength(1);
 
-    flashList.setProps({
+    component.setProps({
       messages: [...props.messages, { id: 'DEF', type: 'success', text: 'Very positive text' }],
     });
 
-    expect(flashList.find('Fragment').children()).toHaveLength(2);
-
-    expect(flashList).toMatchSnapshot();
+    expect(component.find('Fragment').children()).toHaveLength(2);
+    expect(component).toMatchSnapshot();
   });
 
   describe('when user wants to close the Flash message', () => {
-    beforeEach(() => {
-      flashList
+    beforeEach(() =>
+      component
         .find('Flash')
         .at(0)
         .props()
-        .close();
-    });
+        .close());
 
     it('invokes `deleteFlashMessage` callback with id', () => {
       expect(props.deleteFlashMessage).toHaveBeenCalledWith(props.messages[0].id);

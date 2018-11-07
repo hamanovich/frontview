@@ -12,28 +12,26 @@ describe('<Flash/>', () => {
     close: jest.fn(),
   };
 
-  const flash = shallow(<Flash {...props} />);
-  
+  const component = shallow(<Flash {...props} />);
+
   it('renders <Flash /> component', () => {
-    expect(flash).toMatchSnapshot();
+    expect(component).toMatchSnapshot();
   });
 
   it('updates via props', () => {
-    flash.setProps({
+    component.setProps({
       message: { type: 'success', text: 'Success' },
     });
 
-    expect(flash.find('span').text()).toEqual('Success');
-    expect(flash).toMatchSnapshot();
+    expect(component.find('span').text()).toEqual('Success');
+    expect(component).toMatchSnapshot();
   });
 
   describe('when clicking close button', () => {
-    beforeEach(() => {
-      flash.find('Button').simulate('click');
-    })
+    beforeEach(() => component.find('Button').simulate('click'));
 
-    it ('invokes the close callback', () => {
+    it('invokes the close callback', () => {
       expect(props.close).toHaveBeenCalled();
-    })
-  })
+    });
+  });
 });
