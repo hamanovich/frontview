@@ -12,7 +12,7 @@ import { addFlashMessage } from '../../actions/flash';
 
 import SignupForm from './SignupForm';
 
-const SignupPage = ({ signup, addFlashMessage, isUserExists }) => (
+export const SignupPage = ({ signup, addFlashMessage, isUserExists }) => (
   <Row>
     <Col md={6} mdOffset={3}>
       <PageHeader>

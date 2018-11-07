@@ -3,15 +3,15 @@ import { shallow } from 'enzyme';
 
 import Flash from '../../components/flash/Flash';
 
-const props = {
-  message: {
-    type: 'error',
-    text: 'Error',
-  },
-  close: jest.fn(),
-};
-
 describe('<Flash/>', () => {
+  const props = {
+    message: {
+      type: 'error',
+      text: 'Error',
+    },
+    close: jest.fn(),
+  };
+
   const flash = shallow(<Flash {...props} />);
   
   it('renders <Flash /> component', () => {
@@ -26,4 +26,14 @@ describe('<Flash/>', () => {
     expect(flash.find('span').text()).toEqual('Success');
     expect(flash).toMatchSnapshot();
   });
+
+  describe('when clicking close button', () => {
+    beforeEach(() => {
+      flash.find('Button').simulate('click');
+    })
+
+    it ('invokes the close callback', () => {
+      expect(props.close).toHaveBeenCalled();
+    })
+  })
 });
