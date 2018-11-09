@@ -33,7 +33,7 @@ describe('<SignupForm/>', () => {
 
   const component = shallow(<SignupForm {...props} />);
 
-  it('renders <SignupPage /> component', () => {
+  it('renders <SignupForm /> component', () => {
     expect(component).toMatchSnapshot();
   });
 
@@ -70,12 +70,11 @@ describe('<SignupForm/>', () => {
     afterEach(() => component.setState(initialState));
   });
 
-  describe('when User blurs from username field with empty value', () => {
-    beforeEach(() => {
+  describe('when user blurs from username field with empty value', () => {
+    beforeEach(() =>
       component
         .find('Field[name="username"]')
-        .simulate('blur', { target: { value: '', name: 'username' } });
-    });
+        .simulate('blur', { target: { value: '', name: 'username' } }));
 
     it("doesn't check user existance", () => {
       expect(component.state().errors.username).toBe('');
@@ -83,22 +82,20 @@ describe('<SignupForm/>', () => {
     });
   });
 
-  describe('when User submits the Signup Form and Promise resolves with status 200', () => {
+  describe('when user submits the Signup Form and Promise resolves with status 200', () => {
     beforeEach(() => component.find('Form').simulate('submit', user));
 
-    it('invokes onSubmit method', () => {
+    it('invokes onSubmit method with Ok', () => {
       expect(props.signup).toHaveBeenCalledWith(user);
     });
   });
 
-  describe('when User submits the Signup Form and Promise throws an error', () => {
+  describe('when user submits the Signup Form and Promise throws an error', () => {
     const component = shallow(<SignupForm {...props} signup={signupFailed} />);
 
-    beforeEach(() => {
-      component.find('Form').simulate('submit', user);
-    });
+    beforeEach(() => component.find('Form').simulate('submit', user));
 
-    it('invokes onSubmit method', () => {
+    it('adds errorMsg to state', () => {
       expect(component.state().errors.errorMsg).toBe('Failed');
     });
   });

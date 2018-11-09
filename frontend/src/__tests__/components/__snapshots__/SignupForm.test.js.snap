@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<SignupForm/> renders <SignupPage /> component 1`] = `
+exports[`<SignupForm/> renders <SignupForm /> component 1`] = `
 <Form
   bsClass="form"
   componentClass="form"

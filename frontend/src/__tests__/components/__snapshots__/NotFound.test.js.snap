@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NotFound/> renders <NotFound /> component 1`] = `
+<Jumbotron
+  bsClass="jumbotron"
+  className="text-center"
+  componentClass="div"
+>
+  <h1>
+    <FontAwesome
+      name="exclamation-triangle"
+    />
+    <br />
+    <span
+      className="text-danger"
+    >
+      404: not Found
+    </span>
+  </h1>
+</Jumbotron>
+`;

@@ -15,6 +15,8 @@ export default {
 
     signup: user => axios.post('/api/users/', user).then(res => res.data),
 
+    isUserExists: identifier => axios.get(`/api/users/${identifier}`),
+
     getUser: identifier => axios.get(`/api/users/${identifier}`).then(res => res.data),
 
     remove: username => axios.delete(`/api/user/${username}`),
