@@ -41,7 +41,8 @@ describe('<SignupForm/>', () => {
     beforeEach(() =>
       component
         .find('Field[name="username"]')
-        .simulate('blur', { target: { value: username, name: 'username' } }));
+        .simulate('blur', { target: { value: username, name: 'username' } }),
+    );
 
     it('checks whether user exists or not', () => {
       expect(props.isUserExists).toHaveBeenCalled();
@@ -60,7 +61,8 @@ describe('<SignupForm/>', () => {
     beforeEach(() =>
       component
         .find('Field[name="username"]')
-        .simulate('blur', { target: { value: username, name: 'username' } }));
+        .simulate('blur', { target: { value: username, name: 'username' } }),
+    );
 
     it("checks user doesn't exist and state has no error message", () => {
       expect(component.state().errors.username).toBe('');
@@ -74,7 +76,8 @@ describe('<SignupForm/>', () => {
     beforeEach(() =>
       component
         .find('Field[name="username"]')
-        .simulate('blur', { target: { value: '', name: 'username' } }));
+        .simulate('blur', { target: { value: '', name: 'username' } }),
+    );
 
     it("doesn't check user existance", () => {
       expect(component.state().errors.username).toBe('');

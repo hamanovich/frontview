@@ -38,7 +38,8 @@ describe('<Flash/>', () => {
         .find('Flash')
         .at(0)
         .props()
-        .close());
+        .close(),
+    );
 
     it('invokes `deleteFlashMessage` callback with id', () => {
       expect(props.deleteFlashMessage).toHaveBeenCalledWith(props.messages[0].id);

@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App/> renders <App /> component 1`] = `
+<Fragment>
+  <Connect(Header) />
+  <Grid
+    bsClass="container"
+    componentClass="div"
+    fluid={false}
+  >
+    <Connect(FlashList) />
+    <styled.main>
+      <Switch>
+        <Route
+          component={[Function]}
+          exact={true}
+          path="/"
+        />
+        <Route
+          component={[Function]}
+          path="/login"
+        />
+        <Route
+          component={[Function]}
+          path="/signup"
+        />
+        <Route
+          component={[Function]}
+          path="/me"
+        />
+        <Route
+          component={[Function]}
+          path="/questions"
+        />
+        <Route
+          component={[Function]}
+          path="/interview"
+        />
+        <Route
+          component={[Function]}
+          path="/comments/:username"
+        />
+        <Route
+          component={[Function]}
+          path="/confirmation/:token"
+        />
+        <Route
+          component={[Function]}
+        />
+      </Switch>
+    </styled.main>
+  </Grid>
+  <Footer />
+</Fragment>
+`;

@@ -1,4 +1,4 @@
-html{
+html {
   height: 100%;
 }
 
@@ -9,7 +9,7 @@ body {
   min-height: 100%;
 }
 
-a[role=tab]{
+a[role='tab'] {
   cursor: pointer;
 }
 
@@ -17,7 +17,7 @@ p:last-child {
   margin-bottom: 0;
 }
 
-.panel{
+.panel {
   box-shadow: none;
   margin-bottom: 40px;
 }

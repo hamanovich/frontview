@@ -2,15 +2,12 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { Login as LoginForm, onSubmit } from '../../components/LoginPage/Login';
+import user from '../../__fixtures__/user';
 
 describe('<Login/>', () => {
   const initialState = {
     error: '',
     isLoading: false,
-  };
-  const user = {
-    email: 'test@test.test',
-    password: 'test',
   };
   const props = {
     state: initialState,

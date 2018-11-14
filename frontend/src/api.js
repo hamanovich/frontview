@@ -76,7 +76,8 @@ export default {
 
     add: question => axios.post('/api/questions/add', question).then(res => res.data),
 
-    addFromFile: questions => axios.post('/api/questions/addFromFile', questions).then(res => res.data),
+    addFromFile: questions =>
+      axios.post('/api/questions/addFromFile', questions).then(res => res.data),
 
     edit: data => axios.put(`/api/question/${data._id}/edit`, data).then(res => res.data),
 

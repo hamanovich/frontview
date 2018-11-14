@@ -5,19 +5,12 @@ import thunk from 'redux-thunk';
 import * as actions from '../../actions/comments';
 import * as types from '../../actions/types';
 
+import { comment, comments } from '../../__fixtures__/comments';
+
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('Comment actions', () => {
-  const comment = {
-    _id: 1,
-    author: 'Fake user',
-    question: '_fakeQuestionId',
-    topic: 'Fake Topic',
-    text: 'Fake Text',
-    created: 'fake date',
-  };
-  const comments = [comment, { ...comment, _id: 2 }];
   const username = 'Fake user';
 
   afterEach(() => mockAxios.reset());

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Footer/> renders <Footer /> component 1`] = `
+<styled.footer>
+  © Front View 
+  <br />
+   2017-2018
+</styled.footer>
+`;

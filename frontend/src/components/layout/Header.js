@@ -33,7 +33,7 @@ const MediaImage = styled(Image)`
   margin: -10px 5px -10px 0;
 `;
 
-class Header extends Component {
+export class Header extends Component {
   static propTypes = {
     auth: shape({
       isAuthenticated: bool.isRequired,

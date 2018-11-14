@@ -11,7 +11,7 @@ import validate from '../../validations/search';
 
 import { TextField } from '../formElements';
 
-const SearchForm = ({ handleSubmit, onSearch }) => (
+export const SearchForm = ({ handleSubmit, onSearch }) => (
   <Navbar.Form pullLeft>
     <Form onSubmit={handleSubmit(onSearch)} noValidate>
       <Field

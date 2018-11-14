@@ -24,8 +24,8 @@ const TextField = ({
       (touched && error) || errorState
         ? 'error'
         : touched && !error && !errorState
-          ? 'success'
-          : null
+        ? 'success'
+        : null
     }>
     {label && <ControlLabel>{label}</ControlLabel>}
     <FormControl
