@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Login/> renders <Login /> component 1`] = `
+<Fragment>
+  <PageHeader
+    bsClass="page-header"
+  >
+    <FontAwesome
+      name="user-circle-o"
+    />
+     Please, login
+  </PageHeader>
+  <Form
+    bsClass="form"
+    componentClass="form"
+    horizontal={false}
+    inline={false}
+    noValidate={true}
+    onSubmit={[MockFunction]}
+  >
+    <Field
+      component={[Function]}
+      htmlFor="identifier"
+      label="Username / Email*:"
+      name="identifier"
+      placeholder="Type your Username or Email"
+      type="text"
+    />
+    <Field
+      component={[Function]}
+      label="Password*:"
+      name="password"
+      placeholder="Come up with a password"
+      type="password"
+    />
+    <FormGroup
+      bsClass="form-group"
+    >
+      <FormControlStatic
+        bsClass="form-control-static"
+        componentClass="p"
+      >
+        <Link
+          replace={false}
+          to="/login/forgot"
+        >
+          Forgot password?
+        </Link>
+      </FormControlStatic>
+    </FormGroup>
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsSize="large"
+      bsStyle="primary"
+      disabled={false}
+      type="submit"
+    >
+      Login
+      <FontAwesome
+        name="sign-in"
+      />
+    </Button>
+  </Form>
+</Fragment>
+`;
+
+exports[`<Login/> renders <Login /> component with error state 1`] = `
+<Fragment>
+  <PageHeader
+    bsClass="page-header"
+  >
+    <FontAwesome
+      name="user-circle-o"
+    />
+     Please, login
+  </PageHeader>
+  <Form
+    bsClass="form"
+    componentClass="form"
+    horizontal={false}
+    inline={false}
+    noValidate={true}
+    onSubmit={[MockFunction]}
+  >
+    <Alert
+      bsClass="alert"
+      bsStyle="danger"
+      closeLabel="Close alert"
+    >
+      Test Error
+    </Alert>
+    <Field
+      component={[Function]}
+      htmlFor="identifier"
+      label="Username / Email*:"
+      name="identifier"
+      placeholder="Type your Username or Email"
+      type="text"
+    />
+    <Field
+      component={[Function]}
+      label="Password*:"
+      name="password"
+      placeholder="Come up with a password"
+      type="password"
+    />
+    <FormGroup
+      bsClass="form-group"
+    >
+      <FormControlStatic
+        bsClass="form-control-static"
+        componentClass="p"
+      >
+        <Link
+          replace={false}
+          to="/login/forgot"
+        >
+          Forgot password?
+        </Link>
+      </FormControlStatic>
+    </FormGroup>
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsSize="large"
+      bsStyle="primary"
+      disabled={false}
+      type="submit"
+    >
+      Login
+      <FontAwesome
+        name="sign-in"
+      />
+    </Button>
+  </Form>
+</Fragment>
+`;

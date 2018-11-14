@@ -103,17 +103,16 @@ class QuestionOne extends Component {
         />
 
         <PanelGroup id="accordion-controlled-one" defaultActiveKey="1" accordion>
-          {question &&
-            question.comments.length > 0 && (
-              <Panel eventKey="1" bsStyle="info">
-                <Panel.Heading>
-                  <Panel.Title toggle>{panelHeader}</Panel.Title>
-                </Panel.Heading>
-                <Panel.Body collapsible>
-                  <Comments comments={question.comments} />
-                </Panel.Body>
-              </Panel>
-            )}
+          {question && question.comments.length > 0 && (
+            <Panel eventKey="1" bsStyle="info">
+              <Panel.Heading>
+                <Panel.Title toggle>{panelHeader}</Panel.Title>
+              </Panel.Heading>
+              <Panel.Body collapsible>
+                <Comments comments={question.comments} />
+              </Panel.Body>
+            </Panel>
+          )}
           {user.username && (
             <Panel eventKey="2" bsStyle="primary">
               <Panel.Heading>

@@ -13,7 +13,7 @@ const Flash = ({ close, message }) => (
       success: message.type === 'success',
       warning: message.type === 'warn',
     })}>
-    {message.text}
+    <span>{message.text}</span>
     <Button onClick={close} className="close">
       <FontAwesome name="times" />
     </Button>

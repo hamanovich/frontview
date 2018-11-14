@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SignupForm/> renders <SignupForm /> component 1`] = `
+<Form
+  bsClass="form"
+  componentClass="form"
+  horizontal={false}
+  inline={false}
+  noValidate={true}
+  onSubmit={[Function]}
+>
+  <Field
+    component={[Function]}
+    errorState=""
+    label="Username*:"
+    name="username"
+    onBlur={[Function]}
+    placeholder="Type your nickname"
+    type="text"
+  />
+  <p
+    className="lead"
+  />
+  <Field
+    component={[Function]}
+    errorState=""
+    label="Email*:"
+    name="email"
+    onBlur={[Function]}
+    placeholder="Type your email"
+    type="email"
+  />
+  <Field
+    component={[Function]}
+    label="Password*:"
+    name="password"
+    placeholder="Come up with a password"
+    type="password"
+  />
+  <Field
+    component={[Function]}
+    label="Confirm your Password*:"
+    name="passwordConfirmation"
+    placeholder="Repeat your password"
+    type="password"
+  />
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsSize="large"
+    bsStyle="primary"
+    disabled={false}
+    type="submit"
+  >
+    Register
+    <FontAwesome
+      name="users"
+    />
+  </Button>
+</Form>
+`;

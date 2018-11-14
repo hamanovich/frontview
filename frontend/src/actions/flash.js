@@ -5,9 +5,9 @@ export const addFlashMessage = payload => ({
   payload,
 });
 
-export const deleteFlashMessage = payload => ({
+export const deleteFlashMessage = id => ({
   type: DELETE_FLASH_MESSAGE,
-  payload,
+  id,
 });
 
 export const deleteFlashMessages = () => ({

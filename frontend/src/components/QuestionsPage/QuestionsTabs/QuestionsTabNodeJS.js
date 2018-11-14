@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import FontAwesome from 'react-fontawesome';
 
 import PageHeader from 'react-bootstrap/lib/PageHeader';

@@ -10,7 +10,7 @@ import { TextField } from '../formElements';
 
 import validate from '../../validations/signup';
 
-class SignupForm extends Component {
+export class SignupForm extends Component {
   static propTypes = {
     signup: func.isRequired,
     reset: func.isRequired,
@@ -42,7 +42,18 @@ class SignupForm extends Component {
 
         reset();
       })
-      .catch(err => this.setState({ errors: err.response.data, isLoading: false }));
+      .catch(err =>
+        this.setState({
+          errors: err.response
+            ? err.response.data
+            : {
+                username: '',
+                email: '',
+                errorMsg: err.message,
+              },
+          isLoading: false,
+        }),
+      );
   };
 
   checkUserExists = e => {
@@ -85,9 +96,7 @@ class SignupForm extends Component {
           onBlur={this.checkUserExists}
           errorState={errors.username}
         />
-
         <p className="lead">{errors.username}</p>
-
         <Field
           label="Email*:"
           component={TextField}
@@ -97,7 +106,6 @@ class SignupForm extends Component {
           onBlur={this.checkUserExists}
           errorState={errors.email}
         />
-
         <Field
           label="Password*:"
           component={TextField}
@@ -105,7 +113,6 @@ class SignupForm extends Component {
           name="password"
           placeholder="Come up with a password"
         />
-
         <Field
           label="Confirm your Password*:"
           component={TextField}
@@ -113,7 +120,6 @@ class SignupForm extends Component {
           name="passwordConfirmation"
           placeholder="Repeat your password"
         />
-
         <Button
           type="submit"
           bsStyle="primary"

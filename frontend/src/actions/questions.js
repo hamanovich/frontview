@@ -88,7 +88,9 @@ export const addQuestion = question => dispatch =>
   api.questions.add(question).then(question => dispatch(questionAdded(question)));
 
 export const addQuestionsFromFile = questions => dispatch =>
-  api.questions.addFromFile(questions).then(questions => dispatch(questionsFromFileAdded(questions)));
+  api.questions
+    .addFromFile(questions)
+    .then(questions => dispatch(questionsFromFileAdded(questions)));
 
 export const editQuestion = data => dispatch =>
   api.questions.edit(data).then(question => dispatch(questionEdited(question)));
@@ -111,7 +113,6 @@ export const getSearchedQuestions = query => dispatch =>
 export const voteQuestion = (question, action, userId) => dispatch => () =>
   api.questions
     .vote(question, action, userId)
-    .then(
-      question =>
-        action === 'like' ? dispatch(voteLike(question)) : dispatch(voteDislike(question)),
+    .then(question =>
+      action === 'like' ? dispatch(voteLike(question)) : dispatch(voteDislike(question)),
     );

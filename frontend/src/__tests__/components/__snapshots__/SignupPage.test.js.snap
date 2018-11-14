@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SignupPage/> renders <SignupPage /> component 1`] = `
+<Row
+  bsClass="row"
+  componentClass="div"
+>
+  <Col
+    bsClass="col"
+    componentClass="div"
+    md={6}
+    mdOffset={3}
+  >
+    <PageHeader
+      bsClass="page-header"
+    >
+      <FontAwesome
+        name="user-plus"
+      />
+       Register. Welcome
+    </PageHeader>
+    <ReduxForm
+      addFlashMessage={[MockFunction]}
+      isUserExists={[MockFunction]}
+      signup={[MockFunction]}
+    />
+  </Col>
+</Row>
+`;

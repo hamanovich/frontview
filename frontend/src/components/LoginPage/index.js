@@ -16,7 +16,7 @@ import { addFlashMessage } from '../../actions/flash';
 
 import { PropsRoute } from '../../utils/helpers';
 
-const LoginPage = ({ login, forgot, resetToken, getReset, getUser, addFlashMessage }) => (
+export const LoginPage = ({ login, forgot, resetToken, getReset, getUser, addFlashMessage }) => (
   <Row>
     <Col md={6} mdOffset={3}>
       <Switch>

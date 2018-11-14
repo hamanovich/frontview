@@ -147,14 +147,13 @@ class Question extends Component {
 
             <hr />
 
-            {question.author &&
-              user.username === question.author.username && (
-                <ButtonGroup bsSize="small" className="pull-right">
-                  <Link to={`/questions/${question._id}/edit`} className="btn btn-warning">
-                    Edit
-                  </Link>
-                </ButtonGroup>
-              )}
+            {question.author && user.username === question.author.username && (
+              <ButtonGroup bsSize="small" className="pull-right">
+                <Link to={`/questions/${question._id}/edit`} className="btn btn-warning">
+                  Edit
+                </Link>
+              </ButtonGroup>
+            )}
 
             {user.username && <Toolbar question={question} user={user} qlists={qlists} />}
 

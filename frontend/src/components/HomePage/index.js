@@ -7,11 +7,13 @@ const HomePage = () => (
   <Jumbotron>
     <h1>Welcome!</h1>
     <p className="lead">
-      This is a simple hero unit, a simple Jumbotron-style component for calling extra attention
-      to featured content or information.
+      This is a simple hero unit, a simple Jumbotron-style component for calling extra attention to
+      featured content or information.
     </p>
     <p className="lead">
-      <Button bsStyle="primary" bsSize="lg">Learn More</Button>
+      <Button bsStyle="primary" bsSize="lg">
+        Learn More
+      </Button>
     </p>
   </Jumbotron>
 );

@@ -19,6 +19,27 @@ import { TextField } from '../formElements';
 
 import validate from '../../validations/login';
 
+export const onSubmit = props => values => {
+  const { login, history, getUser, setState } = props;
+
+  setState({
+    error: '',
+    isLoading: true,
+  });
+
+  login(values)
+    .then(() => {
+      getUser(values.identifier);
+      history.push('/');
+    })
+    .catch(err =>
+      setState({
+        error: err.response ? err.response.data.error : err.message,
+        isLoading: false,
+      }),
+    );
+};
+
 const enhance = compose(
   reduxForm({
     form: 'Login',
@@ -31,30 +52,11 @@ const enhance = compose(
   }),
 
   withHandlers({
-    onSubmit: props => values => {
-      const { login, history, getUser, setState } = props;
-
-      setState({
-        error: '',
-        isLoading: true,
-      });
-
-      login(values)
-        .then(() => {
-          getUser(values.identifier);
-          history.push('/');
-        })
-        .catch(err =>
-          setState({
-            error: err.response.data.error,
-            isLoading: false,
-          }),
-        );
-    },
+    onSubmit,
   }),
 );
 
-const Login = ({ handleSubmit, onSubmit, state }) => (
+export const Login = ({ handleSubmit, onSubmit, state }) => (
   <Fragment>
     <PageHeader>
       <FontAwesome name="user-circle-o" /> Please, login
@@ -62,7 +64,6 @@ const Login = ({ handleSubmit, onSubmit, state }) => (
 
     <Form onSubmit={handleSubmit(onSubmit)} noValidate>
       {state.error && <Alert bsStyle="danger">{state.error}</Alert>}
-
       <Field
         label="Username / Email*:"
         component={TextField}
@@ -71,7 +72,6 @@ const Login = ({ handleSubmit, onSubmit, state }) => (
         name="identifier"
         placeholder="Type your Username or Email"
       />
-
       <Field
         label="Password*:"
         component={TextField}
@@ -79,13 +79,11 @@ const Login = ({ handleSubmit, onSubmit, state }) => (
         name="password"
         placeholder="Come up with a password"
       />
-
       <FormGroup>
         <FormControl.Static>
           <Link to="/login/forgot">Forgot password?</Link>
         </FormControl.Static>
       </FormGroup>
-
       <Button type="submit" bsStyle="primary" bsSize="large" disabled={state.isLoading}>
         Login
         <FontAwesome name="sign-in" />

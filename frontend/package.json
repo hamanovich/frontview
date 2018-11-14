@@ -7,13 +7,18 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom"
+    "test": "react-scripts test --env=jsdom",
+    "coverage": "yarn test --coverage"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "date-fns": "^1.29.0",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
     "history": "^4.7.2",
+    "jest-mock-axios": "^2.1.11",
+    "jest-prop-type-error": "^1.1.0",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.11",
     "prop-types": "^15.6.2",
@@ -29,6 +34,7 @@
     "react-router-dom": "^4.3.1",
     "react-router-redux": "5.0.0-alpha.8",
     "react-scripts": "^2.0.5",
+    "react-test-renderer": "^16.6.0",
     "react-transition-group": "^2.5.0",
     "recompose": "^0.30.0",
     "redux": "^4.0.1",
@@ -46,5 +52,30 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "enzyme-to-json": "^3.3.4",
+    "redux-mock-store": "^1.5.3"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/*.js",
+      "!src/components/Root.js",
+      "!src/validations/*.js",
+      "!src/propTypes/*.js",
+      "!src/__fixtures__/*.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 7,
+        "functions": 10,
+        "lines": 10,
+        "statements": 10
+      }
+    },
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
+  }
 }

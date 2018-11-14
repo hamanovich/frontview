@@ -15,6 +15,8 @@ export default {
 
     signup: user => axios.post('/api/users/', user).then(res => res.data),
 
+    isUserExists: identifier => axios.get(`/api/users/${identifier}`),
+
     getUser: identifier => axios.get(`/api/users/${identifier}`).then(res => res.data),
 
     remove: username => axios.delete(`/api/user/${username}`),
@@ -74,7 +76,8 @@ export default {
 
     add: question => axios.post('/api/questions/add', question).then(res => res.data),
 
-    addFromFile: questions => axios.post('/api/questions/addFromFile', questions).then(res => res.data),
+    addFromFile: questions =>
+      axios.post('/api/questions/addFromFile', questions).then(res => res.data),
 
     edit: data => axios.put(`/api/question/${data._id}/edit`, data).then(res => res.data),
 

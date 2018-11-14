@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import { shape, func, string, bool } from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 

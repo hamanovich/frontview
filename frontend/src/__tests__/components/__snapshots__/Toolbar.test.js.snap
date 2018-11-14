@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Toolbar/> renders <Toolbar /> component 1`] = `
+<ButtonToolbar
+  bsClass="btn-toolbar"
+>
+  <ButtonGroup
+    block={false}
+    bsClass="btn-group"
+    bsSize="small"
+    justified={false}
+    vertical={false}
+  >
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="success"
+      disabled={false}
+    >
+      <FontAwesome
+        name="thumbs-up"
+      />
+       
+      1
+    </Button>
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="danger"
+      disabled={false}
+    >
+      <FontAwesome
+        name="thumbs-down"
+      />
+       
+      0
+    </Button>
+  </ButtonGroup>
+  <ButtonGroup
+    block={false}
+    bsClass="btn-group"
+    bsSize="small"
+    justified={false}
+    vertical={false}
+  >
+    <DropdownButton
+      bsSize="small"
+      bsStyle="info"
+      id="qlist"
+      title={
+        <FontAwesome
+          name="star"
+        />
+      }
+    >
+      <MenuItem
+        bsClass="dropdown"
+        disabled={false}
+        divider={false}
+        eventKey={0}
+        header={false}
+        key="5bd6e86025ccd523e4595ad4"
+      >
+        Js core
+      </MenuItem>
+      <MenuItem
+        bsClass="dropdown"
+        disabled={false}
+        divider={true}
+        header={false}
+      />
+      <LinkContainer
+        activeClassName="active"
+        exact={false}
+        replace={false}
+        strict={false}
+        to="/me/qlist/create"
+      >
+        <MenuItem
+          bsClass="dropdown"
+          disabled={false}
+          divider={false}
+          header={false}
+        >
+          Create new QList
+        </MenuItem>
+      </LinkContainer>
+    </DropdownButton>
+  </ButtonGroup>
+</ButtonToolbar>
+`;

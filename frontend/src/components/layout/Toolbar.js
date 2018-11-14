@@ -16,7 +16,7 @@ import { qlistAddQuestion } from '../../actions/qlists';
 
 import { QuestionType, QListType } from '../../propTypes';
 
-const Toolbar = ({ user, question, voteQuestion, qlistAddQuestion, qlists }) => (
+export const Toolbar = ({ user, question, voteQuestion, qlistAddQuestion, qlists }) => (
   <ButtonToolbar>
     <ButtonGroup bsSize="small">
       <Button
