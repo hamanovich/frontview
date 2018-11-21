@@ -31,11 +31,15 @@ const RemoveIcon = styled.button`
 `;
 
 class QLists extends Component {
+  static defaultProps = {
+    userId: null,
+  };
+
   static propTypes = {
     getQLists: func.isRequired,
     removeQList: func.isRequired,
     qlists: arrayOf(QListType).isRequired,
-    userId: string.isRequired,
+    userId: string,
   };
 
   state = {

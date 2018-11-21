@@ -33,7 +33,12 @@ const enhance = compose(
 
   lifecycle({
     componentWillMount() {
-      const { history, location, addFlashMessage } = this.props;
+      const { history, location, userId, addFlashMessage } = this.props;
+
+      if (!userId) {
+        history.push('/');
+        return;
+      }
 
       if (!location.state) {
         addFlashMessage({
@@ -44,7 +49,7 @@ const enhance = compose(
         history.push('/interview/qlists');
       }
 
-      if (!location.state.qlist.questions.length) {
+      if (location.state && !location.state.qlist.questions.length) {
         addFlashMessage({
           type: 'warn',
           text: `Before you go next, please add questions to QList: ${location.state.qlist.title}`,
@@ -57,8 +62,8 @@ const enhance = compose(
 );
 
 const InterviewProgress = ({ step, provideFeedback, location, history, onSelectStep }) => {
-  const { candidate } = location.state;
-  const { questions } = location.state.qlist;
+  const candidate = location.state ? location.state.candidate : '';
+  const questions = location.state ? location.state.qlist.questions : [];
   const tab = map(questions, (question, index) => (
     <Tab eventKey={index + 1} key={question._id} title={index + 1}>
       <h3>

@@ -20,7 +20,7 @@ import { CandidateType } from '../../propTypes';
 
 class InterviewCandidates extends Component {
   static propTypes = {
-    userId: string.isRequired,
+    userId: string,
     candidates: arrayOf(CandidateType),
     candidateAdd: func.isRequired,
     getCandidates: func.isRequired,
@@ -33,6 +33,7 @@ class InterviewCandidates extends Component {
   };
 
   static defaultProps = {
+    userId: null,
     candidates: [],
   };
 

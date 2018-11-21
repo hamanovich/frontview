@@ -12,16 +12,18 @@ import AddQuestion from './AddQuestion';
 import QuestionOne from './QuestionOne';
 import QuestionsWrapper from './QuestionsWrapper';
 
+import { User } from '../../utils/helpers';
+
 const QuestionsPage = () => (
   <Switch>
     <Route path="/questions/page/:page" component={QuestionsWrapper(QuestionsAll)} />
-    <Route path="/questions/author/:username" component={QuestionsWrapper(QuestionsAuthor)} />
+    <Route path="/questions/author/:username" component={User(QuestionsWrapper(QuestionsAuthor))} />
     <Route exact path="/questions/search" component={QuestionsWrapper(QuestionsSearch)} />
     <Route exact path="/questions/top" component={QuestionsWrapper(QuestionsTop)} />
-    <Route exact path="/questions/add" component={AddQuestion} />
+    <Route exact path="/questions/add" component={User(AddQuestion)} />
     <Route path="/questions/internet/:source?" component={QuestionsFromInternet} />
-    <Route path="/questions/qlist/:slug" component={QuestionsWrapper(QuestionsQList)} />
-    <Route path="/questions/:_id/edit" component={AddQuestion} />
+    <Route path="/questions/qlist/:slug" component={User(QuestionsWrapper(QuestionsQList))} />
+    <Route path="/questions/:_id/edit" component={User(AddQuestion)} />
     <Route path="/questions/:slug/one" component={QuestionOne} />
     <Route
       path="/questions/:filter/:tag?"

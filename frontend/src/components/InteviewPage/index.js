@@ -63,13 +63,14 @@ const InterviewPage = ({
         exact
         path="/interview/progress"
         component={InterviewProgress}
+        userId={auth.user._id}
         addFlashMessage={addFlashMessage}
         provideFeedback={provideFeedback}
       />
 
       <Route exact path="/interview/finish" component={InterviewFinish} />
 
-      <Redirect to="/interview" />
+      <Redirect to="/" />
     </Switch>
   </Fragment>
 );

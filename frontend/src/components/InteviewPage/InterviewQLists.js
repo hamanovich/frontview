@@ -14,7 +14,7 @@ import { QListType, CandidateType } from '../../propTypes';
 
 class InterviewQLists extends Component {
   static propTypes = {
-    userId: string.isRequired,
+    userId: string,
     qlists: arrayOf(QListType),
     addFlashMessage: func.isRequired,
     getQLists: func.isRequired,
@@ -27,6 +27,7 @@ class InterviewQLists extends Component {
   };
 
   static defaultProps = {
+    userId: null,
     qlists: [],
   };
 
@@ -36,7 +37,12 @@ class InterviewQLists extends Component {
   };
 
   componentWillMount() {
-    const { history, location, addFlashMessage } = this.props;
+    const { history, location, addFlashMessage, userId } = this.props;
+
+    if (!userId) {
+      history.push('/');
+      return;
+    }
 
     if (!location.state) {
       addFlashMessage({

@@ -45,13 +45,16 @@ class QuestionOne extends Component {
     question: null,
   };
 
-  componentDidMount = () => {
+  componentDidMount() {
     const { getUser, getQLists, match, user } = this.props;
 
-    getUser(user.username);
-    getQLists(user._id);
+    if (user._id) {
+      getUser(user.username);
+      getQLists(user._id);
+    }
+
     this.getQuestion(match.params.slug);
-  };
+  }
 
   getQuestion = slug => {
     const { getQuestionBySlug, addFlashMessage, history } = this.props;
@@ -73,7 +76,7 @@ class QuestionOne extends Component {
           text: err.response.data.error,
         });
 
-        history.push('/questions/add');
+        history.push('/');
       });
   };
 

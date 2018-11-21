@@ -96,12 +96,18 @@ class AddQuestion extends Component {
     fileName: '',
   };
 
-  componentDidMount = () => {
+  _isMounted = false;
+
+  componentDidMount() {
     const { getQuestionById, getQuestionInterface, addFlashMessage, match, history } = this.props;
 
-    getQuestionInterface().then(({ skill, level, practice }) =>
-      this.setState({ skill, level, practice }),
-    );
+    this._isMounted = true;
+
+    getQuestionInterface().then(({ skill, level, practice }) => {
+      if (this._isMounted) {
+        this.setState({ skill, level, practice });
+      }
+    });
 
     if (match.params._id) {
       getQuestionById(match.params._id).then(
@@ -125,7 +131,11 @@ class AddQuestion extends Component {
         },
       );
     }
-  };
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
 
   onSubmit = values => {
     const {

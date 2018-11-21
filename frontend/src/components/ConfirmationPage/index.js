@@ -60,8 +60,8 @@ const confirmError = (
   <Jumbotron>
     <h1>Ooops!</h1>
     <p className="lead text-danger">
-      Bad news. You don&apos;t have full access to this website
-      <b>OR</b> you&apos;ve already confirmed email.
+      Bad news. You don&apos;t have full access to this website <b>OR</b> you&apos;ve already
+      confirmed email.
     </p>
   </Jumbotron>
 );

@@ -16,8 +16,12 @@ const QListPage = ({ userId }) => (
   </Fragment>
 );
 
+QListPage.defaultProps = {
+  userId: null,
+};
+
 QListPage.propTypes = {
-  userId: string.isRequired,
+  userId: string,
 };
 
 export default QListPage;
