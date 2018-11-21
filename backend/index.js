@@ -5,6 +5,7 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import helmet from 'helmet';
 
 import routes from './routes';
 import { notFound } from './handlers/errors';
@@ -14,6 +15,7 @@ const app = express();
 app.use(morgan('":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
 
 app.use(cors());
+app.use(helmet());
 
 app.use(bodyParser.json({ limit: '50mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));

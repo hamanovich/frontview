@@ -40,7 +40,7 @@ const AnswerFields = ({ fields, meta: { touched, error, submitFailed } }) => (
     ))}
 
     <FormGroup>
-      <Button bsStyle="success" onClick={fields.push}>
+      <Button bsStyle="success" onClick={() => fields.push({})}>
         Add Answer
       </Button>
     </FormGroup>
