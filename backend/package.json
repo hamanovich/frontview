@@ -5,9 +5,9 @@
   "author": "Siarhei Hamanovich <hamanovich@gmail.com> (http://github.com/hamanovich)",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --exec babel-node -- index.js",
+    "start": "nodemon --exec babel-node -- ./src/index.js",
     "start:prod": "node build/index.js",
-    "build": "babel . --ignore node_modules,build --out-dir build"
+    "build": "babel ./src --out-dir build --copy-files"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",

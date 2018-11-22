@@ -15,7 +15,7 @@
     "prettier": "prettier \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|graphql|mdx)\"",
     "validate": "yarn lint && yarn format --list-different",
     "lint": "yarn lint:backend && yarn lint:frontend",
-    "lint:backend": "eslint ./backend/**/*.js",
+    "lint:backend": "eslint ./backend/src/**/*.js",
     "lint:frontend": "eslint ./frontend/src/**/*.js",
     "test": "cd frontend && yarn test"
   },
