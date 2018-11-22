@@ -72,19 +72,21 @@ class QLists extends Component {
         </PageHeader>
 
         <ListGroup>
-          {map(qlists, qlist => (
-            <ListGroupItem key={qlist.slug}>
-              <h4>
-                <Link to={`/questions/qlist/${qlist.slug}`}>
-                  {qlist.title} <Badge>{qlist.questions.length}</Badge>
-                </Link>
-              </h4>
-              <p>{qlist.notes}</p>
-              <RemoveIcon onClick={() => this.toggleModal(qlist._id)}>
-                <FontAwesome name="trash" />
-              </RemoveIcon>
-            </ListGroupItem>
-          ))}
+          {qlists.length > 0
+            ? map(qlists, qlist => (
+                <ListGroupItem key={qlist.slug}>
+                  <h4>
+                    <Link to={`/questions/qlist/${qlist.slug}`}>
+                      {qlist.title} <Badge>{qlist.questions.length}</Badge>
+                    </Link>
+                  </h4>
+                  <p>{qlist.notes}</p>
+                  <RemoveIcon onClick={() => this.toggleModal(qlist._id)}>
+                    <FontAwesome name="trash" />
+                  </RemoveIcon>
+                </ListGroupItem>
+              ))
+            : 'There are no QLists found'}
         </ListGroup>
 
         <Modal bsSize="sm" show={showModal} onHide={this.toggleModal}>

@@ -1,5 +1,6 @@
 import Question from '../models/question';
 import User from '../models/user';
+import Comment from '../models/comment';
 
 exports.getQuestionInterface = (req, res) => {
   const { schema } = Question;
@@ -182,8 +183,14 @@ exports.editField = async (req, res) => {
 exports.remove = async (req, res) => {
   const question = await Question.findByIdAndRemove(req.params.id);
   const user = await User.findByIdAndUpdate(question.author, {
-    $pull: { questions: question._id },
+    $pull: {
+      questions: question._id,
+      'votes.like': question._id,
+      'votes.dislike': question._id,
+    },
   });
+
+  await Comment.remove({ question: req.params.id });
 
   if (question && user) {
     res.json(question);

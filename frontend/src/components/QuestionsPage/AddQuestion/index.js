@@ -253,15 +253,18 @@ class AddQuestion extends Component {
               <FontAwesome name="question-circle-o" /> {_id ? 'Edit question' : 'Add new question'}
             </PageHeader>
 
-            <p>
-              <Button bsSize="small" bsStyle="info" onClick={this.toggleDropzone}>
-                {dropzone === true
-                  ? 'Add a new question manually'
-                  : 'Import questions from .json file'}
-              </Button>
-            </p>
-
-            <hr />
+            {!_id && (
+              <Fragment>
+                <p>
+                  <Button bsSize="small" bsStyle="info" onClick={this.toggleDropzone}>
+                    {dropzone === true
+                      ? 'Add a new question manually'
+                      : 'Import questions from .json file'}
+                  </Button>
+                </p>
+                <hr />
+              </Fragment>
+            )}
 
             {dropzone === true ? (
               <DropMe
@@ -343,8 +346,7 @@ class AddQuestion extends Component {
                 <Button type="submit" bsStyle="info" bsSize="large" disabled={isLoading}>
                   {_id ? (
                     <span>
-                      Update
-                      <FontAwesome name="refresh" />
+                      Update <FontAwesome name="refresh" />
                     </span>
                   ) : (
                     'Add new question'

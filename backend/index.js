@@ -26,6 +26,7 @@ app.use(staticFiles);
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'pug');
 
+mongoose.set('useFindAndModify', false);
 mongoose.connect(
   process.env.DATABASE,
   {
