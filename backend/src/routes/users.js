@@ -56,16 +56,12 @@ exports.createUser = async (req, res) => {
     return true;
   });
 
-  const confirmURL = `http://${req.headers['x-forwarded-host']}/confirmation/${
-    user.confirmationToken
-  }`;
-
   await send({
     user,
-    from: 'FrontView <admin@frontview.com>',
+    from: 'FrontView <postmaster@front-view.herokuapp.com>',
     filename: 'confirmation-email',
     subject: 'Confirmation Email',
-    confirmURL,
+    confirmURL: `${req.protocol}://${req.get('host')}/confirmation/${user.confirmationToken}`,
   });
 
   res.send(user);
