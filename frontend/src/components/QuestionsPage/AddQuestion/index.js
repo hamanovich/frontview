@@ -276,10 +276,35 @@ class AddQuestion extends Component {
                 className="dropzone"
                 activeClassName="dropzone--active"
                 rejectClassName="dropzone--reject">
+                <p>Click or drag&amp;drop file here. Only *.json file is accepted.</p>
                 <p>
-                  Click or drag&amp;drop file here. Only *.json file is accepted <br />
-                  {fileName !== '' ? `You have added - ${fileName}` : ''}
+                  JSON should be in the following format (array of objects):
+                  <pre style={{ fontSize: '11px' }}>
+                    {JSON.stringify(
+                      [
+                        {
+                          question: 'The question',
+                          skill: ['JS'],
+                          level: ['Junior', 'Middle'],
+                          answer: 'The main answer',
+                          answers: [
+                            {
+                              text: 'Additional answer #1',
+                            },
+                            {
+                              text: 'Additional answer #2',
+                            },
+                          ],
+                          practice: 'practice',
+                          notes: 'Some notes',
+                        },
+                      ],
+                      null,
+                      2,
+                    )}
+                  </pre>
                 </p>
+                <p>{fileName !== '' ? `You have added - ${fileName}` : ''}</p>
               </DropMe>
             ) : (
               <Fragment>
