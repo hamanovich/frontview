@@ -34,7 +34,7 @@ export const onSubmit = props => values => {
     })
     .catch(err =>
       setState({
-        error: err.response.data.error ? err.response.data.error : err.message,
+        error: err.response && err.response.data.error ? err.response.data.error : err.message,
         isLoading: false,
       }),
     );

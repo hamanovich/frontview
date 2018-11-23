@@ -45,13 +45,14 @@ export class SignupForm extends Component {
       })
       .catch(err =>
         this.setState({
-          errors: err.response.data.error
-            ? err.response.data.error
-            : {
-                username: '',
-                email: '',
-                errorMsg: err.message,
-              },
+          errors:
+            err.response && err.response.data.error
+              ? err.response.data.error
+              : {
+                  username: '',
+                  email: '',
+                  errorMsg: err.message,
+                },
           isLoading: false,
         }),
       );

@@ -53,7 +53,7 @@ exports[`<SignupForm/> renders <SignupForm /> component 1`] = `
     disabled={false}
     type="submit"
   >
-    Register
+    Register 
     <FontAwesome
       name="users"
     />

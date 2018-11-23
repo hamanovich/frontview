@@ -23,7 +23,7 @@ describe('<Flash/>', () => {
       message: { type: 'success', text: 'Success' },
     });
 
-    expect(component.find('span').text()).toEqual('Success');
+    expect(component.find('MarkdownRenderer').props().markdown).toEqual('Success');
     expect(component).toMatchSnapshot();
   });
 

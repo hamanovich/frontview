@@ -57,7 +57,7 @@ exports[`<Login/> renders <Login /> component 1`] = `
       disabled={false}
       type="submit"
     >
-      Login
+      Login 
       <FontAwesome
         name="sign-in"
       />
@@ -130,7 +130,7 @@ exports[`<Login/> renders <Login /> component with error state 1`] = `
       disabled={false}
       type="submit"
     >
-      Login
+      Login 
       <FontAwesome
         name="sign-in"
       />

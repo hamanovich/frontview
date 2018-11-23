@@ -1,14 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Flash/> renders <Flash /> component 1`] = `
-<Alert
-  bsClass="alert"
+<Styled(Alert)
   bsStyle="danger"
-  closeLabel="Close alert"
 >
-  <span>
-    Error
-  </span>
+  <MarkdownRenderer
+    markdown="Error"
+  />
   <Button
     active={false}
     block={false}
@@ -22,18 +20,16 @@ exports[`<Flash/> renders <Flash /> component 1`] = `
       name="times"
     />
   </Button>
-</Alert>
+</Styled(Alert)>
 `;
 
 exports[`<Flash/> updates via props 1`] = `
-<Alert
-  bsClass="alert"
+<Styled(Alert)
   bsStyle="success"
-  closeLabel="Close alert"
 >
-  <span>
-    Success
-  </span>
+  <MarkdownRenderer
+    markdown="Success"
+  />
   <Button
     active={false}
     block={false}
@@ -47,5 +43,5 @@ exports[`<Flash/> updates via props 1`] = `
       name="times"
     />
   </Button>
-</Alert>
+</Styled(Alert)>
 `;

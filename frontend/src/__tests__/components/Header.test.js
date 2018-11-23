@@ -10,8 +10,8 @@ describe('<Header/>', () => {
       isAuthenticated: true,
       user,
     },
-    getSearchedQuestions: jest.fn(() => Promise.resolve('hello world')),
-    getUser: jest.fn(),
+    getSearchedQuestions: jest.fn(() => Promise.resolve('')),
+    getUser: jest.fn(() => Promise.resolve('')),
     addFlashMessage: jest.fn(),
     logout: jest.fn(),
   };
@@ -22,7 +22,7 @@ describe('<Header/>', () => {
       },
     },
   };
-  const values = { search: 'Test' };
+  const values = { search: 'hello world wrong request' };
 
   describe('renders component with search Question', () => {
     const component = shallow(<Header {...props} />, { context });
@@ -46,8 +46,8 @@ describe('<Header/>', () => {
 
       it('checkes whether search field was filled', () => {
         expect(props.getSearchedQuestions).toHaveBeenCalledWith(values.search);
-        expect(props.addFlashMessage).not.toHaveBeenCalled();
-        expect(context.router.history.push).toHaveBeenCalled();
+        expect(props.addFlashMessage).toHaveBeenCalled();
+        expect(context.router.history.push).not.toHaveBeenCalled();
       });
     });
 
@@ -56,12 +56,12 @@ describe('<Header/>', () => {
         <Header {...props} getSearchedQuestions={jest.fn(() => Promise.resolve([]))} />,
         { context },
       );
-      beforeEach(() => component.instance().onSearch(values));
+      beforeEach(() => component.instance().onSearch(''));
 
       it('checkes whether search field was filled', () => {
         expect(props.getSearchedQuestions).toHaveBeenCalled();
         expect(props.addFlashMessage).toHaveBeenCalled();
-        expect(context.router.history.push).toHaveBeenCalled();
+        expect(context.router.history.push).not.toHaveBeenCalled();
       });
     });
   });
