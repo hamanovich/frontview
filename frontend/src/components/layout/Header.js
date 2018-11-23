@@ -54,9 +54,15 @@ export class Header extends Component {
   };
 
   componentDidMount() {
-    const { getUser, auth } = this.props;
+    const { getUser, auth, addFlashMessage } = this.props;
+
     if (auth.isAuthenticated) {
-      getUser(auth.user.username);
+      getUser(auth.user.username).catch(() =>
+        addFlashMessage({
+          type: 'error',
+          text: '__500: Server-side error__. Please check your internet connection',
+        }),
+      );
     }
   }
 

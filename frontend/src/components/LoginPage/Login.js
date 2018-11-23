@@ -34,7 +34,7 @@ export const onSubmit = props => values => {
     })
     .catch(err =>
       setState({
-        error: err.response ? err.response.data.error : err.message,
+        error: err.response.data.error ? err.response.data.error : err.message,
         isLoading: false,
       }),
     );
@@ -85,8 +85,7 @@ export const Login = ({ handleSubmit, onSubmit, state }) => (
         </FormControl.Static>
       </FormGroup>
       <Button type="submit" bsStyle="primary" bsSize="large" disabled={state.isLoading}>
-        Login
-        <FontAwesome name="sign-in" />
+        Login <FontAwesome name="sign-in" />
       </Button>
     </Form>
   </Fragment>

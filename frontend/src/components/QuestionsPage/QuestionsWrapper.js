@@ -83,10 +83,12 @@ export default WrappedComponent => {
         .catch(err => {
           addFlashMessage({
             type: 'error',
-            text: err.response.data.error,
+            text: err.response.data.error
+              ? err.response.data.error
+              : '__500: Server-side error__. Please check your internet connection',
           });
 
-          history.push('/questions');
+          history.push('/');
         });
     };
 

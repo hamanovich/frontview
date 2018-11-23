@@ -3,6 +3,7 @@ import { func } from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import FontAwesome from 'react-fontawesome';
 
+import Alert from 'react-bootstrap/lib/Alert';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 
@@ -44,8 +45,8 @@ export class SignupForm extends Component {
       })
       .catch(err =>
         this.setState({
-          errors: err.response
-            ? err.response.data
+          errors: err.response.data.error
+            ? err.response.data.error
             : {
                 username: '',
                 email: '',
@@ -87,6 +88,7 @@ export class SignupForm extends Component {
 
     return (
       <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
+        {errors.errorMsg && <Alert bsStyle="danger">{errors.errorMsg}</Alert>}
         <Field
           label="Username*:"
           component={TextField}
@@ -125,8 +127,7 @@ export class SignupForm extends Component {
           bsStyle="primary"
           bsSize="large"
           disabled={isLoading || invalid || !!(errors.username || errors.email)}>
-          Register
-          <FontAwesome name="users" />
+          Register <FontAwesome name="users" />
         </Button>
       </Form>
     );
