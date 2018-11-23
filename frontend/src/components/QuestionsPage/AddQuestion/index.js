@@ -147,7 +147,7 @@ class AddQuestion extends Component {
       addFlashMessage,
       history,
     } = this.props;
-    const query = { ...values, userId, lastModified: new Date() };
+    const query = { ...values, isVerified: false, userId, lastModified: new Date() };
 
     if (match.params._id) {
       editQuestion(query).then(() => {
@@ -277,33 +277,31 @@ class AddQuestion extends Component {
                 activeClassName="dropzone--active"
                 rejectClassName="dropzone--reject">
                 <p>Click or drag&amp;drop file here. Only *.json file is accepted.</p>
-                <p>
-                  JSON should be in the following format (array of objects):
-                  <pre style={{ fontSize: '11px' }}>
-                    {JSON.stringify(
-                      [
-                        {
-                          question: 'The question',
-                          skill: ['JS'],
-                          level: ['Junior', 'Middle'],
-                          answer: 'The main answer',
-                          answers: [
-                            {
-                              text: 'Additional answer #1',
-                            },
-                            {
-                              text: 'Additional answer #2',
-                            },
-                          ],
-                          practice: 'practice',
-                          notes: 'Some notes',
-                        },
-                      ],
-                      null,
-                      2,
-                    )}
-                  </pre>
-                </p>
+                <p>JSON should be in the following format (array of objects):</p>
+                <pre style={{ fontSize: '11px' }}>
+                  {JSON.stringify(
+                    [
+                      {
+                        question: 'The question',
+                        skill: ['JS'],
+                        level: ['Junior', 'Middle'],
+                        answer: 'The main answer',
+                        answers: [
+                          {
+                            text: 'Additional answer #1',
+                          },
+                          {
+                            text: 'Additional answer #2',
+                          },
+                        ],
+                        practice: 'practice',
+                        notes: 'Some notes',
+                      },
+                    ],
+                    null,
+                    2,
+                  )}
+                </pre>
                 <p>{fileName !== '' ? `You have added - ${fileName}` : ''}</p>
               </DropMe>
             ) : (

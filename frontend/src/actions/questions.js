@@ -4,6 +4,7 @@ import {
   QUESTIONS_ADD,
   QUESTIONS_FROM_FILE_ADD,
   QUESTION_ADD,
+  QUESTION_APPROVE,
   QUESTION_EDIT,
   QUESTION_GET,
   QUESTION_REMOVE,
@@ -31,6 +32,11 @@ export const questionAdded = question => ({
 export const questionsFromFileAdded = questions => ({
   type: QUESTIONS_FROM_FILE_ADD,
   questions,
+});
+
+export const questionApproved = question => ({
+  type: QUESTION_APPROVE,
+  question,
 });
 
 export const questionEdited = question => ({
@@ -91,6 +97,9 @@ export const addQuestionsFromFile = questions => dispatch =>
   api.questions
     .addFromFile(questions)
     .then(questions => dispatch(questionsFromFileAdded(questions)));
+
+export const approveQuestion = id => dispatch =>
+  api.questions.approve(id).then(question => dispatch(questionApproved(question)));
 
 export const editQuestion = data => dispatch =>
   api.questions.edit(data).then(question => dispatch(questionEdited(question)));

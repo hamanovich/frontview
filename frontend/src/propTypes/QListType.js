@@ -1,17 +1,13 @@
-import PropTypes from 'prop-types';
+import { shape, string, oneOfType, arrayOf } from 'prop-types';
 
 import QuestionType from './QuestionType';
 import UserType from './UserType';
 
-export default PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  slug: PropTypes.string,
-  questions: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.string),
-    PropTypes.arrayOf(QuestionType),
-    QuestionType,
-  ]).isRequired,
-  author: PropTypes.oneOfType([PropTypes.string, UserType]).isRequired,
-  notes: PropTypes.string,
+export default shape({
+  _id: string.isRequired,
+  title: string.isRequired,
+  slug: string,
+  questions: oneOfType([arrayOf(string), arrayOf(QuestionType), QuestionType]).isRequired,
+  author: oneOfType([string, UserType]).isRequired,
+  notes: string,
 });

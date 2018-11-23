@@ -9,7 +9,7 @@ import compose from 'recompose/compose';
 import Question from './Question';
 import Loader from '../../utils/Loader';
 
-import { editQuestionField } from '../../actions/questions';
+import { approveQuestion, editQuestionField } from '../../actions/questions';
 
 import { QuestionType, UserType, QListType } from '../../propTypes';
 
@@ -21,6 +21,7 @@ const enhance = compose(
       qlists: state.qlists,
     }),
     {
+      approveQuestion,
       editQuestionField,
     },
   ),
@@ -28,12 +29,13 @@ const enhance = compose(
   Loader('questions'),
 );
 
-const Questions = ({ user, qlists, questions, editQuestionField }) => (
+const Questions = ({ user, qlists, questions, approveQuestion, editQuestionField }) => (
   <Fragment>
     {questions.length ? (
       map(questions, question => (
         <Question
           question={question}
+          approveQuestion={approveQuestion}
           editQuestionField={editQuestionField}
           key={question._id}
           user={user}
@@ -53,6 +55,7 @@ Questions.propTypes = {
   user: UserType.isRequired,
   qlists: arrayOf(QListType).isRequired,
   questions: arrayOf(QuestionType).isRequired,
+  approveQuestion: func.isRequired,
   editQuestionField: func.isRequired,
 };
 

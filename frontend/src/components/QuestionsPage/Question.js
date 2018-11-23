@@ -6,6 +6,7 @@ import map from 'lodash/map';
 import shortid from 'shortid';
 import FontAwesome from 'react-fontawesome';
 import styled from 'styled-components';
+import format from 'date-fns/format';
 
 import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
@@ -30,11 +31,22 @@ const LinkStyled = styled(Link)`
   margin-top: 7px;
 `;
 
+const ApproveBar = styled('div')`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  h5 {
+    margin: 0 1rem 0 0;
+  }
+`;
+
 class Question extends Component {
   static propTypes = {
     question: QuestionType.isRequired,
     user: UserType.isRequired,
     qlists: arrayOf(QListType),
+    approveQuestion: func.isRequired,
     editQuestionField: func.isRequired,
   };
 
@@ -68,7 +80,7 @@ class Question extends Component {
   };
 
   render() {
-    const { question, editQuestionField, user, qlists } = this.props;
+    const { question, approveQuestion, editQuestionField, user, qlists } = this.props;
     const { answerField, textField } = this.state;
 
     const panelHeader = (
@@ -108,30 +120,45 @@ class Question extends Component {
         <h2>
           <Link to={`/questions/${question.slug}/one`}>{question.question}</Link>
         </h2>
+        <ApproveBar>
+          <h5>
+            Verified:{' '}
+            {question.isVerified ? (
+              <strong style={{ color: '#4cae4c' }}>Yes</strong>
+            ) : (
+              <strong style={{ color: '#d43f3a' }}>No</strong>
+            )}
+          </h5>
+          {!question.isVerified && user.role === 'admin' && (
+            <Button
+              bsStyle="success"
+              bsSize="sm"
+              onClick={() => {
+                approveQuestion(question._id);
+              }}>
+              Approve
+            </Button>
+          )}
+        </ApproveBar>
 
-        <Panel>
+        <Panel bsStyle={question.isVerified ? 'success' : 'danger'}>
           <Panel.Heading>{panelHeader}</Panel.Heading>
           <Panel.Body>
             <div onClick={this.open(question.answer, 'answer')}>
               <MarkdownRenderer markdown={question.answer} />
             </div>
-
-            <hr />
-
+            {question.answers.length > 0 && <hr />}
             {map(question.answers, (question, index) => (
               <em key={shortid.generate()} onClick={this.open(question, `answers.${index}.text`)}>
                 <MarkdownRenderer markdown={question.text} />
               </em>
             ))}
-
             <hr />
-
             {question.notes && (
               <Well onClick={this.open(question.notes, 'notes')}>
                 <MarkdownRenderer markdown={question.notes} />
               </Well>
             )}
-
             {question.author && (
               <small>
                 <strong>Author</strong>:
@@ -140,21 +167,21 @@ class Question extends Component {
                 </Link>
               </small>
             )}
-
             <Link to={`/questions/${question.slug}/one`} className="pull-right">
               <FontAwesome name="comments-o" /> {question.comments && question.comments.length}
             </Link>
-
+            <p>
+              <small>Last modified: {format(question.lastModified, 'DD/MM/YYYY HH:mm:ss')}</small>
+            </p>
             <hr />
-
-            {question.author && user.username === question.author.username && (
-              <ButtonGroup bsSize="small" className="pull-right">
-                <Link to={`/questions/${question._id}/edit`} className="btn btn-warning">
-                  Edit
-                </Link>
-              </ButtonGroup>
-            )}
-
+            {question.author &&
+              (user.username === question.author.username || user.role === 'admin') && (
+                <ButtonGroup bsSize="small" className="pull-right">
+                  <Link to={`/questions/${question._id}/edit`} className="btn btn-warning">
+                    Edit
+                  </Link>
+                </ButtonGroup>
+              )}
             {user.username && <Toolbar question={question} user={user} qlists={qlists} />}
 
             <Modal show={this.state.showModal} onHide={this.close}>
