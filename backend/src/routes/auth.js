@@ -13,7 +13,7 @@ exports.auth = async (req, res) => {
   }
 
   if (!user.confirmed) {
-    res.status(401).json({ error: "You didn't confirm your email. Before login, please do it" });
+    res.status(401).json({ error: "You didn't confirm your email" });
     return;
   }
 

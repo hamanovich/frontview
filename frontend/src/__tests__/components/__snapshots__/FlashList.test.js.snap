@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Flash/> renders <Flash /> component 1`] = `
+exports[`<FlashList /> renders <FlashList /> component 1`] = `
 <Fragment>
-  <Flash
+  <lifecycle(Flash)
     close={[Function]}
     key="ABC"
     message={
@@ -16,9 +16,9 @@ exports[`<Flash/> renders <Flash /> component 1`] = `
 </Fragment>
 `;
 
-exports[`<Flash/> updates props correctly 1`] = `
+exports[`<FlashList /> updates props correctly 1`] = `
 <Fragment>
-  <Flash
+  <lifecycle(Flash)
     close={[Function]}
     key="ABC"
     message={
@@ -29,7 +29,7 @@ exports[`<Flash/> updates props correctly 1`] = `
       }
     }
   />
-  <Flash
+  <lifecycle(Flash)
     close={[Function]}
     key="DEF"
     message={

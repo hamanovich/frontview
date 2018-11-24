@@ -26,14 +26,14 @@ export default allowed => WrappedComponent => {
       if (!allowed && auth.isAuthenticated) {
         addFlashMessage({
           type: 'warn',
-          text: 'You have already logged in. No need to do it again',
+          text: 'You have already logged in',
         });
 
         history.push('/');
       } else if (!auth.isAuthenticated && allowed) {
         addFlashMessage({
           type: 'error',
-          text: 'To see this page you have to login. Please do it',
+          text: 'To see this page you have to login',
         });
 
         history.push('/login');
