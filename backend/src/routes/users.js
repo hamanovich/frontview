@@ -58,7 +58,7 @@ exports.createUser = async (req, res) => {
 
   await send({
     user,
-    from: 'FrontView <postmaster@front-view.herokuapp.com>',
+    from: `FrontView <email@${process.env.SPARKPOST_SANDBOX_DOMAIN}>`,
     filename: 'confirmation-email',
     subject: 'Confirmation Email',
     confirmURL: `${req.protocol}://${req.get('host')}/confirmation/${user.confirmationToken}`,
