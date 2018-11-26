@@ -32,18 +32,5 @@ export function send(options) {
     html,
   };
 
-  // transport.sendMail({
-  //   from: 'test@your-sending-domain.com',
-  //   to: 'someone@somedomain.com',
-  //   subject: 'Hello from nodemailer-sparkpost-transport',
-  //   html: '<p>Hello world</p>'
-  // }, (err, info) => {
-  //   if (err) {
-  //     console.error(err);
-  //   } else {
-  //     console.log(info);
-  //   }
-  // })
-
   return transport.sendMail(mailOptions);
 }

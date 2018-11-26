@@ -56,9 +56,9 @@ exports.createUser = async (req, res) => {
     return true;
   });
 
-  await send({
+  send({
     user,
-    from: `FrontView <email@${process.env.SPARKPOST_SANDBOX_DOMAIN}>`,
+    from: `FrontView <something@sparkpostbox.com>`,
     filename: 'confirmation-email',
     subject: 'Confirmation Email',
     confirmURL: `${req.protocol}://${req.get('host')}/confirmation/${user.confirmationToken}`,
