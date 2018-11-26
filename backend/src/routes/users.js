@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import isEmpty from 'lodash/isEmpty';
 
 import User from '../models/user';
-import { send } from '../handlers/mail';
+import send from '../handlers/mail';
 
 import validate from '../validations/signup';
 
@@ -56,7 +56,7 @@ exports.createUser = async (req, res) => {
     return true;
   });
 
-  send({
+  await send({
     user,
     from: `FrontView <frontview@herokuapp.com>`,
     filename: 'confirmation-email',

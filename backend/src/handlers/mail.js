@@ -6,19 +6,31 @@ import htmlToText from 'html-to-text';
 
 require('dotenv').config({ path: 'variables.env' });
 
-const options = {
-  auth: {
-    api_user: 'app113815107@heroku.com',
-    api_key: 'wdom3wha6547',
-  },
-};
+let transport;
 
-export const transport = nodemailer.createTransport(sgTransport(options));
+if (process.env.NODE_ENV === 'development') {
+  transport = nodemailer.createTransport({
+    host: process.env.MAIL_HOST,
+    port: process.env.MAIL_PORT,
+    auth: {
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASS,
+    },
+  });
+} else if (process.env.NODE_ENV === 'production') {
+  transport = nodemailer.createTransport(
+    sgTransport({
+      auth: {
+        api_key: process.env.SENDGRID_API_KEY,
+      },
+    }),
+  );
+}
 
 const generateHTML = (filename, options = {}) =>
   juice(pug.renderFile(`${__dirname}/../views/${filename}.pug`, options));
 
-export function send(options) {
+export default function send(options) {
   const html = generateHTML(options.filename, options);
   const text = htmlToText.fromString(html);
   const mailOptions = {
@@ -28,12 +40,6 @@ export function send(options) {
     text,
     html,
   };
-  transport.sendMail(mailOptions, (err, res) => {
-    if (err) {
-      console.log('================', err);
-    }
-    console.log('RRRRRRRRRRRR', res);
-    console.log('EMAIL', options);
-  });
-  // return transport.sendMail(mailOptions);
+
+  return transport.sendMail(mailOptions);
 }
