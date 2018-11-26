@@ -58,7 +58,7 @@ exports.createUser = async (req, res) => {
 
   await send({
     user,
-    from: `FrontView <frontview@herokuapp.com>`,
+    from: `FrontView <front-view@herokuapp.com>`,
     filename: 'confirmation-email',
     subject: 'Confirmation Email',
     confirmURL: `${req.protocol}://${req.get('host')}/confirmation/${user.confirmationToken}`,

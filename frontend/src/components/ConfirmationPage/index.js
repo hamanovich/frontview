@@ -2,6 +2,7 @@ import React from 'react';
 import { bool } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import jwtDecode from 'jwt-decode';
 
 import compose from 'recompose/compose';
 import withState from 'recompose/withState';
@@ -11,6 +12,7 @@ import Jumbotron from 'react-bootstrap/lib/Jumbotron';
 import Button from 'react-bootstrap/lib/Button';
 
 import { confirm } from '../../actions/auth';
+import { getUser } from '../../actions/signup';
 import { addFlashMessage } from '../../actions/flash';
 
 const enhance = compose(
@@ -18,6 +20,7 @@ const enhance = compose(
     null,
     {
       confirm,
+      getUser,
       addFlashMessage,
     },
   ),
@@ -26,10 +29,13 @@ const enhance = compose(
 
   lifecycle({
     componentDidMount() {
-      const { confirm, addFlashMessage, match, setSuccess } = this.props;
+      const { confirm, getUser, addFlashMessage, match, setSuccess } = this.props;
 
       confirm(match.params.token)
-        .then(() => setSuccess(true))
+        .then(() => {
+          getUser(jwtDecode(window.localStorage.jwtToken).username);
+          setSuccess(true);
+        })
         .catch(err =>
           addFlashMessage({
             type: 'error',
