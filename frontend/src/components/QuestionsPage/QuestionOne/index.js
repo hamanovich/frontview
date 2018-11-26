@@ -81,7 +81,7 @@ class QuestionOne extends Component {
   };
 
   render() {
-    const { question, addComment, editQuestionField, user, qlists, match } = this.props;
+    const { question, addComment, editQuestionField, user, qlists, match, history } = this.props;
     const panelHeader = (
       <span>
         <FontAwesome name="comments-o" /> Comments{' '}
@@ -99,6 +99,7 @@ class QuestionOne extends Component {
         <PageHeader>Single Question</PageHeader>
 
         <Question
+          history={history}
           question={question}
           editQuestionField={editQuestionField}
           user={user}
