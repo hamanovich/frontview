@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import axios from 'axios';
+
+import IconLoader from '../components/layout/IconLoader';
 
 import Authorization from './Authorization';
 
@@ -28,3 +30,9 @@ export const setAuthorizationToken = token => {
     delete axios.defaults.headers.common.Authorization;
   }
 };
+
+export const Waiting = Component => props => (
+  <Suspense fallback={<IconLoader />}>
+    <Component {...props} />
+  </Suspense>
+);

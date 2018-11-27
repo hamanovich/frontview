@@ -17,6 +17,10 @@ p:last-child {
   margin-bottom: 0;
 }
 
+#main {
+  padding-bottom: 30px;
+}
+
 .panel {
   box-shadow: none;
   margin-bottom: 40px;

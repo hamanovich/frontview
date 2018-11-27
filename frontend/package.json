@@ -5,6 +5,7 @@
   "author": "Siarhei Hamanovich <hamanovich@gmail.com> (http://github.com/hamanovich)",
   "license": "ISC",
   "scripts": {
+    "analyze": "source-map-explorer build/static/js/main.*",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
@@ -43,6 +44,7 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "shortid": "^2.2.13",
+    "source-map-explorer": "^1.6.0",
     "styled-components": "^4.0.2",
     "validator": "^10.8.0"
   },
