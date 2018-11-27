@@ -43,7 +43,7 @@ const enhance = compose(
       if (!location.state) {
         addFlashMessage({
           type: 'warn',
-          text: 'Before you go next, please choose a QList',
+          text: 'Before you go next, choose a QList',
         });
 
         history.push('/interview/qlists');
@@ -52,7 +52,7 @@ const enhance = compose(
       if (location.state && !location.state.qlist.questions.length) {
         addFlashMessage({
           type: 'warn',
-          text: `Before you go next, please add questions to QList: ${location.state.qlist.title}`,
+          text: `Before you go next, add questions to QList: ${location.state.qlist.title}`,
         });
 
         history.push('/questions');

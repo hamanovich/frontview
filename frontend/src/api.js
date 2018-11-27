@@ -81,6 +81,8 @@ export default {
 
     edit: data => axios.put(`/api/question/${data._id}/edit`, data).then(res => res.data),
 
+    approve: id => axios.patch(`/api/question/${id}/approve`).then(res => res.data),
+
     editField: (id, field, value) =>
       axios.patch(`/api/question/${id}/edit`, { field, value }).then(res => res.data),
 

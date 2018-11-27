@@ -29,6 +29,7 @@ router.post(
 router.post('/questions/add', authenticate, catchErrors(questionsController.add));
 router.post('/questions/addFromFile', authenticate, catchErrors(questionsController.addFromFile));
 router.put('/question/:id/edit', authenticate, catchErrors(questionsController.edit));
+router.patch('/question/:id/approve', authenticate, catchErrors(questionsController.approve));
 router.patch('/question/:id/edit', authenticate, catchErrors(questionsController.editField));
 router.get('/question/interface', questionsController.getQuestionInterface);
 router.get('/question/:id', catchErrors(questionsController.getQuestionById));

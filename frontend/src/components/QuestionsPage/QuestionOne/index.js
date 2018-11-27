@@ -12,7 +12,7 @@ import Question from '../Question';
 import CommentForm from '../../Comment/CommentForm';
 import Comments from '../../Comment/Comments';
 
-import { getQuestionBySlug, editQuestionField } from '../../../actions/questions';
+import { getQuestionBySlug, approveQuestion, editQuestionField } from '../../../actions/questions';
 import { addComment } from '../../../actions/comments';
 import { getUser } from '../../../actions/signup';
 import { getQLists } from '../../../actions/qlists';
@@ -35,6 +35,7 @@ class QuestionOne extends Component {
     question: QuestionType,
     user: UserType.isRequired,
     qlists: arrayOf(QListType).isRequired,
+    approveQuestion: func.isRequired,
     editQuestionField: func.isRequired,
     history: shape({
       push: func.isRequired,
@@ -81,7 +82,16 @@ class QuestionOne extends Component {
   };
 
   render() {
-    const { question, addComment, editQuestionField, user, qlists, match } = this.props;
+    const {
+      question,
+      addComment,
+      approveQuestion,
+      editQuestionField,
+      user,
+      qlists,
+      match,
+      history,
+    } = this.props;
     const panelHeader = (
       <span>
         <FontAwesome name="comments-o" /> Comments{' '}
@@ -99,7 +109,9 @@ class QuestionOne extends Component {
         <PageHeader>Single Question</PageHeader>
 
         <Question
+          history={history}
           question={question}
+          approveQuestion={approveQuestion}
           editQuestionField={editQuestionField}
           user={user}
           qlists={qlists}
@@ -154,6 +166,7 @@ export default connect(
     getQuestionBySlug,
     getUser,
     getQLists,
+    approveQuestion,
     editQuestionField,
     addComment,
     addFlashMessage,

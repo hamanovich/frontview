@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 import compose from 'recompose/compose';
 
+import Badge from 'react-bootstrap/lib/Badge';
 import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
 import Modal from 'react-bootstrap/lib/Modal';
@@ -74,9 +75,12 @@ class Account extends Component {
       <Fragment>
         <PageHeader>
           {user.firstName && user.lastName ? (
-            <span>
-              <FontAwesome name="user" /> {user.firstName} {user.lastName}
-            </span>
+            <Fragment>
+              <span>
+                <FontAwesome name="user" /> {user.firstName} {user.lastName}
+              </span>{' '}
+              <Badge>{user.role}</Badge>
+            </Fragment>
           ) : (
             'Your account'
           )}
