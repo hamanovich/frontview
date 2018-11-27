@@ -4,6 +4,7 @@ import {
   QUESTIONS_ADD,
   QUESTION_ADD,
   QUESTIONS_FROM_FILE_ADD,
+  QUESTION_APPROVE,
   QUESTION_EDIT,
   QUESTION_GET,
   QUESTION_REMOVE,
@@ -38,6 +39,7 @@ export default (state = [], action) => {
       return [action.question];
     }
 
+    case QUESTION_APPROVE:
     case QUESTION_EDIT:
     case VOTE_LIKE:
     case VOTE_DISLIKE: {

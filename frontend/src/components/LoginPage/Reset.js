@@ -59,7 +59,7 @@ const enhance = compose(
 
           addFlashMessage({
             type: 'success',
-            text: 'Password successfully updated. Please login',
+            text: 'Password successfully updated. Please re-login',
           });
 
           history.push('/');

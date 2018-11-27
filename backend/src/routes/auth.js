@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 
 import User from '../models/user';
-import { send } from '../handlers/mail';
+import send from '../handlers/mail';
 
 exports.auth = async (req, res) => {
   const { identifier, password } = req.body;
@@ -13,7 +13,7 @@ exports.auth = async (req, res) => {
   }
 
   if (!user.confirmed) {
-    res.status(401).json({ error: "You didn't confirm your email. Before login, please do it" });
+    res.status(401).json({ error: "You didn't confirm your email" });
     return;
   }
 
@@ -33,9 +33,7 @@ exports.confirm = async (req, res) => {
   );
 
   if (!user) {
-    res
-      .status(400)
-      .json({ error: 'Ooops. Invalid token it seems. Or you have already confirmed it' });
+    res.status(400).json({ error: 'Ooops. Invalid token or you have already confirmed' });
     return;
   }
 
@@ -55,16 +53,12 @@ exports.forgot = async (req, res) => {
 
   await user.save();
 
-  const resetURL = `http://${req.headers['x-forwarded-host']}/login/reset/${
-    user.resetPasswordToken
-  }`;
-
   await send({
     user,
-    from: 'Siarhei Hamanovich <siarhei_hamanovich@epam.com>',
+    from: 'FrontView <front-view@herokuapp.com>',
     filename: 'password-reset',
     subject: 'Password Reset',
-    resetURL,
+    resetURL: `${req.protocol}://${req.get('host')}/login/reset/${user.resetPasswordToken}`,
   });
 
   res.json({ emailed: 'You have been emailed a password reset link. Please, check your email.' });

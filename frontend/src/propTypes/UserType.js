@@ -1,21 +1,21 @@
-import PropTypes from 'prop-types';
+import { shape, string, arrayOf, oneOf } from 'prop-types';
 
-export default PropTypes.shape({
-  _id: PropTypes.string,
-  username: PropTypes.string,
-  email: PropTypes.string,
-  firstName: PropTypes.string,
-  lastName: PropTypes.string,
-  primarySkill: PropTypes.string,
-  jobFunction: PropTypes.string,
-  skype: PropTypes.string,
-  questions: PropTypes.arrayOf(PropTypes.string),
-  votes: PropTypes.shape({
-    like: PropTypes.arrayOf(PropTypes.string),
-    dislike: PropTypes.arrayOf(PropTypes.string),
+export default shape({
+  _id: string,
+  username: string,
+  email: string,
+  firstName: string,
+  lastName: string,
+  primarySkill: string,
+  jobFunction: string,
+  skype: string,
+  questions: arrayOf(string),
+  votes: shape({
+    like: arrayOf(string),
+    dislike: arrayOf(string),
   }),
-  phone: PropTypes.string,
-  notes: PropTypes.string,
-  gravatar: PropTypes.string,
-  role: PropTypes.oneOf(['user', 'owner', 'admin']),
+  phone: string,
+  notes: string,
+  gravatar: string,
+  role: oneOf(['user', 'owner', 'admin']),
 });

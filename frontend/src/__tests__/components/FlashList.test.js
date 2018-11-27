@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import { FlashList } from '../../components/flash/FlashList';
 
-describe('<Flash/>', () => {
+describe('<FlashList />', () => {
   const props = {
     messages: [
       {
@@ -17,7 +17,7 @@ describe('<Flash/>', () => {
 
   const component = shallow(<FlashList {...props} />);
 
-  it('renders <Flash /> component', () => {
+  it('renders <FlashList /> component', () => {
     expect(component).toMatchSnapshot();
   });
 
@@ -35,7 +35,7 @@ describe('<Flash/>', () => {
   describe('when user wants to close the Flash message', () => {
     beforeEach(() =>
       component
-        .find('Flash')
+        .find('lifecycle(Flash)')
         .at(0)
         .props()
         .close(),

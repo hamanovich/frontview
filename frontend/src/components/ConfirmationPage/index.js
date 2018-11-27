@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { bool } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import jwtDecode from 'jwt-decode';
 
 import compose from 'recompose/compose';
+import pure from 'recompose/pure';
 import withState from 'recompose/withState';
 import lifecycle from 'recompose/lifecycle';
 
@@ -11,6 +13,7 @@ import Jumbotron from 'react-bootstrap/lib/Jumbotron';
 import Button from 'react-bootstrap/lib/Button';
 
 import { confirm } from '../../actions/auth';
+import { getUser } from '../../actions/signup';
 import { addFlashMessage } from '../../actions/flash';
 
 const enhance = compose(
@@ -18,6 +21,7 @@ const enhance = compose(
     null,
     {
       confirm,
+      getUser,
       addFlashMessage,
     },
   ),
@@ -26,9 +30,10 @@ const enhance = compose(
 
   lifecycle({
     componentDidMount() {
-      const { confirm, addFlashMessage, match, setSuccess } = this.props;
+      const { confirm, getUser, addFlashMessage, match, setSuccess } = this.props;
 
       confirm(match.params.token)
+        .then(() => getUser(jwtDecode(window.localStorage.jwtToken).username))
         .then(() => setSuccess(true))
         .catch(err =>
           addFlashMessage({
@@ -38,35 +43,31 @@ const enhance = compose(
         );
     },
   }),
+
+  pure,
 );
 
-const confirmSuccess = (
+const Confirmation = ({ success }) => (
   <Jumbotron>
     <h1>Hey!</h1>
     <p className="lead">
       This is a simple hero unit, a simple Jumbotron-style component for calling extra attention to
       featured content or information.
     </p>
-    <hr />
-    <p className="lead">
-      <Link to="/">
-        <Button bsStyle="success">Welcome on board!</Button>
-      </Link>
-    </p>
+    {success && (
+      <Fragment>
+        <hr />
+        <p className="lead">
+          <Link to="/">
+            <Button bsStyle="success" bsSize="large">
+              Welcome on board!
+            </Button>
+          </Link>
+        </p>
+      </Fragment>
+    )}
   </Jumbotron>
 );
-
-const confirmError = (
-  <Jumbotron>
-    <h1>Ooops!</h1>
-    <p className="lead text-danger">
-      Bad news. You don&apos;t have full access to this website <b>OR</b> you&apos;ve already
-      confirmed email.
-    </p>
-  </Jumbotron>
-);
-
-const Confirmation = ({ success }) => (success ? confirmSuccess : confirmError);
 
 Confirmation.propTypes = {
   success: bool.isRequired,

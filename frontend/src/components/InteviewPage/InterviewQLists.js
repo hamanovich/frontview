@@ -47,7 +47,7 @@ class InterviewQLists extends Component {
     if (!location.state) {
       addFlashMessage({
         type: 'warn',
-        text: 'Before you go next, please choose a candidate',
+        text: 'Before you go next, choose a candidate',
       });
 
       history.push('/interview/candidates');

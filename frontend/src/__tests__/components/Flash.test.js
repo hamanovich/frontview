@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Flash from '../../components/flash/Flash';
+import { Flash } from '../../components/flash/Flash';
 
 describe('<Flash/>', () => {
   const props = {

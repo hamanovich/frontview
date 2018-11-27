@@ -1,27 +1,28 @@
-import PropTypes from 'prop-types';
+import { string, arrayOf, oneOf, oneOfType, shape, bool } from 'prop-types';
 
-export default PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  slug: PropTypes.string.isRequired,
-  question: PropTypes.string.isRequired,
-  skill: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  level: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  practice: PropTypes.oneOf(['practice', 'theory']).isRequired,
-  answer: PropTypes.string.isRequired,
-  answers: PropTypes.arrayOf(
-    PropTypes.shape({
-      text: PropTypes.string.isRequired,
+export default shape({
+  _id: string.isRequired,
+  slug: string.isRequired,
+  question: string.isRequired,
+  skill: arrayOf(string.isRequired).isRequired,
+  level: arrayOf(string.isRequired).isRequired,
+  practice: oneOf(['practice', 'theory']).isRequired,
+  answer: string.isRequired,
+  answers: arrayOf(
+    shape({
+      text: string.isRequired,
     }).isRequired,
   ),
-  votes: PropTypes.shape({
-    like: PropTypes.arrayOf(PropTypes.string),
-    dislike: PropTypes.arrayOf(PropTypes.string),
+  isVerified: bool.isRequired,
+  votes: shape({
+    like: arrayOf(string),
+    dislike: arrayOf(string),
   }),
-  notes: PropTypes.string,
-  author: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.shape({
-      username: PropTypes.string.isRequired,
+  notes: string,
+  author: oneOfType([
+    string,
+    shape({
+      username: string.isRequired,
     }),
   ]).isRequired,
 });

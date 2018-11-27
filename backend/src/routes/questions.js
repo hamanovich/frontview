@@ -164,6 +164,22 @@ exports.edit = async (req, res) => {
   res.status(500).json({ error: "Question didn't update" });
 };
 
+exports.approve = async (req, res) => {
+  const question = await Question.findById(req.params.id);
+
+  if (!question) {
+    res.json({ errors: { form: `Question by ${req.params.id} didn't find` } });
+    return;
+  }
+
+  question.lastModified = new Date();
+  question.isVerified = true;
+
+  await question.save();
+
+  res.json(question);
+};
+
 exports.editField = async (req, res) => {
   const question = await Question.findById(req.params.id);
   const [field, index] = req.body.field.split('.');
@@ -180,6 +196,7 @@ exports.editField = async (req, res) => {
   }
 
   question.lastModified = new Date();
+  question.isVerified = false;
 
   await question.save();
 

@@ -38,7 +38,7 @@ export class SignupForm extends Component {
       .then(() => {
         addFlashMessage({
           type: 'warn',
-          text: 'Please, verify your email to confirm',
+          text: 'Verify your email to confirm',
         });
 
         reset();

@@ -11,6 +11,7 @@ export const question = {
   practice: 'practice',
   answer: 'test',
   author: '5bd2ce32cc8cfa2208379ad5',
+  isVerified: false,
   lastModified: '2018-10-26T09:31:07.141Z',
   created: '2018-10-26T09:31:07.383Z',
   slug: 'test',
