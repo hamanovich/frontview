@@ -4,6 +4,13 @@ exports[`<Footer/> renders <Footer /> component 1`] = `
 <styled.footer>
   © Front View 
   <br />
-   2017-2018
+  <a
+    href="mailto:hamanovich@gmail.com"
+  >
+    hamanovich@gmail.com
+  </a>
+   
+  <br />
+  2017-2018
 </styled.footer>
 `;

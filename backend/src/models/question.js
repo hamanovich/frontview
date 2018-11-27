@@ -67,6 +67,10 @@ const questionSchema = new Schema(
         },
       ],
     },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     toJSON: { virtuals: true },
