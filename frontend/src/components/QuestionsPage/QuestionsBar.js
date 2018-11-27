@@ -53,7 +53,7 @@ const enhance = compose(
         if (!tags.length) {
           addFlashMessage({
             type: 'warn',
-            text: `There is no filter - ${active}. Please change filter`,
+            text: `There is no filter - ${active}`,
           });
 
           history.push('/questions');
@@ -64,7 +64,7 @@ const enhance = compose(
         if (!questions.length) {
           addFlashMessage({
             type: 'warn',
-            text: 'No questions found. Please change filter',
+            text: 'No questions found',
           });
         }
 
