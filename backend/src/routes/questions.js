@@ -182,15 +182,21 @@ exports.approve = async (req, res) => {
 
 exports.editField = async (req, res) => {
   const question = await Question.findById(req.params.id);
+  const [field, index] = req.body.field.split('.');
 
   if (!question) {
     res.json({ errors: { form: `Question by ${req.params.id} didn't find` } });
     return;
   }
 
+  if (index) {
+    question[field].set(index, { text: req.body.value });
+  } else {
+    question[field] = req.body.value;
+  }
+
   question.lastModified = new Date();
   question.isVerified = false;
-  question[req.body.field] = req.body.value;
 
   await question.save();
 

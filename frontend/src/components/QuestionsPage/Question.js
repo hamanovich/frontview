@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { arrayOf, func } from 'prop-types';
+import { arrayOf, func, shape } from 'prop-types';
 import { Link } from 'react-router-dom';
 import MarkdownRenderer from 'react-markdown-renderer';
 import map from 'lodash/map';
@@ -48,10 +48,14 @@ class Question extends Component {
     qlists: arrayOf(QListType),
     approveQuestion: func.isRequired,
     editQuestionField: func.isRequired,
+    history: shape({
+      push: func,
+    }),
   };
 
   static defaultProps = {
     qlists: [],
+    history: {},
   };
 
   state = {
@@ -73,10 +77,16 @@ class Question extends Component {
   };
 
   close = () => {
+    const { history } = this.props;
+
     this.setState({
       showModal: false,
       answerField: null,
     });
+
+    if (history.push && this.state.textField === 'question') {
+      history.push('/questions');
+    }
   };
 
   render() {
@@ -149,7 +159,7 @@ class Question extends Component {
             </div>
             {question.answers.length > 0 && <hr />}
             {map(question.answers, (question, index) => (
-              <em key={shortid.generate()} onClick={this.open(question, `answers.${index}.text`)}>
+              <em key={shortid.generate()} onClick={this.open(question, `answers.${index}`)}>
                 <MarkdownRenderer markdown={question.text} />
               </em>
             ))}

@@ -90,6 +90,7 @@ class QuestionOne extends Component {
       user,
       qlists,
       match,
+      history,
     } = this.props;
     const panelHeader = (
       <span>
@@ -108,6 +109,7 @@ class QuestionOne extends Component {
         <PageHeader>Single Question</PageHeader>
 
         <Question
+          history={history}
           question={question}
           approveQuestion={approveQuestion}
           editQuestionField={editQuestionField}
