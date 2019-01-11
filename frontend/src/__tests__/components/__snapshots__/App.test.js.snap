@@ -9,7 +9,9 @@ exports[`<App/> renders <App /> component 1`] = `
     fluid={false}
   >
     <Connect(FlashList) />
-    <styled.main>
+    <main
+      id="main"
+    >
       <Switch>
         <Route
           component={[Function]}
@@ -48,7 +50,7 @@ exports[`<App/> renders <App /> component 1`] = `
           component={[Function]}
         />
       </Switch>
-    </styled.main>
+    </main>
   </Grid>
   <Footer />
 </Fragment>
