@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 import compose from 'recompose/compose';
 import lifecycle from 'recompose/lifecycle';
+import { Helmet } from 'react-helmet';
 
 import PageHeader from 'react-bootstrap/lib/PageHeader';
 
@@ -38,6 +39,9 @@ const enhance = compose(
 
 const CommentsAuthorPage = ({ comments, match }) => (
   <Fragment>
+    <Helmet>
+      <title>Frontview: All {match.params.username}&apos;s comments</title>
+    </Helmet>
     <PageHeader>
       <FontAwesome name="comments-o" /> All Your Comments
     </PageHeader>
