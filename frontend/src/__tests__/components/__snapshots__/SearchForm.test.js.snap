@@ -6,11 +6,7 @@ exports[`<SearchForm/> renders <SearchForm /> component 1`] = `
   pullLeft={true}
   pullRight={false}
 >
-  <Form
-    bsClass="form"
-    componentClass="form"
-    horizontal={false}
-    inline={false}
+  <Styled(Form)
     noValidate={true}
   >
     <Field
@@ -35,6 +31,6 @@ exports[`<SearchForm/> renders <SearchForm /> component 1`] = `
         name="search"
       />
     </Button>
-  </Form>
+  </Styled(Form)>
 </NavbarForm>
 `;

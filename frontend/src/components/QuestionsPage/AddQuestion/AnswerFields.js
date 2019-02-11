@@ -27,6 +27,7 @@ const AnswerFields = ({ fields, meta: { touched, error, submitFailed } }) => (
               label={`Additional answer ${index + 2}`}
               name={`${answer}.text`}
               component={TextareaField}
+              rows={6}
               placeholder="Add more answers"
             />
           </Col>
@@ -41,7 +42,7 @@ const AnswerFields = ({ fields, meta: { touched, error, submitFailed } }) => (
 
     <FormGroup>
       <Button bsStyle="success" onClick={() => fields.push({})}>
-        Add Answer
+        More Answers?
       </Button>
     </FormGroup>
   </Fragment>

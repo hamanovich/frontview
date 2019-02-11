@@ -302,12 +302,19 @@ class AddQuestion extends Component {
                     2,
                   )}
                 </pre>
+                <p>
+                  <small>
+                    <em>
+                      P.S. In case wrong JSON format you should fix it by yourself or contact admin
+                    </em>
+                  </small>
+                </p>
                 <p>{fileName !== '' ? `You have added - ${fileName}` : ''}</p>
               </DropMe>
             ) : (
               <Fragment>
                 <Field
-                  label="Question*:"
+                  label="Question*"
                   component={TextField}
                   type="text"
                   name="question"
@@ -319,7 +326,7 @@ class AddQuestion extends Component {
                       component={SelectField}
                       name="skill"
                       id="skill"
-                      label="Choose skill* (multiple):"
+                      label="Choose skill* (multiple)"
                       multiple
                       size={5}
                       type="select-multiple"
@@ -333,7 +340,7 @@ class AddQuestion extends Component {
                       component={SelectField}
                       name="level"
                       id="level"
-                      label="Choose level* (multiple):"
+                      label="Choose level* (multiple)"
                       multiple
                       size={6}
                       type="select-multiple"
@@ -346,15 +353,16 @@ class AddQuestion extends Component {
                   component={RadioButton}
                   name="practice"
                   id="practice"
-                  label="Is it practical question?*:&emsp;"
+                  label="Is it practical question?*&emsp;"
                   required
                   inline
                   options={map(practice, s => ({ title: s, value: s }))}
                 />
                 <hr />
                 <Field
-                  label="Answer"
+                  label="Answer*"
                   name="answer"
+                  rows={10}
                   component={TextareaField}
                   placeholder="Write down the answer"
                 />
@@ -366,7 +374,7 @@ class AddQuestion extends Component {
                   component={TextareaField}
                   placeholder="Add some notes, if needed"
                 />
-                <Button type="submit" bsStyle="info" bsSize="large" disabled={isLoading}>
+                <Button type="submit" bsStyle="info" bsSize="large" block disabled={isLoading}>
                   {_id ? (
                     <span>
                       Update <FontAwesome name="refresh" />

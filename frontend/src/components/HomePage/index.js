@@ -1,19 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Jumbotron from 'react-bootstrap/lib/Jumbotron';
-import Button from 'react-bootstrap/lib/Button';
 
 const HomePage = () => (
   <Jumbotron>
-    <h1>Welcome!</h1>
+    <h1>Welcome, friend!</h1>
     <p className="lead">
-      This is a simple hero unit, a simple Jumbotron-style component for calling extra attention to
-      featured content or information.
+      The goal of this project is to provide a convenient way to prepare and conduct technical
+      interview in Frontend discipline.
     </p>
     <p className="lead">
-      <Button bsStyle="primary" bsSize="lg">
-        Learn More
-      </Button>
+      <Link to="/faq">Learn More</Link>
     </p>
   </Jumbotron>
 );

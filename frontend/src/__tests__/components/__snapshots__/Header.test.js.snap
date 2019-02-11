@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Header/> renders component with search Question renders <Header /> component with search value 1`] = `
-<Styled(Uncontrolled(Navbar))>
+<Styled(Uncontrolled(Navbar))
+  inverse={true}
+>
   <NavbarHeader>
     <NavbarBrand>
       <Link
@@ -46,7 +48,7 @@ exports[`<Header/> renders component with search Question renders <Header /> com
             <FontAwesome
               name="id-badge"
             />
-             Interview
+             Interview (in progress)
           </MenuItem>
         </LinkContainer>
         <MenuItem
@@ -165,7 +167,7 @@ exports[`<Header/> renders component with search Question renders <Header /> com
             <FontAwesome
               name="keyboard-o"
             />
-             By Practice
+             By Type
           </MenuItem>
         </LinkContainer>
         <MenuItem

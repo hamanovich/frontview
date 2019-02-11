@@ -56,10 +56,15 @@ exports[`<App/> renders <App /> component 1`] = `
         />
         <Route
           component={[Function]}
+          path="/faq"
+        />
+        <Route
+          component={[Function]}
         />
       </Switch>
     </main>
   </Grid>
   <Footer />
+  <FaqButton />
 </Fragment>
 `;
