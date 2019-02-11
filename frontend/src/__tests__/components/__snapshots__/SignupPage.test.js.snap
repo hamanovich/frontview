@@ -5,6 +5,14 @@ exports[`<SignupPage/> renders <SignupPage /> component 1`] = `
   bsClass="row"
   componentClass="div"
 >
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Frontview: Register. Welcome
+    </title>
+  </HelmetWrapper>
   <Col
     bsClass="col"
     componentClass="div"

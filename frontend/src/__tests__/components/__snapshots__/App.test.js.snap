@@ -2,6 +2,14 @@
 
 exports[`<App/> renders <App /> component 1`] = `
 <Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Frontview: Interview for Everyone
+    </title>
+  </HelmetWrapper>
   <Connect(Header) />
   <Grid
     bsClass="container"
