@@ -1,6 +1,6 @@
 import React, { Fragment, lazy } from 'react';
 import { Switch, Route } from 'react-router-dom';
-
+import { Helmet } from 'react-helmet';
 import Grid from 'react-bootstrap/lib/Grid';
 
 import HomePage from './HomePage';
@@ -25,6 +25,9 @@ const ConfirmationPage = lazy(() =>
 
 const App = () => (
   <Fragment>
+    <Helmet>
+      <title>Frontview: Interview for Everyone</title>
+    </Helmet>
     <Header />
     <Grid>
       <FlashList />

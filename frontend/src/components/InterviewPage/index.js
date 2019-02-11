@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { arrayOf, shape, func } from 'prop-types';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import FontAwesome from 'react-fontawesome';
 
 import PageHeader from 'react-bootstrap/lib/PageHeader';
@@ -31,6 +32,9 @@ const InterviewPage = ({
   qlists,
 }) => (
   <Fragment>
+    <Helmet>
+      <title>Frontview: Interview</title>
+    </Helmet>
     <PageHeader>
       <FontAwesome name="id-badge" /> Interview
     </PageHeader>

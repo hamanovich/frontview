@@ -3,6 +3,7 @@ import { arrayOf } from 'prop-types';
 import styled from 'styled-components';
 import map from 'lodash/map';
 import FontAwesome from 'react-fontawesome';
+import { Helmet } from 'react-helmet';
 
 import PageHeader from 'react-bootstrap/lib/PageHeader';
 import ListGroup from 'react-bootstrap/lib/ListGroup';
@@ -35,6 +36,9 @@ const LabelVoted = styled.span`
 
 const QuestionsTop = ({ questions }) => (
   <Fragment>
+    <Helmet>
+      <title>Frontview: Top 10 Questions</title>
+    </Helmet>
     <PageHeader>
       <FontAwesome name="exclamation" /> Top 10 Questions
     </PageHeader>

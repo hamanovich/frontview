@@ -1,6 +1,7 @@
 import React from 'react';
 import { shape, bool } from 'prop-types';
 import { Switch, Redirect } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
@@ -17,6 +18,9 @@ import { UserType } from '../../propTypes';
 
 const AccountPage = ({ auth }) => (
   <Row>
+    <Helmet>
+      <title>Frontview: {auth.user.username}</title>
+    </Helmet>
     <Col md={3} sm={4}>
       <AccountBar auth={auth} />
     </Col>

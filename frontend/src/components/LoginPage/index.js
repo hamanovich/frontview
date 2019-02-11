@@ -2,6 +2,7 @@ import React from 'react';
 import { func } from 'prop-types';
 import { Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
@@ -18,6 +19,9 @@ import { PropsRoute } from '../../utils/helpers';
 
 export const LoginPage = ({ login, forgot, resetToken, getReset, getUser, addFlashMessage }) => (
   <Row>
+    <Helmet>
+      <title>Frontview: Please, login</title>
+    </Helmet>
     <Col md={6} mdOffset={3}>
       <Switch>
         <PropsRoute exact path="/login" component={Login} login={login} getUser={getUser} />
