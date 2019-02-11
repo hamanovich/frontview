@@ -99,7 +99,7 @@ export class Header extends Component {
         <NavDropdown title="Menu" id="menu-dropdown">
           <LinkContainer to="/interview">
             <MenuItem>
-              <FontAwesome name="id-badge" /> Interview
+              <FontAwesome name="id-badge" /> Interview (in progress)
             </MenuItem>
           </LinkContainer>
           <MenuItem divider />
@@ -129,7 +129,7 @@ export class Header extends Component {
           </LinkContainer>
           <LinkContainer to="/questions/practice">
             <MenuItem>
-              <FontAwesome name="keyboard-o" /> By Practice
+              <FontAwesome name="keyboard-o" /> By Type
             </MenuItem>
           </LinkContainer>
           <MenuItem divider />
@@ -174,7 +174,7 @@ export class Header extends Component {
     );
 
     return (
-      <Menu>
+      <Menu inverse>
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/">Frontview /</Link>

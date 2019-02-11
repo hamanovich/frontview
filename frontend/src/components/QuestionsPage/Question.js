@@ -31,7 +31,7 @@ const LinkStyled = styled(Link)`
   margin-top: 7px;
 `;
 
-const ApproveBar = styled('div')`
+const ApproveBar = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 1rem;

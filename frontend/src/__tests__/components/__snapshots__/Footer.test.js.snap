@@ -4,6 +4,13 @@ exports[`<Footer/> renders <Footer /> component 1`] = `
 <styled.footer>
   © Front View 
   <br />
+  <Badge
+    bsClass="badge"
+    pullRight={false}
+  >
+    v1.0.0
+  </Badge>
+  <br />
   <a
     href="mailto:hamanovich@gmail.com"
   >
@@ -11,6 +18,7 @@ exports[`<Footer/> renders <Footer /> component 1`] = `
   </a>
    
   <br />
-  2017-2018
+  2017-
+  2019
 </styled.footer>
 `;
