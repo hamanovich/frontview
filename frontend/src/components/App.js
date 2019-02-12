@@ -8,6 +8,7 @@ import NotFound from './NotFound';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
 import FlashList from './flash/FlashList';
+import FaqButton from './layout/FaqButton';
 
 import { isLoggedIn, User, Waiting } from '../utils/helpers';
 
@@ -22,6 +23,7 @@ const CommentsAuthorPage = lazy(() =>
 const ConfirmationPage = lazy(() =>
   import('./ConfirmationPage' /* webpackChunkName: "Confirmation" */),
 );
+const FaqPage = lazy(() => import('./FaqPage' /* webpackChunkName: "FAQ" */));
 
 const App = () => (
   <Fragment>
@@ -41,11 +43,13 @@ const App = () => (
           <Route path="/interview" component={User(Waiting(InterviewPage))} />
           <Route path="/comments/:username" component={User(Waiting(CommentsAuthorPage))} />
           <Route path="/confirmation/:token" component={Waiting(ConfirmationPage)} />
+          <Route path="/faq" component={Waiting(FaqPage)} />
           <Route component={NotFound} />
         </Switch>
       </main>
     </Grid>
     <Footer />
+    <FaqButton />
   </Fragment>
 );
 
