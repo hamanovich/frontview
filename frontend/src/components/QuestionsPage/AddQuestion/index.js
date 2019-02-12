@@ -3,9 +3,8 @@ import { func, shape, string } from 'prop-types';
 import { Field, FieldArray, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
-import Dropzone from 'react-dropzone';
-import styled from 'styled-components';
 import map from 'lodash/map';
+import shortid from 'shortid';
 
 import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
@@ -31,33 +30,7 @@ import {
   getQuestionInterface,
 } from '../../../actions/questions';
 
-const DropMe = styled(Dropzone)`
-  border-radius: 4px;
-  border: 1px dashed #ccc;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  cursor: pointer;
-  padding: 5rem 2rem;
-  font-size: 1.5rem;
-
-  &:hover {
-    border-color: #66afe9;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  }
-
-  &.dropzone--active {
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
-    border-color: #3c763d;
-  }
-
-  &.dropzone--reject {
-    border-color: #a94442;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
-  }
-
-  p {
-    margin-bottom: 0;
-  }
-`;
+import { DropMe, DropThumb, DropThumbs } from '../style';
 
 class AddQuestion extends Component {
   static propTypes = {
@@ -94,6 +67,7 @@ class AddQuestion extends Component {
     skill: [],
     dropzone: false,
     fileName: '',
+    imgs: [],
   };
 
   _isMounted = false;
@@ -147,7 +121,13 @@ class AddQuestion extends Component {
       addFlashMessage,
       history,
     } = this.props;
-    const query = { ...values, isVerified: false, userId, lastModified: new Date() };
+    const query = {
+      ...values,
+      imgs: this.state.imgs,
+      isVerified: false,
+      userId,
+      lastModified: new Date(),
+    };
 
     if (match.params._id) {
       editQuestion(query).then(() => {
@@ -179,6 +159,26 @@ class AddQuestion extends Component {
         },
       );
     }
+  };
+
+  imgsDropAccepted = accepted => {
+    if (accepted.length + this.state.imgs.length > 3) {
+      return this.props.addFlashMessage({
+        type: 'error',
+        text: 'Maximum 3 images are available',
+      });
+    }
+
+    return accepted.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.setState(prevState => ({
+          imgs: [...prevState.imgs, reader.result],
+        }));
+      };
+
+      reader.readAsDataURL(file);
+    });
   };
 
   handleDropAccepted = accepted => {
@@ -215,10 +215,25 @@ class AddQuestion extends Component {
     reader.readAsText(file);
   };
 
+  imgsDropRejected = () => {
+    this.props.addFlashMessage({
+      type: 'error',
+      text: 'Only images are accepted. Check the file size',
+    });
+  };
+
   handleDropRejected = () => {
     this.props.addFlashMessage({
       type: 'error',
       text: 'Only *.json file is accepted',
+    });
+  };
+
+  removeThumb = img => {
+    const { imgs } = this.state;
+    const index = imgs.indexOf(img);
+    this.setState({
+      imgs: [...imgs.slice(0, index), ...imgs.slice(index + 1)],
     });
   };
 
@@ -241,7 +256,16 @@ class AddQuestion extends Component {
   };
 
   render() {
-    const { isLoading, showRemoveModal, skill, practice, level, fileName, dropzone } = this.state;
+    const {
+      isLoading,
+      showRemoveModal,
+      skill,
+      practice,
+      level,
+      fileName,
+      dropzone,
+      imgs,
+    } = this.state;
     const { match, handleSubmit } = this.props;
     const { _id } = match.params;
 
@@ -250,13 +274,14 @@ class AddQuestion extends Component {
         <Col md={6} mdOffset={3}>
           <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
             <PageHeader>
-              <FontAwesome name="question-circle-o" /> {_id ? 'Edit question' : 'Add new question'}
+              <FontAwesome name="question-circle-o" />{' '}
+              {_id ? 'Edit question' : 'Add a new question'}
             </PageHeader>
 
             {!_id && (
               <Fragment>
                 <p>
-                  <Button bsSize="small" bsStyle="info" onClick={this.toggleDropzone}>
+                  <Button bsStyle="info" onClick={this.toggleDropzone}>
                     {dropzone === true
                       ? 'Add a new question manually'
                       : 'Import questions from .json file'}
@@ -270,12 +295,12 @@ class AddQuestion extends Component {
               <DropMe
                 accept="application/json"
                 multiple={false}
-                onDrop={this.handleDrop}
                 onDropAccepted={this.handleDropAccepted}
                 onDropRejected={this.handleDropRejected}
                 className="dropzone"
                 activeClassName="dropzone--active"
                 rejectClassName="dropzone--reject">
+                <h3>Want to upload JSON?</h3>
                 <p>Click or drag&amp;drop file here. Only *.json file is accepted.</p>
                 <p>JSON should be in the following format (array of objects):</p>
                 <pre style={{ fontSize: '11px' }}>
@@ -359,6 +384,34 @@ class AddQuestion extends Component {
                   placeholder="Write down the answer"
                 />
                 <FieldArray name="answers" component={AnswerFields} />
+                <hr />
+                <DropMe
+                  accept="image/*"
+                  maxSize={100000}
+                  onDropAccepted={this.imgsDropAccepted}
+                  onDropRejected={this.imgsDropRejected}
+                  className="dropzone dropzone--imgs"
+                  activeClassName="dropzone--active"
+                  rejectClassName="dropzone--reject">
+                  <h3>Want to upload images?</h3>
+                  <p>
+                    Click or drag&amp;drop image here. Only images are accepted. Max{' '}
+                    <strong>3</strong> images with size <strong>100kb</strong> each.
+                  </p>
+                </DropMe>
+
+                <DropThumbs>
+                  {imgs.map(img => (
+                    <DropThumb key={shortid.generate()}>
+                      <div className="dropthumb__inner">
+                        <img src={img} alt="" />
+                        <Button bsStyle="danger" bsSize="sm" onClick={() => this.removeThumb(img)}>
+                          <FontAwesome name="times" />
+                        </Button>
+                      </div>
+                    </DropThumb>
+                  ))}
+                </DropThumbs>
                 <hr />
                 <Field
                   label="Notes"

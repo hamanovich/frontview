@@ -18,6 +18,7 @@ export default shape({
     like: arrayOf(string),
     dislike: arrayOf(string),
   }),
+  imgs: arrayOf(string),
   notes: string,
   author: oneOfType([
     string,

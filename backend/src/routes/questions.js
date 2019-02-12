@@ -1,6 +1,16 @@
+import cloudinary from 'cloudinary';
+
 import Question from '../models/question';
 import User from '../models/user';
 import Comment from '../models/comment';
+
+import { forEachPromise } from '../handlers/utils';
+
+cloudinary.config({
+  cloud_name: 'hg7gzmcqk',
+  api_key: '261148644829827',
+  api_secret: 'dfgmvvZ2WYHd8vZeUkCKAvDbzGw',
+});
 
 exports.getQuestionInterface = (req, res) => {
   const { schema } = Question;
@@ -64,9 +74,30 @@ exports.add = async (req, res) => {
     answer,
     answers,
     notes,
+    imgs,
     userId,
     lastModified,
   } = req.body;
+  const imgsList = [];
+
+  function logItem(item) {
+    return new Promise(resolve => {
+      process.nextTick(() => {
+        cloudinary.uploader.upload(
+          item,
+          result => {
+            imgsList.push(result.url);
+            resolve();
+          },
+          {
+            folder: 'frontview',
+          },
+        );
+      });
+    });
+  }
+
+  await forEachPromise(imgs, logItem);
 
   const newQuestion = await Question.create({
     question,
@@ -76,6 +107,7 @@ exports.add = async (req, res) => {
     answer,
     answers,
     notes,
+    imgs: imgsList,
     author: userId,
     lastModified,
   });

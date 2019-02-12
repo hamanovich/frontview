@@ -5,7 +5,6 @@ import MarkdownRenderer from 'react-markdown-renderer';
 import map from 'lodash/map';
 import shortid from 'shortid';
 import FontAwesome from 'react-fontawesome';
-import styled from 'styled-components';
 import format from 'date-fns/format';
 
 import Button from 'react-bootstrap/lib/Button';
@@ -22,24 +21,7 @@ import Toolbar from '../layout/Toolbar';
 import Loader from '../../utils/Loader';
 
 import { QuestionType, UserType, QListType } from '../../propTypes';
-
-const Badge = styled(Label)`
-  margin: 0 3px;
-`;
-
-const LinkStyled = styled(Link)`
-  margin-top: 7px;
-`;
-
-const ApproveBar = styled('div')`
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-
-  h5 {
-    margin: 0 1rem 0 0;
-  }
-`;
+import { Badge, LinkStyled, ApproveBar, DropThumb, DropThumbs } from './style';
 
 class Question extends Component {
   static propTypes = {
@@ -163,6 +145,15 @@ class Question extends Component {
                 <MarkdownRenderer markdown={question.text} />
               </em>
             ))}
+            <DropThumbs>
+              {question.imgs.map(img => (
+                <DropThumb key={shortid.generate()}>
+                  <div className="dropthumb__inner">
+                    <img src={img} alt="" />
+                  </div>
+                </DropThumb>
+              ))}
+            </DropThumbs>
             <hr />
             {question.notes && (
               <Well onClick={this.open(question.notes, 'notes')}>

@@ -67,6 +67,7 @@ const questionSchema = new Schema(
         },
       ],
     },
+    imgs: [String],
     isVerified: {
       type: Boolean,
       default: false,
