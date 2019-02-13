@@ -25,3 +25,11 @@ p:last-child {
   box-shadow: none;
   margin-bottom: 40px;
 }
+
+.medium-zoom-overlay {
+  z-index: 10;
+}
+
+.medium-zoom-overlay + img {
+  z-index: 11;
+}

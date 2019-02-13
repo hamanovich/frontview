@@ -6,6 +6,7 @@ import map from 'lodash/map';
 import shortid from 'shortid';
 import FontAwesome from 'react-fontawesome';
 import format from 'date-fns/format';
+import mediumZoom from 'medium-zoom';
 
 import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
@@ -18,6 +19,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 
 import Toolbar from '../layout/Toolbar';
+import ZoomImage from '../shared/ZoomImage';
 import Loader from '../../utils/Loader';
 
 import { QuestionType, UserType, QListType } from '../../propTypes';
@@ -44,6 +46,12 @@ class Question extends Component {
     showModal: false,
     textField: null,
     answerField: null,
+  };
+
+  zoom = mediumZoom();
+
+  attachZoom = image => {
+    this.zoom.attach(image);
   };
 
   open = (answerField, field) => () => {
@@ -149,7 +157,12 @@ class Question extends Component {
               {question.imgs.map(img => (
                 <DropThumb key={shortid.generate()}>
                   <div className="dropthumb__inner">
-                    <img src={img} alt="" />
+                    <ZoomImage
+                      src={img}
+                      alt=""
+                      zoom={this.zoom}
+                      background="rgba(100, 100, 100, .5)"
+                    />
                   </div>
                 </DropThumb>
               ))}

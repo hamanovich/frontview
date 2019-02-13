@@ -30,6 +30,8 @@ import {
   getQuestionInterface,
 } from '../../../actions/questions';
 
+import { QuestionType } from '../../../propTypes';
+
 import { DropMe, DropThumb, DropThumbs } from '../style';
 
 class AddQuestion extends Component {
@@ -52,11 +54,13 @@ class AddQuestion extends Component {
     history: shape({
       push: func.isRequired,
     }).isRequired,
+    initialValues: QuestionType,
   };
 
   static defaultProps = {
     userId: '',
     match: null,
+    initialValues: null,
   };
 
   state = {
@@ -94,6 +98,10 @@ class AddQuestion extends Component {
 
             history.push('/questions/add');
           }
+
+          this.setState({
+            imgs: this.props.initialValues.imgs,
+          });
         },
         err => {
           addFlashMessage({
@@ -427,7 +435,7 @@ class AddQuestion extends Component {
                   component={TextareaField}
                   placeholder="Add some notes, if needed"
                 />
-                <Button type="submit" bsStyle="info" bsSize="large" block disabled={isLoading}>
+                <Button type="submit" bsStyle="info" bsSize="large" disabled={isLoading}>
                   {_id ? (
                     <span>
                       Update <FontAwesome name="refresh" />

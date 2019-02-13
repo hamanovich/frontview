@@ -81,6 +81,7 @@ export const DropThumb = styled.div`
   .dropthumb__inner {
     display: flex;
     overflow: hidden;
+    align-items: center;
   }
 
   button {
@@ -95,9 +96,8 @@ export const DropThumb = styled.div`
   }
 
   img {
-    object-fit: contain;
+    display: block;
     width: auto;
     max-width: 100%;
-    height: 100%;
   }
 `;
