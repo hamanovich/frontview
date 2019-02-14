@@ -9,18 +9,12 @@ import compose from 'recompose/compose';
 import withState from 'recompose/withState';
 import lifecycle from 'recompose/lifecycle';
 
-import styled from 'styled-components';
-
-import Badge from 'react-bootstrap/lib/Badge';
-import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
+import Badge from 'react-bootstrap/Badge';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 
 import { addFlashMessage } from '../../actions/flash';
 import { getQuestionsByFilter } from '../../actions/questions';
 import { getQLists } from '../../actions/qlists';
-
-const Buttons = styled(ButtonToolbar)`
-  min-height: 45px;
-`;
 
 const enhance = compose(
   connect(
@@ -77,16 +71,16 @@ const enhance = compose(
 );
 
 const QuestionsBar = ({ active, filter, tags, style }) => (
-  <Buttons>
+  <ButtonToolbar>
     {map(tags, tag => (
       <Link
         className={classNames('btn', `btn-${style}`, { active: active === tag._id })}
         key={tag._id}
         to={{ pathname: `/questions/${filter}/${tag._id}` }}>
-        {tag._id} <Badge>{tag.count}</Badge>
+        {tag._id} <Badge variant="warning">{tag.count}</Badge>
       </Link>
     ))}
-  </Buttons>
+  </ButtonToolbar>
 );
 
 QuestionsBar.propTypes = {

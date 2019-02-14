@@ -86,7 +86,7 @@ describe('<SignupForm/>', () => {
   });
 
   describe('when user submits the Signup Form and Promise resolves with status 200', () => {
-    beforeEach(() => component.find('Form').simulate('submit', user));
+    beforeEach(() => component.find('ForwardRef(Bootstrap(Form))').simulate('submit', user));
 
     it('invokes onSubmit method with Ok', () => {
       expect(props.signup).toHaveBeenCalledWith(user);
@@ -96,7 +96,7 @@ describe('<SignupForm/>', () => {
   describe('when user submits the Signup Form and Promise throws an error', () => {
     const component = shallow(<SignupForm {...props} signup={signupFailed} />);
 
-    beforeEach(() => component.find('Form').simulate('submit', user));
+    beforeEach(() => component.find('ForwardRef(Bootstrap(Form))').simulate('submit', user));
 
     it('adds errorMsg to state', () => {
       expect(component.state().errors.errorMsg).toBe('Failed');

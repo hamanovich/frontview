@@ -1,7 +1,7 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
 
-import Jumbotron from 'react-bootstrap/lib/Jumbotron';
+import Jumbotron from 'react-bootstrap/Jumbotron';
 
 const NotFound = () => (
   <Jumbotron className="text-center">

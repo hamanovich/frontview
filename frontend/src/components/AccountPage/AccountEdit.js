@@ -10,13 +10,12 @@ import withState from 'recompose/withState';
 import withHandlers from 'recompose/withHandlers';
 import lifecycle from 'recompose/lifecycle';
 
-import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
-import Button from 'react-bootstrap/lib/Button';
-import Form from 'react-bootstrap/lib/Form';
-import PageHeader from 'react-bootstrap/lib/PageHeader';
-import Image from 'react-bootstrap/lib/Image';
-import Media from 'react-bootstrap/lib/Media';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Image from 'react-bootstrap/Image';
+import Media from 'react-bootstrap/Media';
 
 import { TextField, TextareaField } from '../formElements';
 
@@ -69,29 +68,24 @@ const enhance = compose(
 
 const AccountEdit = ({ isLoading, handleSubmit, onSubmit, user }) => (
   <Fragment>
-    <PageHeader>
+    <h1>
       <FontAwesome name="pencil-square-o" /> Edit your account
-    </PageHeader>
+    </h1>
 
     <Form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Media>
-        <Media.Left>
-          <MediaImage src={user.gravatar} thumbnail />
-        </Media.Left>
+        <MediaImage src={user.gravatar} alt="" />
         <Media.Body>
-          <Media.Heading>Gravatar image</Media.Heading>
+          <h5>Gravatar image</h5>
           <p>
-            A Gravatar is a<b>G</b>
-            lobally
-            <b>R</b>
-            ecognized
-            <b>Avatar</b>. You upload it and create your profile just once, and then when you
-            participate in any Gravatar-enabled site, your Gravatar image will automatically follow
-            you there.
+            A Gravatar is a<b>G</b>lobally <b>R</b>ecognized <b>Avatar</b>. You upload it and create
+            your profile just once, and then when you participate in any Gravatar-enabled site, your
+            Gravatar image will automatically follow you there.
           </p>
           <p>
-            To change avatar:
+            To change avatar:{' '}
             <a href="https://gravatar.com" target="_blank" rel="noopener noreferrer">
+              {' '}
               Go to gravatar
             </a>
           </p>
@@ -207,7 +201,7 @@ const AccountEdit = ({ isLoading, handleSubmit, onSubmit, user }) => (
         placeholder="Repeat your password"
       />
 
-      <Button type="submit" bsStyle="primary" bsSize="large" disabled={isLoading}>
+      <Button type="submit" variant="primary" size="lg" disabled={isLoading}>
         Update profile
       </Button>
     </Form>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { shape, func, string } from 'prop-types';
 
-import Tabs from 'react-bootstrap/lib/Tabs';
-import Tab from 'react-bootstrap/lib/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
 
 import * as QuestionsTab from './QuestionsTabs';
 

@@ -7,8 +7,8 @@ import compose from 'recompose/compose';
 import withState from 'recompose/withState';
 import withHandlers from 'recompose/withHandlers';
 
-import Button from 'react-bootstrap/lib/Button';
-import Form from 'react-bootstrap/lib/Form';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 import { TextField, TextareaField } from '../formElements';
 
@@ -73,7 +73,7 @@ const QListForm = ({ isLoading, handleSubmit, onSubmit }) => (
       placeholder="Add some notes, if needed"
     />
 
-    <Button type="submit" bsStyle="primary" bsSize="large" disabled={isLoading}>
+    <Button type="submit" variant="primary" size="lg" disabled={isLoading}>
       Create
     </Button>
   </Form>

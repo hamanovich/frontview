@@ -2,17 +2,15 @@ import React, { Fragment } from 'react';
 import { shape, string } from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
-import PageHeader from 'react-bootstrap/lib/PageHeader';
-
 import Questions from './Questions';
 
 const QuestionsSearch = ({ location }) => (
   <Fragment>
-    <PageHeader>
+    <h1>
       <FontAwesome name="search-plus" /> Search: &apos;
       {new URLSearchParams(location.search).get('q')}
       &apos;
-    </PageHeader>
+    </h1>
 
     <Questions />
   </Fragment>

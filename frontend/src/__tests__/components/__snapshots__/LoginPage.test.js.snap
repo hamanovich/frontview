@@ -1,10 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<LoginPage/> renders <LoginPage /> component 1`] = `
-<Row
-  bsClass="row"
-  componentClass="div"
->
+<ForwardRef(Bootstrap(Container))>
   <HelmetWrapper
     defer={true}
     encodeSpecialCharacters={true}
@@ -13,38 +10,48 @@ exports[`<LoginPage/> renders <LoginPage /> component 1`] = `
       Frontview: Please, login
     </title>
   </HelmetWrapper>
-  <Col
-    bsClass="col"
-    componentClass="div"
-    md={6}
-    mdOffset={3}
-  >
-    <Switch>
-      <PropsRoute
-        component={[Function]}
-        exact={true}
-        getUser={[MockFunction]}
-        login={[MockFunction]}
-        path="/login"
-      />
-      <PropsRoute
-        component={[Function]}
-        exact={true}
-        forgot={[MockFunction]}
-        path="/login/forgot"
-      />
-      <PropsRoute
-        addFlashMessage={[MockFunction]}
-        component={[Function]}
-        getReset={[MockFunction]}
-        path="/login/reset/:token"
-        resetToken={[MockFunction]}
-      />
-      <Redirect
-        push={false}
-        to="/login"
-      />
-    </Switch>
-  </Col>
-</Row>
+  <ForwardRef(Bootstrap(Row))>
+    <ForwardRef(Bootstrap(Col))
+      md={
+        Object {
+          "offset": 2,
+          "span": 8,
+        }
+      }
+      xl={
+        Object {
+          "offset": 3,
+          "span": 6,
+        }
+      }
+    >
+      <Switch>
+        <PropsRoute
+          component={[Function]}
+          exact={true}
+          getUser={[MockFunction]}
+          login={[MockFunction]}
+          path="/login"
+        />
+        <PropsRoute
+          component={[Function]}
+          exact={true}
+          forgot={[MockFunction]}
+          path="/login/forgot"
+        />
+        <PropsRoute
+          addFlashMessage={[MockFunction]}
+          component={[Function]}
+          getReset={[MockFunction]}
+          path="/login/reset/:token"
+          resetToken={[MockFunction]}
+        />
+        <Redirect
+          push={false}
+          to="/login"
+        />
+      </Switch>
+    </ForwardRef(Bootstrap(Col))>
+  </ForwardRef(Bootstrap(Row))>
+</ForwardRef(Bootstrap(Container))>
 `;

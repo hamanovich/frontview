@@ -7,9 +7,9 @@ import Comment from '../models/comment';
 import { forEachPromise } from '../handlers/utils';
 
 cloudinary.config({
-  cloud_name: 'hg7gzmcqk',
-  api_key: '261148644829827',
-  api_secret: 'dfgmvvZ2WYHd8vZeUkCKAvDbzGw',
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
 });
 
 exports.getQuestionInterface = (req, res) => {
@@ -23,7 +23,7 @@ exports.getQuestionInterface = (req, res) => {
 
 exports.getQuestions = async (req, res) => {
   const page = req.params.page || 1;
-  const limit = 5;
+  const limit = 4;
   const skip = page * limit - limit;
   const countPromise = Question.countDocuments();
   const questionsPromise = Question.find()
@@ -80,8 +80,8 @@ exports.add = async (req, res) => {
   } = req.body;
   const imgsList = [];
 
-  function logItem(item) {
-    return new Promise(resolve => {
+  const logItem = item =>
+    new Promise(resolve => {
       process.nextTick(() => {
         cloudinary.uploader.upload(
           item,
@@ -90,12 +90,11 @@ exports.add = async (req, res) => {
             resolve();
           },
           {
-            folder: 'frontview',
+            folder: process.env.CLOUDINARY_FOLDER,
           },
         );
       });
     });
-  }
 
   await forEachPromise(imgs, logItem);
 
@@ -184,7 +183,31 @@ exports.addFromFile = async (req, res) => {
 };
 
 exports.edit = async (req, res) => {
-  const question = await Question.findByIdAndUpdate(req.params.id, req.body, { new: true }).exec();
+  const imgsList = [];
+
+  const logItem = item =>
+    new Promise(resolve => {
+      process.nextTick(() => {
+        cloudinary.uploader.upload(
+          item,
+          result => {
+            imgsList.push(result.url);
+            resolve();
+          },
+          {
+            folder: process.env.CLOUDINARY_FOLDER,
+          },
+        );
+      });
+    });
+
+  await forEachPromise(req.body.imgs, logItem);
+
+  const question = await Question.findByIdAndUpdate(
+    req.params.id,
+    { ...req.body, imgs: imgsList },
+    { new: true },
+  ).exec();
 
   await question.save();
 

@@ -1,6 +1,8 @@
-import React, { Fragment, lazy } from 'react';
+import React, { lazy } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+
+import Container from 'react-bootstrap/Container';
 
 import QuestionsAll from './QuestionsAll';
 import QuestionsAuthor from './QuestionsAuthor';
@@ -19,7 +21,7 @@ const QuestionsFromInternet = lazy(() =>
 );
 
 const QuestionsPage = () => (
-  <Fragment>
+  <Container>
     <Helmet>
       <title>Frontview: Questions</title>
     </Helmet>
@@ -42,7 +44,7 @@ const QuestionsPage = () => (
       />
       <Redirect to="/questions/page/1" />
     </Switch>
-  </Fragment>
+  </Container>
 );
 
 export default QuestionsPage;

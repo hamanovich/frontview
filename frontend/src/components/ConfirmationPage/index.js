@@ -9,8 +9,9 @@ import pure from 'recompose/pure';
 import withState from 'recompose/withState';
 import lifecycle from 'recompose/lifecycle';
 
-import Jumbotron from 'react-bootstrap/lib/Jumbotron';
-import Button from 'react-bootstrap/lib/Button';
+import Jumbotron from 'react-bootstrap/Jumbotron';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 
 import { confirm } from '../../actions/auth';
 import { getUser } from '../../actions/signup';
@@ -49,23 +50,25 @@ const enhance = compose(
 
 const Confirmation = ({ success }) => (
   <Jumbotron>
-    <h1>Hey!</h1>
-    <p className="lead">
-      This is a simple hero unit, a simple Jumbotron-style component for calling extra attention to
-      featured content or information.
-    </p>
-    {success && (
-      <Fragment>
-        <hr />
-        <p className="lead">
-          <Link to="/">
-            <Button bsStyle="success" bsSize="large">
-              Welcome on board!
-            </Button>
-          </Link>
-        </p>
-      </Fragment>
-    )}
+    <Container>
+      <h1>Hey!</h1>
+      <p className="lead">
+        This is a simple hero unit, a simple Jumbotron-style component for calling extra attention
+        to featured content or information.
+      </p>
+      {success && (
+        <Fragment>
+          <hr />
+          <p className="lead">
+            <Link to="/">
+              <Button variant="success" size="lg">
+                Welcome on board!
+              </Button>
+            </Link>
+          </p>
+        </Fragment>
+      )}
+    </Container>
   </Jumbotron>
 );
 

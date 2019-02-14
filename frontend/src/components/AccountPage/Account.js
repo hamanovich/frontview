@@ -5,13 +5,11 @@ import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 import compose from 'recompose/compose';
 
-import Badge from 'react-bootstrap/lib/Badge';
-import Button from 'react-bootstrap/lib/Button';
-import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
-import Modal from 'react-bootstrap/lib/Modal';
-import Image from 'react-bootstrap/lib/Image';
-import Well from 'react-bootstrap/lib/Well';
-import PageHeader from 'react-bootstrap/lib/PageHeader';
+import Badge from 'react-bootstrap/Badge';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Modal from 'react-bootstrap/Modal';
+import Image from 'react-bootstrap/Image';
 
 import { getUser, removeUser } from '../../actions/signup';
 import { addFlashMessage } from '../../actions/flash';
@@ -73,7 +71,7 @@ class Account extends Component {
 
     return (
       <Fragment>
-        <PageHeader>
+        <h1>
           {user.firstName && user.lastName ? (
             <Fragment>
               <span>
@@ -84,7 +82,7 @@ class Account extends Component {
           ) : (
             'Your account'
           )}
-        </PageHeader>
+        </h1>
 
         <Image src={user.gravatar} thumbnail />
 
@@ -125,23 +123,23 @@ class Account extends Component {
           )}
         </dl>
 
-        <Well>{user.notes}</Well>
+        <p>{user.notes}</p>
 
         <hr />
 
-        <ButtonGroup bsSize="small" className="pull-right">
-          <Link to="/me/edit" className="btn btn-info">
+        <ButtonGroup>
+          <Link to="/me/edit" className="btn btn-info btn-sm">
             <FontAwesome name="pencil" /> Edit profile
           </Link>
-          <Button bsStyle="warning" onClick={logout}>
+          <Button variant="warning" size="sm" onClick={logout}>
             <FontAwesome name="sign-out" /> Logout
           </Button>
-          <Button bsStyle="danger" onClick={this.toggle}>
+          <Button variant="danger" size="sm" onClick={this.toggle}>
             <FontAwesome name="times" /> Remove
           </Button>
         </ButtonGroup>
 
-        <Modal bsSize="sm" show={this.state.modal} onHide={this.toggle}>
+        <Modal size="sm" show={this.state.modal} onHide={this.toggle}>
           <Modal.Header closeButton>
             <Modal.Title>Are you sure?</Modal.Title>
           </Modal.Header>
@@ -153,10 +151,10 @@ class Account extends Component {
           </Modal.Body>
           <Modal.Footer>
             <ButtonGroup>
-              <Button bsStyle="default" onClick={this.toggle}>
+              <Button variant="secondary" onClick={this.toggle}>
                 Cancel
               </Button>
-              <Button bsStyle="danger" onClick={this.remove}>
+              <Button variant="danger" onClick={this.remove}>
                 Remove
               </Button>
             </ButtonGroup>

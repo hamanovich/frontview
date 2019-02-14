@@ -1,11 +1,9 @@
 import React, { Fragment } from 'react';
 import FontAwesome from 'react-fontawesome';
 
-import PageHeader from 'react-bootstrap/lib/PageHeader';
-
 const QuestionsTabNodeJS = () => (
   <Fragment>
-    <PageHeader>
+    <h1>
       <a
         href="https://blog.risingstack.com/node-js-interview-questions-and-answers-2017/"
         target="_blank"
@@ -13,7 +11,7 @@ const QuestionsTabNodeJS = () => (
         <FontAwesome name="link" />
       </a>{' '}
       Node.js Interview Questions and Answers (2017 Edition)
-    </PageHeader>
+    </h1>
 
     <h3>Node.js Interview Questions for 2017</h3>
 

@@ -8,8 +8,8 @@ import classNames from 'classnames';
 import compose from 'recompose/compose';
 import lifecycle from 'recompose/lifecycle';
 
-import Alert from 'react-bootstrap/lib/Alert';
-import Button from 'react-bootstrap/lib/Button';
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
 
 const enhance = compose(
   lifecycle({
@@ -23,10 +23,10 @@ const FlashItem = styled(Alert)`
   display: flex;
   justify-content: space-between;
   position: fixed;
-  z-index: 1;
+  z-index: 10;
   left: 50%;
   transform: translateX(-50%);
-  top: 0;
+  top: 52px;
   align-items: center;
   min-width: 290px;
   max-width: 90%;
@@ -46,7 +46,7 @@ const FlashItem = styled(Alert)`
 
 export const Flash = ({ close, message }) => (
   <FlashItem
-    bsStyle={classNames({
+    variant={classNames({
       danger: message.type === 'error',
       success: message.type === 'success',
       warning: message.type === 'warn',

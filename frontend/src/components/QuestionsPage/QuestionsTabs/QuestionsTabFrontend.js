@@ -1,11 +1,9 @@
 import React, { Fragment } from 'react';
 import FontAwesome from 'react-fontawesome';
 
-import PageHeader from 'react-bootstrap/lib/PageHeader';
-
 const QuestionsTabFrontend = () => (
   <Fragment>
-    <PageHeader>
+    <h1>
       <a
         href="https://github.com/h5bp/Front-end-Developer-Interview-Questions"
         target="_blank"
@@ -13,7 +11,7 @@ const QuestionsTabFrontend = () => (
         <FontAwesome name="link" />
       </a>{' '}
       Front-end Job Interview Questions
-    </PageHeader>
+    </h1>
 
     <p>
       Here below you may find only the most popular and interesting questions from GitHub H5BP. All

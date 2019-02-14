@@ -3,9 +3,9 @@ import { func } from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
-import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
-import PageHeader from 'react-bootstrap/lib/PageHeader';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 import FontAwesome from 'react-fontawesome';
 
 import { signup, isUserExists } from '../../actions/signup';
@@ -14,18 +14,20 @@ import { addFlashMessage } from '../../actions/flash';
 import SignupForm from './SignupForm';
 
 export const SignupPage = ({ signup, addFlashMessage, isUserExists }) => (
-  <Row>
-    <Helmet>
-      <title>Frontview: Register. Welcome</title>
-    </Helmet>
-    <Col md={6} mdOffset={3}>
-      <PageHeader>
-        <FontAwesome name="user-plus" /> Register. Welcome
-      </PageHeader>
+  <Container>
+    <Row>
+      <Helmet>
+        <title>Frontview: Register. Welcome</title>
+      </Helmet>
+      <Col xl={{ span: 6, offset: 3 }} md={{ span: 8, offset: 2 }}>
+        <h1>
+          <FontAwesome name="user-plus" /> Register. Welcome
+        </h1>
 
-      <SignupForm signup={signup} addFlashMessage={addFlashMessage} isUserExists={isUserExists} />
-    </Col>
-  </Row>
+        <SignupForm signup={signup} addFlashMessage={addFlashMessage} isUserExists={isUserExists} />
+      </Col>
+    </Row>
+  </Container>
 );
 
 SignupPage.propTypes = {

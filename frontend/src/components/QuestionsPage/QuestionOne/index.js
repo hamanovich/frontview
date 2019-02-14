@@ -3,10 +3,8 @@ import { shape, arrayOf, func, string } from 'prop-types';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 
-import PageHeader from 'react-bootstrap/lib/PageHeader';
-import Panel from 'react-bootstrap/lib/Panel';
-import PanelGroup from 'react-bootstrap/lib/PanelGroup';
-import Badge from 'react-bootstrap/lib/Badge';
+import Card from 'react-bootstrap/Card';
+import Badge from 'react-bootstrap/Badge';
 
 import Question from '../Question';
 import CommentForm from '../../Comment/CommentForm';
@@ -92,21 +90,10 @@ class QuestionOne extends Component {
       match,
       history,
     } = this.props;
-    const panelHeader = (
-      <span>
-        <FontAwesome name="comments-o" /> Comments{' '}
-        <Badge>{question && question.comments.length}</Badge>
-      </span>
-    );
-    const panelAddHeader = (
-      <span>
-        <FontAwesome name="commenting-o" /> Add a comment
-      </span>
-    );
 
     return (
       <Fragment>
-        <PageHeader>Single Question</PageHeader>
+        <h1>The Question page</h1>
 
         <Question
           history={history}
@@ -117,23 +104,27 @@ class QuestionOne extends Component {
           qlists={qlists}
         />
 
-        <PanelGroup id="accordion-controlled-one" defaultActiveKey="1" accordion>
-          {question && question.comments.length > 0 && (
-            <Panel eventKey="1" bsStyle="info">
-              <Panel.Heading>
-                <Panel.Title toggle>{panelHeader}</Panel.Title>
-              </Panel.Heading>
-              <Panel.Body collapsible>
+        {question && question.comments.length > 0 && (
+          <Fragment>
+            <h3>
+              <FontAwesome name="comments-o" /> Comments{' '}
+              <Badge variant="primary">{question.comments.length}</Badge>
+            </h3>
+            <Card border="info">
+              <Card.Body>
                 <Comments comments={question.comments} />
-              </Panel.Body>
-            </Panel>
-          )}
-          {user.username && (
-            <Panel eventKey="2" bsStyle="primary">
-              <Panel.Heading>
-                <Panel.Title toggle>{panelAddHeader}</Panel.Title>
-              </Panel.Heading>
-              <Panel.Body collapsible>
+              </Card.Body>
+            </Card>
+          </Fragment>
+        )}
+        {user.username && (
+          <Fragment>
+            <h3>
+              <FontAwesome name="commenting-o" /> Add a comment
+            </h3>
+
+            <Card border="primary">
+              <Card.Body>
                 <CommentForm
                   question={question}
                   addComment={addComment}
@@ -141,10 +132,10 @@ class QuestionOne extends Component {
                   user={user}
                   slug={match.params.slug}
                 />
-              </Panel.Body>
-            </Panel>
-          )}
-        </PanelGroup>
+              </Card.Body>
+            </Card>
+          </Fragment>
+        )}
       </Fragment>
     );
   }

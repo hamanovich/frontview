@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
 import { Link } from 'react-router-dom';
 
-import Label from 'react-bootstrap/lib/Label';
+import Badge from 'react-bootstrap/Badge';
 
-export const Badge = styled(Label)`
+export const BadgeStyled = styled(Badge)`
   margin: 0 3px;
 `;
 
@@ -27,8 +27,7 @@ export const DropMe = styled(Dropzone)`
   border: 1px dashed #ccc;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   cursor: pointer;
-  padding: 4rem 2rem 5rem;
-  font-size: 1.5rem;
+  padding: 3rem 2rem 5rem;
 
   &:hover,
   &:focus-within {

@@ -7,8 +7,6 @@ import FontAwesome from 'react-fontawesome';
 import compose from 'recompose/compose';
 import lifecycle from 'recompose/lifecycle';
 
-import Well from 'react-bootstrap/lib/Well';
-
 import { CandidateType } from '../../propTypes';
 
 const enhance = compose(
@@ -31,9 +29,7 @@ const InterviewFinish = ({ location }) => (
           Feedback on
           {location.state.candidate.firstName} {location.state.candidate.lastName}:
         </h2>
-        <Well className="text-left">
-          <MarkdownRenderer markdown={location.state.feedback.result} />
-        </Well>
+        <MarkdownRenderer markdown={location.state.feedback.result} />
         <p>
           <Link to="/">
             <FontAwesome name="home" /> Go to the home page

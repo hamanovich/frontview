@@ -1,18 +1,16 @@
 import React, { Fragment } from 'react';
 import { shape, string } from 'prop-types';
 
-import PageHeader from 'react-bootstrap/lib/PageHeader';
-
 import Questions from './Questions';
 import QuestionsBar from './QuestionsBar';
 
 const QuestionsTags = ({ match }) => (
   <Fragment>
-    <PageHeader>
+    <h1>
       Questions by &apos;
       {match.params.filter}
       &apos;
-    </PageHeader>
+    </h1>
 
     <QuestionsBar active={match.params.tag} filter={match.params.filter} />
 

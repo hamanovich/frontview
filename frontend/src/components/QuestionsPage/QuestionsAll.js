@@ -1,17 +1,16 @@
 import React, { Fragment } from 'react';
 import { shape, arrayOf, func, string, number } from 'prop-types';
 
-import PageHeader from 'react-bootstrap/lib/PageHeader';
-import Badge from 'react-bootstrap/lib/Badge';
+import Badge from 'react-bootstrap/Badge';
 
 import Questions from './Questions';
-import PaginationBar from '../layout/PaginationBar';
+import PaginationBar from '../shared/PaginationBar';
 
 const QuestionsAll = ({ state, history }) => (
   <Fragment>
-    <PageHeader>
-      Questions <Badge>{state.pagination.count}</Badge>
-    </PageHeader>
+    <h1>
+      Questions <Badge variant="primary">{state.pagination.count}</Badge>
+    </h1>
 
     <Questions />
 

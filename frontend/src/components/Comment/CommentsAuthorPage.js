@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
@@ -6,7 +6,7 @@ import compose from 'recompose/compose';
 import lifecycle from 'recompose/lifecycle';
 import { Helmet } from 'react-helmet';
 
-import PageHeader from 'react-bootstrap/lib/PageHeader';
+import Container from 'react-bootstrap/Container';
 
 import Comments from './Comments';
 
@@ -38,16 +38,16 @@ const enhance = compose(
 );
 
 const CommentsAuthorPage = ({ comments, match }) => (
-  <Fragment>
+  <Container>
     <Helmet>
-      <title>Frontview: All {match.params.username}&apos;s comments</title>
+      <title>Frontview: All comments</title>
     </Helmet>
-    <PageHeader>
+    <h1>
       <FontAwesome name="comments-o" /> All Your Comments
-    </PageHeader>
+    </h1>
 
     <Comments comments={comments} match={match} />
-  </Fragment>
+  </Container>
 );
 
 CommentsAuthorPage.propTypes = {

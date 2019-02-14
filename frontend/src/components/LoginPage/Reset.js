@@ -7,10 +7,9 @@ import withState from 'recompose/withState';
 import withHandlers from 'recompose/withHandlers';
 import lifecycle from 'recompose/lifecycle';
 
-import Button from 'react-bootstrap/lib/Button';
-import Form from 'react-bootstrap/lib/Form';
-import Alert from 'react-bootstrap/lib/Alert';
-import PageHeader from 'react-bootstrap/lib/PageHeader';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Alert from 'react-bootstrap/Alert';
 
 import { TextField } from '../formElements';
 
@@ -76,10 +75,10 @@ const enhance = compose(
 
 const Reset = ({ handleSubmit, onSubmit, state }) => (
   <Fragment>
-    <PageHeader>Reset my password</PageHeader>
+    <h1>Reset my password</h1>
 
     <Form onSubmit={handleSubmit(onSubmit)} noValidate>
-      {state.error && <Alert bsStyle="danger">{state.error}</Alert>}
+      {state.error && <Alert variant="danger">{state.error}</Alert>}
 
       <Field
         label="Password*:"
@@ -97,7 +96,7 @@ const Reset = ({ handleSubmit, onSubmit, state }) => (
         placeholder="Repeat your mad password"
       />
 
-      <Button type="submit" bsStyle="warning" bsSize="large" disabled={state.isLoading}>
+      <Button type="submit" variant="warning" size="lg" disabled={state.isLoading}>
         Reset
       </Button>
     </Form>

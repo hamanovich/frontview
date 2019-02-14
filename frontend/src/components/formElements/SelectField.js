@@ -1,10 +1,8 @@
 import React from 'react';
-import { arrayOf, number, shape, string, bool } from 'prop-types';
+import { arrayOf, shape, string, bool } from 'prop-types';
 import map from 'lodash/map';
 
-import HelpBlock from 'react-bootstrap/lib/HelpBlock';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import Form from 'react-bootstrap/Form';
 
 const SelectField = ({
   id,
@@ -12,22 +10,27 @@ const SelectField = ({
   label,
   multiple,
   options,
-  size,
   meta: { touched, error, warning },
 }) => (
-  <FormGroup
-    controlId={input.name}
-    validationState={touched && error ? 'error' : touched && !error ? 'success' : null}>
-    <ControlLabel>{label}</ControlLabel>
-    <select {...input} id={id} size={size} multiple={multiple} className="form-control">
+  <Form.Group>
+    <Form.Label htmlFor={id}>{label}</Form.Label>
+    <Form.Control
+      as="select"
+      {...input}
+      id={id}
+      multiple={multiple}
+      isInvalid={touched && error}
+      isValid={touched && !error}>
       {map(options, o => (
         <option value={o.value} key={o.value}>
           {o.title}
         </option>
       ))}
-    </select>
-    {touched && ((error && <HelpBlock>{error}</HelpBlock>) || (warning && <span>{warning}</span>))}
-  </FormGroup>
+    </Form.Control>
+    {touched &&
+      ((error && <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>) ||
+        (warning && <Form.Control.Feedback type="invalid">{warning}</Form.Control.Feedback>))}
+  </Form.Group>
 );
 
 SelectField.propTypes = {
@@ -38,7 +41,6 @@ SelectField.propTypes = {
   id: string.isRequired,
   label: string.isRequired,
   multiple: bool.isRequired,
-  size: number,
   options: arrayOf(
     shape({
       value: string,
@@ -50,10 +52,6 @@ SelectField.propTypes = {
     error: string,
     warning: string,
   }).isRequired,
-};
-
-SelectField.defaultProps = {
-  size: 4,
 };
 
 export default SelectField;

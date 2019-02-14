@@ -4,26 +4,79 @@ html {
 
 body {
   margin: 0;
-  padding-bottom: 100px;
+  padding-bottom: 116px;
   position: relative;
   min-height: 100%;
+  font-family: 'PT Sans', sans-serif;
 }
 
 a[role='tab'] {
   cursor: pointer;
 }
 
+h1 {
+  margin-bottom: 2rem;
+}
+
 p:last-child {
   margin-bottom: 0;
 }
 
-#main {
-  padding-bottom: 30px;
+pre {
+  width: 100%;
+  padding: 1rem;
+  margin: 0;
+  overflow: auto;
+  overflow-y: hidden;
+  background: lightgoldenrodyellow;
+  border-radius: 0.25rem;
+}
+pre code {
+  padding: 10px;
+  color: #333;
 }
 
-.panel {
-  box-shadow: none;
-  margin-bottom: 40px;
+button,
+html input[type='button'],
+input[type='reset'],
+input[type='submit'] {
+  cursor: pointer;
+}
+
+.tab-content > .tab-pane {
+  padding-top: 30px;
+}
+
+#main {
+  padding-bottom: 60px;
+}
+
+#main > .container:first-child {
+  padding-top: 50px;
+}
+
+.navbar {
+  margin-bottom: 0;
+}
+
+.btn-toolbar > * + * {
+  margin-left: 0.5rem;
+}
+
+.navbar-dark .navbar-brand a {
+  color: #fff;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+
+.question {
+  margin-bottom: 50px;
+}
+
+.media + .media {
+  margin-top: 32px;
 }
 
 .medium-zoom-overlay {

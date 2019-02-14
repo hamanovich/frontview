@@ -1,37 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<SignupPage/> renders <SignupPage /> component 1`] = `
-<Row
-  bsClass="row"
-  componentClass="div"
->
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Frontview: Register. Welcome
-    </title>
-  </HelmetWrapper>
-  <Col
-    bsClass="col"
-    componentClass="div"
-    md={6}
-    mdOffset={3}
-  >
-    <PageHeader
-      bsClass="page-header"
+<ForwardRef(Bootstrap(Container))>
+  <ForwardRef(Bootstrap(Row))>
+    <HelmetWrapper
+      defer={true}
+      encodeSpecialCharacters={true}
     >
-      <FontAwesome
-        name="user-plus"
+      <title>
+        Frontview: Register. Welcome
+      </title>
+    </HelmetWrapper>
+    <ForwardRef(Bootstrap(Col))
+      md={
+        Object {
+          "offset": 2,
+          "span": 8,
+        }
+      }
+      xl={
+        Object {
+          "offset": 3,
+          "span": 6,
+        }
+      }
+    >
+      <h1>
+        <FontAwesome
+          name="user-plus"
+        />
+         Register. Welcome
+      </h1>
+      <ReduxForm
+        addFlashMessage={[MockFunction]}
+        isUserExists={[MockFunction]}
+        signup={[MockFunction]}
       />
-       Register. Welcome
-    </PageHeader>
-    <ReduxForm
-      addFlashMessage={[MockFunction]}
-      isUserExists={[MockFunction]}
-      signup={[MockFunction]}
-    />
-  </Col>
-</Row>
+    </ForwardRef(Bootstrap(Col))>
+  </ForwardRef(Bootstrap(Row))>
+</ForwardRef(Bootstrap(Container))>
 `;

@@ -1,18 +1,16 @@
 import React, { Fragment } from 'react';
 import { shape, arrayOf, string } from 'prop-types';
 
-import PageHeader from 'react-bootstrap/lib/PageHeader';
-
 import Questions from './Questions';
 
 import { QListType } from '../../propTypes';
 
 const QuestionsQList = ({ qlists, match }) => (
   <Fragment>
-    <PageHeader>
+    <h1>
       Questions from QList:
       {match.params.slug}
-    </PageHeader>
+    </h1>
     <span>
       {qlists[0] &&
         qlists.filter(qlist => qlist.slug === match.params.slug)[0].questions.length === 0 && (

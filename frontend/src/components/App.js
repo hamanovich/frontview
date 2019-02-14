@@ -1,14 +1,13 @@
 import React, { Fragment, lazy } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import Grid from 'react-bootstrap/lib/Grid';
 
 import HomePage from './HomePage';
 import NotFound from './NotFound';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
 import FlashList from './flash/FlashList';
-import FaqButton from './layout/FaqButton';
+import FaqButton from './shared/FaqButton';
 
 import { isLoggedIn, User, Waiting } from '../utils/helpers';
 
@@ -31,24 +30,22 @@ const App = () => (
       <title>Frontview: Interview for Everyone</title>
     </Helmet>
     <Header />
-    <Grid>
-      <FlashList />
-      <main id="main">
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/login" component={isLoggedIn(Waiting(LoginPage))} />
-          <Route path="/signup" component={isLoggedIn(Waiting(SignupPage))} />
-          <Route path="/me" component={User(Waiting(AccountPage))} />
-          <Route path="/questions" component={Waiting(QuestionsPage)} />
-          <Route path="/interview" component={User(Waiting(InterviewPage))} />
-          <Route path="/comments/:username" component={User(Waiting(CommentsAuthorPage))} />
-          <Route path="/confirmation/:token" component={Waiting(ConfirmationPage)} />
-          <Route path="/faq" component={Waiting(FaqPage)} />
-          <Route component={NotFound} />
-        </Switch>
-      </main>
-    </Grid>
+    <main id="main">
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/login" component={isLoggedIn(Waiting(LoginPage))} />
+        <Route path="/signup" component={isLoggedIn(Waiting(SignupPage))} />
+        <Route path="/me" component={User(Waiting(AccountPage))} />
+        <Route path="/questions" component={Waiting(QuestionsPage)} />
+        <Route path="/interview" component={User(Waiting(InterviewPage))} />
+        <Route path="/comments/:username" component={User(Waiting(CommentsAuthorPage))} />
+        <Route path="/confirmation/:token" component={Waiting(ConfirmationPage)} />
+        <Route path="/faq" component={Waiting(FaqPage)} />
+        <Route component={NotFound} />
+      </Switch>
+    </main>
     <Footer />
+    <FlashList />
     <FaqButton />
   </Fragment>
 );

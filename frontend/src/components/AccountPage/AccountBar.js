@@ -1,23 +1,18 @@
 import React from 'react';
 import { func, shape, bool } from 'prop-types';
 import FontAwesome from 'react-fontawesome';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import ListGroup from 'react-bootstrap/lib/ListGroup';
-import Button from 'react-bootstrap/lib/Button';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Button from 'react-bootstrap/Button';
 
 import { logout } from '../../actions/auth';
 
 import { UserType } from '../../propTypes';
 
-const List = styled(ListGroup)`
-  margin-top: 45px;
-`;
-
 const AccountBar = ({ auth, logout }) => (
-  <List>
+  <ListGroup>
     <Link to="/questions" className="list-group-item">
       <FontAwesome name="question-circle-o" /> All Questions
     </Link>
@@ -36,10 +31,10 @@ const AccountBar = ({ auth, logout }) => (
     <Link to="/me/qlists" className="list-group-item">
       <FontAwesome name="list-ol" /> Show my QLists
     </Link>
-    <Button block bsStyle="danger" onClick={logout}>
+    <Button block variant="danger" onClick={logout}>
       <FontAwesome name="sign-out" /> Logout
     </Button>
-  </List>
+  </ListGroup>
 );
 
 AccountBar.propTypes = {

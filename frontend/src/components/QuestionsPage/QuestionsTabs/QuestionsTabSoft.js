@@ -1,11 +1,9 @@
 import React, { Fragment } from 'react';
 import FontAwesome from 'react-fontawesome';
 
-import PageHeader from 'react-bootstrap/lib/PageHeader';
-
 const QuestionsTabSoft = () => (
   <Fragment>
-    <PageHeader>
+    <h1>
       <a
         href="https://devskiller.com/45-behavioral-questions-to-use-during-non-technical-interview-with-developers/"
         target="_blank"
@@ -13,7 +11,7 @@ const QuestionsTabSoft = () => (
         <FontAwesome name="link" />
       </a>{' '}
       45 behavioral questions to use during non-technical interview with developers
-    </PageHeader>
+    </h1>
 
     <p>
       The way we formulate questions is crucial. If you ask the question in an ambiguous way, don’t

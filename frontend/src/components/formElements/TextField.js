@@ -1,10 +1,7 @@
 import React from 'react';
 import { shape, string, bool } from 'prop-types';
 
-import HelpBlock from 'react-bootstrap/lib/HelpBlock';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import Form from 'react-bootstrap/Form';
 
 const TextField = ({
   input,
@@ -16,33 +13,32 @@ const TextField = ({
   readonly,
   feedback,
   errorsVisible,
+  className,
   meta: { touched, error, warning },
 }) => (
-  <FormGroup
-    controlId={`label-${input.name}`}
-    validationState={
-      (touched && error) || errorState
-        ? 'error'
-        : touched && !error && !errorState
-        ? 'success'
-        : null
-    }>
-    {label && <ControlLabel>{label}</ControlLabel>}
-    <FormControl
+  <Form.Group>
+    {label && <Form.Label htmlFor={`label-${input.name}`}>{label}</Form.Label>}
+    <Form.Control
       {...input}
       placeholder={placeholder}
       id={`label-${input.name}`}
       type={type}
+      className={className}
       readOnly={readonly}
+      isInvalid={(touched && error) || errorState}
+      isValid={touched && !error && !errorState}
       value={defaultValue || input.value}
       onBlur={input.onBlur}
     />
-    {feedback && <FormControl.Feedback />}
-    {errorsVisible && errorState && <HelpBlock>{errorState}</HelpBlock>}
+    {feedback && <Form.Control.Feedback />}
+    {errorsVisible && errorState && (
+      <Form.Control.Feedback type="invalid">{errorState}</Form.Control.Feedback>
+    )}
     {errorsVisible &&
       touched &&
-      ((error && <HelpBlock>{error}</HelpBlock>) || (warning && <span>{warning}</span>))}
-  </FormGroup>
+      ((error && <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>) ||
+        (warning && <Form.Control.Feedback type="invalid">{warning}</Form.Control.Feedback>))}
+  </Form.Group>
 );
 
 TextField.propTypes = {
@@ -55,6 +51,7 @@ TextField.propTypes = {
   label: string,
   defaultValue: string,
   placeholder: string,
+  className: string,
   type: string.isRequired,
   errorState: string,
   errorsVisible: bool,
@@ -70,6 +67,7 @@ TextField.defaultProps = {
   feedback: true,
   errorsVisible: true,
   label: '',
+  className: '',
   placeholder: '',
   defaultValue: '',
   errorState: null,

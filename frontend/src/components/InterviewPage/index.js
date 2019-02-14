@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import FontAwesome from 'react-fontawesome';
 
-import PageHeader from 'react-bootstrap/lib/PageHeader';
+import Container from 'react-bootstrap/Container';
 
 import InterviewHero from './InterviewHero';
 import InterviewCandidates from './InterviewCandidates';
@@ -35,47 +35,49 @@ const InterviewPage = ({
     <Helmet>
       <title>Frontview: Interview</title>
     </Helmet>
-    <PageHeader>
-      <FontAwesome name="id-badge" /> Interview
-    </PageHeader>
+    <Container>
+      <h1>
+        <FontAwesome name="id-badge" /> Interview
+      </h1>
 
-    <Switch>
-      <Route exact path="/interview" component={InterviewHero} />
+      <Switch>
+        <Route exact path="/interview" component={InterviewHero} />
 
-      <PropsRoute
-        exact
-        path="/interview/candidates"
-        component={InterviewCandidates}
-        candidateAdd={candidateAdd}
-        getCandidates={getCandidates}
-        addFlashMessage={addFlashMessage}
-        userId={auth.user._id}
-        candidates={candidates}
-      />
+        <PropsRoute
+          exact
+          path="/interview/candidates"
+          component={InterviewCandidates}
+          candidateAdd={candidateAdd}
+          getCandidates={getCandidates}
+          addFlashMessage={addFlashMessage}
+          userId={auth.user._id}
+          candidates={candidates}
+        />
 
-      <PropsRoute
-        exact
-        path="/interview/qlists"
-        component={InterviewQLists}
-        getQLists={getQLists}
-        addFlashMessage={addFlashMessage}
-        userId={auth.user._id}
-        qlists={qlists}
-      />
+        <PropsRoute
+          exact
+          path="/interview/qlists"
+          component={InterviewQLists}
+          getQLists={getQLists}
+          addFlashMessage={addFlashMessage}
+          userId={auth.user._id}
+          qlists={qlists}
+        />
 
-      <PropsRoute
-        exact
-        path="/interview/progress"
-        component={InterviewProgress}
-        userId={auth.user._id}
-        addFlashMessage={addFlashMessage}
-        provideFeedback={provideFeedback}
-      />
+        <PropsRoute
+          exact
+          path="/interview/progress"
+          component={InterviewProgress}
+          userId={auth.user._id}
+          addFlashMessage={addFlashMessage}
+          provideFeedback={provideFeedback}
+        />
 
-      <Route exact path="/interview/finish" component={InterviewFinish} />
+        <Route exact path="/interview/finish" component={InterviewFinish} />
 
-      <Redirect to="/" />
-    </Switch>
+        <Redirect to="/" />
+      </Switch>
+    </Container>
   </Fragment>
 );
 

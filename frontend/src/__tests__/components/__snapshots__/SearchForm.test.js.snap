@@ -1,36 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<SearchForm/> renders <SearchForm /> component 1`] = `
-<NavbarForm
-  componentClass="div"
-  pullLeft={true}
-  pullRight={false}
+<Styled(Component)
+  className="mr-auto"
+  inline={true}
+  noValidate={true}
 >
-  <Styled(Form)
-    noValidate={true}
+  <Field
+    className="mr-sm-2"
+    component={[Function]}
+    errorsVisible={false}
+    feedback={false}
+    htmlFor="search"
+    name="search"
+    placeholder="Search question"
+    type="search"
+  />
+   
+  <ForwardRef(Bootstrap(Button))
+    type="submit"
   >
-    <Field
-      component={[Function]}
-      errorsVisible={false}
-      feedback={false}
-      htmlFor="search"
+    <FontAwesome
       name="search"
-      placeholder="Search question"
-      type="search"
     />
-     
-    <Button
-      active={false}
-      block={false}
-      bsClass="btn"
-      bsStyle="default"
-      disabled={false}
-      type="submit"
-    >
-      <FontAwesome
-        name="search"
-      />
-    </Button>
-  </Styled(Form)>
-</NavbarForm>
+  </ForwardRef(Bootstrap(Button))>
+</Styled(Component)>
 `;

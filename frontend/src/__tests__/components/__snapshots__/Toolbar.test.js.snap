@@ -1,76 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Toolbar/> renders <Toolbar /> component 1`] = `
-<ButtonToolbar
-  bsClass="btn-toolbar"
->
-  <ButtonGroup
-    block={false}
-    bsClass="btn-group"
-    bsSize="small"
-    justified={false}
-    vertical={false}
+<ForwardRef(Bootstrap(ButtonToolbar))>
+  <ForwardRef(Bootstrap(ButtonGroup))
+    size="sm"
   >
-    <Button
+    <ForwardRef(Bootstrap(Button))
       active={false}
-      block={false}
-      bsClass="btn"
-      bsStyle="success"
-      disabled={false}
+      variant="success"
     >
       <FontAwesome
         name="thumbs-up"
       />
        
       1
-    </Button>
-    <Button
+    </ForwardRef(Bootstrap(Button))>
+    <ForwardRef(Bootstrap(Button))
       active={false}
-      block={false}
-      bsClass="btn"
-      bsStyle="danger"
-      disabled={false}
+      variant="danger"
     >
       <FontAwesome
         name="thumbs-down"
       />
        
       0
-    </Button>
-  </ButtonGroup>
-  <ButtonGroup
-    block={false}
-    bsClass="btn-group"
-    bsSize="small"
-    justified={false}
-    vertical={false}
+    </ForwardRef(Bootstrap(Button))>
+  </ForwardRef(Bootstrap(ButtonGroup))>
+  <ForwardRef(Bootstrap(ButtonGroup))
+    size="sm"
   >
     <DropdownButton
-      bsSize="small"
-      bsStyle="info"
       id="qlist"
+      size="sm"
       title={
         <FontAwesome
           name="star"
         />
       }
+      variant="info"
     >
-      <MenuItem
-        bsClass="dropdown"
-        disabled={false}
-        divider={false}
+      <ForwardRef(ContextTransform)
         eventKey={0}
-        header={false}
         key="5bd6e86025ccd523e4595ad4"
       >
         Js core
-      </MenuItem>
-      <MenuItem
-        bsClass="dropdown"
-        disabled={false}
-        divider={true}
-        header={false}
-      />
+      </ForwardRef(ContextTransform)>
+      <ForwardRef(Bootstrap(DropdownDivider)) />
       <LinkContainer
         activeClassName="active"
         exact={false}
@@ -78,16 +53,11 @@ exports[`<Toolbar/> renders <Toolbar /> component 1`] = `
         strict={false}
         to="/me/qlist/create"
       >
-        <MenuItem
-          bsClass="dropdown"
-          disabled={false}
-          divider={false}
-          header={false}
-        >
-          Create new QList
-        </MenuItem>
+        <ForwardRef(ContextTransform)>
+          Create a new QList
+        </ForwardRef(ContextTransform)>
       </LinkContainer>
     </DropdownButton>
-  </ButtonGroup>
-</ButtonToolbar>
+  </ForwardRef(Bootstrap(ButtonGroup))>
+</ForwardRef(Bootstrap(ButtonToolbar))>
 `;

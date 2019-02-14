@@ -5,9 +5,8 @@ import { Field, reduxForm } from 'redux-form';
 import compose from 'recompose/compose';
 import withHandlers from 'recompose/withHandlers';
 
-import Button from 'react-bootstrap/lib/Button';
-import Form from 'react-bootstrap/lib/Form';
-import HelpBlock from 'react-bootstrap/lib/HelpBlock';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 import { TextareaField } from '../formElements';
 
@@ -43,9 +42,9 @@ const InterviewNotesForm = ({ handleSubmit, onSubmit }) => (
       placeholder="Add notes about how it is going"
     />
 
-    <HelpBlock>Before Finish be sure that you asked all questions!</HelpBlock>
+    <p>Before Finish be sure that you asked all questions!</p>
 
-    <Button type="submit" bsStyle="primary" bsSize="large">
+    <Button type="submit" variant="primary" size="lg">
       Finish Interview
     </Button>
   </Form>
