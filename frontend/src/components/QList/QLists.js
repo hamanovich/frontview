@@ -6,13 +6,11 @@ import FontAwesome from 'react-fontawesome';
 import map from 'lodash/map';
 import styled from 'styled-components';
 
-import Button from 'react-bootstrap/lib/Button';
-import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
-import Badge from 'react-bootstrap/lib/Badge';
-import PageHeader from 'react-bootstrap/lib/PageHeader';
-import ListGroup from 'react-bootstrap/lib/ListGroup';
-import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
-import Modal from 'react-bootstrap/lib/Modal';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Badge from 'react-bootstrap/Badge';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Modal from 'react-bootstrap/Modal';
 
 import { getQLists, removeQList } from '../../actions/qlists';
 
@@ -67,29 +65,29 @@ class QLists extends Component {
 
     return (
       <Fragment>
-        <PageHeader>
+        <h1>
           <FontAwesome name="list-ol" /> QLists
-        </PageHeader>
+        </h1>
 
         <ListGroup>
           {qlists.length > 0
             ? map(qlists, qlist => (
-                <ListGroupItem key={qlist.slug}>
+                <ListGroup.Item key={qlist.slug}>
                   <h4>
                     <Link to={`/questions/qlist/${qlist.slug}`}>
-                      {qlist.title} <Badge>{qlist.questions.length}</Badge>
+                      {qlist.title} <Badge variant="primary">{qlist.questions.length}</Badge>
                     </Link>
                   </h4>
                   <p>{qlist.notes}</p>
                   <RemoveIcon onClick={() => this.toggleModal(qlist._id)}>
                     <FontAwesome name="trash" />
                   </RemoveIcon>
-                </ListGroupItem>
+                </ListGroup.Item>
               ))
             : 'There are no QLists found'}
         </ListGroup>
 
-        <Modal bsSize="sm" show={showModal} onHide={this.toggleModal}>
+        <Modal size="sm" show={showModal} onHide={this.toggleModal}>
           <Modal.Header closeButton>
             <Modal.Title>Are you sure?</Modal.Title>
           </Modal.Header>
@@ -98,10 +96,10 @@ class QLists extends Component {
           </Modal.Body>
           <Modal.Footer>
             <ButtonGroup>
-              <Button bsStyle="default" onClick={this.toggleModal}>
+              <Button variant="secondary" onClick={this.toggleModal}>
                 Cancel
               </Button>
-              <Button bsStyle="danger" onClick={this.remove}>
+              <Button variant="danger" onClick={this.remove}>
                 Remove
               </Button>
             </ButtonGroup>

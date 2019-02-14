@@ -3,8 +3,9 @@ import { shape, bool } from 'prop-types';
 import { Switch, Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
-import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 
 import Account from './Account';
 import AccountEdit from './AccountEdit';
@@ -17,23 +18,25 @@ import { PropsRoute } from '../../utils/helpers';
 import { UserType } from '../../propTypes';
 
 const AccountPage = ({ auth }) => (
-  <Row>
+  <Container>
     <Helmet>
-      <title>Frontview: {auth.user.username}</title>
+      <title>Frontview: Profile</title>
     </Helmet>
-    <Col md={3} sm={4}>
-      <AccountBar auth={auth} />
-    </Col>
-    <Col md={9} sm={8}>
-      <Switch>
-        <PropsRoute exact path="/me" component={Account} user={auth.user} />
-        <PropsRoute exact path="/me/edit" component={AccountEdit} user={auth.user} />
-        <PropsRoute exact path="/me/qlist/create" component={QListPage} userId={auth.user._id} />
-        <PropsRoute exact path="/me/qlists" component={QLists} userId={auth.user._id} />
-        <Redirect to="/" />
-      </Switch>
-    </Col>
-  </Row>
+    <Row>
+      <Col xl={3} sm={4}>
+        <AccountBar auth={auth} />
+      </Col>
+      <Col xl={9} sm={8}>
+        <Switch>
+          <PropsRoute exact path="/me" component={Account} user={auth.user} />
+          <PropsRoute exact path="/me/edit" component={AccountEdit} user={auth.user} />
+          <PropsRoute exact path="/me/qlist/create" component={QListPage} userId={auth.user._id} />
+          <PropsRoute exact path="/me/qlists" component={QLists} userId={auth.user._id} />
+          <Redirect to="/" />
+        </Switch>
+      </Col>
+    </Row>
+  </Container>
 );
 
 AccountPage.propTypes = {

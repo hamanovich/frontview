@@ -6,12 +6,11 @@ import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 import styled from 'styled-components';
 
-import Navbar from 'react-bootstrap/lib/Navbar';
-import Nav from 'react-bootstrap/lib/Nav';
-import NavItem from 'react-bootstrap/lib/NavItem';
-import NavDropdown from 'react-bootstrap/lib/NavDropdown';
-import MenuItem from 'react-bootstrap/lib/MenuItem';
-import Image from 'react-bootstrap/lib/Image';
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Image from 'react-bootstrap/Image';
 
 import { logout } from '../../actions/auth';
 import { getUser } from '../../actions/signup';
@@ -90,105 +89,105 @@ export class Header extends Component {
     const { auth, logout, getSearchedQuestions, addFlashMessage } = this.props;
     const userPick = (
       <span>
-        <MediaImage src={auth.user.gravatar} circle />
+        <MediaImage src={auth.user.gravatar} roundedCircle />
         {auth.user.username}
       </span>
     );
     const userLinks = (
-      <Nav pullRight>
+      <Nav>
         <NavDropdown title="Menu" id="menu-dropdown">
           <LinkContainer to="/interview">
-            <MenuItem>
+            <NavDropdown.Item>
               <FontAwesome name="id-badge" /> Interview (in progress)
-            </MenuItem>
+            </NavDropdown.Item>
           </LinkContainer>
-          <MenuItem divider />
+          <NavDropdown.Divider />
           <IndexLinkContainer to="/questions">
-            <MenuItem>Show all questions</MenuItem>
+            <NavDropdown.Item>Show all questions</NavDropdown.Item>
           </IndexLinkContainer>
           <LinkContainer to="/questions/top">
-            <MenuItem>
+            <NavDropdown.Item>
               <FontAwesome name="exclamation" /> Top 10
-            </MenuItem>
+            </NavDropdown.Item>
           </LinkContainer>
           <LinkContainer to="/questions/internet">
-            <MenuItem>
+            <NavDropdown.Item>
               <FontAwesome name="internet-explorer" /> From Internet
-            </MenuItem>
+            </NavDropdown.Item>
           </LinkContainer>
-          <MenuItem divider />
+          <NavDropdown.Divider />
           <LinkContainer to="/questions/level">
-            <MenuItem>
+            <NavDropdown.Item>
               <FontAwesome name="line-chart" /> By Levels
-            </MenuItem>
+            </NavDropdown.Item>
           </LinkContainer>
           <LinkContainer to="/questions/skill">
-            <MenuItem>
+            <NavDropdown.Item>
               <FontAwesome name="star-half-o" /> By Skills
-            </MenuItem>
+            </NavDropdown.Item>
           </LinkContainer>
           <LinkContainer to="/questions/practice">
-            <MenuItem>
+            <NavDropdown.Item>
               <FontAwesome name="keyboard-o" /> By Type
-            </MenuItem>
+            </NavDropdown.Item>
           </LinkContainer>
-          <MenuItem divider />
+          <NavDropdown.Divider />
           <LinkContainer to="/questions/add">
-            <MenuItem>
+            <NavDropdown.Item>
               <FontAwesome name="question-circle-o" /> Add new
-            </MenuItem>
+            </NavDropdown.Item>
           </LinkContainer>
         </NavDropdown>
         <NavDropdown title={userPick} id="account-dropdown">
           <IndexLinkContainer to="/me">
-            <MenuItem>
+            <NavDropdown.Item>
               <FontAwesome name="user" /> Account
-            </MenuItem>
+            </NavDropdown.Item>
           </IndexLinkContainer>
           <LinkContainer to="/me/edit">
-            <MenuItem>
+            <NavDropdown.Item>
               <FontAwesome name="pencil-square-o" /> Edit profile
-            </MenuItem>
+            </NavDropdown.Item>
           </LinkContainer>
-          <MenuItem divider />
-          <MenuItem onClick={logout}>
+          <NavDropdown.Divider />
+          <NavDropdown.Item onClick={logout}>
             <FontAwesome name="lock" /> Logout
-          </MenuItem>
+          </NavDropdown.Item>
         </NavDropdown>
       </Nav>
     );
 
     const guestLinks = (
-      <Nav pullRight>
+      <Nav>
         <LinkContainer to="/signup">
-          <NavItem>
+          <Nav.Link>
             <FontAwesome name="user-plus" /> Sign Up
-          </NavItem>
+          </Nav.Link>
         </LinkContainer>
         <LinkContainer to="/login">
-          <NavItem>
+          <Nav.Link>
             <FontAwesome name="user-circle" /> Login
-          </NavItem>
+          </Nav.Link>
         </LinkContainer>
       </Nav>
     );
 
     return (
-      <Menu inverse>
-        <Navbar.Header>
+      <Menu variant="dark" bg="dark" expand="md" sticky="top">
+        <Container>
           <Navbar.Brand>
             <Link to="/">Frontview /</Link>
           </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse>
-          <SearchForm
-            getSearchedQuestions={getSearchedQuestions}
-            addFlashMessage={addFlashMessage}
-            onSearch={this.onSearch}
-          />
-          {auth.isAuthenticated ? userLinks : guestLinks}
-        </Navbar.Collapse>
+          <Navbar.Toggle aria-controls="navbar-nav" />
+          <Navbar.Collapse id="navbar-nav">
+            <SearchForm
+              getSearchedQuestions={getSearchedQuestions}
+              addFlashMessage={addFlashMessage}
+              onSearch={this.onSearch}
+            />
+            {auth.isAuthenticated ? userLinks : guestLinks}
+          </Navbar.Collapse>
+        </Container>
       </Menu>
     );
   }

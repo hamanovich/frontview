@@ -4,15 +4,15 @@ import { Field } from 'redux-form';
 import FontAwesome from 'react-fontawesome';
 import styled from 'styled-components';
 
-import Button from 'react-bootstrap/lib/Button';
-import Col from 'react-bootstrap/lib/Col';
-import Row from 'react-bootstrap/lib/Row';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Form from 'react-bootstrap/Form';
 
 import { TextareaField } from '../../formElements';
 
 const Remove = styled(Button)`
-  margin-top: 24px;
+  margin-top: 32px;
 `;
 
 const AnswerFields = ({ fields, meta: { touched, error, submitFailed } }) => (
@@ -21,8 +21,8 @@ const AnswerFields = ({ fields, meta: { touched, error, submitFailed } }) => (
 
     {fields.map((answer, index) => (
       <Row key={answer.toString()}>
-        <FormGroup>
-          <Col xs={10}>
+        <Col xs={{ span: 10 }}>
+          <Form.Group>
             <Field
               label={`Additional answer ${index + 2}`}
               name={`${answer}.text`}
@@ -30,21 +30,21 @@ const AnswerFields = ({ fields, meta: { touched, error, submitFailed } }) => (
               rows={6}
               placeholder="Add more answers"
             />
-          </Col>
-          <Col xs={2}>
-            <Remove bsStyle="danger" onClick={() => fields.remove(index)}>
-              <FontAwesome name="times" />
-            </Remove>
-          </Col>
-        </FormGroup>
+          </Form.Group>
+        </Col>
+        <Col xs={{ span: 2 }}>
+          <Remove variant="danger" onClick={() => fields.remove(index)}>
+            <FontAwesome name="times" />
+          </Remove>
+        </Col>
       </Row>
     ))}
 
-    <FormGroup>
-      <Button bsStyle="success" onClick={() => fields.push({})}>
+    <Form.Group>
+      <Button variant="success" onClick={() => fields.push({})}>
         More Answers?
       </Button>
-    </FormGroup>
+    </Form.Group>
   </Fragment>
 );
 

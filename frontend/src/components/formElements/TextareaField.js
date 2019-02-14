@@ -1,10 +1,7 @@
 import React from 'react';
 import { shape, string, bool, number } from 'prop-types';
 
-import HelpBlock from 'react-bootstrap/lib/HelpBlock';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import Form from 'react-bootstrap/Form';
 
 const TextareaField = ({
   input,
@@ -12,29 +9,32 @@ const TextareaField = ({
   placeholder,
   rows,
   readonly,
+  className,
   feedback,
   defaultValue,
   errorsVisible,
   meta: { touched, error, warning },
 }) => (
-  <FormGroup
-    controlId={`label-${input.name}`}
-    validationState={touched && error ? 'error' : touched && !error ? 'success' : null}>
-    <ControlLabel>{label}</ControlLabel>
-    <FormControl
+  <Form.Group>
+    <Form.Label htmlFor={`label-${input.name}`}>{label}</Form.Label>
+    <Form.Control
       {...input}
-      componentClass="textarea"
+      as="textarea"
       placeholder={placeholder}
       id={`label-${input.name}`}
       rows={rows}
+      className={className}
       readOnly={readonly}
+      isInvalid={touched && error}
+      isValid={touched && !error}
       value={defaultValue || input.value}
     />
-    {feedback && <FormControl.Feedback />}
+    {feedback && <Form.Control.Feedback />}
     {errorsVisible &&
       touched &&
-      ((error && <HelpBlock>{error}</HelpBlock>) || (warning && <span>{warning}</span>))}
-  </FormGroup>
+      ((error && <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>) ||
+        (warning && <Form.Control.Feedback type="invalid">{warning}</Form.Control.Feedback>))}
+  </Form.Group>
 );
 
 TextareaField.propTypes = {
@@ -47,6 +47,7 @@ TextareaField.propTypes = {
   readonly: bool,
   feedback: bool,
   placeholder: string,
+  className: string,
   errorsVisible: bool,
   meta: shape({
     touched: bool,
@@ -61,6 +62,7 @@ TextareaField.defaultProps = {
   readonly: false,
   feedback: true,
   errorsVisible: true,
+  className: '',
   defaultValue: '',
   placeholder: '',
 };

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import isEmpty from 'lodash/isEmpty';
 
-import IconLoader from '../components/layout/IconLoader';
+import IconLoader from '../components/shared/IconLoader';
 
 export default prop => ComposedComponent =>
   class Loader extends Component {

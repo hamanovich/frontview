@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import axios from 'axios';
 
-import IconLoader from '../components/layout/IconLoader';
+import IconLoader from '../components/shared/IconLoader';
 
 import Authorization from './Authorization';
 

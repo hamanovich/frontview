@@ -1,27 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<HomePage/> renders <HomePage /> component 1`] = `
-<Jumbotron
-  bsClass="jumbotron"
-  componentClass="div"
->
-  <h1>
-    Welcome, friend!
-  </h1>
-  <p
-    className="lead"
-  >
-    The goal of this project is to provide a convenient way to prepare and conduct technical interview in Frontend discipline.
-  </p>
-  <p
-    className="lead"
-  >
-    <Link
-      replace={false}
-      to="/faq"
+<ForwardRef(Bootstrap(Jumbotron))>
+  <ForwardRef(Bootstrap(Container))>
+    <h1
+      className="display-3"
     >
-      Learn More
-    </Link>
-  </p>
-</Jumbotron>
+      Welcome, friend!
+    </h1>
+    <p
+      className="lead"
+    >
+      The goal of this project is to provide a convenient way to prepare and conduct technical interview in Frontend discipline.
+    </p>
+    <p
+      className="lead"
+    >
+      <Link
+        replace={false}
+        to="/faq"
+      >
+        Learn More
+      </Link>
+    </p>
+  </ForwardRef(Bootstrap(Container))>
+</ForwardRef(Bootstrap(Jumbotron))>
 `;

@@ -5,16 +5,14 @@ import map from 'lodash/map';
 import FontAwesome from 'react-fontawesome';
 import { Helmet } from 'react-helmet';
 
-import PageHeader from 'react-bootstrap/lib/PageHeader';
-import ListGroup from 'react-bootstrap/lib/ListGroup';
-import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
-import Label from 'react-bootstrap/lib/Label';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Badge from 'react-bootstrap/Badge';
 
 import { QuestionType } from '../../propTypes';
 
 import Loader from '../../utils/Loader';
 
-const LabelGroup = styled.span`
+const BadgeGroup = styled.span`
   .label {
     margin: 0 3px;
 
@@ -39,41 +37,41 @@ const QuestionsTop = ({ questions }) => (
     <Helmet>
       <title>Frontview: Top 10 Questions</title>
     </Helmet>
-    <PageHeader>
+    <h1>
       <FontAwesome name="exclamation" /> Top 10 Questions
-    </PageHeader>
+    </h1>
 
     <ListGroup>
       {map(questions, (question, index) => (
-        <ListGroupItem
-          header={`${index + 1}. ${question.question}`}
-          href={`/questions/${question.slug}/one`}
-          key={question.slug}>
-          <LabelGroup>
-            <Label bsStyle="warning">{question.practice}</Label>
-          </LabelGroup>
+        <ListGroup.Item action href={`/questions/${question.slug}/one`} key={question.slug}>
+          <h4>
+            {index + 1}. {question.question}
+          </h4>
+          <BadgeGroup>
+            <Badge variant="warning">{question.practice}</Badge>
+          </BadgeGroup>
           {' | '}
-          <LabelGroup>
+          <BadgeGroup>
             {question.level &&
               map(question.level, level => (
-                <Label bsStyle="primary" key={level}>
+                <Badge variant="primary" key={level}>
                   {level}
-                </Label>
+                </Badge>
               ))}
-          </LabelGroup>
+          </BadgeGroup>
           {' | '}
-          <LabelGroup>
+          <BadgeGroup>
             {question.skill &&
               map(question.skill, skill => (
-                <Label bsStyle="primary" key={skill}>
+                <Badge variant="primary" key={skill}>
                   {skill}
-                </Label>
+                </Badge>
               ))}
-          </LabelGroup>
+          </BadgeGroup>
           <LabelVoted>
             <FontAwesome name="thumbs-o-up" /> {question.votes.like.length}
           </LabelVoted>
-        </ListGroupItem>
+        </ListGroup.Item>
       ))}
     </ListGroup>
   </Fragment>

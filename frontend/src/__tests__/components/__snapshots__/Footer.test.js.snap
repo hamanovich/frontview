@@ -4,12 +4,11 @@ exports[`<Footer/> renders <Footer /> component 1`] = `
 <styled.footer>
   © Front View 
   <br />
-  <Badge
-    bsClass="badge"
-    pullRight={false}
+  <ForwardRef(Bootstrap(Badge))
+    variant="info"
   >
     v1.0.0
-  </Badge>
+  </ForwardRef(Bootstrap(Badge))>
   <br />
   <a
     href="mailto:hamanovich@gmail.com"

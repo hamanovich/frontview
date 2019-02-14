@@ -8,22 +8,19 @@ import FontAwesome from 'react-fontawesome';
 import format from 'date-fns/format';
 import mediumZoom from 'medium-zoom';
 
-import Button from 'react-bootstrap/lib/Button';
-import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
-import Label from 'react-bootstrap/lib/Label';
-import Well from 'react-bootstrap/lib/Well';
-import Modal from 'react-bootstrap/lib/Modal';
-import Panel from 'react-bootstrap/lib/Panel';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Badge from 'react-bootstrap/Badge';
+import Modal from 'react-bootstrap/Modal';
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
 
-import Toolbar from '../layout/Toolbar';
+import Toolbar from '../shared/Toolbar';
 import ZoomImage from '../shared/ZoomImage';
 import Loader from '../../utils/Loader';
 
 import { QuestionType, UserType, QListType } from '../../propTypes';
-import { Badge, LinkStyled, ApproveBar, DropThumb, DropThumbs } from './style';
+import { BadgeStyled, LinkStyled, ApproveBar, DropThumb, DropThumbs } from './style';
 
 class Question extends Component {
   static propTypes = {
@@ -84,14 +81,14 @@ class Question extends Component {
     const { answerField, textField } = this.state;
 
     const panelHeader = (
-      <div className="clearfix">
-        <h3 className="panel-title pull-left" onClick={this.open(question.question, 'question')}>
+      <div className="justify-content-between d-flex align-items-center">
+        <h4 onClick={this.open(question.question, 'question')} className="mb-0">
           <MarkdownRenderer markdown={question.question} />
-        </h3>
-        <div className="pull-right">
+        </h4>
+        <div>
           {map(question.level, level => (
             <Link to={`/questions/level/${level}`} key={level}>
-              <Badge bsStyle="primary">{level}</Badge>
+              <BadgeStyled variant="primary">{level}</BadgeStyled>
             </Link>
           ))}
         </div>
@@ -99,18 +96,17 @@ class Question extends Component {
     );
 
     const panelFooter = (
-      <div className="clearfix">
-        <h5 className="pull-left">
-          <strong>Skill</strong>:
+      <div className="justify-content-between d-flex align-items-center">
+        <h6 className="mb-0">
+          <strong>Skill</strong>:{' '}
           {map(question.skill, skill => (
             <Link to={`/questions/skill/${skill}`} key={skill}>
-              {' '}
               {skill}
             </Link>
           ))}
-        </h5>
-        <LinkStyled to={`/questions/practice/${question.practice}`} className="pull-right">
-          <Label bsStyle="warning">{question.practice}</Label>
+        </h6>
+        <LinkStyled to={`/questions/practice/${question.practice}`}>
+          <Badge variant="warning">{question.practice}</Badge>
         </LinkStyled>
       </div>
     );
@@ -131,8 +127,8 @@ class Question extends Component {
           </h5>
           {!question.isVerified && user.role === 'admin' && (
             <Button
-              bsStyle="success"
-              bsSize="sm"
+              variant="success"
+              size="sm"
               onClick={() => {
                 approveQuestion(question._id);
               }}>
@@ -141,9 +137,9 @@ class Question extends Component {
           )}
         </ApproveBar>
 
-        <Panel bsStyle={question.isVerified ? 'success' : 'danger'}>
-          <Panel.Heading>{panelHeader}</Panel.Heading>
-          <Panel.Body>
+        <Card variant={question.isVerified ? 'success' : 'danger'} className="question">
+          <Card.Header>{panelHeader}</Card.Header>
+          <Card.Body>
             <div onClick={this.open(question.answer, 'answer')}>
               <MarkdownRenderer markdown={question.answer} />
             </div>
@@ -169,13 +165,14 @@ class Question extends Component {
             </DropThumbs>
             <hr />
             {question.notes && (
-              <Well onClick={this.open(question.notes, 'notes')}>
-                <MarkdownRenderer markdown={question.notes} />
-              </Well>
+              <MarkdownRenderer
+                markdown={question.notes}
+                onClick={this.open(question.notes, 'notes')}
+              />
             )}
             {question.author && (
               <small>
-                <strong>Author</strong>:
+                <strong>Author</strong>:{' '}
                 <Link to={`/questions/author/${question.author.username}`}>
                   {question.author.username}
                 </Link>
@@ -190,7 +187,7 @@ class Question extends Component {
             <hr />
             {question.author &&
               (user.username === question.author.username || user.role === 'admin') && (
-                <ButtonGroup bsSize="small" className="pull-right">
+                <ButtonGroup size="sm" className="pull-right">
                   <Link to={`/questions/${question._id}/edit`} className="btn btn-warning">
                     Edit
                   </Link>
@@ -198,20 +195,21 @@ class Question extends Component {
               )}
             {user.username && <Toolbar question={question} user={user} qlists={qlists} />}
 
-            <Modal show={this.state.showModal} onHide={this.close}>
+            <Modal show={this.state.showModal} onHide={this.close} centered>
               <Modal.Header closeButton>
                 <Modal.Title>
-                  Change value:
-                  <strong>{textField}</strong>
+                  Change value: <strong>{textField}</strong>
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <form>
-                  <FormGroup controlId="formControlsTextarea">
-                    <ControlLabel>Change Field and press Update button</ControlLabel>
-                    <FormControl
+                  <Form.Group>
+                    <Form.Label htmlFor="formControlsTextarea">
+                      Change Field and press Update button
+                    </Form.Label>
+                    <Form.Control
                       name={textField}
-                      componentClass="textarea"
+                      as="textarea"
                       inputRef={ref => {
                         this.textField = ref;
                       }}
@@ -220,9 +218,9 @@ class Question extends Component {
                       }
                       rows="10"
                     />
-                  </FormGroup>
+                  </Form.Group>
                   <Button
-                    bsStyle="primary"
+                    variant="primary"
                     onClick={() => {
                       editQuestionField(question._id, textField, this.textField.value);
                       this.close();
@@ -232,9 +230,9 @@ class Question extends Component {
                 </form>
               </Modal.Body>
             </Modal>
-          </Panel.Body>
-          <Panel.Footer>{panelFooter}</Panel.Footer>
-        </Panel>
+          </Card.Body>
+          <Card.Footer>{panelFooter}</Card.Footer>
+        </Card>
       </Fragment>
     );
   }

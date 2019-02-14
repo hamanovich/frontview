@@ -3,13 +3,11 @@ import { arrayOf, shape, string, func } from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import map from 'lodash/map';
 
-import Button from 'react-bootstrap/lib/Button';
-import Panel from 'react-bootstrap/lib/Panel';
-import Form from 'react-bootstrap/lib/Form';
-import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import validate from '../../validations/candidate';
 
@@ -98,16 +96,16 @@ class InterviewCandidates extends Component {
       <Fragment>
         <h2>Add a Candidate</h2>
         <p>
-          <Button bsSize="small" onClick={this.chooseFromList}>
+          <Button size="sm" onClick={this.chooseFromList}>
             or choose one
           </Button>
         </p>
 
-        <Panel id="collapsible-panel-1" expanded={this.state.panel} onToggle={() => {}}>
-          <Panel.Collapse>
-            <Panel.Body>
-              <FormGroup>
-                <ControlLabel>Choose candidate from the list below:</ControlLabel>
+        <Card id="collapsible-panel-1" expanded={this.state.panel} onToggle={() => {}}>
+          <Card.Collapse>
+            <Card.Body>
+              <Form.Group>
+                <Form.Label>Choose candidate from the list below:</Form.Label>
                 <Field
                   name="candidates"
                   component="select"
@@ -118,21 +116,21 @@ class InterviewCandidates extends Component {
                   <option value="">Select a candidate...</option>
                   {chooseCandidates}
                 </Field>
-              </FormGroup>
-              <Button bsStyle="success" onClick={this.chooseOne}>
+              </Form.Group>
+              <Button variant="success" onClick={this.chooseOne}>
                 Choose
               </Button>
-            </Panel.Body>
-          </Panel.Collapse>
-        </Panel>
+            </Card.Body>
+          </Card.Collapse>
+        </Card>
 
-        <Panel
+        <Card
           id="collapsible-panel-2"
           expanded={!this.state.panel}
           defaultExpanded
           onToggle={() => {}}>
-          <Panel.Collapse>
-            <Panel.Body>
+          <Card.Collapse>
+            <Card.Body>
               <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
                 <Row>
                   <Col sm={6}>
@@ -194,13 +192,13 @@ class InterviewCandidates extends Component {
                   placeholder="Add some notes (optional)"
                 />
 
-                <Button type="submit" bsStyle="primary" bsSize="large" disabled={isLoading}>
+                <Button type="submit" variant="primary" size="lg" disabled={isLoading}>
                   Register a candidate
                 </Button>
               </Form>
-            </Panel.Body>
-          </Panel.Collapse>
-        </Panel>
+            </Card.Body>
+          </Card.Collapse>
+        </Card>
       </Fragment>
     );
   }

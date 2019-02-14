@@ -6,13 +6,12 @@ import FontAwesome from 'react-fontawesome';
 import map from 'lodash/map';
 import shortid from 'shortid';
 
-import Button from 'react-bootstrap/lib/Button';
-import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
-import Form from 'react-bootstrap/lib/Form';
-import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
-import Modal from 'react-bootstrap/lib/Modal';
-import PageHeader from 'react-bootstrap/lib/PageHeader';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Modal from 'react-bootstrap/Modal';
 
 import AnswerFields from './AnswerFields';
 import { TextField, TextareaField, RadioButton, SelectField } from '../../formElements';
@@ -279,17 +278,17 @@ class AddQuestion extends Component {
 
     return (
       <Row>
-        <Col md={6} mdOffset={3}>
+        <Col xl={{ span: 6, offset: 3 }} md={{ span: 8, offset: 2 }}>
           <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
-            <PageHeader>
+            <h1>
               <FontAwesome name="question-circle-o" />{' '}
               {_id ? 'Edit question' : 'Add a new question'}
-            </PageHeader>
+            </h1>
 
             {!_id && (
               <Fragment>
                 <p>
-                  <Button bsStyle="info" onClick={this.toggleDropzone}>
+                  <Button variant="info" onClick={this.toggleDropzone}>
                     {dropzone === true
                       ? 'Add a new question manually'
                       : 'Import questions from .json file'}
@@ -421,7 +420,7 @@ class AddQuestion extends Component {
                     <DropThumb key={shortid.generate()}>
                       <div className="dropthumb__inner">
                         <img src={img} alt="" />
-                        <Button bsStyle="danger" bsSize="sm" onClick={() => this.removeThumb(img)}>
+                        <Button variant="danger" size="sm" onClick={() => this.removeThumb(img)}>
                           <FontAwesome name="times" />
                         </Button>
                       </div>
@@ -435,7 +434,7 @@ class AddQuestion extends Component {
                   component={TextareaField}
                   placeholder="Add some notes, if needed"
                 />
-                <Button type="submit" bsStyle="info" bsSize="large" disabled={isLoading}>
+                <Button type="submit" variant="info" size="lg" disabled={isLoading}>
                   {_id ? (
                     <span>
                       Update <FontAwesome name="refresh" />
@@ -446,11 +445,11 @@ class AddQuestion extends Component {
                 </Button>
                 {_id && (
                   <div className="pull-right">
-                    <Button bsStyle="danger" onClick={this.toggleRemoveModal}>
+                    <Button variant="danger" onClick={this.toggleRemoveModal}>
                       <FontAwesome name="trash-o" /> Remove
                     </Button>
 
-                    <Modal bsSize="sm" show={showRemoveModal} onHide={this.toggleRemoveModal}>
+                    <Modal size="sm" show={showRemoveModal} onHide={this.toggleRemoveModal}>
                       <Modal.Header closeButton>
                         <Modal.Title>Are you sure?</Modal.Title>
                       </Modal.Header>
@@ -459,10 +458,10 @@ class AddQuestion extends Component {
                       </Modal.Body>
                       <Modal.Footer>
                         <ButtonGroup>
-                          <Button bsStyle="default" onClick={this.toggleRemoveModal}>
+                          <Button variant="secondary" onClick={this.toggleRemoveModal}>
                             Cancel
                           </Button>
-                          <Button bsStyle="danger" onClick={this.remove(_id)}>
+                          <Button variant="danger" onClick={this.remove(_id)}>
                             Remove
                           </Button>
                         </ButtonGroup>
@@ -482,7 +481,7 @@ class AddQuestion extends Component {
 const mapStateToProps = (state, props) => ({
   initialValues: props.match.params._id
     ? state.questions.find(q => q._id === props.match.params._id)
-    : {},
+    : null,
   userId: state.auth.user._id,
 });
 

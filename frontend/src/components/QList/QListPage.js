@@ -2,15 +2,13 @@ import React, { Fragment } from 'react';
 import { string } from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
-import PageHeader from 'react-bootstrap/lib/PageHeader';
-
 import QListForm from './QListForm';
 
 const QListPage = ({ userId }) => (
   <Fragment>
-    <PageHeader>
+    <h1>
       <FontAwesome name="list-ul" /> Create new Question&apos;s List (QList)
-    </PageHeader>
+    </h1>
 
     <QListForm userId={userId} />
   </Fragment>

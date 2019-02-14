@@ -4,8 +4,9 @@ import { Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
-import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 
 import Login from './Login';
 import Forgot from './Forgot';
@@ -18,28 +19,30 @@ import { addFlashMessage } from '../../actions/flash';
 import { PropsRoute } from '../../utils/helpers';
 
 export const LoginPage = ({ login, forgot, resetToken, getReset, getUser, addFlashMessage }) => (
-  <Row>
+  <Container>
     <Helmet>
       <title>Frontview: Please, login</title>
     </Helmet>
-    <Col md={6} mdOffset={3}>
-      <Switch>
-        <PropsRoute exact path="/login" component={Login} login={login} getUser={getUser} />
+    <Row>
+      <Col xl={{ span: 6, offset: 3 }} md={{ span: 8, offset: 2 }}>
+        <Switch>
+          <PropsRoute exact path="/login" component={Login} login={login} getUser={getUser} />
 
-        <PropsRoute exact path="/login/forgot" component={Forgot} forgot={forgot} />
+          <PropsRoute exact path="/login/forgot" component={Forgot} forgot={forgot} />
 
-        <PropsRoute
-          path="/login/reset/:token"
-          component={Reset}
-          resetToken={resetToken}
-          getReset={getReset}
-          addFlashMessage={addFlashMessage}
-        />
+          <PropsRoute
+            path="/login/reset/:token"
+            component={Reset}
+            resetToken={resetToken}
+            getReset={getReset}
+            addFlashMessage={addFlashMessage}
+          />
 
-        <Redirect to="/login" />
-      </Switch>
-    </Col>
-  </Row>
+          <Redirect to="/login" />
+        </Switch>
+      </Col>
+    </Row>
+  </Container>
 );
 
 LoginPage.propTypes = {

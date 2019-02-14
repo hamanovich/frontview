@@ -28,7 +28,7 @@ describe('<Flash/>', () => {
   });
 
   describe('when clicking close button', () => {
-    beforeEach(() => component.find('Button').simulate('click'));
+    beforeEach(() => component.find('ForwardRef(Bootstrap(Button))').simulate('click'));
 
     it('invokes the close callback', () => {
       expect(props.close).toHaveBeenCalled();

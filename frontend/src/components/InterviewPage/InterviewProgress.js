@@ -12,15 +12,15 @@ import lifecycle from 'recompose/lifecycle';
 import withState from 'recompose/withState';
 import withHandlers from 'recompose/withHandlers';
 
-import Tabs from 'react-bootstrap/lib/Tabs';
-import Tab from 'react-bootstrap/lib/Tab';
-import Label from 'react-bootstrap/lib/Label';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
+import Badge from 'react-bootstrap/Badge';
 
 import InterviewNotesForm from './InterviewNotesForm';
 
 import { QListType, CandidateType } from '../../propTypes';
 
-const Badge = styled(Label)`
+const BadgeStyled = styled(Badge)`
   margin: 0 3px;
 `;
 
@@ -79,14 +79,14 @@ const InterviewProgress = ({ step, provideFeedback, location, history, onSelectS
 
       <p>
         {map(question.skill, skill => (
-          <Badge bsStyle="warning" key={skill}>
+          <BadgeStyled variant="warning" key={skill}>
             {skill}
-          </Badge>
+          </BadgeStyled>
         ))}
         {map(question.level, level => (
-          <Badge bsStyle="primary" key={level}>
+          <BadgeStyled variant="primary" key={level}>
             {level}
-          </Badge>
+          </BadgeStyled>
         ))}
       </p>
       <p>

@@ -2,19 +2,13 @@
 
 exports[`<Login/> renders <Login /> component 1`] = `
 <Fragment>
-  <PageHeader
-    bsClass="page-header"
-  >
+  <h1>
     <FontAwesome
       name="user-circle-o"
     />
      Please, login
-  </PageHeader>
-  <Form
-    bsClass="form"
-    componentClass="form"
-    horizontal={false}
-    inline={false}
+  </h1>
+  <ForwardRef(Bootstrap(Form))
     noValidate={true}
     onSubmit={[MockFunction]}
   >
@@ -33,64 +27,46 @@ exports[`<Login/> renders <Login /> component 1`] = `
       placeholder="Come up with a password"
       type="password"
     />
-    <FormGroup
-      bsClass="form-group"
-    >
-      <FormControlStatic
-        bsClass="form-control-static"
-        componentClass="p"
+    <ForwardRef(Bootstrap(FormGroup))>
+      <Link
+        replace={false}
+        to="/login/forgot"
       >
-        <Link
-          replace={false}
-          to="/login/forgot"
-        >
-          Forgot password?
-        </Link>
-      </FormControlStatic>
-    </FormGroup>
-    <Button
-      active={false}
-      block={false}
-      bsClass="btn"
-      bsSize="large"
-      bsStyle="primary"
+        Forgot password?
+      </Link>
+    </ForwardRef(Bootstrap(FormGroup))>
+    <ForwardRef(Bootstrap(Button))
       disabled={false}
+      size="lg"
       type="submit"
+      variant="primary"
     >
       Login 
       <FontAwesome
         name="sign-in"
       />
-    </Button>
-  </Form>
+    </ForwardRef(Bootstrap(Button))>
+  </ForwardRef(Bootstrap(Form))>
 </Fragment>
 `;
 
 exports[`<Login/> renders <Login /> component with error state 1`] = `
 <Fragment>
-  <PageHeader
-    bsClass="page-header"
-  >
+  <h1>
     <FontAwesome
       name="user-circle-o"
     />
      Please, login
-  </PageHeader>
-  <Form
-    bsClass="form"
-    componentClass="form"
-    horizontal={false}
-    inline={false}
+  </h1>
+  <ForwardRef(Bootstrap(Form))
     noValidate={true}
     onSubmit={[MockFunction]}
   >
-    <Alert
-      bsClass="alert"
-      bsStyle="danger"
-      closeLabel="Close alert"
+    <ForwardRef
+      variant="danger"
     >
       Test Error
-    </Alert>
+    </ForwardRef>
     <Field
       component={[Function]}
       htmlFor="identifier"
@@ -106,35 +82,25 @@ exports[`<Login/> renders <Login /> component with error state 1`] = `
       placeholder="Come up with a password"
       type="password"
     />
-    <FormGroup
-      bsClass="form-group"
-    >
-      <FormControlStatic
-        bsClass="form-control-static"
-        componentClass="p"
+    <ForwardRef(Bootstrap(FormGroup))>
+      <Link
+        replace={false}
+        to="/login/forgot"
       >
-        <Link
-          replace={false}
-          to="/login/forgot"
-        >
-          Forgot password?
-        </Link>
-      </FormControlStatic>
-    </FormGroup>
-    <Button
-      active={false}
-      block={false}
-      bsClass="btn"
-      bsSize="large"
-      bsStyle="primary"
+        Forgot password?
+      </Link>
+    </ForwardRef(Bootstrap(FormGroup))>
+    <ForwardRef(Bootstrap(Button))
       disabled={false}
+      size="lg"
       type="submit"
+      variant="primary"
     >
       Login 
       <FontAwesome
         name="sign-in"
       />
-    </Button>
-  </Form>
+    </ForwardRef(Bootstrap(Button))>
+  </ForwardRef(Bootstrap(Form))>
 </Fragment>
 `;

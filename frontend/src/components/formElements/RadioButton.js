@@ -2,27 +2,29 @@ import React from 'react';
 import { arrayOf, shape, string, bool } from 'prop-types';
 import map from 'lodash/map';
 
-import HelpBlock from 'react-bootstrap/lib/HelpBlock';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import Radio from 'react-bootstrap/lib/Radio';
+import Form from 'react-bootstrap/Form';
 
 const RadioButton = ({ input, label, options, inline, meta: { touched, error, warning } }) => (
-  <FormGroup validationState={touched && error ? 'error' : touched && !error ? 'success' : null}>
-    <ControlLabel>{label}</ControlLabel>
+  <Form.Group>
+    <Form.Label>{label}</Form.Label>
     {map(options, o => (
-      <Radio
+      <Form.Check
         {...input}
         id={o.value}
         key={o.value}
         value={o.value}
         inline={inline}
-        checked={input.value === o.value}>
-        {o.title}
-      </Radio>
+        type="radio"
+        isInvalid={touched && error}
+        isValid={touched && !error}
+        label={o.title}
+        checked={input.value === o.value}
+      />
     ))}
-    {touched && ((error && <HelpBlock>{error}</HelpBlock>) || (warning && <span>{warning}</span>))}
-  </FormGroup>
+    {touched &&
+      ((error && <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>) ||
+        (warning && <Form.Control.Feedback type="invalid">{warning}</Form.Control.Feedback>))}
+  </Form.Group>
 );
 
 RadioButton.propTypes = {

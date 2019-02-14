@@ -8,12 +8,9 @@ import compose from 'recompose/compose';
 import withState from 'recompose/withState';
 import withHandlers from 'recompose/withHandlers';
 
-import Alert from 'react-bootstrap/lib/Alert';
-import PageHeader from 'react-bootstrap/lib/PageHeader';
-import Button from 'react-bootstrap/lib/Button';
-import Form from 'react-bootstrap/lib/Form';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import FormControl from 'react-bootstrap/lib/FormControl';
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 import { TextField } from '../formElements';
 
@@ -58,12 +55,12 @@ const enhance = compose(
 
 export const Login = ({ handleSubmit, onSubmit, state }) => (
   <Fragment>
-    <PageHeader>
+    <h1>
       <FontAwesome name="user-circle-o" /> Please, login
-    </PageHeader>
+    </h1>
 
     <Form onSubmit={handleSubmit(onSubmit)} noValidate>
-      {state.error && <Alert bsStyle="danger">{state.error}</Alert>}
+      {state.error && <Alert variant="danger">{state.error}</Alert>}
       <Field
         label="Username / Email*:"
         component={TextField}
@@ -79,12 +76,10 @@ export const Login = ({ handleSubmit, onSubmit, state }) => (
         name="password"
         placeholder="Come up with a password"
       />
-      <FormGroup>
-        <FormControl.Static>
-          <Link to="/login/forgot">Forgot password?</Link>
-        </FormControl.Static>
-      </FormGroup>
-      <Button type="submit" bsStyle="primary" bsSize="large" disabled={state.isLoading}>
+      <Form.Group>
+        <Link to="/login/forgot">Forgot password?</Link>
+      </Form.Group>
+      <Button type="submit" variant="primary" size="lg" disabled={state.isLoading}>
         Login <FontAwesome name="sign-in" />
       </Button>
     </Form>

@@ -7,10 +7,10 @@ import withHandlers from 'recompose/withHandlers';
 import lifecycle from 'recompose/lifecycle';
 import pure from 'recompose/pure';
 
-import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
-import Button from 'react-bootstrap/lib/Button';
-import Form from 'react-bootstrap/lib/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 import { TextField, TextareaField } from '../formElements';
 
@@ -70,7 +70,7 @@ const CommentForm = ({ handleSubmit, onSubmit }) => (
           placeholder="Put your comment about this question"
         />
 
-        <Button type="submit" bsStyle="info" bsSize="large">
+        <Button type="submit" variant="info" size="lg">
           Add a Comment
         </Button>
       </Form>

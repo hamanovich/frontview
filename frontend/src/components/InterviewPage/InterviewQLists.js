@@ -3,10 +3,9 @@ import { arrayOf, shape, string, func } from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import map from 'lodash/map';
 
-import Button from 'react-bootstrap/lib/Button';
-import Panel from 'react-bootstrap/lib/Panel';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
 
 import QListForm from '../QList/QListForm';
 
@@ -89,18 +88,18 @@ class InterviewQLists extends Component {
         <h2>Add a QList</h2>
 
         <p className="text-info">
-          If you decide to create new QList. Don&apos;t forget to add questions into it.
+          If you decide to create a new QList, don&apos;t forget to add questions into it.
         </p>
 
         <p>
-          <Button bsSize="small" onClick={this.chooseFromList}>
+          <Button size="sm" onClick={this.chooseFromList}>
             or choose one
           </Button>
         </p>
 
-        <Panel id="collapsible-panel-1" expanded={this.state.panel} onToggle={() => {}}>
-          <FormGroup>
-            <ControlLabel>Choose QList from the list below:</ControlLabel>
+        <Card id="collapsible-panel-1" expanded={this.state.panel} onToggle={() => {}}>
+          <Form.Group>
+            <Form.Label>Choose QList from the list below:</Form.Label>
             <Field
               name="qlists"
               component="select"
@@ -111,15 +110,15 @@ class InterviewQLists extends Component {
               <option value="">Select a QList...</option>
               {chooseQLists}
             </Field>
-          </FormGroup>
-          <Button bsStyle="success" onClick={this.chooseOne}>
+          </Form.Group>
+          <Button variant="success" onClick={this.chooseOne}>
             Choose
           </Button>
-        </Panel>
+        </Card>
 
-        <Panel id="collapsible-panel-2" expanded={!this.state.panel} onToggle={() => {}}>
+        <Card id="collapsible-panel-2" expanded={!this.state.panel} onToggle={() => {}}>
           <QListForm userId={userId} />
-        </Panel>
+        </Card>
       </Fragment>
     );
   }

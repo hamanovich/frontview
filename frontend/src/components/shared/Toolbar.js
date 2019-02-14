@@ -5,11 +5,11 @@ import { LinkContainer } from 'react-router-bootstrap';
 import FontAwesome from 'react-fontawesome';
 import map from 'lodash/map';
 
-import Button from 'react-bootstrap/lib/Button';
-import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
-import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
-import DropdownButton from 'react-bootstrap/lib/DropdownButton';
-import MenuItem from 'react-bootstrap/lib/MenuItem';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 import { voteQuestion } from '../../actions/questions';
 import { qlistAddQuestion } from '../../actions/qlists';
@@ -18,35 +18,38 @@ import { QuestionType, QListType } from '../../propTypes';
 
 export const Toolbar = ({ user, question, voteQuestion, qlistAddQuestion, qlists }) => (
   <ButtonToolbar>
-    <ButtonGroup bsSize="small">
+    <ButtonGroup size="sm">
       <Button
-        bsStyle="success"
+        variant="success"
         active={question.votes.like.includes(user._id)}
         onClick={voteQuestion(question, 'like', user._id)}>
         <FontAwesome name="thumbs-up" /> {question.votes.like.length}
       </Button>
 
       <Button
-        bsStyle="danger"
+        variant="danger"
         active={question.votes.dislike.includes(user._id)}
         onClick={voteQuestion(question, 'dislike', user._id)}>
         <FontAwesome name="thumbs-down" /> {question.votes.dislike.length}
       </Button>
     </ButtonGroup>
 
-    <ButtonGroup bsSize="small">
-      <DropdownButton bsSize="small" bsStyle="info" title={<FontAwesome name="star" />} id="qlist">
+    <ButtonGroup size="sm">
+      <DropdownButton size="sm" variant="info" title={<FontAwesome name="star" />} id="qlist">
         {map(qlists, (qlist, index) => (
-          <MenuItem eventKey={index} key={qlist._id} onClick={qlistAddQuestion(qlist, question)}>
+          <Dropdown.Item
+            eventKey={index}
+            key={qlist._id}
+            onClick={qlistAddQuestion(qlist, question)}>
             {qlist.title}
             {map(qlist.questions, q => q._id).includes(question._id) && (
               <FontAwesome name="check" />
             )}
-          </MenuItem>
+          </Dropdown.Item>
         ))}
-        <MenuItem divider />
+        {qlists.length > 0 && <Dropdown.Divider />}
         <LinkContainer to="/me/qlist/create">
-          <MenuItem>Create new QList</MenuItem>
+          <Dropdown.Item>Create a new QList</Dropdown.Item>
         </LinkContainer>
       </DropdownButton>
     </ButtonGroup>
