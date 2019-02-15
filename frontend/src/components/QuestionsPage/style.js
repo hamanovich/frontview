@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Dropzone from 'react-dropzone';
 import { Link } from 'react-router-dom';
 
 import Badge from 'react-bootstrap/Badge';
@@ -22,12 +21,12 @@ export const ApproveBar = styled('div')`
   }
 `;
 
-export const DropMe = styled(Dropzone)`
+export const DropMe = styled.div`
   border-radius: 4px;
   border: 1px dashed #ccc;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   cursor: pointer;
-  padding: 3rem 2rem 5rem;
+  padding: 2rem 2rem 3rem;
 
   &:hover,
   &:focus-within {

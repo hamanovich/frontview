@@ -36,7 +36,7 @@ const FlashItem = styled(Alert)`
   }
 
   + .alert {
-    margin-top: 6rem;
+    margin-top: 4rem;
 
     + .alert {
       margin-top: 12rem;

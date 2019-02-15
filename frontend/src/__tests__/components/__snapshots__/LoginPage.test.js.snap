@@ -27,21 +27,96 @@ exports[`<LoginPage/> renders <LoginPage /> component 1`] = `
     >
       <Switch>
         <PropsRoute
-          component={[Function]}
+          component={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "defaultProps": Object {
+                "destroyOnUnmount": true,
+                "enableReinitialize": false,
+                "forceUnregisterOnUnmount": false,
+                "form": "Login",
+                "getFormState": [Function],
+                "keepDirtyOnReinitialize": false,
+                "persistentSubmitErrors": false,
+                "pure": true,
+                "shouldAsyncValidate": [Function],
+                "shouldError": [Function],
+                "shouldValidate": [Function],
+                "shouldWarn": [Function],
+                "touchOnBlur": true,
+                "touchOnChange": false,
+                "updateUnregisteredFields": false,
+                "validate": [Function],
+              },
+              "displayName": "ReduxForm",
+              "render": [Function],
+              Symbol(Symbol.hasInstance): [Function],
+            }
+          }
           exact={true}
           getUser={[MockFunction]}
           login={[MockFunction]}
           path="/login"
         />
         <PropsRoute
-          component={[Function]}
+          component={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "defaultProps": Object {
+                "destroyOnUnmount": true,
+                "enableReinitialize": false,
+                "forceUnregisterOnUnmount": false,
+                "form": "Forgot",
+                "getFormState": [Function],
+                "keepDirtyOnReinitialize": false,
+                "persistentSubmitErrors": false,
+                "pure": true,
+                "shouldAsyncValidate": [Function],
+                "shouldError": [Function],
+                "shouldValidate": [Function],
+                "shouldWarn": [Function],
+                "touchOnBlur": true,
+                "touchOnChange": false,
+                "updateUnregisteredFields": false,
+                "validate": [Function],
+              },
+              "displayName": "ReduxForm",
+              "render": [Function],
+              Symbol(Symbol.hasInstance): [Function],
+            }
+          }
           exact={true}
           forgot={[MockFunction]}
           path="/login/forgot"
         />
         <PropsRoute
           addFlashMessage={[MockFunction]}
-          component={[Function]}
+          component={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "defaultProps": Object {
+                "destroyOnUnmount": true,
+                "enableReinitialize": false,
+                "forceUnregisterOnUnmount": false,
+                "form": "Reset",
+                "getFormState": [Function],
+                "keepDirtyOnReinitialize": false,
+                "persistentSubmitErrors": false,
+                "pure": true,
+                "shouldAsyncValidate": [Function],
+                "shouldError": [Function],
+                "shouldValidate": [Function],
+                "shouldWarn": [Function],
+                "touchOnBlur": true,
+                "touchOnChange": false,
+                "updateUnregisteredFields": false,
+                "validate": [Function],
+              },
+              "displayName": "ReduxForm",
+              "render": [Function],
+              Symbol(Symbol.hasInstance): [Function],
+            }
+          }
           getReset={[MockFunction]}
           path="/login/reset/:token"
           resetToken={[MockFunction]}

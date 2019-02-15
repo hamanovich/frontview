@@ -1,13 +1,13 @@
 import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
+import { routerMiddleware, ConnectedRouter } from 'connected-react-router';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import jwtDecode from 'jwt-decode';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 
-import rootReducer from '../reducers';
+import createRootReducer from '../reducers';
 import { setAuthorizationToken } from '../utils/helpers';
 import { setCurrentUser } from '../actions/auth';
 
@@ -15,9 +15,12 @@ import App from './App';
 
 import '../index.css';
 
-const history = createHistory();
+const history = createBrowserHistory();
 const middleware = routerMiddleware(history);
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, middleware)));
+const store = createStore(
+  createRootReducer(history),
+  composeWithDevTools(applyMiddleware(thunk, middleware)),
+);
 const localJwtToken = window.localStorage.jwtToken;
 
 if (localJwtToken) {

@@ -33,8 +33,24 @@ exports[`<SignupPage/> renders <SignupPage /> component 1`] = `
       </h1>
       <ReduxForm
         addFlashMessage={[MockFunction]}
+        destroyOnUnmount={true}
+        enableReinitialize={false}
+        forceUnregisterOnUnmount={false}
+        form="SignupForm"
+        getFormState={[Function]}
         isUserExists={[MockFunction]}
+        keepDirtyOnReinitialize={false}
+        persistentSubmitErrors={false}
+        pure={true}
+        shouldAsyncValidate={[Function]}
+        shouldError={[Function]}
+        shouldValidate={[Function]}
+        shouldWarn={[Function]}
         signup={[MockFunction]}
+        touchOnBlur={true}
+        touchOnChange={false}
+        updateUnregisteredFields={false}
+        validate={[Function]}
       />
     </ForwardRef(Bootstrap(Col))>
   </ForwardRef(Bootstrap(Row))>
