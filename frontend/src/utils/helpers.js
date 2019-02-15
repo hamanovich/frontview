@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import PropTypes from 'prop-types';
+import { oneOfType, func, object } from 'prop-types';
 import { Route } from 'react-router-dom';
 import axios from 'axios';
 
@@ -20,7 +20,7 @@ export const PropsRoute = ({ component, ...rest }) => (
 );
 
 PropsRoute.propTypes = {
-  component: PropTypes.func.isRequired,
+  component: oneOfType([func, object]).isRequired,
 };
 
 export const setAuthorizationToken = token => {

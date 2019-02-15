@@ -24,8 +24,24 @@ exports[`<Header/> renders component with search Question renders <Header /> com
     >
       <ReduxForm
         addFlashMessage={[MockFunction]}
+        destroyOnUnmount={true}
+        enableReinitialize={false}
+        forceUnregisterOnUnmount={false}
+        form="SearchForm"
+        getFormState={[Function]}
         getSearchedQuestions={[MockFunction]}
+        keepDirtyOnReinitialize={false}
         onSearch={[Function]}
+        persistentSubmitErrors={false}
+        pure={true}
+        shouldAsyncValidate={[Function]}
+        shouldError={[Function]}
+        shouldValidate={[Function]}
+        shouldWarn={[Function]}
+        touchOnBlur={true}
+        touchOnChange={false}
+        updateUnregisteredFields={false}
+        validate={[Function]}
       />
       <ForwardRef(ContextTransform)>
         <NavDropdown

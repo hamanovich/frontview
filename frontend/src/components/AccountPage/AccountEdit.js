@@ -26,7 +26,6 @@ import { getUser, updateUser } from '../../actions/signup';
 const MediaImage = styled(Image)`
   width: 100px;
   height: 100px;
-  max-width: 100px;
 `;
 
 const enhance = compose(
@@ -74,7 +73,7 @@ const AccountEdit = ({ isLoading, handleSubmit, onSubmit, user }) => (
 
     <Form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Media>
-        <MediaImage src={user.gravatar} alt="" />
+        <MediaImage src={user.gravatar} alt="" className="mr-3" />
         <Media.Body>
           <h5>Gravatar image</h5>
           <p>

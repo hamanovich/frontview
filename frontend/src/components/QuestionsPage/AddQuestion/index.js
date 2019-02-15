@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 import map from 'lodash/map';
 import shortid from 'shortid';
+import Dropzone from 'react-dropzone';
 
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -299,7 +300,7 @@ class AddQuestion extends Component {
             )}
 
             {dropzone === true ? (
-              <DropMe
+              <Dropzone
                 accept="application/json"
                 multiple={false}
                 onDropAccepted={this.handleDropAccepted}
@@ -307,42 +308,48 @@ class AddQuestion extends Component {
                 className="dropzone"
                 activeClassName="dropzone--active"
                 rejectClassName="dropzone--reject">
-                <h3>Want to upload JSON?</h3>
-                <p>Click or drag&amp;drop file here. Only *.json file is accepted.</p>
-                <p>JSON should be in the following format (array of objects):</p>
-                <pre style={{ fontSize: '11px' }}>
-                  {JSON.stringify(
-                    [
-                      {
-                        question: 'The question',
-                        skill: ['JS'],
-                        level: ['Junior', 'Middle'],
-                        answer: 'The main answer',
-                        answers: [
+                {({ getRootProps, getInputProps }) => (
+                  <DropMe {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    <h3>Want to upload JSON?</h3>
+                    <p>Click or drag&amp;drop file here. Only *.json file is accepted.</p>
+                    <p>JSON should be in the following format (array of objects):</p>
+                    <pre style={{ fontSize: '11px' }}>
+                      {JSON.stringify(
+                        [
                           {
-                            text: 'Additional answer #1',
-                          },
-                          {
-                            text: 'Additional answer #2',
+                            question: 'The question',
+                            skill: ['JS'],
+                            level: ['Junior', 'Middle'],
+                            answer: 'The main answer',
+                            answers: [
+                              {
+                                text: 'Additional answer #1',
+                              },
+                              {
+                                text: 'Additional answer #2',
+                              },
+                            ],
+                            practice: 'practice',
+                            notes: 'Some notes',
                           },
                         ],
-                        practice: 'practice',
-                        notes: 'Some notes',
-                      },
-                    ],
-                    null,
-                    2,
-                  )}
-                </pre>
-                <p>
-                  <small>
-                    <em>
-                      P.S. In case wrong JSON format you should fix it by yourself or contact admin
-                    </em>
-                  </small>
-                </p>
-                <p>{fileName !== '' ? `You have added - ${fileName}` : ''}</p>
-              </DropMe>
+                        null,
+                        2,
+                      )}
+                    </pre>
+                    <p>
+                      <small>
+                        <em>
+                          P.S. In case wrong JSON format you should fix it by yourself or contact
+                          admin
+                        </em>
+                      </small>
+                    </p>
+                    <p>{fileName !== '' ? `You have added - ${fileName}` : ''}</p>
+                  </DropMe>
+                )}
+              </Dropzone>
             ) : (
               <Fragment>
                 <Field
@@ -400,7 +407,7 @@ class AddQuestion extends Component {
                 />
                 <FieldArray name="answers" component={AnswerFields} />
                 <hr />
-                <DropMe
+                <Dropzone
                   accept="image/*"
                   maxSize={100000}
                   onDropAccepted={this.imgsDropAccepted}
@@ -408,12 +415,17 @@ class AddQuestion extends Component {
                   className="dropzone dropzone--imgs"
                   activeClassName="dropzone--active"
                   rejectClassName="dropzone--reject">
-                  <h3>Want to upload images?</h3>
-                  <p>
-                    Click or drag&amp;drop image here. Only images are accepted. Max{' '}
-                    <strong>3</strong> images with size <strong>100kb</strong> each.
-                  </p>
-                </DropMe>
+                  {({ getRootProps, getInputProps }) => (
+                    <DropMe {...getRootProps()}>
+                      <h3>Want to upload images?</h3>
+                      <input {...getInputProps()} />
+                      <p>
+                        Click or drag&amp;drop image here. Only images are accepted. Max{' '}
+                        <strong>3</strong> images with size <strong>100kb</strong> each.
+                      </p>
+                    </DropMe>
+                  )}
+                </Dropzone>
 
                 <DropThumbs>
                   {imgs.map(img => (
