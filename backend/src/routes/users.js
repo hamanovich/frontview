@@ -31,6 +31,8 @@ exports.createUser = async (req, res) => {
   const { errors, isValid } = await validateUser(req.body, validate);
   const { username, email, password } = req.body;
   const passwordDigest = bcrypt.hashSync(password, 10);
+  const host =
+    process.env.NODE_ENV === 'production' ? req.get('host') : req.headers['x-forwarded-host'];
 
   if (!isValid) {
     res.status(409).json(errors);
@@ -61,7 +63,7 @@ exports.createUser = async (req, res) => {
     from: `FrontView <front-view@herokuapp.com>`,
     filename: 'confirmation-email',
     subject: 'Confirmation Email',
-    confirmURL: `${req.protocol}://${req.get('host')}/confirmation/${user.confirmationToken}`,
+    confirmURL: `${req.protocol}://${host}/confirmation/${user.confirmationToken}`,
   });
 
   res.send(user);
