@@ -99,7 +99,9 @@ describe('<SignupForm/>', () => {
     beforeEach(() => component.find('ForwardRef(Bootstrap(Form))').simulate('submit', user));
 
     it('adds errorMsg to state', () => {
-      expect(component.state().errors.errorMsg).toBe('Failed');
+      expect(component.state().errors.errorMsg).toBe(
+        'Failed. Please check your internet connection',
+      );
     });
   });
 });
