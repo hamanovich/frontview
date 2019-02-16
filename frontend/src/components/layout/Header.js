@@ -71,18 +71,25 @@ export class Header extends Component {
 
     if (!values.search) return;
 
-    getSearchedQuestions(values.search).then(res => {
-      if (!res.length) {
+    getSearchedQuestions(values.search)
+      .then(res => {
+        if (!res.length) {
+          addFlashMessage({
+            type: 'warn',
+            text: `Nothing found by search = ${values.search}`,
+          });
+
+          return;
+        }
+
+        history.push(`/questions/search?q=${values.search}`);
+      })
+      .catch(() =>
         addFlashMessage({
-          type: 'warn',
-          text: `Nothing found by search = ${values.search}`,
-        });
-
-        return;
-      }
-
-      history.push(`/questions/search?q=${values.search}`);
-    });
+          type: 'error',
+          text: '__500: Server-side error__. Please check your internet connection',
+        }),
+      );
   };
 
   render() {
