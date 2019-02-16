@@ -28,7 +28,10 @@ const enhance = compose(
       getCommentsByAuthor(match.params.username).catch(err => {
         addFlashMessage({
           type: 'error',
-          text: err.response.data.error,
+          text:
+            err.response && err.response.data.error
+              ? err.response.data.error
+              : `${err.message}. Please check your internet connection`,
         });
 
         history.push(`/comments/${auth.user.username}`);

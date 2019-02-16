@@ -51,7 +51,7 @@ export class SignupForm extends Component {
               : {
                   username: '',
                   email: '',
-                  errorMsg: err.message,
+                  errorMsg: `${err.message}. Please check your internet connection`,
                 },
           isLoading: false,
         }),

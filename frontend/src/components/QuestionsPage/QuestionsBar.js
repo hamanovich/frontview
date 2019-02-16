@@ -71,7 +71,7 @@ const enhance = compose(
 );
 
 const QuestionsBar = ({ active, filter, tags, style }) => (
-  <ButtonToolbar>
+  <ButtonToolbar style={{ minHeight: 38 }}>
     {map(tags, tag => (
       <Link
         className={classNames('btn', `btn-${style}`, { active: active === tag._id })}

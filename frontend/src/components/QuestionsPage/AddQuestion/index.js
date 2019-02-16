@@ -106,7 +106,10 @@ class AddQuestion extends Component {
         err => {
           addFlashMessage({
             type: 'error',
-            text: err.response.data.error,
+            text:
+              err.response && err.response.data.error
+                ? err.response.data.error
+                : `${err.message}. Please check your internet connection`,
           });
 
           history.push('/questions/add');
@@ -159,7 +162,10 @@ class AddQuestion extends Component {
         err => {
           addFlashMessage({
             type: 'error',
-            text: err.response.data.error,
+            text:
+              err.response && err.response.data.error
+                ? err.response.data.error
+                : `${err.message}. Please check your internet connection`,
           });
 
           logout();
@@ -216,7 +222,10 @@ class AddQuestion extends Component {
         .catch(err =>
           addFlashMessage({
             type: 'error',
-            text: err.response.data.error,
+            text:
+              err.response && err.response.data.error
+                ? err.response.data.error
+                : `${err.message}. Please check your internet connection`,
           }),
         );
     };

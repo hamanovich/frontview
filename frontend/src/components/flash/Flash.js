@@ -14,7 +14,7 @@ import Button from 'react-bootstrap/Button';
 const enhance = compose(
   lifecycle({
     componentDidMount() {
-      setTimeout(this.props.close, 2500);
+      setTimeout(this.props.close, 4000);
     },
   }),
 );

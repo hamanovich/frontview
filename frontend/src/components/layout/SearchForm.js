@@ -12,6 +12,12 @@ import validate from '../../validations/search';
 import { TextField } from '../formElements';
 
 const SForm = styled(Form)`
+  .form-control.is-invalid,
+  .form-control.is-valid {
+    background-image: none;
+    padding-right: 0.75rem;
+  }
+
   @media (max-width: 767px) {
     display: flex;
     width: 100%;

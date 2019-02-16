@@ -44,7 +44,10 @@ const enhance = compose(
         )
         .catch(err =>
           setState({
-            error: err.response.data.error,
+            error:
+              err.response && err.response.data.error
+                ? err.response.data.error
+                : `${err.message}. Please check your internet connection`,
             isLoading: false,
           }),
         );
