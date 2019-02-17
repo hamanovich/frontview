@@ -1,3 +1,4 @@
+import 'url-search-params-polyfill';
 import React, { Component } from 'react';
 import { shape, func, string, arrayOf } from 'prop-types';
 import { connect } from 'react-redux';

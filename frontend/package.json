@@ -48,6 +48,7 @@
     "shortid": "^2.2.13",
     "source-map-explorer": "^1.6.0",
     "styled-components": "^4.0.2",
+    "url-search-params-polyfill": "^5.0.0",
     "validator": "^10.8.0"
   },
   "proxy": "http://localhost:3001",

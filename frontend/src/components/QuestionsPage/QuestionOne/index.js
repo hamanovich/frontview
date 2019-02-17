@@ -120,7 +120,7 @@ class QuestionOne extends Component {
             </Card>
           </Fragment>
         )}
-        {user.username && (
+        {user.username && question && (
           <Fragment>
             <h3>
               <FontAwesome name="commenting-o" /> Add a comment
