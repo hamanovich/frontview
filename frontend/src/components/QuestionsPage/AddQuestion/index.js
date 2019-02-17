@@ -401,7 +401,7 @@ class AddQuestion extends Component {
                   component={RadioButton}
                   name="practice"
                   id="practice"
-                  label="Is it practical question?*&emsp;"
+                  label="Is it practical question?*"
                   required
                   inline
                   options={map(practice, s => ({ title: s, value: s }))}
