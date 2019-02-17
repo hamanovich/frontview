@@ -4,10 +4,10 @@ import FontAwesome from 'react-fontawesome';
 
 import Questions from './Questions';
 
-const QuestionsAuthor = ({ user }) => (
+const QuestionsAuthor = ({ match }) => (
   <Fragment>
     <h1>
-      <FontAwesome name="file-text-o" /> {user.username}
+      <FontAwesome name="file-text-o" /> {match.params.username}
       &apos;s Questions
     </h1>
 
@@ -16,8 +16,10 @@ const QuestionsAuthor = ({ user }) => (
 );
 
 QuestionsAuthor.propTypes = {
-  user: shape({
-    username: string,
+  match: shape({
+    params: shape({
+      username: string,
+    }),
   }).isRequired,
 };
 

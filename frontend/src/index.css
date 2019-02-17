@@ -31,6 +31,7 @@ pre {
   background: lightgoldenrodyellow;
   border-radius: 0.25rem;
 }
+
 pre code {
   padding: 10px;
   color: #333;
@@ -61,6 +62,10 @@ input[type='submit'] {
 
 .btn-toolbar > * + * {
   margin-left: 0.5rem;
+}
+
+.dropdown-menu {
+  left: -2.5rem;
 }
 
 .navbar-dark .navbar-brand a {

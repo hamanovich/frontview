@@ -13,9 +13,6 @@ import { UserType } from '../../propTypes';
 
 const AccountBar = ({ auth, logout }) => (
   <ListGroup>
-    <Link to="/questions" className="list-group-item">
-      <FontAwesome name="question-circle-o" /> All Questions
-    </Link>
     <Link to={`/questions/author/${auth.user.username}`} className="list-group-item">
       <FontAwesome name="copyright" /> Your Questions
     </Link>
