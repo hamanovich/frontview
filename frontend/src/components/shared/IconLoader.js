@@ -4,7 +4,7 @@ import FontAwesome from 'react-fontawesome';
 
 const FontIcon = styled(FontAwesome)`
   position: fixed;
-  top: calc(50% - 28px);
+  top: calc(50% - 6rem);
   left: calc(50% - 28px);
 `;
 

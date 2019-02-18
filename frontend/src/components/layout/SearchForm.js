@@ -34,7 +34,7 @@ const SForm = styled(Form)`
 `;
 
 export const SearchForm = ({ handleSubmit, onSearch }) => (
-  <SForm onSubmit={handleSubmit(onSearch)} noValidate inline className="mr-auto">
+  <SForm onSubmit={handleSubmit(onSearch)} noValidate inline className="mr-2">
     <Field
       component={TextField}
       type="search"

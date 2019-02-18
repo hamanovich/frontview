@@ -137,7 +137,7 @@ class Question extends Component {
           )}
         </ApproveBar>
 
-        <Card variant={question.isVerified ? 'success' : 'danger'} className="question">
+        <Card border={question.isVerified ? 'success' : 'danger'} className="question">
           <Card.Header>{panelHeader}</Card.Header>
           <Card.Body>
             <div onClick={this.open(question.answer, 'answer')}>

@@ -1,23 +1,174 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Footer/> renders <Footer /> component 1`] = `
-<styled.footer>
-  © Front View 
-  <br />
-  <ForwardRef(Bootstrap(Badge))
-    variant="info"
+<footer
+  className="bg-dark py-4 text-white"
+>
+  <ForwardRef(Bootstrap(Container))>
+    <ForwardRef(Bootstrap(Row))
+      className="text-center text-md-left"
+    >
+      <ForwardRef(Bootstrap(Col))
+        md={true}
+      >
+        <h4>
+          Frontview /
+        </h4>
+        <small
+          className="d-block mb-3"
+        >
+          © 2017-2019
+        </small>
+      </ForwardRef(Bootstrap(Col))>
+      <ForwardRef(Bootstrap(Col))
+        sm={true}
+      >
+        <h5>
+          Resources
+        </h5>
+        <ul
+          className="list-unstyled"
+        >
+          <li>
+            <Link
+              className="text-muted"
+              replace={false}
+              to="/interview"
+            >
+              *Interview (in dev)
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="text-muted"
+              replace={false}
+              to="/questions"
+            >
+              Questions
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="text-muted"
+              replace={false}
+              to="/questions/top"
+            >
+              Top 10
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="text-muted"
+              replace={false}
+              to="/questions/internet"
+            >
+              Internet
+            </Link>
+          </li>
+        </ul>
+      </ForwardRef(Bootstrap(Col))>
+      <ForwardRef(Bootstrap(Col))
+        sm={true}
+      >
+        <h5>
+          Features
+        </h5>
+        <ul
+          className="list-unstyled"
+        >
+          <li>
+            <Link
+              className="text-muted"
+              replace={false}
+              to="/about/pricing"
+            >
+              Pricing
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="text-muted"
+              replace={false}
+              to="/about/faq"
+            >
+              Help
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="text-muted"
+              replace={false}
+              to="/questions/add"
+            >
+              New Question
+            </Link>
+          </li>
+        </ul>
+      </ForwardRef(Bootstrap(Col))>
+      <ForwardRef(Bootstrap(Col))
+        sm={true}
+      >
+        <h5>
+          About
+        </h5>
+        <ul
+          className="list-unstyled"
+        >
+          <li>
+            <Link
+              className="text-muted"
+              replace={false}
+              to="/about"
+            >
+              Who Am I
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="text-muted"
+              replace={false}
+              to="/about/faq"
+            >
+              What For
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="text-muted"
+              replace={false}
+              to="/about/news"
+            >
+              Latest News
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="text-muted"
+              replace={false}
+              to="/about/links"
+            >
+              Useful links
+            </Link>
+          </li>
+        </ul>
+      </ForwardRef(Bootstrap(Col))>
+    </ForwardRef(Bootstrap(Row))>
+  </ForwardRef(Bootstrap(Container))>
+  <p
+    className="text-center"
   >
-    v1.0.0
-  </ForwardRef(Bootstrap(Badge))>
-  <br />
-  <a
-    href="mailto:hamanovich@gmail.com"
-  >
-    hamanovich@gmail.com
-  </a>
-   
-  <br />
-  2017-
-  2019
-</styled.footer>
+    <a
+      href="mailto:hamanovich@gmail.com"
+    >
+      hamanovich@gmail.com
+    </a>
+     
+    <br />
+    <ForwardRef(Bootstrap(Badge))
+      variant="info"
+    >
+      v1.0.0
+    </ForwardRef(Bootstrap(Badge))>
+  </p>
+</footer>
 `;

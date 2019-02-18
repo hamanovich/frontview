@@ -48,7 +48,7 @@ const PaginationBar = ({ activePage, pages, onSelect }) => {
   }
 
   return (
-    <Pagination size="lg">
+    <Pagination className="justify-content-center">
       <Pagination.First onClick={() => onSelect(1)} disabled={activePage === 1} />
       {items}
       <Pagination.Last onClick={() => onSelect(pages)} disabled={activePage === pages} />

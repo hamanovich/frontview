@@ -4,9 +4,7 @@ html {
 
 body {
   margin: 0;
-  padding-bottom: 116px;
   position: relative;
-  min-height: 100%;
   font-family: 'PT Sans', sans-serif;
 }
 
@@ -50,6 +48,7 @@ input[type='submit'] {
 
 #main {
   padding-bottom: 60px;
+  min-height: 500px;
 }
 
 #main > .container:first-child {
@@ -68,6 +67,7 @@ input[type='submit'] {
   left: -2.5rem;
 }
 
+.navbar-dark .navbar-text,
 .navbar-dark .navbar-brand a {
   color: #fff;
 }

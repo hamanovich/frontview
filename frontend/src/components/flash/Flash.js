@@ -26,7 +26,7 @@ const FlashItem = styled(Alert)`
   z-index: 10;
   left: 50%;
   transform: translateX(-50%);
-  top: 52px;
+  top: 0;
   align-items: center;
   min-width: 290px;
   max-width: 90%;
@@ -39,7 +39,7 @@ const FlashItem = styled(Alert)`
     margin-top: 4rem;
 
     + .alert {
-      margin-top: 12rem;
+      margin-top: 8rem;
     }
   }
 `;

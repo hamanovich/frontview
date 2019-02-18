@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 import styled from 'styled-components';
 
-import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -76,7 +75,7 @@ export class Header extends Component {
         if (!res.length) {
           addFlashMessage({
             type: 'warn',
-            text: `Nothing found by search = ${values.search}`,
+            text: `Nothing found by search '__${values.search}__'`,
           });
 
           return;
@@ -180,21 +179,27 @@ export class Header extends Component {
     );
 
     return (
-      <Menu variant="dark" bg="dark" expand="md" sticky="top">
-        <Container>
-          <Navbar.Brand>
-            <Link to="/">Frontview /</Link>
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbar-nav" />
-          <Navbar.Collapse id="navbar-nav">
-            <SearchForm
-              getSearchedQuestions={getSearchedQuestions}
-              addFlashMessage={addFlashMessage}
-              onSearch={this.onSearch}
-            />
-            {auth.isAuthenticated ? userLinks : guestLinks}
-          </Navbar.Collapse>
-        </Container>
+      <Menu variant="dark" bg="dark" expand="md">
+        <Navbar.Brand>
+          <Link to="/">Frontview /</Link>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbar-nav" />
+        <Navbar.Collapse id="navbar-nav">
+          <SearchForm
+            getSearchedQuestions={getSearchedQuestions}
+            addFlashMessage={addFlashMessage}
+            onSearch={this.onSearch}
+          />
+          <Nav className="mr-auto">
+            <Navbar.Text>or</Navbar.Text>
+            <LinkContainer to="/questions">
+              <Nav.Link>
+                Check All <FontAwesome name="question-circle" size="lg" />
+              </Nav.Link>
+            </LinkContainer>
+          </Nav>
+          {auth.isAuthenticated ? userLinks : guestLinks}
+        </Navbar.Collapse>
       </Menu>
     );
   }

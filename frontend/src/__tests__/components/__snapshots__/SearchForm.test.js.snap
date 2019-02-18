@@ -2,7 +2,7 @@
 
 exports[`<SearchForm/> renders <SearchForm /> component 1`] = `
 <Styled(Component)
-  className="mr-auto"
+  className="mr-2"
   inline={true}
   noValidate={true}
 >

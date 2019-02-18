@@ -77,7 +77,9 @@ class Account extends Component {
               <span>
                 <FontAwesome name="user" /> {user.firstName} {user.lastName}
               </span>{' '}
-              <Badge>{user.role}</Badge>
+              <Badge pill variant="info">
+                {user.role}
+              </Badge>
             </Fragment>
           ) : (
             'Your account'
