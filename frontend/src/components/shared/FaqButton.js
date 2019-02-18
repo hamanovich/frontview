@@ -11,7 +11,7 @@ const FaqBtn = styled(Link)`
 `;
 
 const FaqButton = () => (
-  <FaqBtn to="/faq" className="btn btn-danger">
+  <FaqBtn to="/about/faq" className="btn btn-danger">
     <FontAwesome name="question-circle-o" />
   </FaqBtn>
 );

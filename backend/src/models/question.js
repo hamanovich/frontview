@@ -107,7 +107,7 @@ questionSchema.statics.getTopQuestions = function qSchema3() {
     { $lookup: { from: 'users', localField: '_id', foreignField: 'votes.like', as: 'favourite' } },
     { $addFields: { size: { $size: { $ifNull: ['$favourite', []] } } } },
     { $sort: { size: -1 } },
-  ]);
+  ]).limit(10);
 };
 
 questionSchema.virtual('comments', {

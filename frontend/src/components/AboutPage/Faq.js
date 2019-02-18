@@ -1,8 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-
 import FontAwesome from 'react-fontawesome';
+
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 
@@ -24,18 +24,18 @@ const FaqPage = () => (
         <p>
           Frontview - is a project to prepare and successfully pass technical interview on Frontend
           position. It has both practical and theoretical parts. In future interview flow will be
-          available
+          available.
         </p>
       </Card.Body>
     </Card>
     <Card bg="success" text="white">
       <Card.Header>
-        <h4>Why I have to register?</h4>
+        <h4>Why should I register?</h4>
       </Card.Header>
       <Card.Body>
         <p>
-          To get full access for all feature you have to be registered: Account Page,
-          Adding/Modifing/Removing/Commenting questions, conducting interview
+          To get full access for all features you have to be registered: Account Page,
+          Adding/Modifing/Removing/Commenting questions, conducting interview.
         </p>
       </Card.Body>
     </Card>
@@ -45,7 +45,7 @@ const FaqPage = () => (
       </Card.Header>
       <Card.Body>
         <p>
-          Firstly login, and go to Menu - <Link to="/questions/add">Add new page</Link>
+          Firstly login, and go to Menu - <Link to="/questions/add">Add new page.</Link>
         </p>
       </Card.Body>
     </Card>

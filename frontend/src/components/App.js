@@ -1,6 +1,10 @@
 import React, { Fragment, lazy } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import ScrollToTop from 'react-scroll-up';
+import FontAwesome from 'react-fontawesome';
+
+import Button from 'react-bootstrap/Button';
 
 import HomePage from './HomePage';
 import NotFound from './NotFound';
@@ -14,6 +18,7 @@ import { isLoggedIn, User, Waiting } from '../utils/helpers';
 const LoginPage = lazy(() => import('./LoginPage' /* webpackChunkName: "Login" */));
 const SignupPage = lazy(() => import('./SignupPage' /* webpackChunkName: "Signup" */));
 const AccountPage = lazy(() => import('./AccountPage' /* webpackChunkName: "AccountPage" */));
+const AboutPage = lazy(() => import('./AboutPage' /* webpackChunkName: "AboutPage" */));
 const InterviewPage = lazy(() => import('./InterviewPage' /* webpackChunkName: "InterviewPage" */));
 const QuestionsPage = lazy(() => import('./QuestionsPage' /* webpackChunkName: "Questions" */));
 const CommentsAuthorPage = lazy(() =>
@@ -22,7 +27,6 @@ const CommentsAuthorPage = lazy(() =>
 const ConfirmationPage = lazy(() =>
   import('./ConfirmationPage' /* webpackChunkName: "Confirmation" */),
 );
-const FaqPage = lazy(() => import('./FaqPage' /* webpackChunkName: "FAQ" */));
 
 const App = () => (
   <Fragment>
@@ -40,13 +44,18 @@ const App = () => (
         <Route path="/interview" component={User(Waiting(InterviewPage))} />
         <Route path="/comments/:username" component={User(Waiting(CommentsAuthorPage))} />
         <Route path="/confirmation/:token" component={Waiting(ConfirmationPage)} />
-        <Route path="/faq" component={Waiting(FaqPage)} />
+        <Route path="/about" component={Waiting(AboutPage)} />
         <Route component={NotFound} />
       </Switch>
     </main>
     <Footer />
     <FlashList />
     <FaqButton />
+    <ScrollToTop showUnder={160} style={{ bottom: 16, right: 16 }}>
+      <Button variant="warning">
+        <FontAwesome name="chevron-up" />
+      </Button>
+    </ScrollToTop>
   </Fragment>
 );
 

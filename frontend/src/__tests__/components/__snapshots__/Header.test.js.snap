@@ -4,206 +4,225 @@ exports[`<Header/> renders component with search Question renders <Header /> com
 <Styled(Component)
   bg="dark"
   expand="md"
-  sticky="top"
   variant="dark"
 >
-  <ForwardRef(Bootstrap(Container))>
-    <ForwardRef(Bootstrap(NavbarBrand))>
-      <Link
-        replace={false}
-        to="/"
-      >
-        Frontview /
-      </Link>
-    </ForwardRef(Bootstrap(NavbarBrand))>
-    <ForwardRef(Bootstrap(NavbarToggle))
-      aria-controls="navbar-nav"
-    />
-    <ForwardRef(Bootstrap(NavbarCollapse))
-      id="navbar-nav"
+  <ForwardRef(Bootstrap(NavbarBrand))>
+    <Link
+      replace={false}
+      to="/"
     >
-      <ReduxForm
-        addFlashMessage={[MockFunction]}
-        destroyOnUnmount={true}
-        enableReinitialize={false}
-        forceUnregisterOnUnmount={false}
-        form="SearchForm"
-        getFormState={[Function]}
-        getSearchedQuestions={[MockFunction]}
-        keepDirtyOnReinitialize={false}
-        onSearch={[Function]}
-        persistentSubmitErrors={false}
-        pure={true}
-        shouldAsyncValidate={[Function]}
-        shouldError={[Function]}
-        shouldValidate={[Function]}
-        shouldWarn={[Function]}
-        touchOnBlur={true}
-        touchOnChange={false}
-        updateUnregisteredFields={false}
-        validate={[Function]}
-      />
-      <ForwardRef(ContextTransform)>
-        <NavDropdown
-          id="menu-dropdown"
-          title="Menu"
+      Frontview /
+    </Link>
+  </ForwardRef(Bootstrap(NavbarBrand))>
+  <ForwardRef(Bootstrap(NavbarToggle))
+    aria-controls="navbar-nav"
+  />
+  <ForwardRef(Bootstrap(NavbarCollapse))
+    id="navbar-nav"
+  >
+    <ReduxForm
+      addFlashMessage={[MockFunction]}
+      destroyOnUnmount={true}
+      enableReinitialize={false}
+      forceUnregisterOnUnmount={false}
+      form="SearchForm"
+      getFormState={[Function]}
+      getSearchedQuestions={[MockFunction]}
+      keepDirtyOnReinitialize={false}
+      onSearch={[Function]}
+      persistentSubmitErrors={false}
+      pure={true}
+      shouldAsyncValidate={[Function]}
+      shouldError={[Function]}
+      shouldValidate={[Function]}
+      shouldWarn={[Function]}
+      touchOnBlur={true}
+      touchOnChange={false}
+      updateUnregisteredFields={false}
+      validate={[Function]}
+    />
+    <ForwardRef(ContextTransform)
+      className="mr-auto"
+    >
+      <ForwardRef(Bootstrap(NavbarText))>
+        or
+      </ForwardRef(Bootstrap(NavbarText))>
+      <LinkContainer
+        activeClassName="active"
+        exact={false}
+        replace={false}
+        strict={false}
+        to="/questions"
+      >
+        <ForwardRef(Bootstrap(NavLink))>
+          Check All 
+          <FontAwesome
+            name="question-circle"
+            size="lg"
+          />
+        </ForwardRef(Bootstrap(NavLink))>
+      </LinkContainer>
+    </ForwardRef(ContextTransform)>
+    <ForwardRef(ContextTransform)>
+      <NavDropdown
+        id="menu-dropdown"
+        title="Menu"
+      >
+        <LinkContainer
+          activeClassName="active"
+          exact={false}
+          replace={false}
+          strict={false}
+          to="/interview"
         >
-          <LinkContainer
-            activeClassName="active"
-            exact={false}
-            replace={false}
-            strict={false}
-            to="/interview"
-          >
-            <ForwardRef(ContextTransform)>
-              <FontAwesome
-                name="id-badge"
-              />
-               Interview (in progress)
-            </ForwardRef(ContextTransform)>
-          </LinkContainer>
-          <ForwardRef(Bootstrap(DropdownDivider)) />
-          <IndexLinkContainer
-            to="/questions"
-          >
-            <ForwardRef(ContextTransform)>
-              Show all questions
-            </ForwardRef(ContextTransform)>
-          </IndexLinkContainer>
-          <LinkContainer
-            activeClassName="active"
-            exact={false}
-            replace={false}
-            strict={false}
-            to="/questions/top"
-          >
-            <ForwardRef(ContextTransform)>
-              <FontAwesome
-                name="exclamation"
-              />
-               Top 10
-            </ForwardRef(ContextTransform)>
-          </LinkContainer>
-          <LinkContainer
-            activeClassName="active"
-            exact={false}
-            replace={false}
-            strict={false}
-            to="/questions/internet"
-          >
-            <ForwardRef(ContextTransform)>
-              <FontAwesome
-                name="internet-explorer"
-              />
-               From Internet
-            </ForwardRef(ContextTransform)>
-          </LinkContainer>
-          <ForwardRef(Bootstrap(DropdownDivider)) />
-          <LinkContainer
-            activeClassName="active"
-            exact={false}
-            replace={false}
-            strict={false}
-            to="/questions/level"
-          >
-            <ForwardRef(ContextTransform)>
-              <FontAwesome
-                name="line-chart"
-              />
-               By Levels
-            </ForwardRef(ContextTransform)>
-          </LinkContainer>
-          <LinkContainer
-            activeClassName="active"
-            exact={false}
-            replace={false}
-            strict={false}
-            to="/questions/skill"
-          >
-            <ForwardRef(ContextTransform)>
-              <FontAwesome
-                name="star-half-o"
-              />
-               By Skills
-            </ForwardRef(ContextTransform)>
-          </LinkContainer>
-          <LinkContainer
-            activeClassName="active"
-            exact={false}
-            replace={false}
-            strict={false}
-            to="/questions/practice"
-          >
-            <ForwardRef(ContextTransform)>
-              <FontAwesome
-                name="keyboard-o"
-              />
-               By Type
-            </ForwardRef(ContextTransform)>
-          </LinkContainer>
-          <ForwardRef(Bootstrap(DropdownDivider)) />
-          <LinkContainer
-            activeClassName="active"
-            exact={false}
-            replace={false}
-            strict={false}
-            to="/questions/add"
-          >
-            <ForwardRef(ContextTransform)>
-              <FontAwesome
-                name="question-circle-o"
-              />
-               Add new
-            </ForwardRef(ContextTransform)>
-          </LinkContainer>
-        </NavDropdown>
-        <NavDropdown
-          id="account-dropdown"
-          title={
-            <span>
-              <ForwardRef
-                roundedCircle={true}
-              />
-              test
-            </span>
-          }
-        >
-          <IndexLinkContainer
-            to="/me"
-          >
-            <ForwardRef(ContextTransform)>
-              <FontAwesome
-                name="user"
-              />
-               Account
-            </ForwardRef(ContextTransform)>
-          </IndexLinkContainer>
-          <LinkContainer
-            activeClassName="active"
-            exact={false}
-            replace={false}
-            strict={false}
-            to="/me/edit"
-          >
-            <ForwardRef(ContextTransform)>
-              <FontAwesome
-                name="pencil-square-o"
-              />
-               Edit profile
-            </ForwardRef(ContextTransform)>
-          </LinkContainer>
-          <ForwardRef(Bootstrap(DropdownDivider)) />
-          <ForwardRef(ContextTransform)
-            onClick={[MockFunction]}
-          >
+          <ForwardRef(ContextTransform)>
             <FontAwesome
-              name="lock"
+              name="id-badge"
             />
-             Logout
+             Interview (in progress)
           </ForwardRef(ContextTransform)>
-        </NavDropdown>
-      </ForwardRef(ContextTransform)>
-    </ForwardRef(Bootstrap(NavbarCollapse))>
-  </ForwardRef(Bootstrap(Container))>
+        </LinkContainer>
+        <ForwardRef(Bootstrap(DropdownDivider)) />
+        <IndexLinkContainer
+          to="/questions"
+        >
+          <ForwardRef(ContextTransform)>
+            Show all questions
+          </ForwardRef(ContextTransform)>
+        </IndexLinkContainer>
+        <LinkContainer
+          activeClassName="active"
+          exact={false}
+          replace={false}
+          strict={false}
+          to="/questions/top"
+        >
+          <ForwardRef(ContextTransform)>
+            <FontAwesome
+              name="exclamation"
+            />
+             Top 10
+          </ForwardRef(ContextTransform)>
+        </LinkContainer>
+        <LinkContainer
+          activeClassName="active"
+          exact={false}
+          replace={false}
+          strict={false}
+          to="/questions/internet"
+        >
+          <ForwardRef(ContextTransform)>
+            <FontAwesome
+              name="internet-explorer"
+            />
+             From Internet
+          </ForwardRef(ContextTransform)>
+        </LinkContainer>
+        <ForwardRef(Bootstrap(DropdownDivider)) />
+        <LinkContainer
+          activeClassName="active"
+          exact={false}
+          replace={false}
+          strict={false}
+          to="/questions/level"
+        >
+          <ForwardRef(ContextTransform)>
+            <FontAwesome
+              name="line-chart"
+            />
+             By Levels
+          </ForwardRef(ContextTransform)>
+        </LinkContainer>
+        <LinkContainer
+          activeClassName="active"
+          exact={false}
+          replace={false}
+          strict={false}
+          to="/questions/skill"
+        >
+          <ForwardRef(ContextTransform)>
+            <FontAwesome
+              name="star-half-o"
+            />
+             By Skills
+          </ForwardRef(ContextTransform)>
+        </LinkContainer>
+        <LinkContainer
+          activeClassName="active"
+          exact={false}
+          replace={false}
+          strict={false}
+          to="/questions/practice"
+        >
+          <ForwardRef(ContextTransform)>
+            <FontAwesome
+              name="keyboard-o"
+            />
+             By Type
+          </ForwardRef(ContextTransform)>
+        </LinkContainer>
+        <ForwardRef(Bootstrap(DropdownDivider)) />
+        <LinkContainer
+          activeClassName="active"
+          exact={false}
+          replace={false}
+          strict={false}
+          to="/questions/add"
+        >
+          <ForwardRef(ContextTransform)>
+            <FontAwesome
+              name="question-circle-o"
+            />
+             Add new
+          </ForwardRef(ContextTransform)>
+        </LinkContainer>
+      </NavDropdown>
+      <NavDropdown
+        id="account-dropdown"
+        title={
+          <span>
+            <ForwardRef
+              roundedCircle={true}
+            />
+            test
+          </span>
+        }
+      >
+        <IndexLinkContainer
+          to="/me"
+        >
+          <ForwardRef(ContextTransform)>
+            <FontAwesome
+              name="user"
+            />
+             Account
+          </ForwardRef(ContextTransform)>
+        </IndexLinkContainer>
+        <LinkContainer
+          activeClassName="active"
+          exact={false}
+          replace={false}
+          strict={false}
+          to="/me/edit"
+        >
+          <ForwardRef(ContextTransform)>
+            <FontAwesome
+              name="pencil-square-o"
+            />
+             Edit profile
+          </ForwardRef(ContextTransform)>
+        </LinkContainer>
+        <ForwardRef(Bootstrap(DropdownDivider)) />
+        <ForwardRef(ContextTransform)
+          onClick={[MockFunction]}
+        >
+          <FontAwesome
+            name="lock"
+          />
+           Logout
+        </ForwardRef(ContextTransform)>
+      </NavDropdown>
+    </ForwardRef(ContextTransform)>
+  </ForwardRef(Bootstrap(NavbarCollapse))>
 </Styled(Component)>
 `;
