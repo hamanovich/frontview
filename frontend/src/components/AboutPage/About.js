@@ -21,9 +21,7 @@ const About = () => (
               Github
             </a>
           </h3>
-          <p>
-            Lead Software Engineer HTML5/CSS3, Accessibility. Frontend audit. corejs/ReactJS/VueJS.
-          </p>
+          <p>Software Engineer HTML5/CSS3, Accessibility. Frontend audit. corejs/ReactJS/VueJS.</p>
         </Media.Body>
       </Media>
       <Media>
@@ -37,7 +35,7 @@ const About = () => (
               Linkedin
             </a>
           </h3>
-          <p>EPAM Systems. Lead Software Engineer.</p>
+          <p>EPAM Systems. Software Engineer.</p>
         </Media.Body>
       </Media>
       <Media>

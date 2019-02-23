@@ -23,7 +23,7 @@ exports.getQuestionInterface = (req, res) => {
 
 exports.getQuestions = async (req, res) => {
   const page = req.params.page || 1;
-  const limit = 4;
+  const limit = 5;
   const skip = page * limit - limit;
   const countPromise = Question.countDocuments();
   const questionsPromise = Question.find()
@@ -80,23 +80,25 @@ exports.add = async (req, res) => {
   } = req.body;
   const imgsList = [];
 
-  const logItem = item =>
-    new Promise(resolve => {
-      process.nextTick(() => {
-        cloudinary.uploader.upload(
-          item,
-          result => {
-            imgsList.push(result.url);
-            resolve();
-          },
-          {
-            folder: process.env.CLOUDINARY_FOLDER,
-          },
-        );
+  if (imgs && imgs.length) {
+    const logItem = item =>
+      new Promise(resolve => {
+        process.nextTick(() => {
+          cloudinary.uploader.upload(
+            item,
+            result => {
+              imgsList.push(result.url);
+              resolve();
+            },
+            {
+              folder: process.env.CLOUDINARY_FOLDER,
+            },
+          );
+        });
       });
-    });
 
-  await forEachPromise(imgs, logItem);
+    await forEachPromise(imgs, logItem);
+  }
 
   const newQuestion = await Question.create({
     question,

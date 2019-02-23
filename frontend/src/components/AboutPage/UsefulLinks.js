@@ -64,6 +64,20 @@ const UsefulLinks = () => (
           rel="noopener noreferrer">
           <h5 className="my-0">Notes from technical (javascript) interviews</h5>
         </ListGroup.Item>
+        <ListGroup.Item
+          action
+          href="https://career.guru99.com/"
+          target="_blank"
+          rel="noopener noreferrer">
+          <h5 className="my-0">Technical Interview Questions &amp; Answers</h5>
+        </ListGroup.Item>
+        <ListGroup.Item
+          action
+          href="https://github.com/denysdovhan/wtfjs"
+          target="_blank"
+          rel="noopener noreferrer">
+          <h5 className="my-0">A list of funny and tricky JavaScript examples</h5>
+        </ListGroup.Item>
       </ListGroup>
     </Container>
   </Fragment>

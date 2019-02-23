@@ -37,10 +37,14 @@ const QuestionsPage = () => (
         <Route exact path="/questions/top" component={Waiting(QuestionsWrapper(QuestionsTop))} />
         <Route exact path="/questions/add" component={User(Waiting(AddQuestion))} />
         <Route path="/questions/internet/:source?" component={Waiting(QuestionsFromInternet)} />
-        <Route path="/questions/qlist/:slug" component={User(QuestionsWrapper(QuestionsQList))} />
-        <Route path="/questions/:_id/edit" component={User(Waiting(AddQuestion))} />
-        <Route path="/questions/:slug/one" component={QuestionOne} />
-        <Route path="/questions/:filter/:tag?" component={QuestionsTags} />
+        <Route
+          exact
+          path="/questions/qlist/:slug"
+          component={User(QuestionsWrapper(QuestionsQList))}
+        />
+        <Route exact path="/questions/:_id/edit" component={User(Waiting(AddQuestion))} />
+        <Route exact path="/questions/:slug/one" component={QuestionOne} />
+        <Route path="/questions/:filter/:tag?" component={Waiting(QuestionsTags)} />
         <Redirect to="/questions/page/1" />
       </Switch>
     </ErrorBoundary>

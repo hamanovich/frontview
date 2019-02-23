@@ -17,11 +17,11 @@ exports[`<HomePage/> renders <HomePage /> component 1`] = `
       <p
         className="lead"
       >
-        You also able to add newquestions, comment existing and review them. Check it on
+        You also able to add new questions, comment existing and review them. Check it on
          
         <Link
           replace={false}
-          to="pricing"
+          to="/about/pricing"
         >
           features
         </Link>

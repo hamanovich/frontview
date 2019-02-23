@@ -43,29 +43,40 @@ const enhance = compose(
         setTags,
       } = this.props;
 
-      getQuestionsByFilter(filter, active).then(({ tags, questions }) => {
-        if (!tags.length) {
+      getQuestionsByFilter(filter, active)
+        .then(({ tags, questions }) => {
+          if (!tags.length) {
+            addFlashMessage({
+              type: 'warn',
+              text: `There is no filter - ${active}`,
+            });
+
+            history.push('/questions/page/1');
+
+            return;
+          }
+
+          if (!questions.length) {
+            addFlashMessage({
+              type: 'warn',
+              text: 'No questions found',
+            });
+          }
+
+          setTags(tags);
+
+          if (user._id) {
+            getQLists(user._id);
+          }
+        })
+        .catch(() => {
           addFlashMessage({
             type: 'warn',
-            text: `There is no filter - ${active}`,
+            text: 'It looks you typed wrong url. Check it',
           });
 
-          history.push('/questions');
-
-          return;
-        }
-
-        if (!questions.length) {
-          addFlashMessage({
-            type: 'warn',
-            text: 'No questions found',
-          });
-        }
-
-        setTags(tags);
-
-        getQLists(user._id);
-      });
+          history.push('/questions/page/1');
+        });
     },
   }),
 );

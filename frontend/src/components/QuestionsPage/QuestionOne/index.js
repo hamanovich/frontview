@@ -78,7 +78,7 @@ class QuestionOne extends Component {
               : `${err.message}. Please check your internet connection`,
         });
 
-        history.push('/');
+        history.push('/questions/page/1');
       });
   };
 

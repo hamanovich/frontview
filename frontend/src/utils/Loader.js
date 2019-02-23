@@ -10,10 +10,11 @@ export default prop => ComposedComponent =>
     };
 
     componentDidMount() {
+      this.mounted = true;
       this.startTimer = Date.now();
 
       setTimeout(() => {
-        if (isEmpty(this.props[prop])) {
+        if (this.mounted && isEmpty(this.props[prop])) {
           this.setState({ isEmpty: true });
         }
       }, 5000);
@@ -23,6 +24,10 @@ export default prop => ComposedComponent =>
       if (!isEmpty(nextProps[prop])) {
         this.endTimer = Date.now();
       }
+    }
+
+    componentWillUnmount() {
+      this.mounted = false;
     }
 
     render() {

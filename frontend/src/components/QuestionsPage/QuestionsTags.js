@@ -1,18 +1,22 @@
 import React, { Fragment } from 'react';
-import { shape, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 
 import Questions from './Questions';
 import QuestionsBar from './QuestionsBar';
 
-const QuestionsTags = ({ match }) => (
+const QuestionsTags = props => (
   <Fragment>
     <h1>
       Questions by &apos;
-      {match.params.filter}
+      {props.match.params.filter}
       &apos;
     </h1>
 
-    <QuestionsBar active={match.params.tag} filter={match.params.filter} />
+    <QuestionsBar
+      history={props.history}
+      active={props.match.params.tag}
+      filter={props.match.params.filter}
+    />
 
     <hr />
 
@@ -21,6 +25,7 @@ const QuestionsTags = ({ match }) => (
 );
 
 QuestionsTags.propTypes = {
+  history: shape({ push: func.isRequired }).isRequired,
   match: shape({
     params: shape({
       filter: string,

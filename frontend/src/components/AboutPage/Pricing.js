@@ -92,8 +92,7 @@ const PricingPage = () => (
         </Card>
       </CardDeck>
       <p className="pt-4">
-        To be a &apos;Hero&apos; just mail me to{' '}
-        <a href="mailto:hamanovich@gmail.com">hamanovich@gmail.com</a>
+        To be a Hero just mail me to <a href="mailto:hamanovich@gmail.com">hamanovich@gmail.com</a>
       </p>
     </Container>
   </Fragment>

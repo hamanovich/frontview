@@ -18,8 +18,8 @@ const HomePage = () => (
           interview in Frontend discipline.
         </p>
         <p className="lead">
-          You also able to add newquestions, comment existing and review them. Check it on{' '}
-          <Link to="pricing">features</Link> page.
+          You also able to add new questions, comment existing and review them. Check it on{' '}
+          <Link to="/about/pricing">features</Link> page.
         </p>
         <p>
           <em>*This is only beginning</em>

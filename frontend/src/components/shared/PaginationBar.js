@@ -17,6 +17,13 @@ const PaginationBar = ({ activePage, pages, onSelect }) => {
   );
   let items = [item(activePage)];
 
+  if (pages <= minPages) {
+    items = [];
+
+    for (let i = 1; i <= pages; i += 1) {
+      items.push(item(i));
+    }
+  }
   if (pages >= 3) {
     items = [item(activePage - 1), item(activePage), item(activePage + 1)];
   }
