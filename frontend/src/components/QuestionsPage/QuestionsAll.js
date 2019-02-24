@@ -9,7 +9,8 @@ import PaginationBar from '../shared/PaginationBar';
 const QuestionsAll = ({ state, history }) => (
   <Fragment>
     <h1>
-      Questions <Badge variant="primary">{state.pagination.count}</Badge>
+      Questions{' '}
+      {state.pagination.count > 0 && <Badge variant="primary">{state.pagination.count}</Badge>}
     </h1>
 
     <Questions />

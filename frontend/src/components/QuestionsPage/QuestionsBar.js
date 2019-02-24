@@ -65,8 +65,8 @@ const enhance = compose(
 
           setTags(tags);
 
-          if (user._id) {
-            getQLists(user._id);
+          if (user.username) {
+            getQLists(user.username);
           }
         })
         .catch(() => {

@@ -47,9 +47,9 @@ class QuestionOne extends Component {
   componentDidMount() {
     const { getUser, getQLists, match, user } = this.props;
 
-    if (user._id) {
+    if (user.username) {
       getUser(user.username);
-      getQLists(user._id);
+      getQLists(user.username);
     }
 
     this.getQuestion(match.params.slug);

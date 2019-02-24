@@ -27,16 +27,14 @@ exports.addQuestion = async (req, res) => {
 };
 
 exports.getQLists = async (req, res) => {
-  const user = await User.findById(req.params._id);
+  const user = await User.findOne({ username: req.params.username });
 
   if (!user) {
     res.status(404).json({ error: "User didn't find" });
     return;
   }
 
-  const qlists = await QList.find({ author: user._id })
-    .populate('questions')
-    .sort({ created: -1 });
+  const qlists = await QList.find({ author: user._id });
 
   res.json(qlists);
 };

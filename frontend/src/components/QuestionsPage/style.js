@@ -1,14 +1,8 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-
 import Badge from 'react-bootstrap/Badge';
 
 export const BadgeStyled = styled(Badge)`
   margin: 0 3px;
-`;
-
-export const LinkStyled = styled(Link)`
-  margin-top: 7px;
 `;
 
 export const ApproveBar = styled('div')`

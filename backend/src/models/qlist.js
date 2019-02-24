@@ -46,7 +46,7 @@ qlistSchema.pre('save', async function qlistSchema(next) {
 });
 
 function autopopulate(next) {
-  this.populate('question user');
+  this.populate('questions');
   next();
 }
 

@@ -25,5 +25,5 @@ export default shape({
     shape({
       username: string.isRequired,
     }),
-  ]).isRequired,
+  ]),
 });

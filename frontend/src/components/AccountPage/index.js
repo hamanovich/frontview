@@ -23,17 +23,17 @@ const AccountPage = ({ auth }) => (
       <title>Frontview: Profile</title>
     </Helmet>
     <Row>
-      <Col xl={3} sm={4}>
-        <AccountBar auth={auth} />
-      </Col>
-      <Col xl={9} sm={8}>
+      <Col xl={9} md={8} className="mb-4">
         <Switch>
           <PropsRoute exact path="/me" component={Account} user={auth.user} />
           <PropsRoute exact path="/me/edit" component={AccountEdit} user={auth.user} />
           <PropsRoute exact path="/me/qlist/create" component={QListPage} userId={auth.user._id} />
-          <PropsRoute exact path="/me/qlists" component={QLists} userId={auth.user._id} />
+          <PropsRoute exact path="/me/qlists" component={QLists} username={auth.user.username} />
           <Redirect to="/" />
         </Switch>
+      </Col>
+      <Col xl={3} md={{ span: 4, order: 'first' }}>
+        <AccountBar auth={auth} />
       </Col>
     </Row>
   </Container>

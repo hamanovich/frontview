@@ -98,14 +98,37 @@ questionSchema.pre('save', async function qSchema1(next) {
 questionSchema.statics.getListByType = function qSchema2(type) {
   return this.aggregate([
     { $unwind: `$${type}` },
-    { $group: { _id: `$${type}`, count: { $sum: 1 } } },
+    {
+      $group: {
+        _id: `$${type}`,
+        count: { $sum: 1 },
+      },
+    },
   ]);
 };
 
 questionSchema.statics.getTopQuestions = function qSchema3() {
   return this.aggregate([
     { $lookup: { from: 'users', localField: '_id', foreignField: 'votes.like', as: 'favourite' } },
-    { $addFields: { size: { $size: { $ifNull: ['$favourite', []] } } } },
+    {
+      $project: {
+        favourite: {
+          passwordDigest: 0,
+          confirmationToken: 0,
+          questions: 0,
+          votes: 0,
+          confirmed: 0,
+          role: 0,
+        },
+      },
+    },
+    {
+      $addFields: {
+        size: {
+          $size: { $ifNull: ['$favourite', []] },
+        },
+      },
+    },
     { $sort: { size: -1 } },
   ]).limit(10);
 };
@@ -117,7 +140,11 @@ questionSchema.virtual('comments', {
 });
 
 function autopopulate(next) {
-  this.populate('author comments qlists');
+  this.populate('comments');
+  this.populate({
+    path: 'author',
+    select: 'username email',
+  });
   next();
 }
 

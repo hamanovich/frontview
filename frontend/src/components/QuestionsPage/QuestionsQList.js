@@ -8,8 +8,7 @@ import { QListType } from '../../propTypes';
 const QuestionsQList = ({ qlists, match }) => (
   <Fragment>
     <h1>
-      Questions from QList:
-      {match.params.slug}
+      Questions from QList: <strong>{match.params.slug}</strong>
     </h1>
     <span>
       {qlists[0] &&
