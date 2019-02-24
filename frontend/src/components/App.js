@@ -14,6 +14,7 @@ import FlashList from './flash/FlashList';
 import FaqButton from './shared/FaqButton';
 
 import { isLoggedIn, User, Waiting } from '../utils/helpers';
+import ScrollToTopRoute from '../utils/ScrollToTopRoute';
 
 const LoginPage = lazy(() => import('./LoginPage' /* webpackChunkName: "Login" */));
 const SignupPage = lazy(() => import('./SignupPage' /* webpackChunkName: "Signup" */));
@@ -35,6 +36,7 @@ const App = () => (
     </Helmet>
     <Header />
     <main id="main">
+      <ScrollToTopRoute />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/login" component={isLoggedIn(Waiting(LoginPage))} />

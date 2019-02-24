@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-// import { shape, bool } from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
@@ -24,12 +23,5 @@ const AboutPage = () => (
     </Switch>
   </Fragment>
 );
-
-// AccountPage.propTypes = {
-//   auth: shape({
-//     isAuthenticated: bool.isRequired,
-//     user: UserType.isRequired,
-//   }).isRequired,
-// };
 
 export default AboutPage;
