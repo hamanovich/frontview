@@ -1,7 +1,7 @@
 {
   "name": "frontview-backend",
   "version": "1.0.0",
-  "description": "the backend of FrontView",
+  "description": "the backend of Frontview",
   "author": "Siarhei Hamanovich <hamanovich@gmail.com> (http://github.com/hamanovich)",
   "license": "MIT",
   "scripts": {

@@ -28,7 +28,7 @@ const AccountBar = ({ auth, logout }) => (
     <Link to="/me/qlists" className="list-group-item">
       <FontAwesome name="list-ol" /> Show my QLists
     </Link>
-    <Button block variant="danger" onClick={logout}>
+    <Button block variant="warning" onClick={logout}>
       <FontAwesome name="sign-out" /> Logout
     </Button>
   </ListGroup>

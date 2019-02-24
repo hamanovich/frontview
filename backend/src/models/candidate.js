@@ -46,7 +46,10 @@ const candidateSchema = new Schema(
 );
 
 function autopopulate(next) {
-  this.populate('user');
+  this.populate({
+    path: 'interviewer',
+    select: 'username email',
+  });
   next();
 }
 

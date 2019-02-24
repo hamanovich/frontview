@@ -24,7 +24,7 @@ exports.getCommentsByAuthor = async (req, res) => {
 
   const comments = await Comment.find({ author: user._id })
     .sort({ created: -1 })
-    .populate('question');
+    .populate({ path: 'question', select: '-author' });
 
   res.json(comments);
 };

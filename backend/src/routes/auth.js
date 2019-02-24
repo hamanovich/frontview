@@ -42,6 +42,8 @@ exports.confirm = async (req, res) => {
 
 exports.forgot = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
+  const host =
+    process.env.NODE_ENV === 'production' ? req.get('host') : req.headers['x-forwarded-host'];
 
   if (!user) {
     res.status(401).json({ error: 'No account with that email exists' });
@@ -55,10 +57,10 @@ exports.forgot = async (req, res) => {
 
   await send({
     user,
-    from: 'FrontView <front-view@herokuapp.com>',
+    from: 'Frontview <frontview@herokuapp.com>',
     filename: 'password-reset',
     subject: 'Password Reset',
-    resetURL: `${req.protocol}://${req.get('host')}/login/reset/${user.resetPasswordToken}`,
+    resetURL: `${req.protocol}://${host}/login/reset/${user.resetPasswordToken}`,
   });
 
   res.json({ emailed: 'You have been emailed a password reset link. Please, check your email.' });

@@ -329,7 +329,12 @@ exports.voteQuestion = async (req, res) => {
     req.params.id,
     { [operator]: { [`votes.${action}`]: userId } },
     { new: true },
-  ).populate('author comments');
+  )
+    .populate('comments')
+    .populate({
+      path: 'author',
+      select: 'username email',
+    });
   const user = await User.findByIdAndUpdate(
     userId,
     { [operator]: { [`votes.${action}`]: question._id } },

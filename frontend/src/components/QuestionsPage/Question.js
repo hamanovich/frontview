@@ -20,7 +20,7 @@ import ZoomImage from '../shared/ZoomImage';
 import Loader from '../../utils/Loader';
 
 import { QuestionType, UserType, QListType } from '../../propTypes';
-import { BadgeStyled, LinkStyled, ApproveBar, DropThumb, DropThumbs } from './style';
+import { BadgeStyled, ApproveBar, DropThumb, DropThumbs } from './style';
 
 class Question extends Component {
   static propTypes = {
@@ -105,9 +105,9 @@ class Question extends Component {
             </Link>
           ))}
         </h6>
-        <LinkStyled to={`/questions/practice/${question.practice}`}>
+        <Link to={`/questions/practice/${question.practice}`}>
           <Badge variant="warning">{question.practice}</Badge>
-        </LinkStyled>
+        </Link>
       </div>
     );
 
@@ -178,9 +178,15 @@ class Question extends Component {
                 </Link>
               </small>
             )}
-            <Link to={`/questions/${question.slug}/one`} className="pull-right">
-              <FontAwesome name="comments-o" /> {question.comments && question.comments.length}
-            </Link>
+            {question.comments.length > 0 ? (
+              <Link to={`/questions/${question.slug}/one`} className="pull-right">
+                <FontAwesome name="comments-o" /> {question.comments.length}
+              </Link>
+            ) : (
+              <span className="pull-right">
+                <FontAwesome name="comments-o" /> 0
+              </span>
+            )}
             <p>
               <small>Last modified: {format(question.lastModified, 'DD/MM/YYYY HH:mm:ss')}</small>
             </p>

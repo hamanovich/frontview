@@ -8,10 +8,11 @@ const FaqBtn = styled(Link)`
   right: -0.25rem;
   top: calc(50% - 3rem);
   font-size: 2rem;
+  z-index: 2;
 `;
 
 const FaqButton = () => (
-  <FaqBtn to="/about/faq" className="btn btn-danger">
+  <FaqBtn to="/about/faq" className="btn btn-sm btn-danger">
     <FontAwesome name="question-circle-o" />
   </FaqBtn>
 );

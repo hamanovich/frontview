@@ -19,7 +19,7 @@ const MediaImage = styled(Image)`
   margin-right: 16px;
 `;
 
-const Question = styled(Link)`
+const QuestionLink = styled(Link)`
   display: inline-block;
   margin-bottom: 5px;
   font-size: 24px;
@@ -30,12 +30,12 @@ const Comment = ({ comment, match }) => (
     <MediaImage src={comment.author.gravatar} alt={comment.author.username} rounded />
     <Media.Body>
       {match && (
-        <Question to={`/questions/${comment.question.slug}/one`}>
+        <QuestionLink to={`/questions/${comment.question.slug}/one`}>
           {comment.question.question}
-        </Question>
+        </QuestionLink>
       )}
       <h5>{comment.topic}</h5>
-      <MarkdownRenderer markdown={comment.text} />
+      <MarkdownRenderer markdown={comment.text} className="mb-2" />
       <Badge variant="info">{comment.author.username}</Badge>
       <Badge variant="default" className="pull-right">
         {distanceInWordsToNow(comment.created, { addSuffix: true })}

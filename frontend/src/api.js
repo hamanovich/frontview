@@ -38,7 +38,7 @@ export default {
 
     getQListQuestions: slug => axios.get(`/api/qlists/${slug}/questions`).then(res => res.data),
 
-    getByAuthor: _id => axios.get(`/api/qlists/${_id}`).then(res => res.data),
+    getByAuthor: username => axios.get(`/api/qlists/${username}`).then(res => res.data),
 
     remove: _id => axios.delete(`/api/qlist/${_id}`).then(res => res.data),
   },

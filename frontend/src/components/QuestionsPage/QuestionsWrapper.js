@@ -79,7 +79,7 @@ export default WrappedComponent => {
             pagination: { pages, activePage: Number(page), count },
           });
 
-          if (user._id) getQLists(user._id);
+          if (user.username) getQLists(user.username);
         })
         .catch(err => {
           addFlashMessage({
@@ -99,7 +99,7 @@ export default WrappedComponent => {
 
       getQuestionsByAuthor(author)
         .then(() => {
-          getQLists(user._id);
+          getQLists(user.username);
         })
         .catch(err => {
           addFlashMessage({
@@ -133,7 +133,7 @@ export default WrappedComponent => {
           history.push('/questions/page/1');
         }
 
-        getQLists(user._id);
+        getQLists(user.username);
       });
     };
 

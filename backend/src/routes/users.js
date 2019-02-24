@@ -60,7 +60,7 @@ exports.createUser = async (req, res) => {
 
   await send({
     user,
-    from: `FrontView <front-view@herokuapp.com>`,
+    from: `Frontview <frontview@herokuapp.com>`,
     filename: 'confirmation-email',
     subject: 'Confirmation Email',
     confirmURL: `${req.protocol}://${host}/confirmation/${user.confirmationToken}`,
@@ -72,7 +72,7 @@ exports.createUser = async (req, res) => {
 exports.getUser = async (req, res) => {
   const user = await User.findOne({
     $or: [{ username: req.params.identifier }, { email: req.params.identifier }],
-  }).populate('qlists');
+  });
 
   if (user) {
     const userData = {

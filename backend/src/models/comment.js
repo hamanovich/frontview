@@ -34,7 +34,10 @@ const commentSchema = new mongoose.Schema(
 );
 
 function autopopulate(next) {
-  this.populate('author');
+  this.populate({
+    path: 'author',
+    select: 'username email',
+  });
   next();
 }
 

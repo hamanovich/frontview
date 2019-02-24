@@ -30,14 +30,14 @@ const RemoveIcon = styled.button`
 
 class QLists extends Component {
   static defaultProps = {
-    userId: null,
+    username: null,
   };
 
   static propTypes = {
     getQLists: func.isRequired,
     removeQList: func.isRequired,
     qlists: arrayOf(QListType).isRequired,
-    userId: string,
+    username: string,
   };
 
   state = {
@@ -46,9 +46,9 @@ class QLists extends Component {
   };
 
   componentDidMount() {
-    const { userId, getQLists } = this.props;
+    const { username, getQLists } = this.props;
 
-    getQLists(userId);
+    getQLists(username);
   }
 
   toggleModal = (id = null) =>
