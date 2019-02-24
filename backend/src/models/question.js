@@ -145,14 +145,6 @@ function autopopulate(next) {
     path: 'author',
     select: 'username email',
   });
-  this.populate({
-    path: 'favourite',
-    select: '-passwordDigest',
-  });
-  this.populate({
-    path: 'users',
-    select: '-passwordDigest',
-  });
   next();
 }
 
