@@ -14,6 +14,7 @@ exports[`<App/> renders <App /> component 1`] = `
   <main
     id="main"
   >
+    <withRouter(ScrollToTopRoute) />
     <Switch>
       <Route
         component={[Function]}
