@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { arrayOf, func, shape } from 'prop-types';
+import { arrayOf, func, shape, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import MarkdownRenderer from 'react-markdown-renderer';
 import map from 'lodash/map';
@@ -32,11 +32,17 @@ class Question extends Component {
     history: shape({
       push: func,
     }),
+    match: shape({
+      params: shape({
+        slug: string.isRequired,
+      }).isRequired,
+    }),
   };
 
   static defaultProps = {
     qlists: [],
     history: {},
+    match: null,
   };
 
   state = {
@@ -77,7 +83,7 @@ class Question extends Component {
   };
 
   render() {
-    const { question, approveQuestion, editQuestionField, user, qlists } = this.props;
+    const { question, approveQuestion, editQuestionField, user, qlists, match } = this.props;
     const { answerField, textField } = this.state;
 
     const panelHeader = (
@@ -114,7 +120,11 @@ class Question extends Component {
     return (
       <Fragment>
         <h2>
-          <Link to={`/questions/${question.slug}/one`}>{question.question}</Link>
+          {match ? (
+            question.question
+          ) : (
+            <Link to={`/questions/${question.slug}/one`}>{question.question}</Link>
+          )}
         </h2>
         <ApproveBar>
           <h5>

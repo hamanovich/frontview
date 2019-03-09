@@ -43,6 +43,11 @@ const Footer = () => (
           <h5>Features</h5>
           <ul className="list-unstyled">
             <li>
+              <Link to="/about/api" className="text-muted">
+                <strong>API</strong>
+              </Link>
+            </li>
+            <li>
               <Link to="/about/pricing" className="text-muted">
                 Pricing
               </Link>

@@ -47,7 +47,7 @@ router.get('/comments/:username', catchErrors(commentsController.getCommentsByAu
 router.post('/comments/add', authenticate, catchErrors(commentsController.add));
 
 router.get('/qlists/:username', catchErrors(qlistController.getQLists));
-router.get('/qlists/:slug/questions', catchErrors(qlistController.getQListQuestions));
+router.get('/qlists/:username/:slug', catchErrors(qlistController.getQListQuestions));
 router.post('/qlist/add', authenticate, catchErrors(qlistController.addQlist));
 router.post('/qlist/add/question', authenticate, catchErrors(qlistController.addQuestion));
 router.delete('/qlist/:_id', qlistController.remove);

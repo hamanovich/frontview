@@ -40,10 +40,17 @@ exports.getQLists = async (req, res) => {
 };
 
 exports.getQListQuestions = async (req, res) => {
-  const qlist = await QList.findOne({ slug: req.params.slug });
+  const { slug, username } = req.params;
+  const qlist = await QList.findOne({ slug });
+  const user = await User.findOne({ username });
 
   if (!qlist) {
-    res.status(404).json({ error: `QList ${req.params.slug} didn't find` });
+    res.status(404).json({ error: `QList ${slug} didn't find` });
+    return;
+  }
+
+  if (!user) {
+    res.status(404).json({ error: `User ${username} didn't find` });
     return;
   }
 

@@ -2,6 +2,8 @@ import api from '../api';
 
 import { QLISTS_ADD, QLIST_ADD, QLIST_GET, QLIST_ADD_QUESTION, QLIST_REMOVE } from './types';
 
+import { addQuestions } from './questions';
+
 export const addQlists = qlists => ({
   type: QLISTS_ADD,
   qlists,
@@ -36,8 +38,11 @@ export const qlistAddQuestion = (qlist, question) => dispatch => () =>
 export const getQLists = username => dispatch =>
   api.qlists.getByAuthor(username).then(qlists => dispatch(addQlists(qlists)));
 
-export const getQListQuestions = slug => dispatch =>
-  api.qlists.getQListQuestions(slug).then(qlist => dispatch(qlistGot(qlist)));
+export const getQListQuestions = (username, slug) => dispatch =>
+  api.qlists.getQListQuestions(username, slug).then(qlist => {
+    dispatch(qlistGot(qlist));
+    dispatch(addQuestions(qlist.questions));
+  });
 
 export const removeQList = _id => dispatch =>
   api.qlists.remove(_id).then(qlist => dispatch(qlistRemoved(qlist)));

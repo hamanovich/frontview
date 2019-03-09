@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
+import API from './API';
 import About from './About';
 import Faq from './Faq';
 import Pricing from './Pricing';
@@ -15,6 +16,7 @@ const AboutPage = () => (
     </Helmet>
     <Switch>
       <Route exact path="/about" component={About} />
+      <Route exact path="/about/api" component={API} />
       <Route exact path="/about/news" component={LatestNews} />
       <Route exact path="/about/faq" component={Faq} />
       <Route exact path="/about/pricing" component={Pricing} />

@@ -60,7 +60,7 @@ exports.createUser = async (req, res) => {
 
   await send({
     user,
-    from: `Frontview <frontview@herokuapp.com>`,
+    from: 'Frontview <frontview@herokuapp.com>',
     filename: 'confirmation-email',
     subject: 'Confirmation Email',
     confirmURL: `${req.protocol}://${host}/confirmation/${user.confirmationToken}`,
@@ -88,8 +88,6 @@ exports.getUser = async (req, res) => {
       notes: user.notes,
       role: user.role,
       gravatar: user.gravatar,
-      votes: user.votes,
-      qlists: user.qlists,
     };
 
     res.json(userData);
