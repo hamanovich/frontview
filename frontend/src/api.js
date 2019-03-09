@@ -36,7 +36,8 @@ export default {
     addQuestion: (qlist, question) =>
       axios.post('/api/qlist/add/question', { qlist, question }).then(res => res.data),
 
-    getQListQuestions: slug => axios.get(`/api/qlists/${slug}/questions`).then(res => res.data),
+    getQListQuestions: (username, slug) =>
+      axios.get(`/api/qlists/${username}/${slug}`).then(res => res.data),
 
     getByAuthor: username => axios.get(`/api/qlists/${username}`).then(res => res.data),
 

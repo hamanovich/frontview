@@ -10,12 +10,6 @@ const QuestionsQList = ({ qlists, match }) => (
     <h1>
       Questions from QList: <strong>{match.params.slug}</strong>
     </h1>
-    <span>
-      {qlists[0] &&
-        qlists.filter(qlist => qlist.slug === match.params.slug)[0].questions.length === 0 && (
-          <span>nothing found</span>
-        )}{' '}
-    </span>
     <Questions
       questions={qlists[0] && qlists.filter(qlist => qlist.slug === match.params.slug)[0].questions}
     />

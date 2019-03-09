@@ -51,5 +51,6 @@ function autopopulate(next) {
 }
 
 qlistSchema.pre('find', autopopulate);
+qlistSchema.pre('findOne', autopopulate);
 
 module.exports = mongoose.model('qlist', qlistSchema);

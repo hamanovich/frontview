@@ -60,7 +60,7 @@ class QLists extends Component {
   };
 
   render() {
-    const { qlists } = this.props;
+    const { qlists, username } = this.props;
     const { showModal } = this.state;
 
     return (
@@ -74,7 +74,7 @@ class QLists extends Component {
             ? map(qlists, qlist => (
                 <ListGroup.Item key={qlist.slug}>
                   <h4>
-                    <Link to={`/questions/qlist/${qlist.slug}`}>
+                    <Link to={`/questions/${username}/qlist/${qlist.slug}`}>
                       {qlist.title} <Badge variant="primary">{qlist.questions.length}</Badge>
                     </Link>
                   </h4>

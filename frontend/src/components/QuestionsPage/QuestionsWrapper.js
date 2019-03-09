@@ -10,7 +10,7 @@ import {
   getSearchedQuestions,
   getQuestionsByAuthor,
 } from '../../actions/questions';
-import { getQLists } from '../../actions/qlists';
+import { getQLists, getQListQuestions } from '../../actions/qlists';
 
 import { QuestionType } from '../../propTypes';
 
@@ -23,6 +23,7 @@ export default WrappedComponent => {
       getTopQuestions: func.isRequired,
       getQuestionsByAuthor: func.isRequired,
       getSearchedQuestions: func.isRequired,
+      getQListQuestions: func.isRequired,
       addFlashMessage: func.isRequired,
       user: shape({
         username: string,
@@ -55,16 +56,18 @@ export default WrappedComponent => {
     };
 
     componentDidMount() {
-      const { match, location, getTopQuestions } = this.props;
-      const { page = 1, username } = match.params;
+      const { match, location, getTopQuestions, getQListQuestions } = this.props;
+      const { page = 1, username, slug } = match.params;
       const searchQuery = new URLSearchParams(location.search).get('q');
 
       if (searchQuery) {
         this.getQueryQuestions(searchQuery);
       } else if (match.path === '/questions/top') {
         getTopQuestions();
-      } else if (username) {
+      } else if (username && !slug) {
         this.getAuthorsQuestions(username);
+      } else if (username && slug) {
+        getQListQuestions(username, slug);
       } else {
         this.getPageQuestions(page);
       }
@@ -155,6 +158,7 @@ export default WrappedComponent => {
       getQLists,
       getQuestions,
       getTopQuestions,
+      getQListQuestions,
       getQuestionsByAuthor,
       getSearchedQuestions,
     },

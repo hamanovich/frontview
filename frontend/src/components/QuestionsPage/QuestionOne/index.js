@@ -105,6 +105,7 @@ class QuestionOne extends Component {
           editQuestionField={editQuestionField}
           user={user}
           qlists={qlists}
+          match={match}
         />
 
         {question && question.comments.length > 0 && (

@@ -17,7 +17,7 @@ const questionSchema = new Schema(
     skill: [
       {
         type: String,
-        enum: ['HTML', 'CSS', 'JS', 'Soft', 'Other'],
+        enum: ['HTML', 'CSS', 'JS', 'Accessibility', 'Soft', 'Other'],
         required: 'Skill field is required',
       },
     ],

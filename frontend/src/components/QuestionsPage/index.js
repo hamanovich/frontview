@@ -39,7 +39,7 @@ const QuestionsPage = () => (
         <Route path="/questions/internet/:source?" component={Waiting(QuestionsFromInternet)} />
         <Route
           exact
-          path="/questions/qlist/:slug"
+          path="/questions/:username/qlist/:slug"
           component={User(QuestionsWrapper(QuestionsQList))}
         />
         <Route exact path="/questions/:_id/edit" component={User(Waiting(AddQuestion))} />

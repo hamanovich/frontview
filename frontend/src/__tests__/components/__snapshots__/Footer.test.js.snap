@@ -80,6 +80,17 @@ exports[`<Footer/> renders <Footer /> component 1`] = `
             <Link
               className="text-muted"
               replace={false}
+              to="/about/api"
+            >
+              <strong>
+                API
+              </strong>
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="text-muted"
+              replace={false}
               to="/about/pricing"
             >
               Pricing
