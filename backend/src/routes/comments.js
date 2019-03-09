@@ -3,7 +3,6 @@ import User from '../models/user';
 
 exports.add = async (req, res) => {
   const { userId, questionId, comment, topic } = req.body;
-  console.log('REQ', req.body);
   const newComment = await Comment.create({
     author: userId,
     question: questionId,
