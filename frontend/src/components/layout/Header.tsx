@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { shape, func, bool } from 'prop-types';
+import { shape, func } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
-import styled from 'styled-components';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import Image from 'react-bootstrap/Image';
 
 import { logout } from '../../actions/auth';
 import { getUser } from '../../actions/signup';
@@ -18,31 +16,26 @@ import { addFlashMessage } from '../../actions/flash';
 
 import SearchForm from './SearchForm';
 
-import { UserType } from '../../propTypes';
+import { Menu } from './style';
 
-const Menu = styled(Navbar)`
-  border-radius: 0;
-`;
+import { Auth } from '../../propTypes/UserType';
 
-const MediaImage = styled(Image)`
-  width: 25px;
-  height: 25px;
-  max-width: 25px;
-  margin: -10px 5px -10px 0;
-`;
+type HeaderProps = {
+  getSearchedQuestions: (query: string) => Promise<any>;
+  getUser: (identifier: string) => Promise<{}>;
+  addFlashMessage: (payload: {
+    type: string;
+    text: string;
+  }) => { type: string; payload: { type: string; text: string } };
+  logout: () => void;
+  auth: Auth;
+};
 
-export class Header extends Component {
-  static propTypes = {
-    auth: shape({
-      isAuthenticated: bool.isRequired,
-      user: UserType.isRequired,
-    }).isRequired,
-    getSearchedQuestions: func.isRequired,
-    getUser: func.isRequired,
-    addFlashMessage: func.isRequired,
-    logout: func.isRequired,
-  };
+type searchValues = {
+  search: string;
+};
 
+export class Header extends Component<HeaderProps, {}> {
   static contextTypes = {
     router: shape({
       history: shape({
@@ -64,14 +57,14 @@ export class Header extends Component {
     }
   }
 
-  onSearch = values => {
+  private onSearch = (values: searchValues) => {
     const { getSearchedQuestions, addFlashMessage } = this.props;
     const { history } = this.context.router;
 
     if (!values.search) return;
 
     getSearchedQuestions(values.search)
-      .then(res => {
+      .then((res: { length: number }) => {
         if (!res.length) {
           addFlashMessage({
             type: 'warn',
@@ -92,13 +85,15 @@ export class Header extends Component {
   };
 
   render() {
-    const { auth, logout, getSearchedQuestions, addFlashMessage } = this.props;
-    const userPick = (
-      <span>
-        <MediaImage src={auth.user.gravatar} roundedCircle />
-        {auth.user.username}
-      </span>
-    );
+    const { auth, logout } = this.props;
+    const userPick = auth.user.username;
+    // Known issue: https://github.com/react-bootstrap/react-bootstrap/issues/3534
+    // const userPick = (
+    //   <Fragment>
+    //     <MediaImage src={auth.user.gravatar} roundedCircle />
+    //     {auth.user.username}
+    //   </Fragment>
+    // );
     const userLinks = (
       <Nav>
         <NavDropdown title="Menu" id="menu-dropdown">
@@ -183,13 +178,9 @@ export class Header extends Component {
         <Navbar.Brand>
           <Link to="/">Frontview /</Link>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbar-nav" />
-        <Navbar.Collapse id="navbar-nav">
-          <SearchForm
-            getSearchedQuestions={getSearchedQuestions}
-            addFlashMessage={addFlashMessage}
-            onSearch={this.onSearch}
-          />
+        <Navbar.Toggle />
+        <Navbar.Collapse>
+          <SearchForm onSearch={this.onSearch} />
           <Nav className="mr-auto">
             <Navbar.Text>or</Navbar.Text>
             <LinkContainer to="/questions">
@@ -205,7 +196,7 @@ export class Header extends Component {
   }
 }
 
-const mapStateToProps = state => ({ auth: state.auth });
+const mapStateToProps = (state: { auth: Auth }) => ({ auth: state.auth });
 
 export default connect(
   mapStateToProps,

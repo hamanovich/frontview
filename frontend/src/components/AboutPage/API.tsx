@@ -7,6 +7,7 @@ import Table from 'react-bootstrap/Table';
 
 const API = () => {
   const { protocol, host } = window.location;
+
   return (
     <Container>
       <Helmet>
@@ -36,7 +37,7 @@ const API = () => {
         </thead>
         <tbody>
           <tr>
-            <td colSpan="4">
+            <td colSpan={4}>
               <strong>User</strong>
             </td>
           </tr>
@@ -47,7 +48,7 @@ const API = () => {
             <td>&nbsp;</td>
           </tr>
           <tr>
-            <td colSpan="4">
+            <td colSpan={4}>
               <strong>Questions</strong>
             </td>
           </tr>
@@ -82,7 +83,7 @@ const API = () => {
             <td>&nbsp;</td>
           </tr>
           <tr>
-            <td colSpan="4">
+            <td colSpan={4}>
               <strong>Comments</strong>
             </td>
           </tr>
