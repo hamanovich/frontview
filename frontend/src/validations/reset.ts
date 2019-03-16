@@ -1,8 +1,19 @@
+import { FormErrors } from 'redux-form';
 import equals from 'validator/lib/equals';
 import isEmpty from 'lodash/isEmpty';
 
-export default values => {
-  const errors = {};
+interface Values {
+  password: string;
+  passwordConfirmation: string;
+  isValid: boolean;
+}
+
+export default (values: Values): FormErrors => {
+  const errors: Values = {
+    password: '',
+    passwordConfirmation: '',
+    isValid: false,
+  };
 
   if (!values.password) {
     errors.password = 'Password is required';

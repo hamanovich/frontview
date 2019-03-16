@@ -1,10 +1,27 @@
+import { FormErrors } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 import isMobilePhone from 'validator/lib/isMobilePhone';
 import equals from 'validator/lib/equals';
 import isEmpty from 'lodash/isEmpty';
 
-export default values => {
-  const errors = {};
+interface Values {
+  username: string;
+  email: string;
+  phone: string;
+  password: string;
+  passwordConfirmation: string;
+  isValid: boolean;
+}
+
+export default (values: Values): FormErrors => {
+  const errors: Values = {
+    username: '',
+    email: '',
+    phone: '',
+    password: '',
+    passwordConfirmation: '',
+    isValid: false,
+  };
 
   if (!values.username) {
     errors.username = 'Username is required';

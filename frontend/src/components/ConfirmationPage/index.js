@@ -13,9 +13,8 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
-import { confirm } from '../../actions/auth';
-import { getUser } from '../../actions/signup';
-import { addFlashMessage } from '../../actions/flash';
+import { confirm, getUser } from '../../actions/auth.ts';
+import { addFlashMessage } from '../../actions/flash.ts';
 
 const enhance = compose(
   connect(
@@ -31,7 +30,13 @@ const enhance = compose(
 
   lifecycle({
     componentDidMount() {
-      const { confirm, getUser, addFlashMessage, match, setSuccess } = this.props;
+      const {
+        confirm,
+        getUser,
+        addFlashMessage,
+        match,
+        setSuccess,
+      } = this.props;
 
       confirm(match.params.token)
         .then(() => getUser(jwtDecode(window.localStorage.jwtToken).username))
@@ -56,8 +61,8 @@ const Confirmation = ({ success }) => (
     <Container>
       <h1>Hey!</h1>
       <p className="lead">
-        The goal of this project is to provide a convenient way to prepare and conduct technical
-        interview in Frontend discipline.
+        The goal of this project is to provide a convenient way to prepare and
+        conduct technical interview in Frontend discipline.
       </p>
       {success && (
         <Fragment>

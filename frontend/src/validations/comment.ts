@@ -1,7 +1,20 @@
+import { FormErrors } from 'redux-form';
 import isEmpty from 'lodash/isEmpty';
 
-export default values => {
-  const errors = {};
+interface Values {
+  username: string;
+  topic: string;
+  comment: string;
+  isValid: boolean;
+}
+
+export default (values: Values): FormErrors => {
+  const errors: Values = {
+    username: '',
+    topic: '',
+    comment: '',
+    isValid: false,
+  };
 
   if (!values.username) {
     errors.username = 'Username is required';

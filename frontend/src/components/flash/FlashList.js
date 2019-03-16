@@ -4,12 +4,19 @@ import { connect } from 'react-redux';
 import map from 'lodash/map';
 
 import Flash from './Flash';
-import { deleteFlashMessage, deleteFlashMessages } from '../../actions/flash';
+import {
+  deleteFlashMessage,
+  deleteFlashMessages,
+} from '../../actions/flash.ts';
 
 export const FlashList = ({ messages, deleteFlashMessage }) => (
   <Fragment>
     {map(messages, message => (
-      <Flash key={message.id} message={message} close={() => deleteFlashMessage(message.id)} />
+      <Flash
+        key={message.id}
+        message={message}
+        close={() => deleteFlashMessage(message.id)}
+      />
     ))}
   </Fragment>
 );

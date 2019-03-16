@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App/> renders <App /> component 1`] = `
+<Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Frontview: Interview for Everyone
+    </title>
+  </HelmetWrapper>
+  <Connect(Header) />
+  <main
+    id="main"
+  >
+    <withRouter(ScrollToTopRoute) />
+    <Switch>
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/"
+      />
+      <Route
+        component={[Function]}
+        path="/login"
+      />
+      <Route
+        component={[Function]}
+        path="/signup"
+      />
+      <Route
+        component={[Function]}
+        path="/me"
+      />
+      <Route
+        component={[Function]}
+        path="/questions"
+      />
+      <Route
+        component={[Function]}
+        path="/interview"
+      />
+      <Route
+        component={[Function]}
+        path="/comments/:username"
+      />
+      <Route
+        component={[Function]}
+        path="/confirmation/:token"
+      />
+      <Route
+        component={[Function]}
+        path="/about"
+      />
+      <Route
+        component={[Function]}
+      />
+    </Switch>
+  </main>
+  <Footer />
+  <Connect(FlashList) />
+  <FaqButton />
+  <ScrollUp
+    duration={250}
+    easing="easeOutCubic"
+    showUnder={160}
+    style={
+      Object {
+        "bottom": 16,
+        "right": 16,
+      }
+    }
+    topPosition={0}
+  >
+    <ForwardRef(Bootstrap(Button))
+      variant="warning"
+    >
+      <FontAwesome
+        name="chevron-up"
+      />
+    </ForwardRef(Bootstrap(Button))>
+  </ScrollUp>
+</Fragment>
+`;

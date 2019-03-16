@@ -11,8 +11,15 @@ import {
   VOTE_LIKE,
   VOTE_DISLIKE,
 } from '../actions/types';
+import { Question } from '../propTypes/QuestionType';
+import { QuestionsActionTypes } from '../actions/questions';
 
-export default (state = [], action) => {
+const initialState: Question[] = [];
+
+export default (
+  state = initialState,
+  action: QuestionsActionTypes,
+): Question[] => {
   switch (action.type) {
     case QUESTIONS_ADD:
       return action.questions;
@@ -24,7 +31,9 @@ export default (state = [], action) => {
       return [...state, ...action.questions];
 
     case QUESTION_GET: {
-      const gotIndex = state.findIndex(question => question._id === action.question._id);
+      const gotIndex = state.findIndex(
+        question => question._id === action.question._id,
+      );
 
       if (gotIndex > -1) {
         return map(state, question => {
@@ -43,7 +52,9 @@ export default (state = [], action) => {
     case QUESTION_EDIT:
     case VOTE_LIKE:
     case VOTE_DISLIKE: {
-      const editIndex = state.findIndex(question => question._id === action.question._id);
+      const editIndex = state.findIndex(
+        question => question._id === action.question._id,
+      );
 
       if (editIndex > -1) {
         return map(state, question => {
@@ -59,10 +70,15 @@ export default (state = [], action) => {
     }
 
     case QUESTION_REMOVE: {
-      const removeIndex = state.findIndex(question => question._id === action.question._id);
+      const removeIndex = state.findIndex(
+        question => question._id === action.question._id,
+      );
 
       if (removeIndex > -1) {
-        return [...state.slice(0, removeIndex), ...state.slice(removeIndex + 1)];
+        return [
+          ...state.slice(0, removeIndex),
+          ...state.slice(removeIndex + 1),
+        ];
       }
 
       return state;

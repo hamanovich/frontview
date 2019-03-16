@@ -1,19 +1,22 @@
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 
-import { AppState } from '../reducers';
-
 import api from '../api';
-
+import { addQuestions } from './questions';
+import { AppState } from '../reducers';
 import { QList } from '../propTypes/QListType';
 import { Question } from '../propTypes/QuestionType';
-import { QLISTS_ADD, QLIST_ADD, QLIST_GET, QLIST_ADD_QUESTION, QLIST_REMOVE } from './types';
-
-import { addQuestions } from './questions';
+import {
+  QLISTS_ADD,
+  QLIST_ADD,
+  QLIST_GET,
+  QLIST_ADD_QUESTION,
+  QLIST_REMOVE,
+} from './types';
 
 interface addQlistsAction {
   type: typeof QLISTS_ADD;
-  qlists: Array<QList>;
+  qlists: QList[];
 }
 
 interface qlistAddedAction {
@@ -36,7 +39,7 @@ interface qlistRemovedAction {
   qlist: QList;
 }
 
-export const addQlists = (qlists: Array<QList>) => ({
+export const addQlists = (qlists: QList[]) => ({
   type: QLISTS_ADD,
   qlists,
 });
@@ -70,7 +73,9 @@ export const qlistAddQuestion = (
   qlist: QList,
   question: Question,
 ): ThunkAction<void, AppState, null, Action<string>> => dispatch => () =>
-  api.qlists.addQuestion(qlist, question).then(qlist => dispatch(qlistQuestionAdded(qlist)));
+  api.qlists
+    .addQuestion(qlist, question)
+    .then(qlist => dispatch(qlistQuestionAdded(qlist)));
 
 export const getQLists = (
   username: string,

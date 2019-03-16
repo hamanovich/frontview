@@ -12,13 +12,25 @@ import Login from './Login';
 import Forgot from './Forgot';
 import Reset from './Reset';
 
-import { login, forgot, resetToken, getReset } from '../../actions/auth';
-import { getUser } from '../../actions/signup';
-import { addFlashMessage } from '../../actions/flash';
+import {
+  login,
+  forgot,
+  resetToken,
+  getReset,
+  getUser,
+} from '../../actions/auth.ts';
+import { addFlashMessage } from '../../actions/flash.ts';
 
 import { PropsRoute } from '../../utils/helpers';
 
-export const LoginPage = ({ login, forgot, resetToken, getReset, getUser, addFlashMessage }) => (
+export const LoginPage = ({
+  login,
+  forgot,
+  resetToken,
+  getReset,
+  getUser,
+  addFlashMessage,
+}) => (
   <Container>
     <Helmet>
       <title>Frontview: Please, login</title>
@@ -26,9 +38,20 @@ export const LoginPage = ({ login, forgot, resetToken, getReset, getUser, addFla
     <Row>
       <Col xl={{ span: 6, offset: 3 }} md={{ span: 8, offset: 2 }}>
         <Switch>
-          <PropsRoute exact path="/login" component={Login} login={login} getUser={getUser} />
+          <PropsRoute
+            exact
+            path="/login"
+            component={Login}
+            login={login}
+            getUser={getUser}
+          />
 
-          <PropsRoute exact path="/login/forgot" component={Forgot} forgot={forgot} />
+          <PropsRoute
+            exact
+            path="/login/forgot"
+            component={Forgot}
+            forgot={forgot}
+          />
 
           <PropsRoute
             path="/login/reset/:token"

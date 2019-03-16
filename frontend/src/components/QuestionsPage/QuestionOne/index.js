@@ -10,13 +10,17 @@ import Question from '../Question';
 import CommentForm from '../../Comment/CommentForm';
 import Comments from '../../Comment/Comments';
 
-import { getQuestionBySlug, approveQuestion, editQuestionField } from '../../../actions/questions';
-import { addComment } from '../../../actions/comments';
-import { getUser } from '../../../actions/signup';
-import { getQLists } from '../../../actions/qlists';
-import { addFlashMessage } from '../../../actions/flash';
+import {
+  getQuestionBySlug,
+  approveQuestion,
+  editQuestionField,
+} from '../../../actions/questions.ts';
+import { addComment } from '../../../actions/comments.ts';
+import { getUser } from '../../../actions/auth.ts';
+import { getQLists } from '../../../actions/qlists.ts';
+import { addFlashMessage } from '../../../actions/flash.ts';
 
-import { UserType, QuestionType, QListType } from '../../../propTypes';
+import { UserType, QuestionType, QListType } from '../../../propTypes/index.ts';
 
 class QuestionOne extends Component {
   static propTypes = {
@@ -146,7 +150,9 @@ class QuestionOne extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  const question = state.questions.find(question => question.slug === props.match.params.slug);
+  const question = state.questions.find(
+    question => question.slug === props.match.params.slug,
+  );
 
   return {
     user: state.auth.user,

@@ -9,8 +9,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-import { logout } from '../../actions/auth';
-import { getUser } from '../../actions/signup';
+import { logout, getUser } from '../../actions/auth';
 import { getSearchedQuestions } from '../../actions/questions';
 import { addFlashMessage } from '../../actions/flash';
 
@@ -51,7 +50,8 @@ export class Header extends Component<HeaderProps, {}> {
       getUser(auth.user.username).catch(() =>
         addFlashMessage({
           type: 'error',
-          text: '__500: Server-side error__. Please check your internet connection',
+          text:
+            '__500: Server-side error__. Please check your internet connection',
         }),
       );
     }
@@ -79,7 +79,8 @@ export class Header extends Component<HeaderProps, {}> {
       .catch(() =>
         addFlashMessage({
           type: 'error',
-          text: '__500: Server-side error__. Please check your internet connection',
+          text:
+            '__500: Server-side error__. Please check your internet connection',
         }),
       );
   };

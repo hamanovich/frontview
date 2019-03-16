@@ -14,20 +14,14 @@ exports[`<Header/> renders component with search Question renders <Header /> com
       Frontview /
     </Link>
   </ForwardRef(Bootstrap(NavbarBrand))>
-  <ForwardRef(Bootstrap(NavbarToggle))
-    aria-controls="navbar-nav"
-  />
-  <ForwardRef(Bootstrap(NavbarCollapse))
-    id="navbar-nav"
-  >
+  <ForwardRef(Bootstrap(NavbarToggle)) />
+  <ForwardRef(Bootstrap(NavbarCollapse))>
     <ReduxForm
-      addFlashMessage={[MockFunction]}
       destroyOnUnmount={true}
       enableReinitialize={false}
       forceUnregisterOnUnmount={false}
       form="SearchForm"
       getFormState={[Function]}
-      getSearchedQuestions={[MockFunction]}
       keepDirtyOnReinitialize={false}
       onSearch={[Function]}
       persistentSubmitErrors={false}
@@ -179,14 +173,7 @@ exports[`<Header/> renders component with search Question renders <Header /> com
       </NavDropdown>
       <NavDropdown
         id="account-dropdown"
-        title={
-          <span>
-            <ForwardRef
-              roundedCircle={true}
-            />
-            test
-          </span>
-        }
+        title="test"
       >
         <IndexLinkContainer
           to="/me"

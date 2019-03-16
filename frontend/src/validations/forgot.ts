@@ -1,8 +1,17 @@
+import { FormErrors } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 import isEmpty from 'lodash/isEmpty';
 
-export default values => {
-  const errors = {};
+interface Values {
+  email: string;
+  isValid: boolean;
+}
+
+export default (values: Values): FormErrors => {
+  const errors: Values = {
+    email: '',
+    isValid: false,
+  };
 
   if (!values.email) {
     errors.email = 'Email is required';

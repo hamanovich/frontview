@@ -16,12 +16,24 @@ import FaqButton from './shared/FaqButton';
 import { isLoggedIn, User, Waiting } from '../utils/helpers';
 import ScrollToTopRoute from '../utils/ScrollToTopRoute';
 
-const LoginPage = lazy(() => import('./LoginPage' /* webpackChunkName: "Login" */));
-const SignupPage = lazy(() => import('./SignupPage' /* webpackChunkName: "Signup" */));
-const AccountPage = lazy(() => import('./AccountPage' /* webpackChunkName: "AccountPage" */));
-const AboutPage = lazy(() => import('./AboutPage' /* webpackChunkName: "AboutPage" */));
-const InterviewPage = lazy(() => import('./InterviewPage' /* webpackChunkName: "InterviewPage" */));
-const QuestionsPage = lazy(() => import('./QuestionsPage' /* webpackChunkName: "Questions" */));
+const LoginPage = lazy(() =>
+  import('./LoginPage' /* webpackChunkName: "Login" */),
+);
+const SignupPage = lazy(() =>
+  import('./SignupPage' /* webpackChunkName: "Signup" */),
+);
+const AccountPage = lazy(() =>
+  import('./AccountPage' /* webpackChunkName: "AccountPage" */),
+);
+const AboutPage = lazy(() =>
+  import('./AboutPage' /* webpackChunkName: "AboutPage" */),
+);
+const InterviewPage = lazy(() =>
+  import('./InterviewPage' /* webpackChunkName: "InterviewPage" */),
+);
+const QuestionsPage = lazy(() =>
+  import('./QuestionsPage' /* webpackChunkName: "Questions" */),
+);
 const CommentsAuthorPage = lazy(() =>
   import('./Comment/CommentsAuthorPage' /* webpackChunkName: "CommentsAuthor" */),
 );
@@ -44,8 +56,14 @@ const App = () => (
         <Route path="/me" component={User(Waiting(AccountPage))} />
         <Route path="/questions" component={Waiting(QuestionsPage)} />
         <Route path="/interview" component={User(Waiting(InterviewPage))} />
-        <Route path="/comments/:username" component={User(Waiting(CommentsAuthorPage))} />
-        <Route path="/confirmation/:token" component={Waiting(ConfirmationPage)} />
+        <Route
+          path="/comments/:username"
+          component={User(Waiting(CommentsAuthorPage))}
+        />
+        <Route
+          path="/confirmation/:token"
+          component={Waiting(ConfirmationPage)}
+        />
         <Route path="/about" component={Waiting(AboutPage)} />
         <Route component={NotFound} />
       </Switch>

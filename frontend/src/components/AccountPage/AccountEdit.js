@@ -19,9 +19,9 @@ import Media from 'react-bootstrap/Media';
 
 import { TextField, TextareaField } from '../formElements';
 
-import validate from '../../validations/account';
+import validate from '../../validations/account.ts';
 
-import { getUser, updateUser } from '../../actions/signup';
+import { getUser, updateUser } from '../../actions/auth.ts';
 
 const MediaImage = styled(Image)`
   width: 100px;
@@ -77,13 +77,17 @@ const AccountEdit = ({ isLoading, handleSubmit, onSubmit, user }) => (
         <Media.Body>
           <h5>Gravatar image</h5>
           <p>
-            A Gravatar is a<b>G</b>lobally <b>R</b>ecognized <b>Avatar</b>. You upload it and create
-            your profile just once, and then when you participate in any Gravatar-enabled site, your
-            Gravatar image will automatically follow you there.
+            A Gravatar is a<b>G</b>lobally <b>R</b>ecognized <b>Avatar</b>. You
+            upload it and create your profile just once, and then when you
+            participate in any Gravatar-enabled site, your Gravatar image will
+            automatically follow you there.
           </p>
           <p>
             To change avatar:{' '}
-            <a href="https://gravatar.com" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://gravatar.com"
+              target="_blank"
+              rel="noopener noreferrer">
               {' '}
               Go to gravatar
             </a>

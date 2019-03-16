@@ -10,8 +10,6 @@ export const FaqBtn = styled(Link)`
   z-index: 2;
 `;
 
-export const bsc = 1;
-
 export const FontIcon = styled(FontAwesome)`
   position: fixed;
   top: calc(50% - 6rem);

@@ -11,13 +11,12 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Modal from 'react-bootstrap/Modal';
 import Image from 'react-bootstrap/Image';
 
-import { getUser, removeUser } from '../../actions/signup';
-import { addFlashMessage } from '../../actions/flash';
-import { logout } from '../../actions/auth';
+import { getUser, removeUser, logout } from '../../actions/auth.ts';
+import { addFlashMessage } from '../../actions/flash.ts';
 
 import Loader from '../../utils/Loader';
 
-import { UserType } from '../../propTypes';
+import { UserType } from '../../propTypes/index.ts';
 
 const enhance = compose(
   connect(
@@ -93,7 +92,8 @@ class Account extends Component {
         <dl>
           <dt>Email:</dt>
           <dd>
-            <FontAwesome name="envelope-open-o" /> <a href={`mailto:${user.email}`}>{user.email}</a>
+            <FontAwesome name="envelope-open-o" />{' '}
+            <a href={`mailto:${user.email}`}>{user.email}</a>
           </dd>
           {user.primarySkill && (
             <div>
@@ -147,8 +147,8 @@ class Account extends Component {
           </Modal.Header>
           <Modal.Body>
             <p>
-              If so, you will not be able to restore your private data. And you will also lost
-              access to adding questions.
+              If so, you will not be able to restore your private data. And you
+              will also lost access to adding questions.
             </p>
           </Modal.Body>
           <Modal.Footer>

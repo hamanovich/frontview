@@ -1,7 +1,7 @@
 import { shape, string, oneOfType } from 'prop-types';
 
-import UserType from './UserType';
-import QuestionType from './QuestionType';
+import UserType, { User } from './UserType';
+import QuestionType, { Question } from './QuestionType';
 
 export default shape({
   _id: string.isRequired,
@@ -11,3 +11,12 @@ export default shape({
   text: string.isRequired,
   created: string.isRequired,
 });
+
+export interface Comment {
+  _id: string;
+  author: User;
+  question: Question | string;
+  topic: string;
+  text: string;
+  created: string;
+}

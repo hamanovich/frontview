@@ -7,13 +7,17 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import FontAwesome from 'react-fontawesome';
 
-import { signup, isUserExists } from '../../actions/signup';
+import { signup, isUserExists } from '../../actions/auth';
 import { addFlashMessage } from '../../actions/flash';
 
 import SignupForm from './SignupForm';
 import { SignupProps } from './models';
 
-export const SignupPage: FC<SignupProps> = ({ signup, addFlashMessage, isUserExists }) => (
+export const SignupPage: FC<SignupProps> = ({
+  signup,
+  addFlashMessage,
+  isUserExists,
+}) => (
   <Container>
     <Helmet>
       <title>Frontview: Register. Welcome</title>
@@ -24,7 +28,11 @@ export const SignupPage: FC<SignupProps> = ({ signup, addFlashMessage, isUserExi
           <FontAwesome name="user-plus" /> Register. Welcome
         </h1>
 
-        <SignupForm signup={signup} addFlashMessage={addFlashMessage} isUserExists={isUserExists} />
+        <SignupForm
+          signup={signup}
+          addFlashMessage={addFlashMessage}
+          isUserExists={isUserExists}
+        />
       </Col>
     </Row>
   </Container>
