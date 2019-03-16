@@ -9,3 +9,18 @@ export interface ToolbarProps {
   qlistAddQuestion: (qlist: any, question: any) => any;
   qlists: Array<QList>;
 }
+
+export interface PaginationBarProps {
+  activePage: number;
+  pages: number;
+  onSelect: (page: number) => void;
+}
+
+export interface ZoomImageProps {
+  zoom: {
+    clone: (background: any) => any;
+  };
+  background: string;
+  src: string;
+  alt: string;
+}

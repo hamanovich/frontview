@@ -9,7 +9,7 @@ import comments from './comments';
 import qlists from './qlists';
 import candidates from './candidates';
 
-export default history =>
+const rootReducer = (history: any) =>
   combineReducers({
     router: connectRouter(history),
     flash,
@@ -20,3 +20,7 @@ export default history =>
     candidates,
     form: formReducer,
   });
+
+export type AppState = ReturnType<typeof rootReducer>;
+
+export default rootReducer;

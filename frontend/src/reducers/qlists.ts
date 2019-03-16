@@ -1,5 +1,7 @@
 import map from 'lodash/map';
 
+import { QList } from '../propTypes/QListType';
+
 import {
   QLISTS_ADD,
   QLIST_ADD,
@@ -7,8 +9,11 @@ import {
   QLIST_ADD_QUESTION,
   QLIST_REMOVE,
 } from '../actions/types';
+import { QListActionTypes } from '../actions/qlists';
 
-export default (state = [], action) => {
+const initialState: Array<QList> = [];
+
+export default (state = initialState, action: QListActionTypes): Array<QList> => {
   switch (action.type) {
     case QLISTS_ADD:
       return action.qlists;

@@ -1,9 +1,14 @@
 import shortid from 'shortid';
 import findIndex from 'lodash/findIndex';
 
-import { ADD_FLASH_MESSAGE, DELETE_FLASH_MESSAGE, DELETE_FLASH_MESSAGES } from '../actions/types';
+import { Message } from '../propTypes/Message';
 
-export default (state = [], action) => {
+import { ADD_FLASH_MESSAGE, DELETE_FLASH_MESSAGE, DELETE_FLASH_MESSAGES } from '../actions/types';
+import { FlashActionTypes } from '../actions/flash';
+
+const initialState: Array<Message> = [];
+
+export default (state = initialState, action: FlashActionTypes): Array<Message> => {
   switch (action.type) {
     case ADD_FLASH_MESSAGE: {
       const { type, text } = action.payload;
@@ -12,7 +17,7 @@ export default (state = [], action) => {
     }
 
     case DELETE_FLASH_MESSAGE: {
-      const index = findIndex(state, { id: action.id });
+      const index: number = findIndex(state, ['id', action.id]);
 
       if (index >= 0) {
         return [...state.slice(0, index), ...state.slice(index + 1)];

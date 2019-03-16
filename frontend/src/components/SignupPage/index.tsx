@@ -1,5 +1,4 @@
-import React from 'react';
-import { func } from 'prop-types';
+import React, { FC } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
@@ -12,13 +11,14 @@ import { signup, isUserExists } from '../../actions/signup';
 import { addFlashMessage } from '../../actions/flash';
 
 import SignupForm from './SignupForm';
+import { SignupProps } from './models';
 
-export const SignupPage = ({ signup, addFlashMessage, isUserExists }) => (
+export const SignupPage: FC<SignupProps> = ({ signup, addFlashMessage, isUserExists }) => (
   <Container>
+    <Helmet>
+      <title>Frontview: Register. Welcome</title>
+    </Helmet>
     <Row>
-      <Helmet>
-        <title>Frontview: Register. Welcome</title>
-      </Helmet>
       <Col xl={{ span: 6, offset: 3 }} md={{ span: 8, offset: 2 }}>
         <h1>
           <FontAwesome name="user-plus" /> Register. Welcome
@@ -29,12 +29,6 @@ export const SignupPage = ({ signup, addFlashMessage, isUserExists }) => (
     </Row>
   </Container>
 );
-
-SignupPage.propTypes = {
-  signup: func.isRequired,
-  addFlashMessage: func.isRequired,
-  isUserExists: func.isRequired,
-};
 
 export default connect(
   null,

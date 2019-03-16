@@ -1,4 +1,4 @@
-import { USER_GET } from './types';
+import { USER_GET } from './types.ts';
 
 import api from '../api';
 

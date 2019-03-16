@@ -4,7 +4,7 @@ import { shape, arrayOf, func, string, number } from 'prop-types';
 import Badge from 'react-bootstrap/Badge';
 
 import Questions from './Questions';
-import PaginationBar from '../shared/PaginationBar';
+import PaginationBar from '../shared/PaginationBar.tsx';
 
 const QuestionsAll = ({ state, history }) => (
   <Fragment>

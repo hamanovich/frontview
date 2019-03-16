@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import { func } from 'prop-types';
-import { Field, reduxForm } from 'redux-form';
+import React, { Component, SyntheticEvent, FormEvent } from 'react';
+import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 import FontAwesome from 'react-fontawesome';
 
 import Alert from 'react-bootstrap/Alert';
@@ -11,16 +10,33 @@ import { TextField } from '../formElements';
 
 import validate from '../../validations/signup';
 
-export class SignupForm extends Component {
-  static propTypes = {
-    signup: func.isRequired,
-    reset: func.isRequired,
-    addFlashMessage: func.isRequired,
-    isUserExists: func.isRequired,
-    handleSubmit: func.isRequired,
-  };
+import { SignupProps } from './models';
 
-  state = {
+type SignupFormState = {
+  errors: {
+    username?: string;
+    email?: string;
+    errorMsg?: string;
+    [key: string]: string | undefined;
+  };
+  isLoading: boolean;
+  invalid: boolean;
+};
+
+type SignupFormError = {
+  message?: string;
+  response?: {
+    data: {
+      error: string;
+    };
+  };
+};
+
+export class SignupForm extends Component<
+  SignupProps & InjectedFormProps<{}, SignupProps>,
+  SignupFormState
+> {
+  state: SignupFormState = {
     errors: {
       username: '',
       email: '',
@@ -29,8 +45,8 @@ export class SignupForm extends Component {
     invalid: false,
   };
 
-  onSubmit = values => {
-    const { addFlashMessage, signup, reset } = this.props;
+  private onSubmit = (values: any) => {
+    const { addFlashMessage, signup } = this.props;
 
     this.setState({ errors: {}, isLoading: true });
 
@@ -40,14 +56,12 @@ export class SignupForm extends Component {
           type: 'warn',
           text: 'Verify your email to confirm',
         });
-
-        reset();
       })
-      .catch(err =>
+      .catch((err: SignupFormError) =>
         this.setState({
           errors:
             err.response && err.response.data.error
-              ? err.response.data.error
+              ? { errorMsg: err.response.data.error }
               : {
                   username: '',
                   email: '',
@@ -58,9 +72,9 @@ export class SignupForm extends Component {
       );
   };
 
-  checkUserExists = e => {
+  private checkUserExists = (e: FormEvent<HTMLInputElement>) => {
     const { isUserExists } = this.props;
-    const { name, value } = e.target;
+    const { name, value } = e.target as HTMLInputElement;
     const { errors } = this.state;
 
     if (value !== '') {
@@ -134,7 +148,7 @@ export class SignupForm extends Component {
   }
 }
 
-export default reduxForm({
+export default reduxForm<{}, SignupProps>({
   form: 'SignupForm',
   validate,
 })(SignupForm);

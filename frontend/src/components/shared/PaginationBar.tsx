@@ -1,16 +1,17 @@
-import React from 'react';
-import { number, func } from 'prop-types';
+import React, { FC } from 'react';
 
 import Pagination from 'react-bootstrap/Pagination';
 
-const PaginationBar = ({ activePage, pages, onSelect }) => {
+import { PaginationBarProps } from './models';
+
+const PaginationBar: FC<PaginationBarProps> = ({ activePage, pages, onSelect }) => {
   if (!activePage) {
     // eslint-disable-next-line no-param-reassign
     activePage = 1;
   }
   const minPages = 3;
   const maxPages = 6;
-  const item = page => (
+  const item = (page: number) => (
     <Pagination.Item key={page} active={page === activePage} onClick={() => onSelect(page)}>
       {page}
     </Pagination.Item>
@@ -61,12 +62,6 @@ const PaginationBar = ({ activePage, pages, onSelect }) => {
       <Pagination.Last onClick={() => onSelect(pages)} disabled={activePage === pages} />
     </Pagination>
   );
-};
-
-PaginationBar.propTypes = {
-  activePage: number.isRequired,
-  pages: number.isRequired,
-  onSelect: func.isRequired,
 };
 
 export default PaginationBar;
