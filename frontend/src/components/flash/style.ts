@@ -22,6 +22,10 @@ export const FlashItem = styled(Alert)`
 
     + .alert {
       margin-top: 8rem;
+
+      + .alert {
+        margin-top: 12rem;
+      }
     }
   }
 `;

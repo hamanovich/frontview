@@ -12,12 +12,10 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { logout, getUser } from '../../actions/auth';
 import { getSearchedQuestions } from '../../actions/questions';
 import { addFlashMessage } from '../../actions/flash';
-
 import SearchForm from './SearchForm';
+import { Auth } from '../../propTypes/UserType';
 
 import { Menu } from './style';
-
-import { Auth } from '../../propTypes/UserType';
 
 type HeaderProps = {
   getSearchedQuestions: (query: string) => Promise<any>;

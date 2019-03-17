@@ -14,12 +14,12 @@ const HomePage = () => (
       <Container>
         <h1 className="display-3">Welcome, friend!</h1>
         <p className="lead">
-          The goal of this project is to provide a convenient way to prepare and conduct technical
-          interview in Frontend discipline.
+          The goal of this project is to provide a convenient way to prepare and
+          conduct technical interview in Frontend discipline.
         </p>
         <p className="lead">
-          You also able to add new questions, comment existing and review them. Check it on{' '}
-          <Link to="/about/pricing">features</Link> page.
+          You also able to add new questions, comment existing and review them.
+          Check it on <Link to="/about/pricing">features</Link> page.
         </p>
         <p>
           <em>*This is only beginning</em>
@@ -40,9 +40,9 @@ const HomePage = () => (
             Be Prepared <FontAwesome name="line-chart" />
           </h2>
           <p>
-            You have upcoming technical interview in frontend discipline? You are looking for the
-            space where to restore your knowledge? Want to code practice or deep dive into theory?
-            Woala! Welcome, friend.
+            You have upcoming technical interview in frontend discipline? You
+            are looking for the space where to restore your knowledge? Want to
+            code practice or deep dive into theory? Woala! Welcome, friend.
           </p>
           <p>
             <Link to="/about/faq">
@@ -57,8 +57,9 @@ const HomePage = () => (
             Be Involved <FontAwesome name="flash" />
           </h2>
           <p>
-            Want to share tricky question? Do you have a puzzle for front-end guys? Do you have
-            zillion interviews and have something to share? Welcome, friend.
+            Want to share tricky question? Do you have a puzzle for front-end
+            guys? Do you have zillion interviews and have something to share?
+            Welcome, friend.
           </p>
           <p>
             <Link to="/about/faq">
@@ -74,8 +75,8 @@ const HomePage = () => (
           </h2>
           <p>
             Glad to see you! Welcome on board, contact me directly{' '}
-            <a href="mailto:hamanovich@gmail.com">hamanovich@gmail.com</a> and we will find an
-            opportunity for you as well.
+            <a href="mailto:hamanovich@gmail.com">hamanovich@gmail.com</a> and
+            we will find an opportunity for you as well.
           </p>
           <p>
             <Link to="/about/faq">

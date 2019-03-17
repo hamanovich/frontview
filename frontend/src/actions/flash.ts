@@ -1,5 +1,9 @@
 import { Message } from '../propTypes/Message';
-import { ADD_FLASH_MESSAGE, DELETE_FLASH_MESSAGE, DELETE_FLASH_MESSAGES } from './types';
+import {
+  ADD_FLASH_MESSAGE,
+  DELETE_FLASH_MESSAGE,
+  DELETE_FLASH_MESSAGES,
+} from './types';
 
 interface addFlashMessageAction {
   type: typeof ADD_FLASH_MESSAGE;
@@ -20,7 +24,7 @@ export const addFlashMessage = (message: Message) => ({
   payload: message,
 });
 
-export const deleteFlashMessage = (id: string) => ({
+export const deleteFlashMessage = (id: string | undefined) => ({
   type: DELETE_FLASH_MESSAGE,
   id,
 });
