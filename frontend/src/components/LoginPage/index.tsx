@@ -1,5 +1,4 @@
-import React from 'react';
-import { func } from 'prop-types';
+import React, { FC } from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -18,12 +17,14 @@ import {
   resetToken,
   getReset,
   getUser,
-} from '../../actions/auth.ts';
-import { addFlashMessage } from '../../actions/flash.ts';
+} from '../../actions/auth';
+import { addFlashMessage } from '../../actions/flash';
 
 import { PropsRoute } from '../../utils/helpers';
 
-export const LoginPage = ({
+import { LoginPageProps } from './model';
+
+export const LoginPage: FC<LoginPageProps> = ({
   login,
   forgot,
   resetToken,
@@ -67,15 +68,6 @@ export const LoginPage = ({
     </Row>
   </Container>
 );
-
-LoginPage.propTypes = {
-  login: func.isRequired,
-  forgot: func.isRequired,
-  resetToken: func.isRequired,
-  getReset: func.isRequired,
-  getUser: func.isRequired,
-  addFlashMessage: func.isRequired,
-};
 
 export default connect(
   null,

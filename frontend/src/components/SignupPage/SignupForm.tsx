@@ -7,30 +7,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import { TextField } from '../formElements';
-
 import validate from '../../validations/signup';
 
-import { SignupProps } from './models';
-
-type SignupFormState = {
-  errors: {
-    username?: string;
-    email?: string;
-    errorMsg?: string;
-    [key: string]: string | undefined;
-  };
-  isLoading: boolean;
-  invalid: boolean;
-};
-
-type SignupFormError = {
-  message?: string;
-  response?: {
-    data: {
-      error: string;
-    };
-  };
-};
+import { SignupProps, SignupFormState, SignupFormError } from './models';
 
 export class SignupForm extends Component<
   SignupProps & InjectedFormProps<{}, SignupProps>,
@@ -65,7 +44,9 @@ export class SignupForm extends Component<
               : {
                   username: '',
                   email: '',
-                  errorMsg: `${err.message}. Please check your internet connection`,
+                  errorMsg: `${
+                    err.message
+                  }. Please check your internet connection`,
                 },
           isLoading: false,
         }),
@@ -140,7 +121,9 @@ export class SignupForm extends Component<
           type="submit"
           variant="primary"
           size="lg"
-          disabled={isLoading || invalid || !!(errors.username || errors.email)}>
+          disabled={
+            isLoading || invalid || !!(errors.username || errors.email)
+          }>
           Register <FontAwesome name="users" />
         </Button>
       </Form>

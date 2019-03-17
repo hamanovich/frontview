@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { FC, Fragment } from 'react';
 import { shape, func, string, bool } from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 
@@ -14,8 +14,14 @@ import Alert from 'react-bootstrap/Alert';
 import { TextField } from '../formElements';
 
 import validate from '../../validations/reset';
+import {
+  ResetProps,
+  ResetFormError,
+  ResetHandlersProps,
+  ResetLifecycleProps,
+} from './model';
 
-const enhance = compose(
+const enhance = compose<ResetProps, {}>(
   reduxForm({
     form: 'Reset',
     validate,
@@ -26,11 +32,11 @@ const enhance = compose(
     isLoading: false,
   }),
 
-  lifecycle({
+  lifecycle<ResetLifecycleProps, {}>({
     componentDidMount() {
       const { getReset, addFlashMessage, match } = this.props;
 
-      getReset(match.params.token).catch(err =>
+      getReset(match.params.token).catch((err: ResetFormError) =>
         addFlashMessage({
           type: 'error',
           text:
@@ -43,7 +49,7 @@ const enhance = compose(
   }),
 
   withHandlers({
-    onSubmit: props => values => {
+    onSubmit: (props: ResetHandlersProps) => (values: any) => {
       const { resetToken, addFlashMessage, match, history, setState } = props;
 
       setState({ errors: {}, isLoading: true });
@@ -66,7 +72,7 @@ const enhance = compose(
 
           history.push('/');
         })
-        .catch(err =>
+        .catch((err: ResetFormError) =>
           setState({
             error:
               err.response && err.response.data.error
@@ -79,7 +85,7 @@ const enhance = compose(
   }),
 );
 
-const Reset = ({ handleSubmit, onSubmit, state }) => (
+const Reset: FC<ResetProps> = ({ handleSubmit, onSubmit, state }) => (
   <Fragment>
     <h1>Reset my password</h1>
 
@@ -102,20 +108,15 @@ const Reset = ({ handleSubmit, onSubmit, state }) => (
         placeholder="Repeat your mad password"
       />
 
-      <Button type="submit" variant="warning" size="lg" disabled={state.isLoading}>
+      <Button
+        type="submit"
+        variant="warning"
+        size="lg"
+        disabled={state.isLoading}>
         Reset
       </Button>
     </Form>
   </Fragment>
 );
-
-Reset.propTypes = {
-  handleSubmit: func.isRequired,
-  onSubmit: func.isRequired,
-  state: shape({
-    error: string,
-    isLoading: bool.isRequired,
-  }).isRequired,
-};
 
 export default enhance(Reset);

@@ -1,5 +1,4 @@
-import React, { Fragment } from 'react';
-import { shape, func, string, bool } from 'prop-types';
+import React, { FC, Fragment } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 import compose from 'recompose/compose';
@@ -13,8 +12,9 @@ import Alert from 'react-bootstrap/Alert';
 import { TextField } from '../formElements';
 
 import validate from '../../validations/forgot';
+import { ForgotProps, ForgotFormError, ForgotHandlersProps } from './model';
 
-const enhance = compose(
+const enhance = compose<ForgotProps, {}>(
   reduxForm({
     form: 'Forgot',
     validate,
@@ -27,7 +27,7 @@ const enhance = compose(
   }),
 
   withHandlers({
-    onSubmit: props => email => {
+    onSubmit: (props: ForgotHandlersProps) => (email: string) => {
       const { forgot, setState } = props;
 
       setState({
@@ -42,7 +42,7 @@ const enhance = compose(
             isLoading: false,
           }),
         )
-        .catch(err =>
+        .catch((err: ForgotFormError) =>
           setState({
             error:
               err.response && err.response.data.error
@@ -55,7 +55,7 @@ const enhance = compose(
   }),
 );
 
-const Forgot = ({ handleSubmit, onSubmit, state }) => (
+const Forgot: FC<ForgotProps> = ({ handleSubmit, onSubmit, state }) => (
   <Fragment>
     <h1>
       Forgot your password?
@@ -75,21 +75,15 @@ const Forgot = ({ handleSubmit, onSubmit, state }) => (
         placeholder="Type your email"
       />
 
-      <Button type="submit" variant="warning" size="lg" disabled={state.isLoading}>
+      <Button
+        type="submit"
+        variant="warning"
+        size="lg"
+        disabled={state.isLoading}>
         Send a reset
       </Button>
     </Form>
   </Fragment>
 );
-
-Forgot.propTypes = {
-  handleSubmit: func.isRequired,
-  onSubmit: func.isRequired,
-  state: shape({
-    emailed: string,
-    error: string,
-    isLoading: bool.isRequired,
-  }).isRequired,
-};
 
 export default enhance(Forgot);

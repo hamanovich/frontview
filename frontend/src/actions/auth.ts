@@ -23,7 +23,7 @@ interface userGetAction {
   user: User;
 }
 
-interface Credentials {
+export interface Credentials {
   identifier: string;
   password: string;
 }

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { FC, Fragment } from 'react';
 import { shape, func, string, bool } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
@@ -15,8 +15,9 @@ import Form from 'react-bootstrap/Form';
 import { TextField } from '../formElements';
 
 import validate from '../../validations/login';
+import { onSubmitLoginProps, LoginFormError, LoginProps } from './model';
 
-export const onSubmit = props => values => {
+export const onSubmit = (props: onSubmitLoginProps) => (values: any) => {
   const { login, history, getUser, setState } = props;
 
   setState({
@@ -29,7 +30,7 @@ export const onSubmit = props => values => {
       getUser(values.identifier);
       history.push('/');
     })
-    .catch(err =>
+    .catch((err: LoginFormError) =>
       setState({
         error:
           err.response && err.response.data.error
@@ -40,8 +41,8 @@ export const onSubmit = props => values => {
     );
 };
 
-const enhance = compose(
-  reduxForm({
+const enhance = compose<LoginProps, {}>(
+  reduxForm<{}, LoginProps>({
     form: 'Login',
     validate,
   }),
@@ -56,7 +57,7 @@ const enhance = compose(
   }),
 );
 
-export const Login = ({ handleSubmit, onSubmit, state }) => (
+export const Login: FC<LoginProps> = ({ handleSubmit, onSubmit, state }) => (
   <Fragment>
     <h1>
       <FontAwesome name="user-circle-o" /> Please, login
@@ -82,20 +83,15 @@ export const Login = ({ handleSubmit, onSubmit, state }) => (
       <Form.Group>
         <Link to="/login/forgot">Forgot password?</Link>
       </Form.Group>
-      <Button type="submit" variant="primary" size="lg" disabled={state.isLoading}>
+      <Button
+        type="submit"
+        variant="primary"
+        size="lg"
+        disabled={state.isLoading}>
         Login <FontAwesome name="sign-in" />
       </Button>
     </Form>
   </Fragment>
 );
-
-Login.propTypes = {
-  handleSubmit: func.isRequired,
-  onSubmit: func.isRequired,
-  state: shape({
-    error: string,
-    isLoading: bool.isRequired,
-  }).isRequired,
-};
 
 export default enhance(Login);
