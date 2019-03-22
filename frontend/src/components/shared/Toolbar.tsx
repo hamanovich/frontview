@@ -44,8 +44,7 @@ export const Toolbar: FC<ToolbarProps> = ({
       <DropdownButton
         size="sm"
         variant="info"
-        // title={<FontAwesome name="star" />}
-        title="Add to QList"
+        title={<FontAwesome name="star" />}
         id="qlist">
         {map(qlists, (qlist, index) => (
           <Dropdown.Item
@@ -53,9 +52,9 @@ export const Toolbar: FC<ToolbarProps> = ({
             key={qlist._id}
             onClick={qlistAddQuestion(qlist, question)}>
             {qlist.title}
-            {map(qlist.questions, (q: Question) => q._id).includes(question._id) && (
-              <FontAwesome name="check" />
-            )}
+            {map(qlist.questions, (q: Question) => q._id).includes(
+              question._id,
+            ) && <FontAwesome name="check" />}
           </Dropdown.Item>
         ))}
         {qlists.length > 0 && <Dropdown.Divider />}

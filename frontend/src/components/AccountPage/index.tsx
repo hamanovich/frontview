@@ -1,5 +1,4 @@
-import React from 'react';
-import { shape, bool } from 'prop-types';
+import React, { FC } from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
@@ -14,36 +13,43 @@ import QListPage from '../QList/QListPage';
 import QLists from '../QList/QLists';
 
 import { PropsRoute } from '../../utils/helpers';
+import { AccountPageProps } from './models';
 
-import { UserType } from '../../propTypes';
-
-const AccountPage = ({ auth }) => (
+const AccountPage: FC<AccountPageProps> = ({ auth }) => (
   <Container>
     <Helmet>
       <title>Frontview: Profile</title>
     </Helmet>
     <Row>
-      <Col xl={9} md={8} className="mb-4">
+      <Col xl={9} md={{ span: 8, order: 1 }} className="mb-4">
         <Switch>
           <PropsRoute exact path="/me" component={Account} user={auth.user} />
-          <PropsRoute exact path="/me/edit" component={AccountEdit} user={auth.user} />
-          <PropsRoute exact path="/me/qlist/create" component={QListPage} userId={auth.user._id} />
-          <PropsRoute exact path="/me/qlists" component={QLists} username={auth.user.username} />
+          <PropsRoute
+            exact
+            path="/me/edit"
+            component={AccountEdit}
+            user={auth.user}
+          />
+          <PropsRoute
+            exact
+            path="/me/qlist/create"
+            component={QListPage}
+            userId={auth.user._id}
+          />
+          <PropsRoute
+            exact
+            path="/me/qlists"
+            component={QLists}
+            username={auth.user.username}
+          />
           <Redirect to="/" />
         </Switch>
       </Col>
-      <Col xl={3} md={{ span: 4, order: 'first' }}>
+      <Col xl={3} md={4}>
         <AccountBar auth={auth} />
       </Col>
     </Row>
   </Container>
 );
-
-AccountPage.propTypes = {
-  auth: shape({
-    isAuthenticated: bool.isRequired,
-    user: UserType.isRequired,
-  }).isRequired,
-};
 
 export default AccountPage;

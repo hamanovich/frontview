@@ -1,4 +1,4 @@
-import { InjectedFormProps, FormErrors } from 'redux-form';
+import { FormErrors } from 'redux-form';
 import isEmpty from 'lodash/isEmpty';
 
 interface Values {

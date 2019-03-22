@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
+import Image from 'react-bootstrap/Image';
 
 export const Menu = styled(Navbar)`
   border-radius: 0;

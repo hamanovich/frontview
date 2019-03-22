@@ -14,11 +14,13 @@ type SearchFormProps = {
   onSearch: any;
 };
 
-export const SearchForm: FC<SearchFormProps & InjectedFormProps<{}, SearchFormProps>> = ({
-  handleSubmit,
-  onSearch,
-}) => (
-  <SForm onSubmit={handleSubmit(onSearch)} noValidate inline className="mr-2">
+export const SearchForm: FC<
+  SearchFormProps & InjectedFormProps<{}, SearchFormProps>
+> = ({ handleSubmit, onSearch }) => (
+  <SForm
+    onSubmit={handleSubmit(onSearch)}
+    noValidate
+    className="mr-2 form-inline">
     <Field
       component={TextField}
       type="search"

@@ -1,5 +1,4 @@
-import React from 'react';
-import { func, shape, bool } from 'prop-types';
+import React, { FC } from 'react';
 import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -8,12 +7,13 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 
 import { logout } from '../../actions/auth';
+import { AccountBarProps } from './models';
 
-import { UserType } from '../../propTypes';
-
-const AccountBar = ({ auth, logout }) => (
+const AccountBar: FC<AccountBarProps> = ({ auth, logout }) => (
   <ListGroup>
-    <Link to={`/questions/author/${auth.user.username}`} className="list-group-item">
+    <Link
+      to={`/questions/author/${auth.user.username}`}
+      className="list-group-item">
       <FontAwesome name="copyright" /> Your Questions
     </Link>
     <Link to={`/comments/${auth.user.username}`} className="list-group-item">
@@ -33,14 +33,6 @@ const AccountBar = ({ auth, logout }) => (
     </Button>
   </ListGroup>
 );
-
-AccountBar.propTypes = {
-  auth: shape({
-    isAuthenticated: bool.isRequired,
-    user: UserType.isRequired,
-  }).isRequired,
-  logout: func.isRequired,
-};
 
 export default connect(
   null,

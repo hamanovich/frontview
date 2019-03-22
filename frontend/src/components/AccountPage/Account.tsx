@@ -11,14 +11,13 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Modal from 'react-bootstrap/Modal';
 import Image from 'react-bootstrap/Image';
 
-import { getUser, removeUser, logout } from '../../actions/auth.ts';
-import { addFlashMessage } from '../../actions/flash.ts';
+import { getUser, removeUser, logout } from '../../actions/auth';
+import { addFlashMessage } from '../../actions/flash';
 
 import Loader from '../../utils/Loader';
+import { AccountProps, AccountState } from './models';
 
-import { UserType } from '../../propTypes/index.ts';
-
-const enhance = compose(
+const enhance = compose<AccountProps, {}>(
   connect(
     null,
     {
@@ -32,16 +31,8 @@ const enhance = compose(
   Loader('user'),
 );
 
-class Account extends Component {
-  static propTypes = {
-    user: UserType.isRequired,
-    getUser: func.isRequired,
-    logout: func.isRequired,
-    removeUser: func.isRequired,
-    addFlashMessage: func.isRequired,
-  };
-
-  state = {
+class Account extends Component<AccountProps, AccountState> {
+  state: AccountState = {
     modal: false,
   };
 
@@ -51,9 +42,10 @@ class Account extends Component {
     getUser(user.username);
   }
 
-  toggle = () => this.setState(prevState => ({ modal: !prevState.modal }));
+  private toggle = () =>
+    this.setState(prevState => ({ modal: !prevState.modal }));
 
-  remove = () => {
+  private remove = () => {
     const { user, removeUser, logout, addFlashMessage } = this.props;
 
     removeUser(user.username).then(() => {

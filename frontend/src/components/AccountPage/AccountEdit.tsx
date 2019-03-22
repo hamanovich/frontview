@@ -1,9 +1,7 @@
-import React, { Fragment } from 'react';
-import { func, shape, string, bool } from 'prop-types';
+import React, { Fragment, FC } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
-import styled from 'styled-components';
 
 import compose from 'recompose/compose';
 import withState from 'recompose/withState';
@@ -14,21 +12,22 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Image from 'react-bootstrap/Image';
+
 import Media from 'react-bootstrap/Media';
 
 import { TextField, TextareaField } from '../formElements';
 
-import validate from '../../validations/account.ts';
+import validate from '../../validations/account';
 
-import { getUser, updateUser } from '../../actions/auth.ts';
+import { getUser, updateUser } from '../../actions/auth';
+import { MediaImage } from './style';
+import {
+  AccountEditProps,
+  AccountEditLifecycleProps,
+  AccountEditHandlersProps,
+} from './models';
 
-const MediaImage = styled(Image)`
-  width: 100px;
-  height: 100px;
-`;
-
-const enhance = compose(
+const enhance = compose<AccountEditProps, {}>(
   connect(
     null,
     {
@@ -44,16 +43,16 @@ const enhance = compose(
 
   withState('isLoading', 'setLoading', false),
 
-  lifecycle({
+  lifecycle<AccountEditLifecycleProps, {}>({
     componentDidMount() {
       const { getUser, user, initialize } = this.props;
 
-      getUser(user.username).then(res => initialize(res.user));
+      getUser(user.username).then((res: any) => initialize(res.user));
     },
   }),
 
   withHandlers({
-    onSubmit: props => values => {
+    onSubmit: (props: AccountEditHandlersProps) => (values: any) => {
       const { updateUser, history, setLoading } = props;
 
       setLoading(true);
@@ -65,7 +64,12 @@ const enhance = compose(
   }),
 );
 
-const AccountEdit = ({ isLoading, handleSubmit, onSubmit, user }) => (
+const AccountEdit: FC<AccountEditProps> = ({
+  isLoading,
+  handleSubmit,
+  onSubmit,
+  user,
+}) => (
   <Fragment>
     <h1>
       <FontAwesome name="pencil-square-o" /> Edit your account
@@ -210,15 +214,5 @@ const AccountEdit = ({ isLoading, handleSubmit, onSubmit, user }) => (
     </Form>
   </Fragment>
 );
-
-AccountEdit.propTypes = {
-  handleSubmit: func.isRequired,
-  onSubmit: func.isRequired,
-  isLoading: bool.isRequired,
-  user: shape({
-    username: string,
-    gravatar: string,
-  }).isRequired,
-};
 
 export default enhance(AccountEdit);

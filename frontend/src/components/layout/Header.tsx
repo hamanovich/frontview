@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { shape, func } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
@@ -15,7 +15,7 @@ import { addFlashMessage } from '../../actions/flash';
 import SearchForm from './SearchForm';
 import { Auth } from '../../propTypes/UserType';
 
-import { Menu } from './style';
+import { Menu, MediaImage } from './style';
 
 type HeaderProps = {
   getSearchedQuestions: (query: string) => Promise<any>;
@@ -85,14 +85,12 @@ export class Header extends Component<HeaderProps, {}> {
 
   render() {
     const { auth, logout } = this.props;
-    const userPick = auth.user.username;
-    // Known issue: https://github.com/react-bootstrap/react-bootstrap/issues/3534
-    // const userPick = (
-    //   <Fragment>
-    //     <MediaImage src={auth.user.gravatar} roundedCircle />
-    //     {auth.user.username}
-    //   </Fragment>
-    // );
+    const userPick = (
+      <Fragment>
+        <MediaImage src={auth.user.gravatar} roundedCircle />
+        {auth.user.username}
+      </Fragment>
+    );
     const userLinks = (
       <Nav>
         <NavDropdown title="Menu" id="menu-dropdown">
