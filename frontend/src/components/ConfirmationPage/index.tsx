@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { FC, Fragment } from 'react';
 import { bool } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -13,10 +13,15 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
-import { confirm, getUser } from '../../actions/auth.ts';
-import { addFlashMessage } from '../../actions/flash.ts';
+import { confirm, getUser } from '../../actions/auth';
+import { addFlashMessage } from '../../actions/flash';
+import {
+  ConfirmationProps,
+  ConfirmLifecycleProps,
+  ConfirmError,
+} from './models';
 
-const enhance = compose(
+const enhance = compose<ConfirmationProps, {}>(
   connect(
     null,
     {
@@ -28,7 +33,7 @@ const enhance = compose(
 
   withState('success', 'setSuccess', false),
 
-  lifecycle({
+  lifecycle<ConfirmLifecycleProps, {}>({
     componentDidMount() {
       const {
         confirm,
@@ -39,9 +44,14 @@ const enhance = compose(
       } = this.props;
 
       confirm(match.params.token)
-        .then(() => getUser(jwtDecode(window.localStorage.jwtToken).username))
+        .then(() =>
+          getUser(
+            jwtDecode<{ username: string }>(window.localStorage.jwtToken)
+              .username,
+          ),
+        )
         .then(() => setSuccess(true))
-        .catch(err =>
+        .catch((err: ConfirmError) =>
           addFlashMessage({
             type: 'error',
             text:
@@ -56,7 +66,7 @@ const enhance = compose(
   pure,
 );
 
-const Confirmation = ({ success }) => (
+const Confirmation: FC<ConfirmationProps> = ({ success }) => (
   <Jumbotron>
     <Container>
       <h1>Hey!</h1>
@@ -79,9 +89,5 @@ const Confirmation = ({ success }) => (
     </Container>
   </Jumbotron>
 );
-
-Confirmation.propTypes = {
-  success: bool.isRequired,
-};
 
 export default enhance(Confirmation);

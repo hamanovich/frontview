@@ -1,5 +1,4 @@
-import React from 'react';
-import { func } from 'prop-types';
+import React, { FC } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 import compose from 'recompose/compose';
@@ -13,17 +12,21 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import { TextField, TextareaField } from '../formElements';
-
 import validate from '../../validations/comment';
 import Loader from '../../utils/Loader';
+import {
+  CommentFormProps,
+  CommentFormLifecycleProps,
+  CommentFormHandlersProps,
+} from './models';
 
-const enhance = compose(
+const enhance = compose<CommentFormProps, {}>(
   reduxForm({
     form: 'CommentForm',
     validate,
   }),
 
-  lifecycle({
+  lifecycle<CommentFormLifecycleProps, {}>({
     componentDidMount() {
       const { initialize, user } = this.props;
 
@@ -31,8 +34,8 @@ const enhance = compose(
     },
   }),
 
-  withHandlers({
-    onSubmit: props => values => {
+  withHandlers<CommentFormHandlersProps, {}>({
+    onSubmit: props => (values: any) => {
       const { addComment, reset, user, question, getQuestion, slug } = props;
       const query = { ...values, userId: user._id, questionId: question._id };
 
@@ -48,11 +51,17 @@ const enhance = compose(
   pure,
 );
 
-const CommentForm = ({ handleSubmit, onSubmit }) => (
+const CommentForm: FC<CommentFormProps> = ({ handleSubmit, onSubmit }) => (
   <Row>
     <Col md={6} sm={8}>
       <Form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <Field label="Username:" component={TextField} type="text" name="username" readonly />
+        <Field
+          label="Username:"
+          component={TextField}
+          type="text"
+          name="username"
+          readonly
+        />
 
         <Field
           label="Topic*:"
@@ -77,10 +86,5 @@ const CommentForm = ({ handleSubmit, onSubmit }) => (
     </Col>
   </Row>
 );
-
-CommentForm.propTypes = {
-  handleSubmit: func.isRequired,
-  onSubmit: func.isRequired,
-};
 
 export default enhance(CommentForm);

@@ -20,3 +20,7 @@ export interface Comment {
   text: string;
   created: string;
 }
+
+export interface CommentQuestion extends Comment {
+  question: Question;
+}
