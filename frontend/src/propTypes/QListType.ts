@@ -7,7 +7,8 @@ export default shape({
   _id: string.isRequired,
   title: string.isRequired,
   slug: string,
-  questions: oneOfType([arrayOf(string), arrayOf(QuestionType), QuestionType]).isRequired,
+  questions: oneOfType([arrayOf(string), arrayOf(QuestionType), QuestionType])
+    .isRequired,
   author: oneOfType([string, UserType]).isRequired,
   notes: string,
 });
@@ -16,7 +17,11 @@ export interface QList {
   _id: string;
   title: string;
   slug: string;
-  questions: Array<Question> | string[] | Question;
+  questions: Question[] | string[] | Question;
   author: string | User;
   notes: string;
+}
+
+export interface QListQuestions extends QList {
+  questions: Question[];
 }

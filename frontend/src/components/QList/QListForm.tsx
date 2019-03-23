@@ -1,5 +1,4 @@
-import React from 'react';
-import { func, bool } from 'prop-types';
+import React, { FC } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
@@ -16,8 +15,9 @@ import { qlistAdd } from '../../actions/qlists';
 import { addFlashMessage } from '../../actions/flash';
 
 import validate from '../../validations/qlist';
+import { QListFormProps, QListFormHandlersProps } from './models';
 
-const enhance = compose(
+const enhance = compose<QListFormProps, { userId: string }>(
   connect(
     null,
     {
@@ -33,8 +33,8 @@ const enhance = compose(
 
   withState('isLoading', 'setLoading', false),
 
-  withHandlers({
-    onSubmit: props => values => {
+  withHandlers<QListFormHandlersProps, {}>({
+    onSubmit: props => (values: any) => {
       const { qlistAdd, userId, reset, addFlashMessage, setLoading } = props;
       const query = { ...values, userId };
 
@@ -55,7 +55,11 @@ const enhance = compose(
   }),
 );
 
-const QListForm = ({ isLoading, handleSubmit, onSubmit }) => (
+const QListForm: FC<QListFormProps> = ({
+  isLoading,
+  handleSubmit,
+  onSubmit,
+}) => (
   <Form onSubmit={handleSubmit(onSubmit)} noValidate>
     <Field
       label="Title*:"
@@ -78,11 +82,5 @@ const QListForm = ({ isLoading, handleSubmit, onSubmit }) => (
     </Button>
   </Form>
 );
-
-QListForm.propTypes = {
-  handleSubmit: func.isRequired,
-  onSubmit: func.isRequired,
-  isLoading: bool.isRequired,
-};
 
 export default enhance(QListForm);

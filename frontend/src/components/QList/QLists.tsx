@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import { func, string, arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
@@ -11,24 +10,18 @@ import Badge from 'react-bootstrap/Badge';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Modal from 'react-bootstrap/Modal';
 
-import { getQLists, removeQList } from '../../actions/qlists.ts';
-import QListType from '../../propTypes/QListType.ts';
+import { getQLists, removeQList } from '../../actions/qlists';
 
-import { RemoveIcon } from './style.ts';
+import { RemoveIcon } from './style';
+import { QListsProps, QListsState } from './models';
+import { QListQuestions } from '../../propTypes/QListType';
 
-class QLists extends Component {
+class QLists extends Component<QListsProps, QListsState> {
   static defaultProps = {
-    username: null,
+    username: '',
   };
 
-  static propTypes = {
-    getQLists: func.isRequired,
-    removeQList: func.isRequired,
-    qlists: arrayOf(QListType).isRequired,
-    username: string,
-  };
-
-  state = {
+  state: QListsState = {
     showModal: false,
     id: '',
   };
@@ -39,10 +32,10 @@ class QLists extends Component {
     getQLists(username);
   }
 
-  toggleModal = (id = null) =>
+  private toggleModal = (id: string = '') =>
     this.setState(prevState => ({ showModal: !prevState.showModal, id }));
 
-  remove = () => {
+  private remove = () => {
     this.props.removeQList(this.state.id);
     this.toggleModal();
   };
@@ -85,7 +78,7 @@ class QLists extends Component {
           </Modal.Body>
           <Modal.Footer>
             <ButtonGroup>
-              <Button variant="secondary" onClick={this.toggleModal}>
+              <Button variant="secondary" onClick={() => this.toggleModal()}>
                 Cancel
               </Button>
               <Button variant="danger" onClick={this.remove}>
@@ -99,7 +92,7 @@ class QLists extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: { qlists: QListQuestions[] }) => ({
   qlists: state.qlists,
 });
 

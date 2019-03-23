@@ -19,7 +19,7 @@ import {
   ResetFormError,
   ResetHandlersProps,
   ResetLifecycleProps,
-} from './model';
+} from './models';
 
 const enhance = compose<ResetProps, {}>(
   reduxForm({

@@ -22,7 +22,7 @@ import { addFlashMessage } from '../../actions/flash';
 
 import { PropsRoute } from '../../utils/helpers';
 
-import { LoginPageProps } from './model';
+import { LoginPageProps } from './models';
 
 export const LoginPage: FC<LoginPageProps> = ({
   login,

@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
-import { string } from 'prop-types';
+import React, { FC, Fragment } from 'react';
 import FontAwesome from 'react-fontawesome';
 
 import QListForm from './QListForm';
+import { QListPageProps } from './models';
 
-const QListPage = ({ userId }) => (
+const QListPage: FC<QListPageProps> = ({ userId }) => (
   <Fragment>
     <h1>
       <FontAwesome name="list-ul" /> Create new Question&apos;s List (QList)
@@ -15,11 +15,7 @@ const QListPage = ({ userId }) => (
 );
 
 QListPage.defaultProps = {
-  userId: null,
-};
-
-QListPage.propTypes = {
-  userId: string,
+  userId: '',
 };
 
 export default QListPage;
