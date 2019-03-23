@@ -15,11 +15,11 @@ import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 
-import Toolbar from '../shared/Toolbar';
-import ZoomImage from '../shared/ZoomImage';
+import Toolbar from '../shared/Toolbar.tsx';
+import ZoomImage from '../shared/ZoomImage.tsx';
 import Loader from '../../utils/Loader';
 
-import { QuestionType, UserType, QListType } from '../../propTypes';
+import { QuestionType, UserType, QListType } from '../../propTypes/index.ts';
 import { BadgeStyled, ApproveBar, DropThumb, DropThumbs } from './style';
 
 class Question extends Component {
@@ -83,7 +83,14 @@ class Question extends Component {
   };
 
   render() {
-    const { question, approveQuestion, editQuestionField, user, qlists, match } = this.props;
+    const {
+      question,
+      approveQuestion,
+      editQuestionField,
+      user,
+      qlists,
+      match,
+    } = this.props;
     const { answerField, textField } = this.state;
 
     const panelHeader = (
@@ -107,7 +114,7 @@ class Question extends Component {
           <strong>Skill</strong>:{' '}
           {map(question.skill, skill => (
             <Link to={`/questions/skill/${skill}`} key={skill}>
-              {skill}
+              {skill}{' '}
             </Link>
           ))}
         </h6>
@@ -123,7 +130,9 @@ class Question extends Component {
           {match ? (
             question.question
           ) : (
-            <Link to={`/questions/${question.slug}/one`}>{question.question}</Link>
+            <Link to={`/questions/${question.slug}/one`}>
+              {question.question}
+            </Link>
           )}
         </h2>
         <ApproveBar>
@@ -147,7 +156,9 @@ class Question extends Component {
           )}
         </ApproveBar>
 
-        <Card border={question.isVerified ? 'success' : 'danger'} className="question">
+        <Card
+          border={question.isVerified ? 'success' : 'danger'}
+          className="question">
           <Card.Header>{panelHeader}</Card.Header>
           <Card.Body>
             <div onClick={this.open(question.answer, 'answer')}>
@@ -155,7 +166,9 @@ class Question extends Component {
             </div>
             {question.answers.length > 0 && <hr />}
             {map(question.answers, (question, index) => (
-              <em key={shortid.generate()} onClick={this.open(question, `answers.${index}`)}>
+              <em
+                key={shortid.generate()}
+                onClick={this.open(question, `answers.${index}`)}>
                 <MarkdownRenderer markdown={question.text} />
               </em>
             ))}
@@ -180,7 +193,7 @@ class Question extends Component {
                 onClick={this.open(question.notes, 'notes')}
               />
             )}
-            {question.author && (
+            {question.author && question.author.username && (
               <small>
                 <strong>Author</strong>:{' '}
                 <Link to={`/questions/author/${question.author.username}`}>
@@ -188,8 +201,10 @@ class Question extends Component {
                 </Link>
               </small>
             )}
-            {question.comments.length > 0 ? (
-              <Link to={`/questions/${question.slug}/one`} className="pull-right">
+            {question.comments && question.comments.length > 0 ? (
+              <Link
+                to={`/questions/${question.slug}/one`}
+                className="pull-right">
                 <FontAwesome name="comments-o" /> {question.comments.length}
               </Link>
             ) : (
@@ -198,18 +213,26 @@ class Question extends Component {
               </span>
             )}
             <p>
-              <small>Last modified: {format(question.lastModified, 'DD/MM/YYYY HH:mm:ss')}</small>
+              <small>
+                Last modified:{' '}
+                {format(question.lastModified, 'DD/MM/YYYY HH:mm:ss')}
+              </small>
             </p>
             <hr />
             {question.author &&
-              (user.username === question.author.username || user.role === 'admin') && (
+              (user.username === question.author.username ||
+                user.role === 'admin') && (
                 <ButtonGroup size="sm" className="pull-right">
-                  <Link to={`/questions/${question._id}/edit`} className="btn btn-warning">
+                  <Link
+                    to={`/questions/${question._id}/edit`}
+                    className="btn btn-warning">
                     Edit
                   </Link>
                 </ButtonGroup>
               )}
-            {user.username && <Toolbar question={question} user={user} qlists={qlists} />}
+            {user.username && (
+              <Toolbar question={question} user={user} qlists={qlists} />
+            )}
 
             <Modal show={this.state.showModal} onHide={this.close} centered>
               <Modal.Header closeButton>
@@ -230,7 +253,9 @@ class Question extends Component {
                         this.textField = ref;
                       }}
                       defaultValue={
-                        answerField && answerField.text ? answerField.text : answerField
+                        answerField && answerField.text
+                          ? answerField.text
+                          : answerField
                       }
                       rows="10"
                     />
@@ -238,7 +263,11 @@ class Question extends Component {
                   <Button
                     variant="primary"
                     onClick={() => {
-                      editQuestionField(question._id, textField, this.textField.value);
+                      editQuestionField(
+                        question._id,
+                        textField,
+                        this.textField.value,
+                      );
                       this.close();
                     }}>
                     Update

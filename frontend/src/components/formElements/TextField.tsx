@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { shape, string, bool } from 'prop-types';
 
 import Form from 'react-bootstrap/Form';
+import { TextFieldProps } from './models';
 
-const TextField = ({
+const TextField: FC<TextFieldProps> = ({
   input,
   label,
   placeholder,
@@ -25,7 +26,7 @@ const TextField = ({
       type={type}
       className={className}
       readOnly={readonly}
-      isInvalid={(touched && error) || errorState}
+      isInvalid={(touched && Boolean(error)) || Boolean(errorState)}
       isValid={touched && !error && !errorState}
       value={defaultValue || input.value}
       onBlur={input.onBlur}
@@ -36,31 +37,16 @@ const TextField = ({
     )}
     {errorsVisible &&
       touched &&
-      ((error && <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>) ||
-        (warning && <Form.Control.Feedback type="invalid">{warning}</Form.Control.Feedback>))}
+      ((error && (
+        <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
+      )) ||
+        (warning && (
+          <Form.Control.Feedback type="invalid">
+            {warning}
+          </Form.Control.Feedback>
+        )))}
   </Form.Group>
 );
-
-TextField.propTypes = {
-  input: shape({
-    name: string,
-    value: string,
-  }).isRequired,
-  readonly: bool,
-  feedback: bool,
-  label: string,
-  defaultValue: string,
-  placeholder: string,
-  className: string,
-  type: string.isRequired,
-  errorState: string,
-  errorsVisible: bool,
-  meta: shape({
-    touched: bool,
-    error: string,
-    warning: string,
-  }).isRequired,
-};
 
 TextField.defaultProps = {
   readonly: false,

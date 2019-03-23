@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 import map from 'lodash/map';
-import styled from 'styled-components';
 
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -12,21 +11,10 @@ import Badge from 'react-bootstrap/Badge';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Modal from 'react-bootstrap/Modal';
 
-import { getQLists, removeQList } from '../../actions/qlists';
+import { getQLists, removeQList } from '../../actions/qlists.ts';
+import QListType from '../../propTypes/QListType.ts';
 
-import { QListType } from '../../propTypes';
-
-const RemoveIcon = styled.button`
-  position: absolute;
-  right: 10px;
-  top: 15px;
-  background: none;
-  border: none;
-
-  &:hover {
-    color: #23527c;
-  }
-`;
+import { RemoveIcon } from './style.ts';
 
 class QLists extends Component {
   static defaultProps = {
@@ -75,7 +63,8 @@ class QLists extends Component {
                 <ListGroup.Item key={qlist.slug}>
                   <h4>
                     <Link to={`/questions/${username}/qlist/${qlist.slug}`}>
-                      {qlist.title} <Badge variant="primary">{qlist.questions.length}</Badge>
+                      {qlist.title}{' '}
+                      <Badge variant="primary">{qlist.questions.length}</Badge>
                     </Link>
                   </h4>
                   <p>{qlist.notes}</p>
