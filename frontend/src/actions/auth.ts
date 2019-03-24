@@ -78,8 +78,10 @@ export const confirm = (
 
 export const forgot = (email: string) => () => api.user.forgot(email);
 export const getReset = (token: string) => () => api.user.getReset(token);
-export const resetToken = (token: string, passwords: string) => () =>
-  api.user.reset(token, passwords);
+export const resetToken = (
+  token: string,
+  passwords: { password: string; passwordConfirmation: string },
+) => () => api.user.reset(token, passwords);
 
 export const signup = (user: User) => () => api.user.signup(user);
 export const isUserExists = (identifier: string) => () =>

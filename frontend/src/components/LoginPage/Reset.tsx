@@ -49,7 +49,10 @@ const enhance = compose<ResetProps, {}>(
   }),
 
   withHandlers({
-    onSubmit: (props: ResetHandlersProps) => (values: any) => {
+    onSubmit: (props: ResetHandlersProps) => (values: {
+      password: string;
+      passwordConfirmation: string;
+    }) => {
       const { resetToken, addFlashMessage, match, history, setState } = props;
 
       setState({ errors: {}, isLoading: true });

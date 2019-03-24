@@ -145,7 +145,7 @@ export const getQuestionsByFilter = (
   });
 
 export const getQuestionsByQList = (
-  qlist: QList,
+  qlist: string,
 ): ThunkAction<void, AppState, null, Action<string>> => dispatch =>
   api.questions
     .getByQList(qlist)

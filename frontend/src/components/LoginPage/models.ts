@@ -34,7 +34,10 @@ export interface LoginProps {
 export interface LoginPageProps {
   login: (credentials: Credentials) => void;
   forgot: (email: string) => void;
-  resetToken: (token: string, passwords: string) => void;
+  resetToken: (
+    token: string,
+    passwords: { password: string; passwordConfirmation: string },
+  ) => void;
   getReset: (token: string) => void;
   getUser: (identifier: string) => void;
   addFlashMessage: (message: Message) => void;
@@ -45,7 +48,10 @@ export interface ResetFormError extends LoginFormError {}
 
 export interface ResetHandlersProps {
   setState: ({}) => void;
-  resetToken: (token: string, passwords: string) => Promise<any>;
+  resetToken: (
+    token: string,
+    passwords: { password: string; passwordConfirmation: string },
+  ) => Promise<any>;
   history: {
     push: (url: string) => void;
   };
