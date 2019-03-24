@@ -1,6 +1,5 @@
 import 'url-search-params-polyfill';
-import React, { Component } from 'react';
-import { shape, func, string, arrayOf } from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import { addFlashMessage } from '../../actions/flash';
@@ -12,51 +11,36 @@ import {
 } from '../../actions/questions';
 import { getQLists, getQListQuestions } from '../../actions/qlists';
 
-import { QuestionType } from '../../propTypes';
+import {
+  QuestionsWrapperProps,
+  QuestionsWrapperState,
+  GetQuestionsError,
+  QuestionsWrapperStateProps,
+} from './models';
+import { Question } from '../../propTypes/QuestionType';
 
-export default WrappedComponent => {
-  class QuestionsWrapper extends Component {
-    static propTypes = {
-      questions: arrayOf(QuestionType).isRequired,
-      getQuestions: func.isRequired,
-      getQLists: func.isRequired,
-      getTopQuestions: func.isRequired,
-      getQuestionsByAuthor: func.isRequired,
-      getSearchedQuestions: func.isRequired,
-      getQListQuestions: func.isRequired,
-      addFlashMessage: func.isRequired,
-      user: shape({
-        username: string,
-        _id: string,
-      }).isRequired,
-      match: shape({
-        params: shape({
-          filter: string,
-          tag: string,
-          page: string,
-          username: string,
-          slug: string,
-        }),
-        path: string,
-      }).isRequired,
-      location: shape({
-        search: string,
-      }).isRequired,
-      history: shape({
-        push: func.isRequired,
-      }).isRequired,
-    };
-
-    state = {
+const WrappedComponent = <P extends object>(
+  Component: React.ComponentType<P>,
+) => {
+  class QuestionsWrapper extends React.Component<
+    QuestionsWrapperProps,
+    QuestionsWrapperState
+  > {
+    state: QuestionsWrapperState = {
       pagination: {
         activePage: 1,
-        pages: 0,
-        count: 0,
+        pages: 1,
+        count: 1,
       },
     };
 
     componentDidMount() {
-      const { match, location, getTopQuestions, getQListQuestions } = this.props;
+      const {
+        match,
+        location,
+        getTopQuestions,
+        getQListQuestions,
+      } = this.props;
       const { page = 1, username, slug } = match.params;
       const searchQuery = new URLSearchParams(location.search).get('q');
 
@@ -73,18 +57,28 @@ export default WrappedComponent => {
       }
     }
 
-    getPageQuestions = page => {
-      const { getQuestions, getQLists, addFlashMessage, history, user } = this.props;
+    getPageQuestions = (page: string | number) => {
+      const {
+        getQuestions,
+        getQLists,
+        addFlashMessage,
+        history,
+        user,
+      } = this.props;
 
       getQuestions(Number(page))
-        .then(({ pages, count }) => {
+        .then(({ pages, count }: { pages: number; count: number }) => {
           this.setState({
-            pagination: { pages, activePage: Number(page), count },
+            pagination: {
+              pages: Number(pages),
+              activePage: Number(page),
+              count: Number(count),
+            },
           });
 
           if (user.username) getQLists(user.username);
         })
-        .catch(err => {
+        .catch((err: GetQuestionsError) => {
           addFlashMessage({
             type: 'error',
             text:
@@ -97,24 +91,33 @@ export default WrappedComponent => {
         });
     };
 
-    getAuthorsQuestions = author => {
-      const { getQuestionsByAuthor, getQLists, user, addFlashMessage, history } = this.props;
+    getAuthorsQuestions = (author: string) => {
+      const {
+        getQuestionsByAuthor,
+        getQLists,
+        user,
+        addFlashMessage,
+        history,
+      } = this.props;
 
       getQuestionsByAuthor(author)
         .then(() => {
           getQLists(user.username);
         })
-        .catch(err => {
+        .catch((err: GetQuestionsError) => {
           addFlashMessage({
             type: 'error',
-            text: err.response.data.error,
+            text:
+              err.response && err.response.data.error
+                ? err.response.data.error
+                : `${err.message}. Please check your internet connection`,
           });
 
           history.push('/questions');
         });
     };
 
-    getQueryQuestions = query => {
+    getQueryQuestions = (query: any) => {
       const {
         getSearchedQuestions,
         getQLists,
@@ -126,7 +129,7 @@ export default WrappedComponent => {
 
       if (questions.length > 0) return;
 
-      getSearchedQuestions(query).then(res => {
+      getSearchedQuestions(query).then((res: Question[]) => {
         if (!res.length) {
           addFlashMessage({
             type: 'warn',
@@ -141,11 +144,15 @@ export default WrappedComponent => {
     };
 
     render() {
-      return <WrappedComponent {...this.props} state={this.state} />;
+      return <Component {...this.props as P} state={this.state} />;
     }
   }
 
-  const mapStateToProps = ({ auth, questions, qlists }) => ({
+  const mapStateToProps = ({
+    auth,
+    questions,
+    qlists,
+  }: QuestionsWrapperStateProps) => ({
     user: auth.user,
     questions,
     qlists,
@@ -162,5 +169,7 @@ export default WrappedComponent => {
       getQuestionsByAuthor,
       getSearchedQuestions,
     },
-  )(QuestionsWrapper);
+  )(QuestionsWrapper as any);
 };
+
+export default WrappedComponent;

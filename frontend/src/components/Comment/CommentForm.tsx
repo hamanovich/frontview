@@ -18,9 +18,10 @@ import {
   CommentFormProps,
   CommentFormLifecycleProps,
   CommentFormHandlersProps,
+  CommentFormHandlersInnerProps,
 } from './models';
 
-const enhance = compose<CommentFormProps, {}>(
+const enhance = compose<CommentFormProps, CommentFormHandlersProps>(
   reduxForm({
     form: 'CommentForm',
     validate,
@@ -34,7 +35,7 @@ const enhance = compose<CommentFormProps, {}>(
     },
   }),
 
-  withHandlers<CommentFormHandlersProps, {}>({
+  withHandlers<CommentFormHandlersInnerProps, {}>({
     onSubmit: props => (values: any) => {
       const { addComment, reset, user, question, getQuestion, slug } = props;
       const query = { ...values, userId: user._id, questionId: question._id };

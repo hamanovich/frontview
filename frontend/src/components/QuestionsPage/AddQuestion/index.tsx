@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { func, shape, string } from 'prop-types';
-import { Field, FieldArray, reduxForm } from 'redux-form';
+import { Field, FieldArray, reduxForm, InjectedFormProps } from 'redux-form';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 import map from 'lodash/map';
@@ -15,10 +14,13 @@ import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 
 import AnswerFields from './AnswerFields';
-import { TextField, TextareaField, RadioButton, SelectField } from '../../formElements';
-
+import {
+  TextField,
+  TextareaField,
+  RadioButton,
+  SelectField,
+} from '../../formElements';
 import validate from '../../../validations/question';
-
 import { logout } from '../../../actions/auth';
 import { addFlashMessage } from '../../../actions/flash';
 import {
@@ -29,41 +31,26 @@ import {
   getQuestionById,
   getQuestionInterface,
 } from '../../../actions/questions';
+import { DropMe, DropThumb, DropThumbs } from './style';
+import {
+  AddQuestionProps,
+  AddQuestionState,
+  AddQuestionMapState,
+  AddQuestionMapProps,
+} from './models';
+import { GetQuestionsError } from '../models';
 
-import { QuestionType } from '../../../propTypes';
-
-import { DropMe, DropThumb, DropThumbs } from '../style';
-
-class AddQuestion extends Component {
-  static propTypes = {
-    handleSubmit: func.isRequired,
-    addQuestion: func.isRequired,
-    addQuestionsFromFile: func.isRequired,
-    editQuestion: func.isRequired,
-    getQuestionInterface: func.isRequired,
-    addFlashMessage: func.isRequired,
-    removeQuestion: func.isRequired,
-    getQuestionById: func.isRequired,
-    logout: func.isRequired,
-    match: shape({
-      params: shape({
-        _id: string,
-      }),
-    }),
-    userId: string,
-    history: shape({
-      push: func.isRequired,
-    }).isRequired,
-    initialValues: QuestionType,
-  };
-
+class AddQuestion extends Component<
+  AddQuestionProps & InjectedFormProps<{}, AddQuestionProps>,
+  AddQuestionState
+> {
   static defaultProps = {
     userId: '',
-    match: null,
-    initialValues: null,
+    match: undefined,
+    initialValues: {},
   };
 
-  state = {
+  state: AddQuestionState = {
     isLoading: false,
     showRemoveModal: false,
     level: [],
@@ -77,15 +64,31 @@ class AddQuestion extends Component {
   _isMounted = false;
 
   componentDidMount() {
-    const { getQuestionById, getQuestionInterface, addFlashMessage, match, history } = this.props;
+    const {
+      getQuestionById,
+      getQuestionInterface,
+      addFlashMessage,
+      match,
+      history,
+    } = this.props;
 
     this._isMounted = true;
 
-    getQuestionInterface().then(({ skill, level, practice }) => {
-      if (this._isMounted) {
-        this.setState({ skill, level, practice });
-      }
-    });
+    getQuestionInterface().then(
+      ({
+        skill,
+        level,
+        practice,
+      }: {
+        skill: string[];
+        level: string[];
+        practice: string[];
+      }) => {
+        if (this._isMounted) {
+          this.setState({ skill, level, practice });
+        }
+      },
+    );
 
     if (match.params._id) {
       getQuestionById(match.params._id).then(
@@ -122,7 +125,7 @@ class AddQuestion extends Component {
     this._isMounted = false;
   }
 
-  onSubmit = values => {
+  private onSubmit = (values: any) => {
     const {
       userId,
       match,
@@ -159,7 +162,7 @@ class AddQuestion extends Component {
 
           history.push('/questions');
         },
-        err => {
+        (err: GetQuestionsError) => {
           addFlashMessage({
             type: 'error',
             text:
@@ -175,7 +178,7 @@ class AddQuestion extends Component {
     }
   };
 
-  imgsDropAccepted = accepted => {
+  private imgsDropAccepted = (accepted: Blob[]) => {
     if (accepted.length + this.state.imgs.length > 3) {
       return this.props.addFlashMessage({
         type: 'error',
@@ -195,12 +198,12 @@ class AddQuestion extends Component {
     });
   };
 
-  handleDropAccepted = accepted => {
+  private handleDropAccepted = (accepted: any) => {
     const { addQuestionsFromFile, addFlashMessage, history } = this.props;
     const [file] = accepted;
     const reader = new FileReader();
 
-    reader.onload = e => {
+    reader.onload = (e: any) => {
       this.setState({
         fileName: file.name,
       });
@@ -219,7 +222,7 @@ class AddQuestion extends Component {
 
           history.push('/questions');
         })
-        .catch(err =>
+        .catch((err: GetQuestionsError) =>
           addFlashMessage({
             type: 'error',
             text:
@@ -232,21 +235,21 @@ class AddQuestion extends Component {
     reader.readAsText(file);
   };
 
-  imgsDropRejected = () => {
+  private imgsDropRejected = () => {
     this.props.addFlashMessage({
       type: 'error',
       text: 'Only images are accepted. Check the file size',
     });
   };
 
-  handleDropRejected = () => {
+  private handleDropRejected = () => {
     this.props.addFlashMessage({
       type: 'error',
       text: 'Only *.json file is accepted',
     });
   };
 
-  removeThumb = img => {
+  private removeThumb = (img: string) => {
     const { imgs } = this.state;
     const index = imgs.indexOf(img);
     this.setState({
@@ -254,12 +257,15 @@ class AddQuestion extends Component {
     });
   };
 
-  toggleDropzone = () => this.setState(prevState => ({ dropzone: !prevState.dropzone }));
+  private toggleDropzone = () =>
+    this.setState(prevState => ({ dropzone: !prevState.dropzone }));
 
-  toggleRemoveModal = () =>
-    this.setState(prevState => ({ showRemoveModal: !prevState.showRemoveModal }));
+  private toggleRemoveModal = () =>
+    this.setState(prevState => ({
+      showRemoveModal: !prevState.showRemoveModal,
+    }));
 
-  remove = id => () => {
+  private remove = (id: string) => () => {
     const { removeQuestion, addFlashMessage, history } = this.props;
 
     removeQuestion(id).then(() => {
@@ -314,15 +320,21 @@ class AddQuestion extends Component {
                 multiple={false}
                 onDropAccepted={this.handleDropAccepted}
                 onDropRejected={this.handleDropRejected}
-                className="dropzone"
-                activeClassName="dropzone--active"
-                rejectClassName="dropzone--reject">
+                // className="dropzone"
+                // activeClassName="dropzone--active"
+                // rejectClassName="dropzone--reject"
+              >
                 {({ getRootProps, getInputProps }) => (
                   <DropMe {...getRootProps()}>
                     <input {...getInputProps()} />
                     <h3>Want to upload JSON?</h3>
-                    <p>Click or drag&amp;drop file here. Only *.json file is accepted.</p>
-                    <p>JSON should be in the following format (array of objects):</p>
+                    <p>
+                      Click or drag&amp;drop file here. Only *.json file is
+                      accepted.
+                    </p>
+                    <p>
+                      JSON should be in the following format (array of objects):
+                    </p>
                     <pre style={{ fontSize: '11px' }}>
                       {JSON.stringify(
                         [
@@ -350,12 +362,14 @@ class AddQuestion extends Component {
                     <p>
                       <small>
                         <em>
-                          P.S. In case wrong JSON format you should fix it by yourself or contact
-                          admin
+                          P.S. In case wrong JSON format you should fix it by
+                          yourself or contact admin
                         </em>
                       </small>
                     </p>
-                    <p>{fileName !== '' ? `You have added - ${fileName}` : ''}</p>
+                    <p>
+                      {fileName !== '' ? `You have added - ${fileName}` : ''}
+                    </p>
                   </DropMe>
                 )}
               </Dropzone>
@@ -414,23 +428,25 @@ class AddQuestion extends Component {
                   component={TextareaField}
                   placeholder="Write down the answer"
                 />
-                <FieldArray name="answers" component={AnswerFields} />
+                <FieldArray name="answers" component={AnswerFields as any} />
                 <hr />
                 <Dropzone
                   accept="image/*"
                   maxSize={100000}
                   onDropAccepted={this.imgsDropAccepted}
                   onDropRejected={this.imgsDropRejected}
-                  className="dropzone dropzone--imgs"
-                  activeClassName="dropzone--active"
-                  rejectClassName="dropzone--reject">
+                  // className="dropzone dropzone--imgs"
+                  // activeClassName="dropzone--active"
+                  // rejectClassName="dropzone--reject"
+                >
                   {({ getRootProps, getInputProps }) => (
                     <DropMe {...getRootProps()}>
                       <h3>Want to upload images?</h3>
                       <input {...getInputProps()} />
                       <p>
-                        Click or drag&amp;drop image here. Only images are accepted. Max{' '}
-                        <strong>3</strong> images with size <strong>100kb</strong> each.
+                        Click or drag&amp;drop image here. Only images are
+                        accepted. Max <strong>3</strong> images with size{' '}
+                        <strong>100kb</strong> each.
                       </p>
                     </DropMe>
                   )}
@@ -441,7 +457,10 @@ class AddQuestion extends Component {
                     <DropThumb key={shortid.generate()}>
                       <div className="dropthumb__inner">
                         <img src={img} alt="" />
-                        <Button variant="danger" size="sm" onClick={() => this.removeThumb(img)}>
+                        <Button
+                          variant="danger"
+                          size="sm"
+                          onClick={() => this.removeThumb(img)}>
                           <FontAwesome name="times" />
                         </Button>
                       </div>
@@ -455,7 +474,11 @@ class AddQuestion extends Component {
                   component={TextareaField}
                   placeholder="Add some notes, if needed"
                 />
-                <Button type="submit" variant="info" size="lg" disabled={isLoading}>
+                <Button
+                  type="submit"
+                  variant="info"
+                  size="lg"
+                  disabled={isLoading}>
                   {_id ? (
                     <span>
                       Update <FontAwesome name="refresh" />
@@ -470,16 +493,23 @@ class AddQuestion extends Component {
                       <FontAwesome name="trash-o" /> Remove
                     </Button>
 
-                    <Modal size="sm" show={showRemoveModal} onHide={this.toggleRemoveModal}>
+                    <Modal
+                      size="sm"
+                      show={showRemoveModal}
+                      onHide={this.toggleRemoveModal}>
                       <Modal.Header closeButton>
                         <Modal.Title>Are you sure?</Modal.Title>
                       </Modal.Header>
                       <Modal.Body>
-                        <p>If so, you will not be able to restore this question.</p>
+                        <p>
+                          If so, you will not be able to restore this question.
+                        </p>
                       </Modal.Body>
                       <Modal.Footer>
                         <ButtonGroup>
-                          <Button variant="secondary" onClick={this.toggleRemoveModal}>
+                          <Button
+                            variant="secondary"
+                            onClick={this.toggleRemoveModal}>
                             Cancel
                           </Button>
                           <Button variant="danger" onClick={this.remove(_id)}>
@@ -499,7 +529,10 @@ class AddQuestion extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = (
+  state: AddQuestionMapState,
+  props: AddQuestionMapProps,
+) => ({
   initialValues: props.match.params._id
     ? state.questions.find(q => q._id === props.match.params._id)
     : null,
@@ -519,7 +552,7 @@ export default connect(
     addFlashMessage,
   },
 )(
-  reduxForm({
+  reduxForm<{}, any>({
     form: 'addQuestion',
     validate,
   })(AddQuestion),

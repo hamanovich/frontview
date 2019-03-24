@@ -1,24 +1,19 @@
 import React, { Component } from 'react';
-import { shape, func, string } from 'prop-types';
 
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 
 import * as QuestionsTab from './QuestionsTabs';
+import {
+  QuestionsFromInternetProps,
+  QuestionsFromInternetState,
+} from './models';
 
-class QuestionsFromInternet extends Component {
-  static propTypes = {
-    match: shape({
-      params: shape({
-        source: string,
-      }).isRequired,
-    }).isRequired,
-    history: shape({
-      push: func.isRequired,
-    }).isRequired,
-  };
-
-  state = {
+class QuestionsFromInternet extends Component<
+  QuestionsFromInternetProps,
+  QuestionsFromInternetState
+> {
+  state: QuestionsFromInternetState = {
     prefixHistory: '/questions/internet',
     routes: ['Frontend', 'Soft', 'NodeJS', 'React'],
     source: '',
@@ -36,7 +31,7 @@ class QuestionsFromInternet extends Component {
     this.setState({ source: match.params.source });
   }
 
-  tabSelect = source => {
+  private tabSelect = (source: string) => {
     const { history } = this.props;
     const { prefixHistory } = this.state;
 

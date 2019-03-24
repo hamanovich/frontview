@@ -1,5 +1,4 @@
-import React from 'react';
-import { shape, string, arrayOf, number } from 'prop-types';
+import React, { FC } from 'react';
 import map from 'lodash/map';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
@@ -15,10 +14,16 @@ import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import { addFlashMessage } from '../../actions/flash';
 import { getQuestionsByFilter } from '../../actions/questions';
 import { getQLists } from '../../actions/qlists';
+import {
+  QuestionsBarProps,
+  QuestionsBarState,
+  QuestionsBarLifecycleProps,
+  QuestionsBarsRouteProps,
+} from './models';
 
-const enhance = compose(
+const enhance = compose<QuestionsBarProps, QuestionsBarsRouteProps>(
   connect(
-    state => ({
+    (state: QuestionsBarState) => ({
       user: state.auth.user,
     }),
     {
@@ -30,7 +35,7 @@ const enhance = compose(
 
   withState('tags', 'setTags', []),
 
-  lifecycle({
+  lifecycle<QuestionsBarLifecycleProps, {}>({
     componentDidMount() {
       const {
         getQuestionsByFilter,
@@ -81,11 +86,18 @@ const enhance = compose(
   }),
 );
 
-const QuestionsBar = ({ active, filter, tags, style }) => (
+const QuestionsBar: FC<QuestionsBarProps> = ({
+  active,
+  filter,
+  tags,
+  style,
+}) => (
   <ButtonToolbar style={{ minHeight: 38 }}>
     {map(tags, tag => (
       <Link
-        className={classNames('btn', `btn-${style}`, { active: active === tag._id })}
+        className={classNames('btn', `btn-${style}`, {
+          active: active === tag._id,
+        })}
         key={tag._id}
         to={{ pathname: `/questions/${filter}/${tag._id}` }}>
         {tag._id} <Badge variant="warning">{tag.count}</Badge>
@@ -93,18 +105,6 @@ const QuestionsBar = ({ active, filter, tags, style }) => (
     ))}
   </ButtonToolbar>
 );
-
-QuestionsBar.propTypes = {
-  style: string,
-  active: string,
-  filter: string.isRequired,
-  tags: arrayOf(
-    shape({
-      _id: string.isRequired,
-      count: number.isRequired,
-    }),
-  ).isRequired,
-};
 
 QuestionsBar.defaultProps = {
   active: '',

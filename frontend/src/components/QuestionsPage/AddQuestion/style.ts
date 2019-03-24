@@ -1,19 +1,4 @@
 import styled from 'styled-components';
-import Badge from 'react-bootstrap/Badge';
-
-export const BadgeStyled = styled(Badge)`
-  margin: 0 3px;
-`;
-
-export const ApproveBar = styled('div')`
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-
-  h5 {
-    margin: 0 1rem 0 0;
-  }
-`;
 
 export const DropMe = styled.div`
   border-radius: 4px;
@@ -25,7 +10,8 @@ export const DropMe = styled.div`
   &:hover,
   &:focus-within {
     border-color: #66afe9;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+      0 0 8px rgba(102, 175, 233, 0.6);
   }
 
   &.dropzone--active {

@@ -32,19 +32,21 @@ const QuestionsTabReact = () => (
         What are <strong>keys</strong> in React and why are they important?
       </li>
       <li>
-        If you created a React element like <strong>Twitter</strong> below, what would the component
-        definition of <strong>Twitter</strong> look like?
+        If you created a React element like <strong>Twitter</strong> below, what
+        would the component definition of <strong>Twitter</strong> look like?
       </li>
       <li>
-        What is the difference between a <strong>controlled</strong> component and an{' '}
-        <strong>uncontrolled</strong> component?
+        What is the difference between a <strong>controlled</strong> component
+        and an <strong>uncontrolled</strong> component?
       </li>
       <li>In which lifecycle event do you make AJAX requests and why?</li>
       <li>
-        What does <strong>shouldComponentUpdate</strong> do and why is it important?
+        What does <strong>shouldComponentUpdate</strong> do and why is it
+        important?
       </li>
       <li>
-        How do you tell React to build in <strong>Production</strong> mode and what will that do?
+        How do you tell React to build in <strong>Production</strong> mode and
+        what will that do?
       </li>
       <li>Describe how events are handled in React.</li>
       <li>
@@ -52,8 +54,8 @@ const QuestionsTabReact = () => (
         <strong>cloneElement</strong>?
       </li>
       <li>
-        What is the second argument that can optionally be passed to <strong>setState</strong> and
-        what is its purpose?
+        What is the second argument that can optionally be passed to{' '}
+        <strong>setState</strong> and what is its purpose?
       </li>
     </ul>
   </Fragment>

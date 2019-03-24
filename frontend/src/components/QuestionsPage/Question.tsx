@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from 'react';
-import { arrayOf, func, shape, string } from 'prop-types';
+import React, { Component, Fragment, createRef } from 'react';
 import { Link } from 'react-router-dom';
 import MarkdownRenderer from 'react-markdown-renderer';
 import map from 'lodash/map';
@@ -15,52 +14,45 @@ import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 
-import Toolbar from '../shared/Toolbar.tsx';
-import ZoomImage from '../shared/ZoomImage.tsx';
+import Toolbar from '../shared/Toolbar';
+import ZoomImage from '../shared/ZoomImage';
 import Loader from '../../utils/Loader';
+import { QuestionProps, QuestionState } from './models';
+import { TextareaField } from '../formElements';
+import { BadgeStyled, ApproveBar } from './style';
+import { DropThumb, DropThumbs } from './AddQuestion/style';
 
-import { QuestionType, UserType, QListType } from '../../propTypes/index.ts';
-import { BadgeStyled, ApproveBar, DropThumb, DropThumbs } from './style';
-
-class Question extends Component {
-  static propTypes = {
-    question: QuestionType.isRequired,
-    user: UserType.isRequired,
-    qlists: arrayOf(QListType),
-    approveQuestion: func.isRequired,
-    editQuestionField: func.isRequired,
-    history: shape({
-      push: func,
-    }),
-    match: shape({
-      params: shape({
-        slug: string.isRequired,
-      }).isRequired,
-    }),
-  };
-
+class Question extends Component<QuestionProps, QuestionState> {
   static defaultProps = {
     qlists: [],
     history: {},
     match: null,
   };
 
-  state = {
+  state: QuestionState = {
     showModal: false,
-    textField: null,
-    answerField: null,
+    textField: '',
+    answerField: '',
   };
 
-  zoom = mediumZoom();
+  private zoom = mediumZoom();
 
-  attachZoom = image => {
+  private textInput = createRef<TextareaField>();
+
+  private attachZoom = (image: string) => {
     this.zoom.attach(image);
   };
 
-  open = (answerField, field) => () => {
+  private open = (
+    answerField: { text: string } | string,
+    field: string,
+  ) => () => {
     const { user, question } = this.props;
 
-    if (user.username === question.author.username) {
+    if (
+      typeof question.author === 'object' &&
+      user.username === question.author.username
+    ) {
       this.setState({
         showModal: true,
         answerField,
@@ -69,15 +61,21 @@ class Question extends Component {
     }
   };
 
-  close = () => {
+  private close = (redirect?: boolean) => {
     const { history } = this.props;
+    const { answerField, textField } = this.state;
 
     this.setState({
       showModal: false,
-      answerField: null,
+      answerField: '',
     });
 
-    if (history.push && this.state.textField === 'question') {
+    if (
+      history.push &&
+      textField === 'question' &&
+      this.textInput.current.value !== answerField &&
+      redirect
+    ) {
       history.push('/questions');
     }
   };
@@ -193,14 +191,16 @@ class Question extends Component {
                 onClick={this.open(question.notes, 'notes')}
               />
             )}
-            {question.author && question.author.username && (
-              <small>
-                <strong>Author</strong>:{' '}
-                <Link to={`/questions/author/${question.author.username}`}>
-                  {question.author.username}
-                </Link>
-              </small>
-            )}
+            {typeof question.author === 'object' &&
+              question.author &&
+              question.author.username && (
+                <small>
+                  <strong>Author</strong>:{' '}
+                  <Link to={`/questions/author/${question.author.username}`}>
+                    {question.author.username}
+                  </Link>
+                </small>
+              )}
             {question.comments && question.comments.length > 0 ? (
               <Link
                 to={`/questions/${question.slug}/one`}
@@ -219,7 +219,8 @@ class Question extends Component {
               </small>
             </p>
             <hr />
-            {question.author &&
+            {typeof question.author === 'object' &&
+              question.author &&
               (user.username === question.author.username ||
                 user.role === 'admin') && (
                 <ButtonGroup size="sm" className="pull-right">
@@ -249,11 +250,11 @@ class Question extends Component {
                     <Form.Control
                       name={textField}
                       as="textarea"
-                      inputRef={ref => {
-                        this.textField = ref;
-                      }}
+                      ref={this.textInput}
                       defaultValue={
-                        answerField && answerField.text
+                        typeof answerField === 'object' &&
+                        answerField &&
+                        answerField.text
                           ? answerField.text
                           : answerField
                       }
@@ -266,9 +267,9 @@ class Question extends Component {
                       editQuestionField(
                         question._id,
                         textField,
-                        this.textField.value,
+                        this.textInput.current!.value,
                       );
-                      this.close();
+                      this.close(true);
                     }}>
                     Update
                   </Button>

@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
-import { shape, string } from 'prop-types';
+import React, { FC, Fragment } from 'react';
 import FontAwesome from 'react-fontawesome';
 
 import Questions from './Questions';
+import { QuestionsSearchProps } from './models';
 
-const QuestionsSearch = ({ location }) => (
+const QuestionsSearch: FC<QuestionsSearchProps> = ({ location }) => (
   <Fragment>
     <h1>
       <FontAwesome name="search-plus" /> Search: &apos;
@@ -15,11 +15,5 @@ const QuestionsSearch = ({ location }) => (
     <Questions />
   </Fragment>
 );
-
-QuestionsSearch.propTypes = {
-  location: shape({
-    search: string,
-  }).isRequired,
-};
 
 export default QuestionsSearch;

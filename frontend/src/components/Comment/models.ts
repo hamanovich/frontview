@@ -74,9 +74,12 @@ export interface CommentFormLifecycleProps {
 
 export interface CommentFormHandlersProps {
   addComment: (query: any) => Promise<void>;
-  reset: () => void;
   user: User;
   question: Question;
   getQuestion: (slug: string) => void;
   slug: string;
+}
+export interface CommentFormHandlersInnerProps
+  extends CommentFormHandlersProps {
+  reset: () => void;
 }

@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
-import { shape, string } from 'prop-types';
+import React, { FC, Fragment } from 'react';
 import FontAwesome from 'react-fontawesome';
 
 import Questions from './Questions';
+import { QuestionsAuthorProps } from './models';
 
-const QuestionsAuthor = ({ match }) => (
+const QuestionsAuthor: FC<QuestionsAuthorProps> = ({ match }) => (
   <Fragment>
     <h1>
       <FontAwesome name="file-text-o" /> {match.params.username}
@@ -14,13 +14,5 @@ const QuestionsAuthor = ({ match }) => (
     <Questions />
   </Fragment>
 );
-
-QuestionsAuthor.propTypes = {
-  match: shape({
-    params: shape({
-      username: string,
-    }),
-  }).isRequired,
-};
 
 export default QuestionsAuthor;

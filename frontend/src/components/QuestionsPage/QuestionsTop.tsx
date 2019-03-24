@@ -1,6 +1,4 @@
-import React, { Fragment } from 'react';
-import { arrayOf } from 'prop-types';
-import styled from 'styled-components';
+import React, { FC, Fragment } from 'react';
 import map from 'lodash/map';
 import FontAwesome from 'react-fontawesome';
 import { Helmet } from 'react-helmet';
@@ -8,31 +6,11 @@ import { Helmet } from 'react-helmet';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Badge from 'react-bootstrap/Badge';
 
-import { QuestionType } from '../../propTypes';
-
 import Loader from '../../utils/Loader';
+import { BadgeGroup, LabelVoted } from './style';
+import { QuestionsTopProps } from './models';
 
-const BadgeGroup = styled.span`
-  .label {
-    margin: 0 3px;
-
-    &:first-child {
-      margin-left: 0;
-    }
-
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-`;
-
-const LabelVoted = styled.span`
-  position: absolute;
-  right: 10px;
-  top: 10px;
-`;
-
-const QuestionsTop = ({ questions }) => (
+const QuestionsTop: FC<QuestionsTopProps> = ({ questions }) => (
   <Fragment>
     <Helmet>
       <title>Frontview: Top 10 Questions</title>
@@ -43,7 +21,10 @@ const QuestionsTop = ({ questions }) => (
 
     <ListGroup>
       {map(questions, (question, index) => (
-        <ListGroup.Item action href={`/questions/${question.slug}/one`} key={question.slug}>
+        <ListGroup.Item
+          action
+          href={`/questions/${question.slug}/one`}
+          key={question.slug}>
           <h4>
             {index + 1}. {question.question}
           </h4>
@@ -76,9 +57,5 @@ const QuestionsTop = ({ questions }) => (
     </ListGroup>
   </Fragment>
 );
-
-QuestionsTop.propTypes = {
-  questions: arrayOf(QuestionType).isRequired,
-};
 
 export default Loader('questions')(QuestionsTop);

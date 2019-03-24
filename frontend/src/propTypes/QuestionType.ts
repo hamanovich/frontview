@@ -1,5 +1,7 @@
 import { string, arrayOf, oneOf, oneOfType, shape, bool } from 'prop-types';
 
+import { Comment } from './CommentType';
+
 export default shape({
   _id: string.isRequired,
   slug: string.isRequired,
@@ -44,5 +46,7 @@ export interface Question {
   };
   imgs: string[];
   notes: string;
-  author: string[] | Array<{ username: string }>;
+  author: string | { username: string };
+  comments: string[] | Comment[] | undefined;
+  lastModified: string;
 }

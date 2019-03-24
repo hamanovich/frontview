@@ -1,51 +1,28 @@
 import React, { Component, Fragment } from 'react';
-import { shape, arrayOf, func, string } from 'prop-types';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
 
-import Question from '../Question';
+import QuestionSingle from '../Question';
 import CommentForm from '../../Comment/CommentForm';
 import Comments from '../../Comment/Comments';
-
 import {
   getQuestionBySlug,
   approveQuestion,
   editQuestionField,
-} from '../../../actions/questions.ts';
-import { addComment } from '../../../actions/comments.ts';
-import { getUser } from '../../../actions/auth.ts';
-import { getQLists } from '../../../actions/qlists.ts';
-import { addFlashMessage } from '../../../actions/flash.ts';
+} from '../../../actions/questions';
+import { addComment } from '../../../actions/comments';
+import { getUser } from '../../../actions/auth';
+import { getQLists } from '../../../actions/qlists';
+import { addFlashMessage } from '../../../actions/flash';
+import { QuestionOneProps } from './models';
+import { GetQuestionsError, QuestionsWrapperStateProps } from '../models';
 
-import { UserType, QuestionType, QListType } from '../../../propTypes/index.ts';
-
-class QuestionOne extends Component {
-  static propTypes = {
-    addFlashMessage: func.isRequired,
-    getQuestionBySlug: func.isRequired,
-    getUser: func.isRequired,
-    getQLists: func.isRequired,
-    addComment: func.isRequired,
-    match: shape({
-      params: shape({
-        slug: string.isRequired,
-      }).isRequired,
-    }).isRequired,
-    question: QuestionType,
-    user: UserType.isRequired,
-    qlists: arrayOf(QListType).isRequired,
-    approveQuestion: func.isRequired,
-    editQuestionField: func.isRequired,
-    history: shape({
-      push: func.isRequired,
-    }).isRequired,
-  };
-
+class QuestionOne extends Component<QuestionOneProps> {
   static defaultProps = {
-    question: null,
+    question: undefined,
   };
 
   componentDidMount() {
@@ -59,11 +36,11 @@ class QuestionOne extends Component {
     this.getQuestion(match.params.slug);
   }
 
-  getQuestion = slug => {
+  getQuestion = (slug: string) => {
     const { getQuestionBySlug, addFlashMessage, history } = this.props;
 
     getQuestionBySlug(slug)
-      .then(res => {
+      .then((res: any) => {
         if (res.status === 500) {
           addFlashMessage({
             type: 'error',
@@ -73,7 +50,7 @@ class QuestionOne extends Component {
           history.push('/questions/add');
         }
       })
-      .catch(err => {
+      .catch((err: GetQuestionsError) => {
         addFlashMessage({
           type: 'error',
           text:
@@ -102,7 +79,7 @@ class QuestionOne extends Component {
       <Fragment>
         <h1>The Question page</h1>
 
-        <Question
+        <QuestionSingle
           history={history}
           question={question}
           approveQuestion={approveQuestion}
@@ -112,19 +89,21 @@ class QuestionOne extends Component {
           match={match}
         />
 
-        {question && question.comments.length > 0 && (
-          <Fragment>
-            <h3>
-              <FontAwesome name="comments-o" /> Comments{' '}
-              <Badge variant="primary">{question.comments.length}</Badge>
-            </h3>
-            <Card border="info">
-              <Card.Body>
-                <Comments comments={question.comments} />
-              </Card.Body>
-            </Card>
-          </Fragment>
-        )}
+        {question &&
+          typeof question.comments === 'object' &&
+          question.comments.length > 0 && (
+            <Fragment>
+              <h3>
+                <FontAwesome name="comments-o" /> Comments{' '}
+                <Badge variant="primary">{question.comments.length}</Badge>
+              </h3>
+              <Card border="info">
+                <Card.Body>
+                  <Comments comments={question.comments} />
+                </Card.Body>
+              </Card>
+            </Fragment>
+          )}
         {user.username && question && (
           <Fragment>
             <h3>
@@ -149,7 +128,10 @@ class QuestionOne extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (
+  state: QuestionsWrapperStateProps,
+  props: { match: { params: { slug: string } } },
+) => {
   const question = state.questions.find(
     question => question.slug === props.match.params.slug,
   );

@@ -19,7 +19,9 @@ const QuestionsTabNodeJS = () => (
       <li>What is an error-first callback?</li>
       <li>How can you avoid callback hells?</li>
       <li>What are Promises?</li>
-      <li>What tools can be used to assure consistent style? Why is it important?</li>
+      <li>
+        What tools can be used to assure consistent style? Why is it important?
+      </li>
       <li>When should you npm and when yarn?</li>
       <li>What&apos;s a stub? Name a use case!</li>
       <li>What&apos;s a test pyramid? Give an example!</li>

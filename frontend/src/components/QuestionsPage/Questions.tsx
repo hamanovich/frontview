@@ -1,21 +1,21 @@
-import React, { Fragment } from 'react';
-import { arrayOf, func } from 'prop-types';
+import React, { FC, Fragment } from 'react';
 import map from 'lodash/map';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 import compose from 'recompose/compose';
 
-import Question from './Question';
+import QuestionOne from './Question';
 import Loader from '../../utils/Loader';
-
 import { approveQuestion, editQuestionField } from '../../actions/questions';
+import { QuestionsProps, QuestionsState } from './models';
+import { Question } from '../../propTypes/QuestionType';
 
-import { QuestionType, UserType, QListType } from '../../propTypes';
-
-const enhance = compose(
+const enhance = compose<
+  QuestionsProps,
+  { questions?: Question | Question[] | string[] }
+>(
   connect(
-    state => ({
+    (state: QuestionsState) => ({
       user: state.auth.user,
       questions: state.questions,
       qlists: state.qlists,
@@ -29,11 +29,17 @@ const enhance = compose(
   Loader('questions'),
 );
 
-const Questions = ({ user, qlists, questions, approveQuestion, editQuestionField }) => (
+const Questions: FC<QuestionsProps> = ({
+  user,
+  qlists,
+  questions,
+  approveQuestion,
+  editQuestionField,
+}) => (
   <Fragment>
     {questions.length ? (
       map(questions, question => (
-        <Question
+        <QuestionOne
           question={question}
           approveQuestion={approveQuestion}
           editQuestionField={editQuestionField}
@@ -50,13 +56,5 @@ const Questions = ({ user, qlists, questions, approveQuestion, editQuestionField
     )}
   </Fragment>
 );
-
-Questions.propTypes = {
-  user: UserType.isRequired,
-  qlists: arrayOf(QListType).isRequired,
-  questions: arrayOf(QuestionType).isRequired,
-  approveQuestion: func.isRequired,
-  editQuestionField: func.isRequired,
-};
 
 export default enhance(Questions);
