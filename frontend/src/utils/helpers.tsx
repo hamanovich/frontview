@@ -1,29 +1,25 @@
 import React, { Suspense } from 'react';
-import { oneOfType, func, object } from 'prop-types';
 import { Route } from 'react-router-dom';
 import axios from 'axios';
 
 import IconLoader from '../components/shared/IconLoader';
-
 import Authorization from './Authorization';
 
 export const isLoggedIn = Authorization();
-export const User = Authorization(['user', 'owner', 'admin']);
+export const Customer = Authorization(['user', 'owner', 'admin']);
 export const Owner = Authorization(['owner', 'admin']);
 export const Admin = Authorization(['admin']);
 
-export const PropsRoute = ({ component, ...rest }) => (
+export const PropsRoute = ({ component, ...rest }: any) => (
   <Route
     {...rest}
-    render={routeProps => React.createElement(component, { ...routeProps, ...rest })}
+    render={(routeProps: any) =>
+      React.createElement(component, { ...routeProps, ...rest })
+    }
   />
 );
 
-PropsRoute.propTypes = {
-  component: oneOfType([func, object]).isRequired,
-};
-
-export const setAuthorizationToken = token => {
+export const setAuthorizationToken = (token: boolean) => {
   if (token) {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   } else {
@@ -31,8 +27,8 @@ export const setAuthorizationToken = token => {
   }
 };
 
-export const Waiting = Component => props => (
+export const Waiting = (Component: any) => (props: any) => (
   <Suspense fallback={<IconLoader />}>
-    <Component {...props} />
+    <Component {...props as any} />
   </Suspense>
 );

@@ -2,12 +2,19 @@ import React, { Component, Fragment } from 'react';
 import isEmpty from 'lodash/isEmpty';
 
 import IconLoader from '../components/shared/IconLoader';
+import { LoaderState } from './models';
 
-export default prop => ComposedComponent =>
-  class Loader extends Component {
-    state = {
+const withLoading = (prop: string) => <P extends object>(
+  ComposedComponent: any,
+) =>
+  class Loader extends Component<any, LoaderState> {
+    state: LoaderState = {
       isEmpty: false,
     };
+
+    private mounted: boolean = false;
+    private startTimer: number = 0;
+    private endTimer: number = 0;
 
     componentDidMount() {
       this.mounted = true;
@@ -20,7 +27,7 @@ export default prop => ComposedComponent =>
       }, 5000);
     }
 
-    componentWillUpdate(nextProps) {
+    componentWillUpdate(nextProps: any) {
       if (!isEmpty(nextProps[prop])) {
         this.endTimer = Date.now();
       }
@@ -32,7 +39,9 @@ export default prop => ComposedComponent =>
 
     render() {
       const props = prop.split(' ');
-      const filtered = props.filter(propOne => !isEmpty(this.props[propOne]));
+      const filtered = props.filter(
+        (propOne: string) => !isEmpty(this.props[propOne]),
+      );
       const myProps = {
         loadingTime: ((this.endTimer - this.startTimer) / 1000).toFixed(2),
       };
@@ -51,7 +60,9 @@ export default prop => ComposedComponent =>
       return filtered.length !== props.length ? (
         <IconLoader />
       ) : (
-        <ComposedComponent {...this.props} {...myProps} />
+        <ComposedComponent {...this.props as P} {...myProps} />
       );
     }
   };
+
+export default withLoading;

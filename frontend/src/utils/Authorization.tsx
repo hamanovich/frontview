@@ -1,24 +1,14 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { addFlashMessage } from '../actions/flash';
+import { AuthorizationProps } from './models';
+import { Auth } from '../propTypes/UserType';
 
-import { UserType } from '../propTypes';
-
-export default allowed => WrappedComponent => {
-  class Authorization extends Component {
-    static propTypes = {
-      auth: PropTypes.shape({
-        user: UserType,
-        isAuthenticated: PropTypes.bool,
-      }).isRequired,
-      addFlashMessage: PropTypes.func.isRequired,
-      history: PropTypes.shape({
-        push: PropTypes.func.isRequired,
-      }).isRequired,
-    };
-
+const withAuthorization = (allowed?: string[]) => <P extends object>(
+  WrappedComponent: any,
+) => {
+  class Authorization extends Component<AuthorizationProps> {
     componentWillMount() {
       const { addFlashMessage, auth, history } = this.props;
       const include = allowed && allowed.includes(auth.user.role);
@@ -47,21 +37,23 @@ export default allowed => WrappedComponent => {
       }
     }
 
-    componentWillUpdate(nextProps) {
+    componentWillUpdate(nextProps: any) {
       if (!nextProps.auth.isAuthenticated) {
         this.props.history.push('/login');
       }
     }
 
     render() {
-      return <WrappedComponent {...this.props} />;
+      return <WrappedComponent {...this.props as P} />;
     }
   }
 
-  const mapStateToProps = state => ({ auth: state.auth });
+  const mapStateToProps = (state: { auth: Auth }) => ({ auth: state.auth });
 
   return connect(
     mapStateToProps,
     { addFlashMessage },
   )(Authorization);
 };
+
+export default withAuthorization;

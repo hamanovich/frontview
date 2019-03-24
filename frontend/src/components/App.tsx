@@ -13,7 +13,7 @@ import Footer from './layout/Footer';
 import FlashList from './flash/FlashList';
 import FaqButton from './shared/FaqButton';
 
-import { isLoggedIn, User, Waiting } from '../utils/helpers';
+import { isLoggedIn, Customer, Waiting } from '../utils/helpers';
 import ScrollToTopRoute from '../utils/ScrollToTopRoute';
 
 const LoginPage = lazy(() =>
@@ -53,12 +53,12 @@ const App = () => (
         <Route exact path="/" component={HomePage} />
         <Route path="/login" component={isLoggedIn(Waiting(LoginPage))} />
         <Route path="/signup" component={isLoggedIn(Waiting(SignupPage))} />
-        <Route path="/me" component={User(Waiting(AccountPage))} />
+        <Route path="/me" component={Customer(Waiting(AccountPage))} />
         <Route path="/questions" component={Waiting(QuestionsPage)} />
-        <Route path="/interview" component={User(Waiting(InterviewPage))} />
+        <Route path="/interview" component={Customer(Waiting(InterviewPage))} />
         <Route
           path="/comments/:username"
-          component={User(Waiting(CommentsAuthorPage))}
+          component={Customer(Waiting(CommentsAuthorPage))}
         />
         <Route
           path="/confirmation/:token"

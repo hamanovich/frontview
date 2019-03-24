@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import { element } from 'prop-types';
+import React, { Component, ReactNode } from 'react';
 import FontAwesome from 'react-fontawesome';
 
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 
-class ErrorBoundary extends Component {
-  static propTypes = {
-    children: element.isRequired,
-  };
+export interface ErrorBoundaryProps {
+  children: ReactNode;
+}
 
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
+export interface ErrorBoundaryState {
+  hasError: boolean;
+}
+
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  state: ErrorBoundaryState = { hasError: false };
 
   static getDerivedStateFromError() {
     return { hasError: true };

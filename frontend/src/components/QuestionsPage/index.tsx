@@ -12,7 +12,7 @@ import QuestionsSearch from './QuestionsSearch';
 import QuestionOne from './QuestionOne';
 import QuestionsWrapper from './QuestionsWrapper';
 
-import { User, Waiting } from '../../utils/helpers';
+import { Customer, Waiting } from '../../utils/helpers';
 import ErrorBoundary from '../../utils/ErrorBoundary';
 
 const AddQuestion = lazy(() =>
@@ -38,7 +38,7 @@ const QuestionsPage = () => (
         />
         <Route
           path="/questions/author/:username"
-          component={User(QuestionsWrapper(QuestionsAuthor))}
+          component={Customer(QuestionsWrapper(QuestionsAuthor))}
         />
         <Route
           exact
@@ -53,7 +53,7 @@ const QuestionsPage = () => (
         <Route
           exact
           path="/questions/add"
-          component={User(Waiting(AddQuestion))}
+          component={Customer(Waiting(AddQuestion))}
         />
         <Route
           path="/questions/internet/:source?"
@@ -62,12 +62,12 @@ const QuestionsPage = () => (
         <Route
           exact
           path="/questions/:username/qlist/:slug"
-          component={User(QuestionsWrapper(QuestionsQList))}
+          component={Customer(QuestionsWrapper(QuestionsQList))}
         />
         <Route
           exact
           path="/questions/:_id/edit"
-          component={User(Waiting(AddQuestion))}
+          component={Customer(Waiting(AddQuestion))}
         />
         <Route exact path="/questions/:slug/one" component={QuestionOne} />
         <Route
