@@ -2,8 +2,11 @@
 
 exports[`<HomePage/> renders <HomePage /> component 1`] = `
 <Fragment>
-  <ForwardRef(Bootstrap(Jumbotron))>
-    <ForwardRef(Bootstrap(Container))>
+  <Bootstrap(Jumbotron)>
+    <Container
+      as="div"
+      fluid={false}
+    >
       <h1
         className="display-3"
       >
@@ -17,8 +20,7 @@ exports[`<HomePage/> renders <HomePage /> component 1`] = `
       <p
         className="lead"
       >
-        You also able to add new questions, comment existing and review them. Check it on
-         
+        You also able to add new questions, comment existing and review them. Check it on 
         <Link
           replace={false}
           to="/about/pricing"
@@ -37,24 +39,30 @@ exports[`<HomePage/> renders <HomePage /> component 1`] = `
           replace={false}
           to="/about/faq"
         >
-          <ForwardRef(Bootstrap(Button))
+          <Button
+            active={false}
+            disabled={false}
             size="lg"
+            type="button"
             variant="primary"
           >
             Learn More 
             <FontAwesome
               name="angle-double-right"
             />
-          </ForwardRef(Bootstrap(Button))>
+          </Button>
         </Link>
       </p>
-    </ForwardRef(Bootstrap(Container))>
-  </ForwardRef(Bootstrap(Jumbotron))>
-  <ForwardRef(Bootstrap(Container))
+    </Container>
+  </Bootstrap(Jumbotron)>
+  <Container
+    as="div"
     className="py-5"
+    fluid={false}
   >
-    <ForwardRef(Bootstrap(Row))>
-      <ForwardRef(Bootstrap(Col))
+    <Bootstrap(Row)>
+      <Col
+        as="div"
         md={4}
       >
         <h2>
@@ -71,18 +79,22 @@ exports[`<HomePage/> renders <HomePage /> component 1`] = `
             replace={false}
             to="/about/faq"
           >
-            <ForwardRef(Bootstrap(Button))
+            <Button
+              active={false}
+              disabled={false}
+              type="button"
               variant="outline-success"
             >
               Learn More 
               <FontAwesome
                 name="angle-double-right"
               />
-            </ForwardRef(Bootstrap(Button))>
+            </Button>
           </Link>
         </p>
-      </ForwardRef(Bootstrap(Col))>
-      <ForwardRef(Bootstrap(Col))
+      </Col>
+      <Col
+        as="div"
         md={4}
       >
         <h2>
@@ -99,18 +111,22 @@ exports[`<HomePage/> renders <HomePage /> component 1`] = `
             replace={false}
             to="/about/faq"
           >
-            <ForwardRef(Bootstrap(Button))
+            <Button
+              active={false}
+              disabled={false}
+              type="button"
               variant="outline-primary"
             >
               Learn More 
               <FontAwesome
                 name="angle-double-right"
               />
-            </ForwardRef(Bootstrap(Button))>
+            </Button>
           </Link>
         </p>
-      </ForwardRef(Bootstrap(Col))>
-      <ForwardRef(Bootstrap(Col))
+      </Col>
+      <Col
+        as="div"
         md={4}
       >
         <h2>
@@ -134,18 +150,21 @@ exports[`<HomePage/> renders <HomePage /> component 1`] = `
             replace={false}
             to="/about/faq"
           >
-            <ForwardRef(Bootstrap(Button))
+            <Button
+              active={false}
+              disabled={false}
+              type="button"
               variant="outline-danger"
             >
               Learn More 
               <FontAwesome
                 name="angle-double-right"
               />
-            </ForwardRef(Bootstrap(Button))>
+            </Button>
           </Link>
         </p>
-      </ForwardRef(Bootstrap(Col))>
-    </ForwardRef(Bootstrap(Row))>
-  </ForwardRef(Bootstrap(Container))>
+      </Col>
+    </Bootstrap(Row)>
+  </Container>
 </Fragment>
 `;

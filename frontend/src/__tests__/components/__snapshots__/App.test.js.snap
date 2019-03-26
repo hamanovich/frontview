@@ -73,13 +73,16 @@ exports[`<App/> renders <App /> component 1`] = `
     }
     topPosition={0}
   >
-    <ForwardRef(Bootstrap(Button))
+    <Button
+      active={false}
+      disabled={false}
+      type="button"
       variant="warning"
     >
       <FontAwesome
         name="chevron-up"
       />
-    </ForwardRef(Bootstrap(Button))>
+    </Button>
   </ScrollUp>
 </Fragment>
 `;

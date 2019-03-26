@@ -4,11 +4,15 @@ exports[`<Footer/> renders <Footer /> component 1`] = `
 <footer
   className="bg-dark py-4 text-white"
 >
-  <ForwardRef(Bootstrap(Container))>
-    <ForwardRef(Bootstrap(Row))
+  <Container
+    as="div"
+    fluid={false}
+  >
+    <Bootstrap(Row)
       className="text-center text-md-left"
     >
-      <ForwardRef(Bootstrap(Col))
+      <Col
+        as="div"
         md={true}
       >
         <h4>
@@ -19,8 +23,9 @@ exports[`<Footer/> renders <Footer /> component 1`] = `
         >
           © 2017-2019
         </small>
-      </ForwardRef(Bootstrap(Col))>
-      <ForwardRef(Bootstrap(Col))
+      </Col>
+      <Col
+        as="div"
         sm={true}
       >
         <h5>
@@ -66,8 +71,9 @@ exports[`<Footer/> renders <Footer /> component 1`] = `
             </Link>
           </li>
         </ul>
-      </ForwardRef(Bootstrap(Col))>
-      <ForwardRef(Bootstrap(Col))
+      </Col>
+      <Col
+        as="div"
         sm={true}
       >
         <h5>
@@ -115,8 +121,9 @@ exports[`<Footer/> renders <Footer /> component 1`] = `
             </Link>
           </li>
         </ul>
-      </ForwardRef(Bootstrap(Col))>
-      <ForwardRef(Bootstrap(Col))
+      </Col>
+      <Col
+        as="div"
         sm={true}
       >
         <h5>
@@ -162,9 +169,9 @@ exports[`<Footer/> renders <Footer /> component 1`] = `
             </Link>
           </li>
         </ul>
-      </ForwardRef(Bootstrap(Col))>
-    </ForwardRef(Bootstrap(Row))>
-  </ForwardRef(Bootstrap(Container))>
+      </Col>
+    </Bootstrap(Row)>
+  </Container>
   <p
     className="text-center"
   >
@@ -175,11 +182,12 @@ exports[`<Footer/> renders <Footer /> component 1`] = `
     </a>
      
     <br />
-    <ForwardRef(Bootstrap(Badge))
+    <Badge
+      pill={false}
       variant="info"
     >
       v1.0.0
-    </ForwardRef(Bootstrap(Badge))>
+    </Badge>
   </p>
 </footer>
 `;

@@ -1,7 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { Login as LoginForm, onSubmit } from '../../components/LoginPage/Login';
+import {
+  Login as LoginForm,
+  onSubmit,
+} from '../../components/LoginPage/Login.tsx';
 import user from '../../__fixtures__/user';
 
 describe('<Login/>', () => {
@@ -37,13 +40,15 @@ describe('<Login/>', () => {
     const component = shallow(<LoginForm {...props} state={errorState} />);
 
     expect(component).toMatchSnapshot();
-    expect(component.find('ForwardRef[variant="danger"]').html()).toBe(
-      `<div role="alert" class="fade alert alert-danger show">${errorState.error}</div>`,
+    expect(component.find('Alert[variant="danger"]').html()).toBe(
+      `<div role="alert" class="fade alert alert-danger show">${
+        errorState.error
+      }</div>`,
     );
   });
 
   describe('when User submits the Login Form and Promise resolves with status 200', () => {
-    beforeEach(() => component.find('ForwardRef(Bootstrap(Form))').simulate('submit', user));
+    beforeEach(() => component.find('Form').simulate('submit', user));
 
     it('invokes onSubmit method', () => {
       expect(props.onSubmit).toHaveBeenCalledWith(user);

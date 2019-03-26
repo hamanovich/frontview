@@ -1,14 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { SignupForm } from '../../components/SignupPage/SignupForm';
+import { SignupForm } from '../../components/SignupPage/SignupForm.tsx';
 
 describe('<SignupForm/>', () => {
   const username = 'username';
   const signupOk = jest.fn(() => Promise.resolve('Success'));
   const signupFailed = jest.fn(() => Promise.reject(new Error('Failed')));
   const userExist = jest.fn(() => Promise.resolve({ data: { username } }));
-  const userDoesntExist = jest.fn(() => Promise.resolve({ data: { username: undefined } }));
+  const userDoesntExist = jest.fn(() =>
+    Promise.resolve({ data: { username: undefined } }),
+  );
   const props = {
     signup: signupOk,
     reset: jest.fn(),
@@ -49,7 +51,9 @@ describe('<SignupForm/>', () => {
     });
 
     it('checks user exists and state has error message', () => {
-      expect(component.state().errors.username).toBe(`There is user with such ${username}`);
+      expect(component.state().errors.username).toBe(
+        `There is user with such ${username}`,
+      );
       expect(component.state().invalid).toBeTruthy();
     });
 
@@ -57,7 +61,9 @@ describe('<SignupForm/>', () => {
   });
 
   describe('when User blurs from username field and has no user found', () => {
-    const component = shallow(<SignupForm {...props} isUserExists={userDoesntExist} />);
+    const component = shallow(
+      <SignupForm {...props} isUserExists={userDoesntExist} />,
+    );
     beforeEach(() =>
       component
         .find('Field[name="username"]')
@@ -86,7 +92,7 @@ describe('<SignupForm/>', () => {
   });
 
   describe('when user submits the Signup Form and Promise resolves with status 200', () => {
-    beforeEach(() => component.find('ForwardRef(Bootstrap(Form))').simulate('submit', user));
+    beforeEach(() => component.find('Form').simulate('submit', user));
 
     it('invokes onSubmit method with Ok', () => {
       expect(props.signup).toHaveBeenCalledWith(user);
@@ -96,7 +102,7 @@ describe('<SignupForm/>', () => {
   describe('when user submits the Signup Form and Promise throws an error', () => {
     const component = shallow(<SignupForm {...props} signup={signupFailed} />);
 
-    beforeEach(() => component.find('ForwardRef(Bootstrap(Form))').simulate('submit', user));
+    beforeEach(() => component.simulate('submit', user));
 
     it('adds errorMsg to state', () => {
       expect(component.state().errors.errorMsg).toBe(

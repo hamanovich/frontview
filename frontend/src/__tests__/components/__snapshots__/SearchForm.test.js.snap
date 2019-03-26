@@ -1,9 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<SearchForm/> renders <SearchForm /> component 1`] = `
-<Styled(Component)
-  className="mr-2"
-  inline={true}
+<Styled(Form)
+  as="form"
+  className="mr-2 form-inline"
+  inline={false}
   noValidate={true}
 >
   <Field
@@ -17,12 +18,15 @@ exports[`<SearchForm/> renders <SearchForm /> component 1`] = `
     type="search"
   />
    
-  <ForwardRef(Bootstrap(Button))
+  <Button
+    active={false}
+    disabled={false}
     type="submit"
+    variant="primary"
   >
     <FontAwesome
       name="search"
     />
-  </ForwardRef(Bootstrap(Button))>
-</Styled(Component)>
+  </Button>
+</Styled(Form)>
 `;

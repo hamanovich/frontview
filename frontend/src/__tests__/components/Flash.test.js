@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { Flash } from '../../components/flash/Flash';
+import { Flash } from '../../components/flash/Flash.tsx';
 
 describe('<Flash/>', () => {
   const props = {
@@ -23,12 +23,14 @@ describe('<Flash/>', () => {
       message: { type: 'success', text: 'Success' },
     });
 
-    expect(component.find('MarkdownRenderer').props().markdown).toEqual('Success');
+    expect(component.find('MarkdownRenderer').props().markdown).toEqual(
+      'Success',
+    );
     expect(component).toMatchSnapshot();
   });
 
   describe('when clicking close button', () => {
-    beforeEach(() => component.find('ForwardRef(Bootstrap(Button))').simulate('click'));
+    beforeEach(() => component.find('Button').simulate('click'));
 
     it('invokes the close callback', () => {
       expect(props.close).toHaveBeenCalled();

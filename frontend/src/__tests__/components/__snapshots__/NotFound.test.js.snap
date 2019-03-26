@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<NotFound/> renders <NotFound /> component 1`] = `
-<ForwardRef(Bootstrap(Jumbotron))
+<Bootstrap(Jumbotron)
   className="text-center text-danger"
 >
   <h1
@@ -17,12 +17,15 @@ exports[`<NotFound/> renders <NotFound /> component 1`] = `
     replace={false}
     to="/"
   >
-    <ForwardRef(Bootstrap(Button))
+    <Button
+      active={false}
+      disabled={false}
       size="lg"
+      type="button"
       variant="success"
     >
       Return to home page
-    </ForwardRef(Bootstrap(Button))>
+    </Button>
   </Link>
-</ForwardRef(Bootstrap(Jumbotron))>
+</Bootstrap(Jumbotron)>
 `;

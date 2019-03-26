@@ -1,4 +1,4 @@
-import 'jest-prop-type-error';
+// import 'jest-prop-type-error';
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 

@@ -1,12 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Toolbar/> renders <Toolbar /> component 1`] = `
-<ForwardRef(Bootstrap(ButtonToolbar))>
-  <ForwardRef(Bootstrap(ButtonGroup))
+<ButtonToolbar
+  role="toolbar"
+>
+  <ButtonGroup
+    as="div"
+    role="group"
     size="sm"
+    toggle={false}
+    vertical={false}
   >
-    <ForwardRef(Bootstrap(Button))
+    <Button
       active={false}
+      disabled={false}
+      type="button"
       variant="success"
     >
       <FontAwesome
@@ -14,9 +22,11 @@ exports[`<Toolbar/> renders <Toolbar /> component 1`] = `
       />
        
       1
-    </ForwardRef(Bootstrap(Button))>
-    <ForwardRef(Bootstrap(Button))
+    </Button>
+    <Button
       active={false}
+      disabled={false}
+      type="button"
       variant="danger"
     >
       <FontAwesome
@@ -24,24 +34,36 @@ exports[`<Toolbar/> renders <Toolbar /> component 1`] = `
       />
        
       0
-    </ForwardRef(Bootstrap(Button))>
-  </ForwardRef(Bootstrap(ButtonGroup))>
-  <ForwardRef(Bootstrap(ButtonGroup))
+    </Button>
+  </ButtonGroup>
+  <ButtonGroup
+    as="div"
+    role="group"
     size="sm"
+    toggle={false}
+    vertical={false}
   >
     <DropdownButton
       id="qlist"
       size="sm"
-      title="Add to QList"
+      title={
+        <FontAwesome
+          name="star"
+        />
+      }
       variant="info"
     >
-      <ForwardRef(ContextTransform)
+      <DropdownItem
+        as={[Function]}
+        disabled={false}
         eventKey={0}
         key="5bd6e86025ccd523e4595ad4"
       >
         Js core
-      </ForwardRef(ContextTransform)>
-      <ForwardRef(Bootstrap(DropdownDivider)) />
+      </DropdownItem>
+      <DropdownDivider
+        role="separator"
+      />
       <LinkContainer
         activeClassName="active"
         exact={false}
@@ -49,11 +71,14 @@ exports[`<Toolbar/> renders <Toolbar /> component 1`] = `
         strict={false}
         to="/me/qlist/create"
       >
-        <ForwardRef(ContextTransform)>
+        <DropdownItem
+          as={[Function]}
+          disabled={false}
+        >
           Create a new QList
-        </ForwardRef(ContextTransform)>
+        </DropdownItem>
       </LinkContainer>
     </DropdownButton>
-  </ForwardRef(Bootstrap(ButtonGroup))>
-</ForwardRef(Bootstrap(ButtonToolbar))>
+  </ButtonGroup>
+</ButtonToolbar>
 `;

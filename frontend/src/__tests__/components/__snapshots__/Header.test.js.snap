@@ -1,21 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Header/> renders component with search Question renders <Header /> component with search value 1`] = `
-<Styled(Component)
+<Styled(Bootstrap(undefined))
   bg="dark"
   expand="md"
   variant="dark"
 >
-  <ForwardRef(Bootstrap(NavbarBrand))>
+  <NavbarBrand>
     <Link
       replace={false}
       to="/"
     >
       Frontview /
     </Link>
-  </ForwardRef(Bootstrap(NavbarBrand))>
-  <ForwardRef(Bootstrap(NavbarToggle)) />
-  <ForwardRef(Bootstrap(NavbarCollapse))>
+  </NavbarBrand>
+  <NavbarToggle
+    as="button"
+    label="Toggle navigation"
+  />
+  <NavbarCollapse>
     <ReduxForm
       destroyOnUnmount={true}
       enableReinitialize={false}
@@ -35,12 +38,15 @@ exports[`<Header/> renders component with search Question renders <Header /> com
       updateUnregisteredFields={false}
       validate={[Function]}
     />
-    <ForwardRef(ContextTransform)
+    <Nav
+      as="div"
       className="mr-auto"
+      fill={false}
+      justify={false}
     >
-      <ForwardRef(Bootstrap(NavbarText))>
+      <NavbarText>
         or
-      </ForwardRef(Bootstrap(NavbarText))>
+      </NavbarText>
       <LinkContainer
         activeClassName="active"
         exact={false}
@@ -48,16 +54,23 @@ exports[`<Header/> renders component with search Question renders <Header /> com
         strict={false}
         to="/questions"
       >
-        <ForwardRef(Bootstrap(NavLink))>
+        <NavLink
+          as={[Function]}
+          disabled={false}
+        >
           Check All 
           <FontAwesome
             name="question-circle"
             size="lg"
           />
-        </ForwardRef(Bootstrap(NavLink))>
+        </NavLink>
       </LinkContainer>
-    </ForwardRef(ContextTransform)>
-    <ForwardRef(ContextTransform)>
+    </Nav>
+    <Nav
+      as="div"
+      fill={false}
+      justify={false}
+    >
       <NavDropdown
         id="menu-dropdown"
         title="Menu"
@@ -69,20 +82,28 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           strict={false}
           to="/interview"
         >
-          <ForwardRef(ContextTransform)>
+          <DropdownItem
+            as={[Function]}
+            disabled={false}
+          >
             <FontAwesome
               name="id-badge"
             />
              Interview (in progress)
-          </ForwardRef(ContextTransform)>
+          </DropdownItem>
         </LinkContainer>
-        <ForwardRef(Bootstrap(DropdownDivider)) />
+        <DropdownDivider
+          role="separator"
+        />
         <IndexLinkContainer
           to="/questions"
         >
-          <ForwardRef(ContextTransform)>
+          <DropdownItem
+            as={[Function]}
+            disabled={false}
+          >
             Show all questions
-          </ForwardRef(ContextTransform)>
+          </DropdownItem>
         </IndexLinkContainer>
         <LinkContainer
           activeClassName="active"
@@ -91,12 +112,15 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           strict={false}
           to="/questions/top"
         >
-          <ForwardRef(ContextTransform)>
+          <DropdownItem
+            as={[Function]}
+            disabled={false}
+          >
             <FontAwesome
               name="exclamation"
             />
              Top 10
-          </ForwardRef(ContextTransform)>
+          </DropdownItem>
         </LinkContainer>
         <LinkContainer
           activeClassName="active"
@@ -105,14 +129,19 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           strict={false}
           to="/questions/internet"
         >
-          <ForwardRef(ContextTransform)>
+          <DropdownItem
+            as={[Function]}
+            disabled={false}
+          >
             <FontAwesome
               name="internet-explorer"
             />
              From Internet
-          </ForwardRef(ContextTransform)>
+          </DropdownItem>
         </LinkContainer>
-        <ForwardRef(Bootstrap(DropdownDivider)) />
+        <DropdownDivider
+          role="separator"
+        />
         <LinkContainer
           activeClassName="active"
           exact={false}
@@ -120,12 +149,15 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           strict={false}
           to="/questions/level"
         >
-          <ForwardRef(ContextTransform)>
+          <DropdownItem
+            as={[Function]}
+            disabled={false}
+          >
             <FontAwesome
               name="line-chart"
             />
              By Levels
-          </ForwardRef(ContextTransform)>
+          </DropdownItem>
         </LinkContainer>
         <LinkContainer
           activeClassName="active"
@@ -134,12 +166,15 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           strict={false}
           to="/questions/skill"
         >
-          <ForwardRef(ContextTransform)>
+          <DropdownItem
+            as={[Function]}
+            disabled={false}
+          >
             <FontAwesome
               name="star-half-o"
             />
              By Skills
-          </ForwardRef(ContextTransform)>
+          </DropdownItem>
         </LinkContainer>
         <LinkContainer
           activeClassName="active"
@@ -148,14 +183,19 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           strict={false}
           to="/questions/practice"
         >
-          <ForwardRef(ContextTransform)>
+          <DropdownItem
+            as={[Function]}
+            disabled={false}
+          >
             <FontAwesome
               name="keyboard-o"
             />
              By Type
-          </ForwardRef(ContextTransform)>
+          </DropdownItem>
         </LinkContainer>
-        <ForwardRef(Bootstrap(DropdownDivider)) />
+        <DropdownDivider
+          role="separator"
+        />
         <LinkContainer
           activeClassName="active"
           exact={false}
@@ -163,27 +203,40 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           strict={false}
           to="/questions/add"
         >
-          <ForwardRef(ContextTransform)>
+          <DropdownItem
+            as={[Function]}
+            disabled={false}
+          >
             <FontAwesome
               name="question-circle-o"
             />
              Add new
-          </ForwardRef(ContextTransform)>
+          </DropdownItem>
         </LinkContainer>
       </NavDropdown>
       <NavDropdown
         id="account-dropdown"
-        title="test"
+        title={
+          <React.Fragment>
+            <ForwardRef
+              roundedCircle={true}
+            />
+            test
+          </React.Fragment>
+        }
       >
         <IndexLinkContainer
           to="/me"
         >
-          <ForwardRef(ContextTransform)>
+          <DropdownItem
+            as={[Function]}
+            disabled={false}
+          >
             <FontAwesome
               name="user"
             />
              Account
-          </ForwardRef(ContextTransform)>
+          </DropdownItem>
         </IndexLinkContainer>
         <LinkContainer
           activeClassName="active"
@@ -192,24 +245,31 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           strict={false}
           to="/me/edit"
         >
-          <ForwardRef(ContextTransform)>
+          <DropdownItem
+            as={[Function]}
+            disabled={false}
+          >
             <FontAwesome
               name="pencil-square-o"
             />
              Edit profile
-          </ForwardRef(ContextTransform)>
+          </DropdownItem>
         </LinkContainer>
-        <ForwardRef(Bootstrap(DropdownDivider)) />
-        <ForwardRef(ContextTransform)
+        <DropdownDivider
+          role="separator"
+        />
+        <DropdownItem
+          as={[Function]}
+          disabled={false}
           onClick={[MockFunction]}
         >
           <FontAwesome
             name="lock"
           />
            Logout
-        </ForwardRef(ContextTransform)>
+        </DropdownItem>
       </NavDropdown>
-    </ForwardRef(ContextTransform)>
-  </ForwardRef(Bootstrap(NavbarCollapse))>
-</Styled(Component)>
+    </Nav>
+  </NavbarCollapse>
+</Styled(Bootstrap(undefined))>
 `;
