@@ -8,7 +8,9 @@ exports[`<Login/> renders <Login /> component 1`] = `
     />
      Please, login
   </h1>
-  <ForwardRef(Bootstrap(Form))
+  <Form
+    as="form"
+    inline={false}
     noValidate={true}
     onSubmit={[MockFunction]}
   >
@@ -27,15 +29,18 @@ exports[`<Login/> renders <Login /> component 1`] = `
       placeholder="Come up with a password"
       type="password"
     />
-    <ForwardRef(Bootstrap(FormGroup))>
+    <FormGroup
+      as="div"
+    >
       <Link
         replace={false}
         to="/login/forgot"
       >
         Forgot password?
       </Link>
-    </ForwardRef(Bootstrap(FormGroup))>
-    <ForwardRef(Bootstrap(Button))
+    </FormGroup>
+    <Button
+      active={false}
       disabled={false}
       size="lg"
       type="submit"
@@ -45,8 +50,8 @@ exports[`<Login/> renders <Login /> component 1`] = `
       <FontAwesome
         name="sign-in"
       />
-    </ForwardRef(Bootstrap(Button))>
-  </ForwardRef(Bootstrap(Form))>
+    </Button>
+  </Form>
 </Fragment>
 `;
 
@@ -58,15 +63,20 @@ exports[`<Login/> renders <Login /> component with error state 1`] = `
     />
      Please, login
   </h1>
-  <ForwardRef(Bootstrap(Form))
+  <Form
+    as="form"
+    inline={false}
     noValidate={true}
     onSubmit={[MockFunction]}
   >
-    <ForwardRef
+    <Alert
+      closeLabel="Close alert"
+      show={true}
+      transition={[Function]}
       variant="danger"
     >
       Test Error
-    </ForwardRef>
+    </Alert>
     <Field
       component={[Function]}
       htmlFor="identifier"
@@ -82,15 +92,18 @@ exports[`<Login/> renders <Login /> component with error state 1`] = `
       placeholder="Come up with a password"
       type="password"
     />
-    <ForwardRef(Bootstrap(FormGroup))>
+    <FormGroup
+      as="div"
+    >
       <Link
         replace={false}
         to="/login/forgot"
       >
         Forgot password?
       </Link>
-    </ForwardRef(Bootstrap(FormGroup))>
-    <ForwardRef(Bootstrap(Button))
+    </FormGroup>
+    <Button
+      active={false}
       disabled={false}
       size="lg"
       type="submit"
@@ -100,7 +113,7 @@ exports[`<Login/> renders <Login /> component with error state 1`] = `
       <FontAwesome
         name="sign-in"
       />
-    </ForwardRef(Bootstrap(Button))>
-  </ForwardRef(Bootstrap(Form))>
+    </Button>
+  </Form>
 </Fragment>
 `;

@@ -1,7 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<LoginPage/> renders <LoginPage /> component 1`] = `
-<ForwardRef(Bootstrap(Container))>
+<Container
+  as="div"
+  fluid={false}
+>
   <HelmetWrapper
     defer={true}
     encodeSpecialCharacters={true}
@@ -10,8 +13,9 @@ exports[`<LoginPage/> renders <LoginPage /> component 1`] = `
       Frontview: Please, login
     </title>
   </HelmetWrapper>
-  <ForwardRef(Bootstrap(Row))>
-    <ForwardRef(Bootstrap(Col))
+  <Bootstrap(Row)>
+    <Col
+      as="div"
       md={
         Object {
           "offset": 2,
@@ -126,7 +130,7 @@ exports[`<LoginPage/> renders <LoginPage /> component 1`] = `
           to="/login"
         />
       </Switch>
-    </ForwardRef(Bootstrap(Col))>
-  </ForwardRef(Bootstrap(Row))>
-</ForwardRef(Bootstrap(Container))>
+    </Col>
+  </Bootstrap(Row)>
+</Container>
 `;

@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<SignupForm/> renders <SignupForm /> component 1`] = `
-<ForwardRef(Bootstrap(Form))
+<Form
+  as="form"
+  inline={false}
   noValidate={true}
   onSubmit={[Function]}
 >
@@ -37,7 +39,8 @@ exports[`<SignupForm/> renders <SignupForm /> component 1`] = `
     placeholder="Repeat your password"
     type="password"
   />
-  <ForwardRef(Bootstrap(Button))
+  <Button
+    active={false}
     disabled={false}
     size="lg"
     type="submit"
@@ -47,6 +50,6 @@ exports[`<SignupForm/> renders <SignupForm /> component 1`] = `
     <FontAwesome
       name="users"
     />
-  </ForwardRef(Bootstrap(Button))>
-</ForwardRef(Bootstrap(Form))>
+  </Button>
+</Form>
 `;

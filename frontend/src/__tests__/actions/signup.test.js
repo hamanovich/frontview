@@ -2,8 +2,8 @@ import mockAxios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import * as actions from '../../actions/signup';
-import * as types from '../../actions/types';
+import * as actions from '../../actions/auth.ts';
+import * as types from '../../actions/types.ts';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -53,6 +53,9 @@ describe('Signup actions', () => {
   it('creates an api update call', () => {
     actions.updateUser(user)();
     mockAxios.mockResponse({ data: user });
-    expect(mockAxios.put).toHaveBeenCalledWith(`/api/user/${user.username}`, user);
+    expect(mockAxios.put).toHaveBeenCalledWith(
+      `/api/user/${user.username}`,
+      user,
+    );
   });
 });

@@ -1,37 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Flash/> renders <Flash /> component 1`] = `
-<Styled(Component)
+<Styled(Alert)
+  closeLabel="Close alert"
+  show={true}
+  transition={[Function]}
   variant="danger"
 >
   <MarkdownRenderer
     markdown="Error"
   />
-  <ForwardRef(Bootstrap(Button))
+  <Button
+    active={false}
     className="close"
+    disabled={false}
     onClick={[MockFunction]}
+    type="button"
+    variant="primary"
   >
     <FontAwesome
       name="times"
     />
-  </ForwardRef(Bootstrap(Button))>
-</Styled(Component)>
+  </Button>
+</Styled(Alert)>
 `;
 
 exports[`<Flash/> updates via props 1`] = `
-<Styled(Component)
+<Styled(Alert)
+  closeLabel="Close alert"
+  show={true}
+  transition={[Function]}
   variant="success"
 >
   <MarkdownRenderer
     markdown="Success"
   />
-  <ForwardRef(Bootstrap(Button))
+  <Button
+    active={false}
     className="close"
+    disabled={false}
     onClick={[MockFunction]}
+    type="button"
+    variant="primary"
   >
     <FontAwesome
       name="times"
     />
-  </ForwardRef(Bootstrap(Button))>
-</Styled(Component)>
+  </Button>
+</Styled(Alert)>
 `;

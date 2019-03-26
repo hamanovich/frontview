@@ -1,17 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<SignupPage/> renders <SignupPage /> component 1`] = `
-<ForwardRef(Bootstrap(Container))>
-  <ForwardRef(Bootstrap(Row))>
-    <HelmetWrapper
-      defer={true}
-      encodeSpecialCharacters={true}
-    >
-      <title>
-        Frontview: Register. Welcome
-      </title>
-    </HelmetWrapper>
-    <ForwardRef(Bootstrap(Col))
+<Container
+  as="div"
+  fluid={false}
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Frontview: Register. Welcome
+    </title>
+  </HelmetWrapper>
+  <Bootstrap(Row)>
+    <Col
+      as="div"
       md={
         Object {
           "offset": 2,
@@ -52,7 +56,7 @@ exports[`<SignupPage/> renders <SignupPage /> component 1`] = `
         updateUnregisteredFields={false}
         validate={[Function]}
       />
-    </ForwardRef(Bootstrap(Col))>
-  </ForwardRef(Bootstrap(Row))>
-</ForwardRef(Bootstrap(Container))>
+    </Col>
+  </Bootstrap(Row)>
+</Container>
 `;

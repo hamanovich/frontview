@@ -29,7 +29,10 @@ exports.getQuestions = async (req, res) => {
   const questionsPromise = Question.find()
     .skip(skip)
     .limit(limit);
-  const [questions, count] = await Promise.all([questionsPromise, countPromise]);
+  const [questions, count] = await Promise.all([
+    questionsPromise,
+    countPromise,
+  ]);
   const pages = Math.ceil(count / limit);
 
   if (!questions.length && skip) {
@@ -45,7 +48,9 @@ exports.getQuestions = async (req, res) => {
 exports.getQuestionById = async (req, res) => {
   const question = await Question.findById(req.params.id, err => {
     if (err) {
-      res.status(500).json({ error: `Question with id='${req.params.id}' didn't find` });
+      res
+        .status(500)
+        .json({ error: `Question with id='${req.params.id}' didn't find` });
     }
   });
 
@@ -62,7 +67,9 @@ exports.getQuestionBySlug = async (req, res) => {
     return;
   }
 
-  res.status(500).json({ error: `Question with slug='${req.params.slug}' didn't find` });
+  res
+    .status(500)
+    .json({ error: `Question with slug='${req.params.slug}' didn't find` });
 };
 
 exports.add = async (req, res) => {
@@ -125,7 +132,8 @@ exports.add = async (req, res) => {
   }
 
   res.status(500).json({
-    error: "Author of this question didn't find in database. Please relogin and try again",
+    error:
+      "Author of this question didn't find in database. Please relogin and try again",
   });
 };
 
@@ -145,7 +153,15 @@ exports.addFromFile = async (req, res) => {
   }
 
   const createQuestionAndUser = async singleQuestion => {
-    const { question, skill, level, practice, answer, answers, notes } = singleQuestion;
+    const {
+      question,
+      skill,
+      level,
+      practice,
+      answer,
+      answers,
+      notes,
+    } = singleQuestion;
     const { userId, lastModified } = req.body;
 
     const newQuestion = await Question.create({
@@ -180,7 +196,8 @@ exports.addFromFile = async (req, res) => {
   }
 
   res.status(500).json({
-    error: "Author of this question didn't find in database. Please relogin and try again",
+    error:
+      "Author of this question didn't find in database. Please relogin and try again",
   });
 };
 
