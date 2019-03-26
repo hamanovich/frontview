@@ -201,9 +201,11 @@ export const editQuestionField = (
   field: string,
   value: string,
 ): ThunkAction<void, AppState, null, Action<string>> => dispatch =>
-  api.questions
-    .editField(id, field, value)
-    .then(question => dispatch(questionEdited(question)));
+  api.questions.editField(id, field, value).then(question => {
+    dispatch(questionEdited(question));
+
+    return question;
+  });
 
 export const removeQuestion = (
   id: string,

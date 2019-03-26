@@ -153,28 +153,35 @@ class AddQuestion extends Component<
         history.push('/questions');
       });
     } else {
-      addQuestion(query).then(
-        () => {
-          addFlashMessage({
-            type: 'success',
-            text: 'New question created successfully.',
-          });
+      if (Object.keys(values).length > 4) {
+        addQuestion(query).then(
+          () => {
+            addFlashMessage({
+              type: 'success',
+              text: 'New question created successfully.',
+            });
 
-          history.push('/questions');
-        },
-        (err: GetQuestionsError) => {
-          addFlashMessage({
-            type: 'error',
-            text:
-              err.response && err.response.data.error
-                ? err.response.data.error
-                : `${err.message}. Please check your internet connection`,
-          });
+            history.push('/questions');
+          },
+          (err: GetQuestionsError) => {
+            addFlashMessage({
+              type: 'error',
+              text:
+                err.response && err.response.data.error
+                  ? err.response.data.error
+                  : `${err.message}. Please check your internet connection`,
+            });
 
-          logout();
-          history.push('/');
-        },
-      );
+            logout();
+            history.push('/');
+          },
+        );
+      } else {
+        addFlashMessage({
+          type: 'warn',
+          text: 'Not all required fields are filled properly',
+        });
+      }
     }
   };
 
@@ -319,11 +326,7 @@ class AddQuestion extends Component<
                 accept="application/json"
                 multiple={false}
                 onDropAccepted={this.handleDropAccepted}
-                onDropRejected={this.handleDropRejected}
-                // className="dropzone"
-                // activeClassName="dropzone--active"
-                // rejectClassName="dropzone--reject"
-              >
+                onDropRejected={this.handleDropRejected}>
                 {({ getRootProps, getInputProps }) => (
                   <DropMe {...getRootProps()}>
                     <input {...getInputProps()} />
@@ -434,11 +437,7 @@ class AddQuestion extends Component<
                   accept="image/*"
                   maxSize={100000}
                   onDropAccepted={this.imgsDropAccepted}
-                  onDropRejected={this.imgsDropRejected}
-                  // className="dropzone dropzone--imgs"
-                  // activeClassName="dropzone--active"
-                  // rejectClassName="dropzone--reject"
-                >
+                  onDropRejected={this.imgsDropRejected}>
                   {({ getRootProps, getInputProps }) => (
                     <DropMe {...getRootProps()}>
                       <h3>Want to upload images?</h3>
@@ -555,5 +554,8 @@ export default connect(
   reduxForm<{}, any>({
     form: 'addQuestion',
     validate,
+    // As a workaround. Known issue: https://github.com/erikras/redux-form/issues/2971
+    // After submit the form won't be resetted :(
+    // destroyOnUnmount: false,
   })(AddQuestion),
 );

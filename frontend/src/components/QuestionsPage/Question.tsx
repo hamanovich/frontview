@@ -21,8 +21,9 @@ import { QuestionProps, QuestionState } from './models';
 import { TextareaField } from '../formElements';
 import { BadgeStyled, ApproveBar } from './style';
 import { DropThumb, DropThumbs } from './AddQuestion/style';
+import { Question } from '../../propTypes/QuestionType';
 
-class Question extends Component<QuestionProps, QuestionState> {
+class QuestionSingle extends Component<QuestionProps, QuestionState> {
   static defaultProps = {
     qlists: [],
     history: {},
@@ -61,34 +62,27 @@ class Question extends Component<QuestionProps, QuestionState> {
     }
   };
 
-  private close = (redirect?: boolean) => {
-    const { history } = this.props;
-    const { answerField, textField } = this.state;
+  private close = () => {
+    const { history, editQuestionField, question } = this.props;
 
     this.setState({
       showModal: false,
       answerField: '',
     });
 
-    if (
-      history.push &&
-      textField === 'question' &&
-      this.textInput.current.value !== answerField &&
-      redirect
-    ) {
-      history.push('/questions');
-    }
+    editQuestionField(
+      question._id,
+      this.state.textField,
+      this.textInput.current!.value,
+    ).then((q: Question) => {
+      if (history.push && question.slug !== q.slug) {
+        history.push('/questions');
+      }
+    });
   };
 
   render() {
-    const {
-      question,
-      approveQuestion,
-      editQuestionField,
-      user,
-      qlists,
-      match,
-    } = this.props;
+    const { question, approveQuestion, user, qlists, match } = this.props;
     const { answerField, textField } = this.state;
 
     const panelHeader = (
@@ -146,9 +140,7 @@ class Question extends Component<QuestionProps, QuestionState> {
             <Button
               variant="success"
               size="sm"
-              onClick={() => {
-                approveQuestion(question._id);
-              }}>
+              onClick={() => approveQuestion(question._id)}>
               Approve
             </Button>
           )}
@@ -261,16 +253,7 @@ class Question extends Component<QuestionProps, QuestionState> {
                       rows="10"
                     />
                   </Form.Group>
-                  <Button
-                    variant="primary"
-                    onClick={() => {
-                      editQuestionField(
-                        question._id,
-                        textField,
-                        this.textInput.current!.value,
-                      );
-                      this.close(true);
-                    }}>
+                  <Button variant="primary" onClick={this.close}>
                     Update
                   </Button>
                 </form>
@@ -284,4 +267,4 @@ class Question extends Component<QuestionProps, QuestionState> {
   }
 }
 
-export default Loader('question')(Question);
+export default Loader('question')(QuestionSingle);

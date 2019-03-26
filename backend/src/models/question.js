@@ -89,10 +89,19 @@ questionSchema.pre('save', async function qSchema1(next) {
   this.slug = slug(this.question);
   const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i');
   const questionWithSlug = await this.constructor.find({ slug: slugRegEx });
-  if (questionWithSlug.length) {
+  const [exactQuestion] = await questionWithSlug.filter(
+    q => q._id.toString() === this._id.toString(),
+  );
+
+  if (exactQuestion && this.question === exactQuestion.question) {
+    return next();
+  }
+
+  if (questionWithSlug.length > 0) {
     this.slug = `${this.slug}-${questionWithSlug.length + 1}`;
   }
-  next();
+
+  return next();
 });
 
 questionSchema.statics.getListByType = function qSchema2(type) {
@@ -109,7 +118,14 @@ questionSchema.statics.getListByType = function qSchema2(type) {
 
 questionSchema.statics.getTopQuestions = function qSchema3() {
   return this.aggregate([
-    { $lookup: { from: 'users', localField: '_id', foreignField: 'votes.like', as: 'favourite' } },
+    {
+      $lookup: {
+        from: 'users',
+        localField: '_id',
+        foreignField: 'votes.like',
+        as: 'favourite',
+      },
+    },
     {
       $project: {
         favourite: {

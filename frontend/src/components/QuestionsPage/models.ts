@@ -81,7 +81,11 @@ export interface QuestionsProps {
   qlists: QListQuestions[];
   questions: Question[];
   approveQuestion: (_id: string) => void;
-  editQuestionField: (id: string, field: string, value: string) => void;
+  editQuestionField: (
+    _id: string,
+    field: string,
+    value: string,
+  ) => Promise<Question>;
 }
 
 export interface QuestionsState {
@@ -133,7 +137,11 @@ export interface QuestionProps {
   user: User;
   qlists: QListQuestions[];
   approveQuestion: (_id: string) => void;
-  editQuestionField: (_id: string, field: string, value: string) => void;
+  editQuestionField: (
+    _id: string,
+    field: string,
+    value: string,
+  ) => Promise<Question>;
   history: {
     push: (url: string) => void;
   };
