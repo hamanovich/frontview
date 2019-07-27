@@ -68,7 +68,7 @@
     "shortid": "^2.2.13",
     "source-map-explorer": "^1.6.0",
     "styled-components": "^4.0.2",
-    "typescript": "^3.3.3333",
+    "typescript": "^3.5.3",
     "url-search-params-polyfill": "^5.0.0",
     "utility-types": "^3.4.1",
     "validator": "^10.8.0"
