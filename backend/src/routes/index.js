@@ -26,35 +26,87 @@ router.post(
   catchErrors(authController.update),
 );
 
-router.post('/questions/add', authenticate, catchErrors(questionsController.add));
-router.post('/questions/addFromFile', authenticate, catchErrors(questionsController.addFromFile));
-router.put('/question/:id/edit', authenticate, catchErrors(questionsController.edit));
-router.patch('/question/:id/approve', authenticate, catchErrors(questionsController.approve));
-router.patch('/question/:id/edit', authenticate, catchErrors(questionsController.editField));
+router.post(
+  '/questions/add',
+  authenticate,
+  catchErrors(questionsController.add),
+);
+router.post(
+  '/questions/addFromFile',
+  authenticate,
+  catchErrors(questionsController.addFromFile),
+);
+router.put(
+  '/question/:id/edit',
+  authenticate,
+  catchErrors(questionsController.edit),
+);
+router.patch(
+  '/question/:id/approve',
+  authenticate,
+  catchErrors(questionsController.approve),
+);
+router.patch(
+  '/question/:id/edit',
+  authenticate,
+  catchErrors(questionsController.editField),
+);
 router.get('/question/interface', questionsController.getQuestionInterface);
 router.get('/question/:id', catchErrors(questionsController.getQuestionById));
-router.get('/question/:slug/one', catchErrors(questionsController.getQuestionBySlug));
+router.get(
+  '/question/:slug/one',
+  catchErrors(questionsController.getQuestionBySlug),
+);
 router.get('/questions', catchErrors(questionsController.getQuestions));
 router.get('/questions/top', catchErrors(questionsController.getTopQuestions));
-router.get('/questions/author/:username', catchErrors(questionsController.getQuestionsByAuthor));
-router.get('/questions/page/:page', catchErrors(questionsController.getQuestions));
-router.get('/questions/:type', catchErrors(questionsController.getQuestionsByFilter));
-router.get('/questions/:type/:tag', catchErrors(questionsController.getQuestionsByFilter));
+router.get(
+  '/questions/author/:username',
+  catchErrors(questionsController.getQuestionsByAuthor),
+);
+router.get(
+  '/questions/page/:page',
+  catchErrors(questionsController.getQuestions),
+);
+router.get(
+  '/questions/:type',
+  catchErrors(questionsController.getQuestionsByFilter),
+);
+router.get(
+  '/questions/:type/:tag',
+  catchErrors(questionsController.getQuestionsByFilter),
+);
 router.put('/question/:id/vote', catchErrors(questionsController.voteQuestion));
 router.delete('/question/:id', questionsController.remove);
 
-router.get('/comments/:username', catchErrors(commentsController.getCommentsByAuthor));
+router.get(
+  '/comments/:username',
+  catchErrors(commentsController.getCommentsByAuthor),
+);
 router.post('/comments/add', authenticate, catchErrors(commentsController.add));
 
 router.get('/qlists/:username', catchErrors(qlistController.getQLists));
-router.get('/qlists/:username/:slug', catchErrors(qlistController.getQListQuestions));
+router.get(
+  '/qlists/:username/:slug',
+  catchErrors(qlistController.getQListQuestions),
+);
 router.post('/qlist/add', authenticate, catchErrors(qlistController.addQlist));
-router.post('/qlist/add/question', authenticate, catchErrors(qlistController.addQuestion));
+router.post(
+  '/qlist/add/question',
+  authenticate,
+  catchErrors(qlistController.addQuestion),
+);
 router.delete('/qlist/:_id', qlistController.remove);
 
 router.get('/candidates/:_id', catchErrors(candidatesController.getCandidates));
-router.post('/candidates/add', authenticate, catchErrors(candidatesController.add));
-router.post('/candidate/:_id/feedback', catchErrors(candidatesController.provideFeedack));
+router.post(
+  '/candidates/add',
+  authenticate,
+  catchErrors(candidatesController.add),
+);
+router.post(
+  '/candidate/:_id/feedback',
+  catchErrors(candidatesController.provideFeedack),
+);
 router.get('/candidate/:_id', catchErrors(candidatesController.getCandidate));
 
 router.get('/search', questionsController.searchQuestions);

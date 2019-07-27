@@ -53,7 +53,10 @@ describe('<Header/>', () => {
 
     describe("user wants to search questions but didn't type any word", () => {
       const component = shallow(
-        <Header {...props} getSearchedQuestions={jest.fn(() => Promise.resolve([]))} />,
+        <Header
+          {...props}
+          getSearchedQuestions={jest.fn(() => Promise.resolve([]))}
+        />,
         { context },
       );
       beforeEach(() => component.instance().onSearch(''));

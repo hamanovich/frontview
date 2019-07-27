@@ -18,9 +18,11 @@ const PricingPage = () => (
         <h1 className="display-4">&apos;Pricing&apos;</h1>
         <p className="lead">
           Feel the power of &apos;User&apos; and &apos;Hero&apos; plan. <br />
-          <span className="text-danger">Newbie</span> player may only use read only mode: no adding
-          new questions, no new features, no account page. <br />
-          Anyway, it&apos;s up to you. All <span className="text-success">for free</span>
+          <span className="text-danger">Newbie</span> player may only use read
+          only mode: no adding new questions, no new features, no account page.{' '}
+          <br />
+          Anyway, it&apos;s up to you. All{' '}
+          <span className="text-success">for free</span>
         </p>
       </div>
     </Container>
@@ -92,7 +94,8 @@ const PricingPage = () => (
         </Card>
       </CardDeck>
       <p className="pt-4">
-        To be a Hero just mail me to <a href="mailto:hamanovich@gmail.com">hamanovich@gmail.com</a>
+        To be a Hero just mail me to{' '}
+        <a href="mailto:hamanovich@gmail.com">hamanovich@gmail.com</a>
       </p>
     </Container>
   </Fragment>

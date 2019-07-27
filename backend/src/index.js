@@ -12,7 +12,11 @@ import { notFound } from './handlers/errors';
 
 const app = express();
 
-app.use(morgan('":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
+app.use(
+  morgan(
+    '":method :url HTTP/:http-version" :status :res[content-length] :response-time ms',
+  ),
+);
 
 app.use(cors());
 app.use(helmet());
@@ -20,20 +24,19 @@ app.use(helmet());
 app.use(bodyParser.json({ limit: '50mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
-const staticFiles = express.static(path.join(__dirname, '../../frontend/build'));
+const staticFiles = express.static(
+  path.join(__dirname, '../../frontend/build'),
+);
 app.use(staticFiles);
 
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'pug');
 
 mongoose.set('useFindAndModify', false);
-mongoose.connect(
-  process.env.DATABASE,
-  {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-  },
-);
+mongoose.connect(process.env.DATABASE, {
+  useCreateIndex: true,
+  useNewUrlParser: true,
+});
 
 app.use('/api', routes);
 

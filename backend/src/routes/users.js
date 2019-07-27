@@ -32,7 +32,9 @@ exports.createUser = async (req, res) => {
   const { username, email, password } = req.body;
   const passwordDigest = bcrypt.hashSync(password, 10);
   const host =
-    process.env.NODE_ENV === 'production' ? req.get('host') : req.headers['x-forwarded-host'];
+    process.env.NODE_ENV === 'production'
+      ? req.get('host')
+      : req.headers['x-forwarded-host'];
 
   if (!isValid) {
     res.status(409).json(errors);
@@ -42,7 +44,9 @@ exports.createUser = async (req, res) => {
     username,
     email,
     passwordDigest,
-    confirmationToken: bcrypt.hashSync(process.env.SECRET, 10).replace(/\//g, ''),
+    confirmationToken: bcrypt
+      .hashSync(process.env.SECRET, 10)
+      .replace(/\//g, ''),
   });
 
   await user.save(err => {
@@ -71,7 +75,10 @@ exports.createUser = async (req, res) => {
 
 exports.getUser = async (req, res) => {
   const user = await User.findOne({
-    $or: [{ username: req.params.identifier }, { email: req.params.identifier }],
+    $or: [
+      { username: req.params.identifier },
+      { email: req.params.identifier },
+    ],
   });
 
   if (user) {

@@ -100,7 +100,9 @@ const API = () => {
             <td>
               <h5>Fields:</h5>
               <p>
-                <small>Do not forget to authenticate by Bearer Token firstly</small>
+                <small>
+                  Do not forget to authenticate by Bearer Token firstly
+                </small>
               </p>
               <ul>
                 <li>comment: string</li>
@@ -112,7 +114,9 @@ const API = () => {
           </tr>
         </tbody>
       </Table>
-      <p className="text-danger">Documentation is in progress. Will be updated soon…</p>
+      <p className="text-danger">
+        Documentation is in progress. Will be updated soon…
+      </p>
     </Container>
   );
 };

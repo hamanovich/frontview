@@ -44,7 +44,7 @@ const withAuthorization = (allowed?: string[]) => <P extends object>(
     }
 
     render() {
-      return <WrappedComponent {...this.props as P} />;
+      return <WrappedComponent {...(this.props as P)} />;
     }
   }
 

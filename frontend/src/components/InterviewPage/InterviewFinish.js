@@ -27,7 +27,8 @@ const InterviewFinish = ({ location }) => (
       <div>
         <h2>
           Feedback on
-          {location.state.candidate.firstName} {location.state.candidate.lastName}:
+          {location.state.candidate.firstName}{' '}
+          {location.state.candidate.lastName}:
         </h2>
         <MarkdownRenderer markdown={location.state.feedback.result} />
         <p>

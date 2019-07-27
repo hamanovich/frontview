@@ -29,6 +29,6 @@ export const setAuthorizationToken = (token: boolean) => {
 
 export const Waiting = (Component: any) => (props: any) => (
   <Suspense fallback={<IconLoader />}>
-    <Component {...props as any} />
+    <Component {...(props as any)} />
   </Suspense>
 );

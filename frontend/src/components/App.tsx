@@ -35,7 +35,9 @@ const QuestionsPage = lazy(() =>
   import('./QuestionsPage' /* webpackChunkName: "Questions" */),
 );
 const CommentsAuthorPage = lazy(() =>
-  import('./Comment/CommentsAuthorPage' /* webpackChunkName: "CommentsAuthor" */),
+  import(
+    './Comment/CommentsAuthorPage' /* webpackChunkName: "CommentsAuthor" */
+  ),
 );
 const ConfirmationPage = lazy(() =>
   import('./ConfirmationPage' /* webpackChunkName: "Confirmation" */),
