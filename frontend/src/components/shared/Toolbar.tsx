@@ -46,7 +46,7 @@ export const Toolbar: FC<ToolbarProps> = ({
         variant="info"
         title={<FontAwesome name="star" />}
         id="qlist">
-        {map(qlists, (qlist, index) => (
+        {map(qlists, (qlist, index: any) => (
           <Dropdown.Item
             eventKey={index}
             key={qlist._id}
