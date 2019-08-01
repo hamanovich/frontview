@@ -26,9 +26,10 @@ const LatestNewsPage = () => (
                 20 Feb, 2019
               </Badge>
               <p>
-                It&apos;s time to completely upgrade Frontview to newly fresh and light vusial
-                design version. Bootstrap CSS framework was upgrated to version 4 and all components
-                were migrated as well. Huge step and tone of work was done! Sigh!
+                It&apos;s time to completely upgrade Frontview to newly fresh
+                and light vusial design version. Bootstrap CSS framework was
+                upgrated to version 4 and all components were migrated as well.
+                Huge step and tone of work was done! Sigh!
               </p>
             </TimelineItem>
           </Timeline>

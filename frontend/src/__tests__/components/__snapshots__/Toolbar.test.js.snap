@@ -5,7 +5,6 @@ exports[`<Toolbar/> renders <Toolbar /> component 1`] = `
   role="toolbar"
 >
   <ButtonGroup
-    as="div"
     role="group"
     size="sm"
     toggle={false}
@@ -37,7 +36,6 @@ exports[`<Toolbar/> renders <Toolbar /> component 1`] = `
     </Button>
   </ButtonGroup>
   <ButtonGroup
-    as="div"
     role="group"
     size="sm"
     toggle={false}

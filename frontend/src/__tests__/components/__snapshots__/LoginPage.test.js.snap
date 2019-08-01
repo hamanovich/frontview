@@ -2,7 +2,6 @@
 
 exports[`<LoginPage/> renders <LoginPage /> component 1`] = `
 <Container
-  as="div"
   fluid={false}
 >
   <HelmetWrapper
@@ -13,9 +12,10 @@ exports[`<LoginPage/> renders <LoginPage /> component 1`] = `
       Frontview: Please, login
     </title>
   </HelmetWrapper>
-  <Bootstrap(Row)>
+  <ForwardRef
+    noGutters={false}
+  >
     <Col
-      as="div"
       md={
         Object {
           "offset": 2,
@@ -47,6 +47,7 @@ exports[`<LoginPage/> renders <LoginPage /> component 1`] = `
                 "shouldError": [Function],
                 "shouldValidate": [Function],
                 "shouldWarn": [Function],
+                "submitAsSideEffect": false,
                 "touchOnBlur": true,
                 "touchOnChange": false,
                 "updateUnregisteredFields": false,
@@ -79,6 +80,7 @@ exports[`<LoginPage/> renders <LoginPage /> component 1`] = `
                 "shouldError": [Function],
                 "shouldValidate": [Function],
                 "shouldWarn": [Function],
+                "submitAsSideEffect": false,
                 "touchOnBlur": true,
                 "touchOnChange": false,
                 "updateUnregisteredFields": false,
@@ -111,6 +113,7 @@ exports[`<LoginPage/> renders <LoginPage /> component 1`] = `
                 "shouldError": [Function],
                 "shouldValidate": [Function],
                 "shouldWarn": [Function],
+                "submitAsSideEffect": false,
                 "touchOnBlur": true,
                 "touchOnChange": false,
                 "updateUnregisteredFields": false,
@@ -131,6 +134,6 @@ exports[`<LoginPage/> renders <LoginPage /> component 1`] = `
         />
       </Switch>
     </Col>
-  </Bootstrap(Row)>
+  </ForwardRef>
 </Container>
 `;

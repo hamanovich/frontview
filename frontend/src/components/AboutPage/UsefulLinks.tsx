@@ -76,7 +76,9 @@ const UsefulLinks = () => (
           href="https://github.com/denysdovhan/wtfjs"
           target="_blank"
           rel="noopener noreferrer">
-          <h5 className="my-0">A list of funny and tricky JavaScript examples</h5>
+          <h5 className="my-0">
+            A list of funny and tricky JavaScript examples
+          </h5>
         </ListGroup.Item>
       </ListGroup>
     </Container>

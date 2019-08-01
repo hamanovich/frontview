@@ -16,7 +16,9 @@ exports.addQlist = async (req, res) => {
 
 exports.addQuestion = async (req, res) => {
   const { qlist, question } = req.body;
-  const operator = map(qlist.questions, q => q._id).includes(question._id) ? '$pull' : '$addToSet';
+  const operator = map(qlist.questions, q => q._id).includes(question._id)
+    ? '$pull'
+    : '$addToSet';
   const newQlist = await QList.findByIdAndUpdate(
     qlist._id,
     { [operator]: { questions: question._id } },

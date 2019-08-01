@@ -9,23 +9,40 @@ const About = () => (
     <Container>
       <h1>About me</h1>
       <p className="lead mb-5">
-        I am Siarhei Hamanovich. Almost 30. Let me provide you the list of my social accounts. A few
-        of them only in russian content, however, fill free to contact me in English as well and I
-        will answer you directly. See you
+        I am Siarhei Hamanovich. Almost 30. Let me provide you the list of my
+        social accounts. A few of them only in russian content, however, fill
+        free to contact me in English as well and I will answer you directly.
+        See you
       </p>
       <Media>
-        <Fontawesome name="github" className="mr-4" style={{ width: 60 }} size="4x" />
+        <Fontawesome
+          name="github"
+          className="mr-4"
+          style={{ width: 60 }}
+          size="4x"
+        />
         <Media.Body>
           <h3>
-            <a href="https://github.com/hamanovich" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://github.com/hamanovich"
+              target="_blank"
+              rel="noopener noreferrer">
               Github
             </a>
           </h3>
-          <p>Software Engineer HTML5/CSS3, Accessibility. Frontend audit. corejs/ReactJS/VueJS.</p>
+          <p>
+            Software Engineer HTML5/CSS3, Accessibility. Frontend audit.
+            corejs/ReactJS/VueJS.
+          </p>
         </Media.Body>
       </Media>
       <Media>
-        <Fontawesome name="linkedin" className="mr-4" style={{ width: 60 }} size="4x" />
+        <Fontawesome
+          name="linkedin"
+          className="mr-4"
+          style={{ width: 60 }}
+          size="4x"
+        />
         <Media.Body>
           <h3>
             <a
@@ -39,7 +56,12 @@ const About = () => (
         </Media.Body>
       </Media>
       <Media>
-        <Fontawesome name="jsfiddle" className="mr-4" style={{ width: 60 }} size="3x" />
+        <Fontawesome
+          name="jsfiddle"
+          className="mr-4"
+          style={{ width: 60 }}
+          size="3x"
+        />
         <Media.Body>
           <h3>
             <a
@@ -53,10 +75,18 @@ const About = () => (
         </Media.Body>
       </Media>
       <Media>
-        <Fontawesome name="500px" className="mr-4" style={{ width: 60 }} size="4x" />
+        <Fontawesome
+          name="500px"
+          className="mr-4"
+          style={{ width: 60 }}
+          size="4x"
+        />
         <Media.Body>
           <h3>
-            <a href="https://500px.com/hamanovich" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://500px.com/hamanovich"
+              target="_blank"
+              rel="noopener noreferrer">
               500px
             </a>
           </h3>
@@ -64,30 +94,48 @@ const About = () => (
         </Media.Body>
       </Media>
       <Media>
-        <Fontawesome name="skype" className="mr-4" style={{ width: 60 }} size="4x" />
+        <Fontawesome
+          name="skype"
+          className="mr-4"
+          style={{ width: 60 }}
+          size="4x"
+        />
         <Media.Body>
           <h3>hamanonvich</h3>
           <p>
             <em>
-              Yeah, I know, I made a typo mistake in skype account when creating a new one. My fail
-              :(
+              Yeah, I know, I made a typo mistake in skype account when creating
+              a new one. My fail :(
             </em>
           </p>
         </Media.Body>
       </Media>
       <Media>
-        <Fontawesome name="wordpress" className="mr-4" style={{ width: 60 }} size="4x" />
+        <Fontawesome
+          name="wordpress"
+          className="mr-4"
+          style={{ width: 60 }}
+          size="4x"
+        />
         <Media.Body>
           <h3>
             <a href="https://2i.by" target="_blank" rel="noopener noreferrer">
               2i.by
             </a>
           </h3>
-          <p>My personal astronomy blog for publication new observations. Only russian content.</p>
+          <p>
+            My personal astronomy blog for publication new observations. Only
+            russian content.
+          </p>
         </Media.Body>
       </Media>
       <Media>
-        <Fontawesome name="youtube" className="mr-4" style={{ width: 60 }} size="4x" />
+        <Fontawesome
+          name="youtube"
+          className="mr-4"
+          style={{ width: 60 }}
+          size="4x"
+        />
         <Media.Body>
           <h3>
             <a
@@ -101,7 +149,12 @@ const About = () => (
         </Media.Body>
       </Media>
       <Media>
-        <Fontawesome name="instagram" className="mr-4" style={{ width: 60 }} size="4x" />
+        <Fontawesome
+          name="instagram"
+          className="mr-4"
+          style={{ width: 60 }}
+          size="4x"
+        />
         <Media.Body>
           <h3>
             <a
@@ -115,10 +168,18 @@ const About = () => (
         </Media.Body>
       </Media>
       <Media>
-        <Fontawesome name="twitter" className="mr-4" style={{ width: 60 }} size="4x" />
+        <Fontawesome
+          name="twitter"
+          className="mr-4"
+          style={{ width: 60 }}
+          size="4x"
+        />
         <Media.Body>
           <h3>
-            <a href="https://twitter.com/hamanovich" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://twitter.com/hamanovich"
+              target="_blank"
+              rel="noopener noreferrer">
               Twitter
             </a>
           </h3>

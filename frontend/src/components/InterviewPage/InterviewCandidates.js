@@ -56,14 +56,19 @@ class InterviewCandidates extends Component {
           text: `Candidate ${values.firstName} ${values.lastName} has created`,
         });
 
-        this.setState(prevState => ({ isLoading: false, panel: !prevState.panel }));
+        this.setState(prevState => ({
+          isLoading: false,
+          panel: !prevState.panel,
+        }));
       })
       .catch(() => this.setState({ isLoading: false }));
   };
 
   chooseOne = () => {
     const { history, candidates } = this.props;
-    const candidate = candidates.find(candidate => candidate._id === this.candidateOne.value);
+    const candidate = candidates.find(
+      candidate => candidate._id === this.candidateOne.value,
+    );
 
     history.push({
       pathname: '/interview/qlists',
@@ -87,8 +92,8 @@ class InterviewCandidates extends Component {
     const { candidates, handleSubmit } = this.props;
     const chooseCandidates = map(candidates, candidate => (
       <option value={candidate._id} key={candidate._id}>
-        {candidate.firstName} {candidate.lastName} - {candidate.primarySkill} ({candidate.techLevel}
-        )
+        {candidate.firstName} {candidate.lastName} - {candidate.primarySkill} (
+        {candidate.techLevel})
       </option>
     ));
 
@@ -101,7 +106,10 @@ class InterviewCandidates extends Component {
           </Button>
         </p>
 
-        <Card id="collapsible-panel-1" expanded={this.state.panel} onToggle={() => {}}>
+        <Card
+          id="collapsible-panel-1"
+          expanded={this.state.panel}
+          onToggle={() => {}}>
           <Card.Collapse>
             <Card.Body>
               <Form.Group>
@@ -192,7 +200,11 @@ class InterviewCandidates extends Component {
                   placeholder="Add some notes (optional)"
                 />
 
-                <Button type="submit" variant="primary" size="lg" disabled={isLoading}>
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="lg"
+                  disabled={isLoading}>
                   Register a candidate
                 </Button>
               </Form>

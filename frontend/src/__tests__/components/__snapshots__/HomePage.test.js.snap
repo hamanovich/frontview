@@ -4,7 +4,6 @@ exports[`<HomePage/> renders <HomePage /> component 1`] = `
 <Fragment>
   <Bootstrap(Jumbotron)>
     <Container
-      as="div"
       fluid={false}
     >
       <h1
@@ -56,13 +55,13 @@ exports[`<HomePage/> renders <HomePage /> component 1`] = `
     </Container>
   </Bootstrap(Jumbotron)>
   <Container
-    as="div"
     className="py-5"
     fluid={false}
   >
-    <Bootstrap(Row)>
+    <ForwardRef
+      noGutters={false}
+    >
       <Col
-        as="div"
         md={4}
       >
         <h2>
@@ -94,7 +93,6 @@ exports[`<HomePage/> renders <HomePage /> component 1`] = `
         </p>
       </Col>
       <Col
-        as="div"
         md={4}
       >
         <h2>
@@ -126,7 +124,6 @@ exports[`<HomePage/> renders <HomePage /> component 1`] = `
         </p>
       </Col>
       <Col
-        as="div"
         md={4}
       >
         <h2>
@@ -164,7 +161,7 @@ exports[`<HomePage/> renders <HomePage /> component 1`] = `
           </Link>
         </p>
       </Col>
-    </Bootstrap(Row)>
+    </ForwardRef>
   </Container>
 </Fragment>
 `;

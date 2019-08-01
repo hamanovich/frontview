@@ -25,7 +25,10 @@ describe('<FlashList />', () => {
     expect(component.find('Fragment').children()).toHaveLength(1);
 
     component.setProps({
-      messages: [...props.messages, { id: 'DEF', type: 'success', text: 'Very positive text' }],
+      messages: [
+        ...props.messages,
+        { id: 'DEF', type: 'success', text: 'Very positive text' },
+      ],
     });
 
     expect(component.find('Fragment').children()).toHaveLength(2);
@@ -42,7 +45,9 @@ describe('<FlashList />', () => {
     );
 
     it('invokes `deleteFlashMessage` callback with id', () => {
-      expect(props.deleteFlashMessage).toHaveBeenCalledWith(props.messages[0].id);
+      expect(props.deleteFlashMessage).toHaveBeenCalledWith(
+        props.messages[0].id,
+      );
     });
   });
 });

@@ -13,7 +13,11 @@ import InterviewQLists from './InterviewQLists';
 import InterviewProgress from './InterviewProgress';
 import InterviewFinish from './InterviewFinish';
 
-import { candidateAdd, getCandidates, provideFeedback } from '../../actions/candidates';
+import {
+  candidateAdd,
+  getCandidates,
+  provideFeedback,
+} from '../../actions/candidates';
 import { addFlashMessage } from '../../actions/flash';
 import { getQLists } from '../../actions/qlists';
 

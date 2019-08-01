@@ -14,6 +14,7 @@ import { setCurrentUser } from '../actions/auth';
 import App from './App';
 
 import '../index.css';
+import { User } from '../propTypes/UserType';
 
 const history = createBrowserHistory();
 const middleware = routerMiddleware(history);
@@ -24,7 +25,7 @@ const store = createStore(
 const localJwtToken = window.localStorage.jwtToken;
 
 if (localJwtToken) {
-  const jwtDecoded = jwtDecode(localJwtToken);
+  const jwtDecoded: User = jwtDecode(localJwtToken);
   setAuthorizationToken(localJwtToken);
   store.dispatch(setCurrentUser(jwtDecoded));
 }

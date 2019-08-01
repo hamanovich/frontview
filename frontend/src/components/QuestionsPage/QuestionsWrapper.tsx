@@ -144,7 +144,7 @@ const WrappedComponent = <P extends object>(
     };
 
     render() {
-      return <Component {...this.props as P} state={this.state} />;
+      return <Component {...(this.props as P)} state={this.state} />;
     }
   }
 

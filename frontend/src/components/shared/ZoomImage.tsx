@@ -14,7 +14,13 @@ class ZoomImage extends Component<ZoomImageProps> {
   render() {
     const { src, alt } = this.props;
 
-    return <img src={src} alt={alt} ref={(img: HTMLImageElement) => this.attachZoom(img)} />;
+    return (
+      <img
+        src={src}
+        alt={alt}
+        ref={(img: HTMLImageElement) => this.attachZoom(img)}
+      />
+    );
   }
 }
 

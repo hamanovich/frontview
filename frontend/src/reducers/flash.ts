@@ -3,12 +3,19 @@ import findIndex from 'lodash/findIndex';
 
 import { Message } from '../propTypes/Message';
 
-import { ADD_FLASH_MESSAGE, DELETE_FLASH_MESSAGE, DELETE_FLASH_MESSAGES } from '../actions/types';
+import {
+  ADD_FLASH_MESSAGE,
+  DELETE_FLASH_MESSAGE,
+  DELETE_FLASH_MESSAGES,
+} from '../actions/types';
 import { FlashActionTypes } from '../actions/flash';
 
 const initialState: Array<Message> = [];
 
-export default (state = initialState, action: FlashActionTypes): Array<Message> => {
+export default (
+  state = initialState,
+  action: FlashActionTypes,
+): Array<Message> => {
   switch (action.type) {
     case ADD_FLASH_MESSAGE: {
       const { type, text } = action.payload;

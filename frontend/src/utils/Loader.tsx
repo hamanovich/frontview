@@ -60,7 +60,7 @@ const withLoading = (prop: string) => <P extends object>(
       return filtered.length !== props.length ? (
         <IconLoader />
       ) : (
-        <ComposedComponent {...this.props as P} {...myProps} />
+        <ComposedComponent {...(this.props as P)} {...myProps} />
       );
     }
   };

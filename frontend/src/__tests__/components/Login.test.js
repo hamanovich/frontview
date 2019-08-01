@@ -41,9 +41,7 @@ describe('<Login/>', () => {
 
     expect(component).toMatchSnapshot();
     expect(component.find('Alert[variant="danger"]').html()).toBe(
-      `<div role="alert" class="fade alert alert-danger show">${
-        errorState.error
-      }</div>`,
+      `<div role="alert" class="fade alert alert-danger show">${errorState.error}</div>`,
     );
   });
 

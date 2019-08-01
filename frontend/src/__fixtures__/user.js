@@ -10,6 +10,7 @@ export default {
   questions: ['5bd2dedb23c8a03cc87f2fbc'],
   username: 'test',
   email: 'test@test.com',
-  passwordDigest: '$2b$10$bLgRlIJSlejDEgJLwsNgV.mlm55s1d7pJKbGH0Hf8boL1Bd7V9Px2',
+  passwordDigest:
+    '$2b$10$bLgRlIJSlejDEgJLwsNgV.mlm55s1d7pJKbGH0Hf8boL1Bd7V9Px2',
   confirmationToken: null,
 };

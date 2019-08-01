@@ -22,7 +22,9 @@ const QuestionsTop = lazy(() =>
   import('./QuestionsTop' /* webpackChunkName: "QuestionsTop" */),
 );
 const QuestionsFromInternet = lazy(() =>
-  import('./QuestionsFromInternet' /* webpackChunkName: "QuestionsFromInternet" */),
+  import(
+    './QuestionsFromInternet' /* webpackChunkName: "QuestionsFromInternet" */
+  ),
 );
 
 const QuestionsPage = () => (

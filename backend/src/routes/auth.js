@@ -5,7 +5,9 @@ import send from '../handlers/mail';
 
 exports.auth = async (req, res) => {
   const { identifier, password } = req.body;
-  const user = await User.findOne({ $or: [{ username: identifier }, { email: identifier }] });
+  const user = await User.findOne({
+    $or: [{ username: identifier }, { email: identifier }],
+  });
 
   if (!user) {
     res.status(401).json({ error: 'Invalid Credentials' });
@@ -33,7 +35,9 @@ exports.confirm = async (req, res) => {
   );
 
   if (!user) {
-    res.status(400).json({ error: 'Ooops. Invalid token or you have already confirmed' });
+    res
+      .status(400)
+      .json({ error: 'Ooops. Invalid token or you have already confirmed' });
     return;
   }
 
@@ -43,14 +47,18 @@ exports.confirm = async (req, res) => {
 exports.forgot = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   const host =
-    process.env.NODE_ENV === 'production' ? req.get('host') : req.headers['x-forwarded-host'];
+    process.env.NODE_ENV === 'production'
+      ? req.get('host')
+      : req.headers['x-forwarded-host'];
 
   if (!user) {
     res.status(401).json({ error: 'No account with that email exists' });
     return;
   }
 
-  user.resetPasswordToken = bcrypt.hashSync(process.env.SECRET, 10).replace(/\//g, '');
+  user.resetPasswordToken = bcrypt
+    .hashSync(process.env.SECRET, 10)
+    .replace(/\//g, '');
   user.resetPasswordExpires = Date.now() + 36000000;
 
   await user.save();
@@ -63,7 +71,10 @@ exports.forgot = async (req, res) => {
     resetURL: `${req.protocol}://${host}/login/reset/${user.resetPasswordToken}`,
   });
 
-  res.json({ emailed: 'You have been emailed a password reset link. Please, check your email.' });
+  res.json({
+    emailed:
+      'You have been emailed a password reset link. Please, check your email.',
+  });
 };
 
 exports.reset = async (req, res) => {

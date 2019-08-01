@@ -61,7 +61,13 @@ const enhance = compose(
   }),
 );
 
-const InterviewProgress = ({ step, provideFeedback, location, history, onSelectStep }) => {
+const InterviewProgress = ({
+  step,
+  provideFeedback,
+  location,
+  history,
+  onSelectStep,
+}) => {
   const candidate = location.state ? location.state.candidate : '';
   const questions = location.state ? location.state.qlist.questions : [];
   const tab = map(questions, (question, index) => (
