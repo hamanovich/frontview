@@ -15,7 +15,6 @@ exports[`<Header/> renders component with search Question renders <Header /> com
     </Link>
   </NavbarBrand>
   <NavbarToggle
-    as="button"
     label="Toggle navigation"
   />
   <NavbarCollapse>
@@ -33,13 +32,13 @@ exports[`<Header/> renders component with search Question renders <Header /> com
       shouldError={[Function]}
       shouldValidate={[Function]}
       shouldWarn={[Function]}
+      submitAsSideEffect={false}
       touchOnBlur={true}
       touchOnChange={false}
       updateUnregisteredFields={false}
       validate={[Function]}
     />
     <Nav
-      as="div"
       className="mr-auto"
       fill={false}
       justify={false}
@@ -67,7 +66,6 @@ exports[`<Header/> renders component with search Question renders <Header /> com
       </LinkContainer>
     </Nav>
     <Nav
-      as="div"
       fill={false}
       justify={false}
     >
@@ -218,7 +216,7 @@ exports[`<Header/> renders component with search Question renders <Header /> com
         id="account-dropdown"
         title={
           <React.Fragment>
-            <ForwardRef
+            <ForwardRef(Styled(Bootstrap(Image)))
               roundedCircle={true}
             />
             test

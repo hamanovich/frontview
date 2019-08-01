@@ -2,9 +2,6 @@
 
 exports[`<Flash/> renders <Flash /> component 1`] = `
 <Styled(Alert)
-  closeLabel="Close alert"
-  show={true}
-  transition={[Function]}
   variant="danger"
 >
   <MarkdownRenderer
@@ -27,9 +24,6 @@ exports[`<Flash/> renders <Flash /> component 1`] = `
 
 exports[`<Flash/> updates via props 1`] = `
 <Styled(Alert)
-  closeLabel="Close alert"
-  show={true}
-  transition={[Function]}
   variant="success"
 >
   <MarkdownRenderer

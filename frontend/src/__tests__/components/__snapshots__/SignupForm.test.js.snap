@@ -2,7 +2,6 @@
 
 exports[`<SignupForm/> renders <SignupForm /> component 1`] = `
 <Form
-  as="form"
   inline={false}
   noValidate={true}
   onSubmit={[Function]}

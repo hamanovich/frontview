@@ -9,7 +9,6 @@ exports[`<Login/> renders <Login /> component 1`] = `
      Please, login
   </h1>
   <Form
-    as="form"
     inline={false}
     noValidate={true}
     onSubmit={[MockFunction]}
@@ -29,9 +28,7 @@ exports[`<Login/> renders <Login /> component 1`] = `
       placeholder="Come up with a password"
       type="password"
     />
-    <FormGroup
-      as="div"
-    >
+    <FormGroup>
       <Link
         replace={false}
         to="/login/forgot"
@@ -64,7 +61,6 @@ exports[`<Login/> renders <Login /> component with error state 1`] = `
      Please, login
   </h1>
   <Form
-    as="form"
     inline={false}
     noValidate={true}
     onSubmit={[MockFunction]}
@@ -92,9 +88,7 @@ exports[`<Login/> renders <Login /> component with error state 1`] = `
       placeholder="Come up with a password"
       type="password"
     />
-    <FormGroup
-      as="div"
-    >
+    <FormGroup>
       <Link
         replace={false}
         to="/login/forgot"

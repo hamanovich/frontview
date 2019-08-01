@@ -2,9 +2,7 @@
 
 exports[`<SearchForm/> renders <SearchForm /> component 1`] = `
 <Styled(Form)
-  as="form"
   className="mr-2 form-inline"
-  inline={false}
   noValidate={true}
 >
   <Field

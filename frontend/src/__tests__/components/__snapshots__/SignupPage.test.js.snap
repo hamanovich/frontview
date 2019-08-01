@@ -2,7 +2,6 @@
 
 exports[`<SignupPage/> renders <SignupPage /> component 1`] = `
 <Container
-  as="div"
   fluid={false}
 >
   <HelmetWrapper
@@ -13,9 +12,10 @@ exports[`<SignupPage/> renders <SignupPage /> component 1`] = `
       Frontview: Register. Welcome
     </title>
   </HelmetWrapper>
-  <Bootstrap(Row)>
+  <ForwardRef
+    noGutters={false}
+  >
     <Col
-      as="div"
       md={
         Object {
           "offset": 2,
@@ -51,12 +51,13 @@ exports[`<SignupPage/> renders <SignupPage /> component 1`] = `
         shouldValidate={[Function]}
         shouldWarn={[Function]}
         signup={[MockFunction]}
+        submitAsSideEffect={false}
         touchOnBlur={true}
         touchOnChange={false}
         updateUnregisteredFields={false}
         validate={[Function]}
       />
     </Col>
-  </Bootstrap(Row)>
+  </ForwardRef>
 </Container>
 `;
