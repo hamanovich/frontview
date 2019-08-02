@@ -4,12 +4,17 @@
   "description": "Front View. It's pretty simple website for adding, editing and asking any kind of questions in a Technical Interview",
   "author": "Siarhei Hamanovich <hamanovich@gmail.com> (http://github.com/hamanovich)",
   "license": "ISC",
+  "homepage": "https://github.com/hamanovich/frontview",
+  "bugs": {
+    "url": "https://github.com/hamanovich/frontview/issues",
+    "email": "hamanovich@gmail.com"
+  },
   "scripts": {
     "clean:all": "find . -name 'node_modules' -type d -exec rm -rf '{}' +",
     "build": "concurrently \"cd frontend && yarn build\" \"cd backend && yarn build\"",
     "install": "(cd frontend && yarn) && (cd backend && yarn)",
-    "start": "concurrently \"cd frontend && PORT=5000 && yarn start\" \"cd backend && PORT=3001 && yarn start\"",
-    "start-pc": "concurrently \"cd frontend && SET PORT=5000 && yarn start\" \"cd backend && SET PORT=3001 && yarn start\"",
+    "start": "concurrently \"cd frontend && yarn start\" \"cd backend && PORT=3001 && yarn start\"",
+    "start-pc": "concurrently \"cd frontend && yarn start\" \"cd backend && SET PORT=3001 && yarn start\"",
     "start:prod": "cd backend && yarn start:prod",
     "heroku-postbuild": "yarn build",
     "format": "yarn prettier -- --write",
@@ -18,7 +23,7 @@
     "lint": "yarn lint:backend && yarn lint:frontend",
     "lint:backend": "eslint ./backend/src/**/*.js",
     "lint:frontend": "eslint \"./frontend/src/**/*.+(js|ts|tsx)\"",
-    "test": "cd frontend && yarn test"
+    "test:frontend": "cd frontend && yarn test"
   },
   "dependencies": {
     "concurrently": "^4.0.1"
@@ -38,8 +43,8 @@
     "prettier-eslint": "^9.0.0"
   },
   "engines": {
-    "node": "10.x.x",
-    "yarn": "1.16.x"
+    "node": ">=10.10.0 <12.x.x",
+    "yarn": ">=1.16.x <=1.17.x"
   },
   "husky": {
     "hooks": {
