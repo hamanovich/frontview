@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from 'react';
+import React, { FunctionComponent, Fragment, memo } from 'react';
 
 import Badge from 'react-bootstrap/Badge';
 
@@ -6,7 +6,10 @@ import Questions from './Questions';
 import PaginationBar from '../shared/PaginationBar';
 import { QuestionsAllProps } from './models';
 
-const QuestionsAll: FC<QuestionsAllProps> = ({ state, history }) => (
+const QuestionsAll: FunctionComponent<QuestionsAllProps> = ({
+  state,
+  history,
+}) => (
   <Fragment>
     <h1>
       Questions{' '}
@@ -30,4 +33,4 @@ const QuestionsAll: FC<QuestionsAllProps> = ({ state, history }) => (
   </Fragment>
 );
 
-export default QuestionsAll;
+export default memo(QuestionsAll);
