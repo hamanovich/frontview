@@ -1,5 +1,3 @@
-import map from 'lodash/map';
-
 import {
   QLISTS_ADD,
   QLIST_ADD,
@@ -24,7 +22,7 @@ export default (state = initialState, action: QListActionTypes): QList[] => {
       const gotIndex = state.findIndex(qlist => qlist._id === action.qlist._id);
 
       if (gotIndex > -1) {
-        return map(state, qlist => {
+        return state.map((qlist: QList) => {
           if (qlist._id === action.qlist._id) {
             return action.qlist;
           }
@@ -42,7 +40,7 @@ export default (state = initialState, action: QListActionTypes): QList[] => {
       );
 
       if (qlistIndex > -1) {
-        return map(state, qlist => {
+        return state.map((qlist: QList) => {
           if (qlist._id === action.qlist._id) {
             return action.qlist;
           }

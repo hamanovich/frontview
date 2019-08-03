@@ -1,13 +1,13 @@
-import React, { FC, Fragment } from 'react';
-import map from 'lodash/map';
+import React, { FunctionComponent, Fragment } from 'react';
 
 import Comment from './Comment';
 import Loader from '../../utils/Loader';
 import { CommentsProps } from './models';
+import { CommentQuestion } from '../../propTypes/CommentType';
 
-const Comments: FC<CommentsProps> = ({ comments, match }) => (
+const Comments: FunctionComponent<CommentsProps> = ({ comments, match }) => (
   <Fragment>
-    {map(comments, comment => (
+    {comments.map((comment: CommentQuestion) => (
       <Comment comment={comment} match={match} key={comment._id} />
     ))}
   </Fragment>

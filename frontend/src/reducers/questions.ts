@@ -1,5 +1,3 @@
-import map from 'lodash/map';
-
 import {
   QUESTIONS_ADD,
   QUESTION_ADD,
@@ -36,7 +34,7 @@ export default (
       );
 
       if (gotIndex > -1) {
-        return map(state, question => {
+        return state.map((question: Question) => {
           if (question._id === action.question._id) {
             return action.question;
           }
@@ -57,7 +55,7 @@ export default (
       );
 
       if (editIndex > -1) {
-        return map(state, question => {
+        return state.map((question: Question) => {
           if (question._id === action.question._id) {
             return action.question;
           }

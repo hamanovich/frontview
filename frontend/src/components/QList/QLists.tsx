@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
-import map from 'lodash/map';
 
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -52,7 +51,7 @@ class QLists extends Component<QListsProps, QListsState> {
 
         <ListGroup>
           {qlists.length > 0
-            ? map(qlists, qlist => (
+            ? qlists.map((qlist: QListQuestions) => (
                 <ListGroup.Item key={qlist.slug}>
                   <h4>
                     <Link to={`/questions/${username}/qlist/${qlist.slug}`}>

@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import map from 'lodash/map';
 
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -61,7 +60,7 @@ class InterviewQLists extends Component {
 
   render() {
     const { qlists, userId } = this.props;
-    const chooseQLists = map(qlists, qlist => (
+    const chooseQLists = qlists.map(qlist => (
       <option value={qlist._id} key={qlist._id}>
         {qlist.title}
       </option>

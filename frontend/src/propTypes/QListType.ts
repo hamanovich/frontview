@@ -5,7 +5,7 @@ export interface QList {
   _id: string;
   title: string;
   slug: string;
-  questions: Question[] | string[] | Question;
+  questions: Question[];
   author: string | User;
   notes: string;
 }

@@ -1,5 +1,4 @@
 import { FormErrors } from 'redux-form';
-import isEmpty from 'lodash/isEmpty';
 
 interface Values {
   identifier: string;
@@ -21,7 +20,7 @@ export default (values: Values): FormErrors => {
     errors.password = 'Password is required';
   }
 
-  errors.isValid = isEmpty(errors);
+  errors.isValid = Object.keys(errors).length === 0;
 
   return errors;
 };

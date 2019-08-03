@@ -1,5 +1,4 @@
-import React, { FC, Fragment } from 'react';
-import map from 'lodash/map';
+import React, { FunctionComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import compose from 'recompose/compose';
@@ -29,7 +28,7 @@ const enhance = compose<
   Loader('questions'),
 );
 
-const Questions: FC<QuestionsProps> = ({
+const Questions: FunctionComponent<QuestionsProps> = ({
   user,
   qlists,
   questions,
@@ -38,7 +37,7 @@ const Questions: FC<QuestionsProps> = ({
 }) => (
   <Fragment>
     {questions.length ? (
-      map(questions, question => (
+      questions.map((question: Question) => (
         <QuestionOne
           question={question}
           approveQuestion={approveQuestion}

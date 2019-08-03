@@ -1,10 +1,9 @@
-import React, { FC } from 'react';
-import map from 'lodash/map';
+import React, { FunctionComponent } from 'react';
 
 import Form from 'react-bootstrap/Form';
 import { SelectFieldProps } from './models';
 
-const SelectField: FC<SelectFieldProps> = ({
+const SelectField: FunctionComponent<SelectFieldProps> = ({
   id,
   input,
   label,
@@ -21,7 +20,7 @@ const SelectField: FC<SelectFieldProps> = ({
       multiple={multiple}
       isInvalid={touched && Boolean(error)}
       isValid={touched && !error}>
-      {map(options, o => (
+      {options.map(o => (
         <option value={o.value} key={o.value}>
           {o.title}
         </option>

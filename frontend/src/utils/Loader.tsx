@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import isEmpty from 'lodash/isEmpty';
 
 import IconLoader from '../components/shared/IconLoader';
 import { LoaderState } from './models';
@@ -10,6 +9,7 @@ const withLoading = (prop: string) => <P extends object>(
   class Loader extends Component<any, LoaderState> {
     state: LoaderState = {
       isEmpty: false,
+      timeout: 5000,
     };
 
     private mounted: boolean = false;
@@ -21,14 +21,14 @@ const withLoading = (prop: string) => <P extends object>(
       this.startTimer = Date.now();
 
       setTimeout(() => {
-        if (this.mounted && isEmpty(this.props[prop])) {
+        if (this.mounted && Object.keys(this.props[prop]).length === 0) {
           this.setState({ isEmpty: true });
         }
-      }, 5000);
+      }, this.state.timeout);
     }
 
     componentWillUpdate(nextProps: any) {
-      if (!isEmpty(nextProps[prop])) {
+      if (Object.keys(nextProps[prop]).length !== 0) {
         this.endTimer = Date.now();
       }
     }
@@ -40,7 +40,7 @@ const withLoading = (prop: string) => <P extends object>(
     render() {
       const props = prop.split(' ');
       const filtered = props.filter(
-        (propOne: string) => !isEmpty(this.props[propOne]),
+        (propOne: string) => Object.keys(this.props[propOne]).length !== 0,
       );
       const myProps = {
         loadingTime: ((this.endTimer - this.startTimer) / 1000).toFixed(2),

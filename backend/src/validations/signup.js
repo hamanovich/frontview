@@ -1,6 +1,5 @@
 import isEmail from 'validator/lib/isEmail';
 import equals from 'validator/lib/equals';
-import isEmpty from 'lodash/isEmpty';
 
 export default values => {
   const errors = {};
@@ -33,7 +32,7 @@ export default values => {
     errors.passwordConfirmation = 'Passwords must match';
   }
 
-  errors.isValid = isEmpty(errors);
+  errors.isValid = Object.keys(errors).length === 0;
 
   return errors;
 };

@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import map from 'lodash/map';
 import MarkdownRenderer from 'react-markdown-renderer';
 import shortid from 'shortid';
 import FontAwesome from 'react-fontawesome';
@@ -67,13 +66,13 @@ const InterviewProgress = ({
 }) => {
   const candidate = location.state ? location.state.candidate : '';
   const questions = location.state ? location.state.qlist.questions : [];
-  const tab = map(questions, (question, index) => (
+  const tab = questions.map((question, index) => (
     <Tab eventKey={index + 1} key={question._id} title={index + 1}>
       <h3>
         <MarkdownRenderer markdown={question.question} />
       </h3>
       <MarkdownRenderer markdown={question.answer} />
-      {map(question.answers, question => (
+      {question.answers.map(question => (
         <MarkdownRenderer markdown={question.text} key={shortid.generate()} />
       ))}
       {question.notes && <MarkdownRenderer markdown={question.notes} />}
@@ -81,12 +80,12 @@ const InterviewProgress = ({
       <hr />
 
       <p>
-        {map(question.skill, skill => (
+        {question.skill.map(skill => (
           <BadgeStyled variant="warning" key={skill}>
             {skill}
           </BadgeStyled>
         ))}
-        {map(question.level, level => (
+        {question.level.map(level => (
           <BadgeStyled variant="primary" key={level}>
             {level}
           </BadgeStyled>

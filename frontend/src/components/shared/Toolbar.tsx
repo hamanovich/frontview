@@ -1,8 +1,7 @@
-import React, { FC } from 'react';
+import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import FontAwesome from 'react-fontawesome';
-import map from 'lodash/map';
 
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -14,9 +13,10 @@ import { voteQuestion } from '../../actions/questions';
 import { qlistAddQuestion } from '../../actions/qlists';
 
 import { Question } from '../../propTypes/QuestionType';
+import { QList } from '../../propTypes/QListType';
 import { ToolbarProps } from './models';
 
-export const Toolbar: FC<ToolbarProps> = ({
+export const Toolbar: FunctionComponent<ToolbarProps> = ({
   user,
   question,
   voteQuestion,
@@ -46,15 +46,15 @@ export const Toolbar: FC<ToolbarProps> = ({
         variant="info"
         title={<FontAwesome name="star" />}
         id="qlist">
-        {map(qlists, (qlist, index: any) => (
+        {qlists.map((qlist: QList, index: any) => (
           <Dropdown.Item
             eventKey={index}
             key={qlist._id}
             onClick={qlistAddQuestion(qlist, question)}>
             {qlist.title}
-            {map(qlist.questions, (q: Question) => q._id).includes(
-              question._id,
-            ) && <FontAwesome name="check" />}
+            {qlist.questions
+              .map((q: Question) => q._id)
+              .includes(question._id) && <FontAwesome name="check" />}
           </Dropdown.Item>
         ))}
         {qlists.length > 0 && <Dropdown.Divider />}
