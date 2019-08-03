@@ -1,13 +1,10 @@
 import React, { Fragment } from 'react';
-import { shape, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import MarkdownRenderer from 'react-markdown-renderer';
 import FontAwesome from 'react-fontawesome';
 
 import compose from 'recompose/compose';
 import lifecycle from 'recompose/lifecycle';
-
-import { CandidateType } from '../../propTypes';
 
 const enhance = compose(
   lifecycle({
@@ -40,16 +37,5 @@ const InterviewFinish = ({ location }) => (
     )}
   </Fragment>
 );
-
-InterviewFinish.propTypes = {
-  location: shape({
-    state: shape({
-      candidate: CandidateType,
-      feedback: shape({
-        result: string,
-      }),
-    }),
-  }).isRequired,
-};
 
 export default enhance(InterviewFinish);

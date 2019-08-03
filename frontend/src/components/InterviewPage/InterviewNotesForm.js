@@ -1,5 +1,4 @@
 import React from 'react';
-import { func } from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 
 import compose from 'recompose/compose';
@@ -49,10 +48,5 @@ const InterviewNotesForm = ({ handleSubmit, onSubmit }) => (
     </Button>
   </Form>
 );
-
-InterviewNotesForm.propTypes = {
-  handleSubmit: func.isRequired,
-  onSubmit: func.isRequired,
-};
 
 export default enhance(InterviewNotesForm);

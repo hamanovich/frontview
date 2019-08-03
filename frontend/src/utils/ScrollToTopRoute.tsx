@@ -14,7 +14,7 @@ const ScrollToTopRoute: FC<ScrollToTopRouteProps & RouteComponentProps> = ({
     return () => {
       unlisten();
     };
-  }, []);
+  }, [history]);
 
   return null;
 };

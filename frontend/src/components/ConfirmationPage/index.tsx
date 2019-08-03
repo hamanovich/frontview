@@ -1,5 +1,4 @@
-import React, { FC, Fragment } from 'react';
-import { bool } from 'prop-types';
+import React, { FunctionComponent, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import jwtDecode from 'jwt-decode';
@@ -66,7 +65,7 @@ const enhance = compose<ConfirmationProps, {}>(
   pure,
 );
 
-const Confirmation: FC<ConfirmationProps> = ({ success }) => (
+const Confirmation: FunctionComponent<ConfirmationProps> = ({ success }) => (
   <Jumbotron>
     <Container>
       <h1>Hey!</h1>

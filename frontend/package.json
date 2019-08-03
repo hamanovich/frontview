@@ -18,7 +18,7 @@
     "@types/jest": "^24.0.11",
     "@types/jwt-decode": "^2.2.1",
     "@types/lodash": "^4.14.122",
-    "@types/node": "^11.11.0",
+    "@types/node": "^12.6.9",
     "@types/react": "^16.8.7",
     "@types/react-dom": "^16.8.2",
     "@types/react-fontawesome": "^1.6.4",
@@ -38,27 +38,23 @@
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
     "history": "^4.7.2",
-    "jest-mock-axios": "^2.1.11",
-    "jest-prop-type-error": "^1.1.0",
+    "jest-mock-axios": "^3.1.0",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.11",
     "medium-zoom": "^1.0.3",
-    "prop-types": "^15.6.2",
     "react": "^16.8.0",
     "react-bootstrap": "^1.0.0-beta.6",
     "react-dom": "^16.6.0",
-    "react-dropzone": "9.0.0",
+    "react-dropzone": "^10.1.7",
     "react-fontawesome": "^1.6.1",
     "react-helmet": "^5.2.0",
     "react-markdown-renderer": "^1.4.0",
-    "react-redux": "^6.0.0",
-    "react-router": "^4.3.1",
-    "react-router-bootstrap": "^0.24.4",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.0.5",
+    "react-redux": "^7.1.0",
+    "react-router": "^5.0.1",
+    "react-router-bootstrap": "^0.25.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
     "react-scroll-up": "^1.3.3",
-    "react-test-renderer": "^16.6.0",
-    "react-transition-group": "^2.5.0",
     "recompose": "^0.30.0",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.2",
@@ -66,22 +62,28 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "shortid": "^2.2.13",
-    "source-map-explorer": "^1.6.0",
+    "source-map-explorer": "^2.0.1",
     "styled-components": "^4.0.2",
     "typescript": "^3.5.3",
     "url-search-params-polyfill": "^7.0.0",
     "utility-types": "^3.4.1",
-    "validator": "^10.8.0"
+    "validator": "^11.1.0"
   },
   "proxy": "http://localhost:3001",
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "devDependencies": {
-    "enzyme-to-json": "^3.3.4",
+    "enzyme-to-json": "^3.4.0",
     "redux-mock-store": "^1.5.3"
   },
   "jest": {

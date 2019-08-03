@@ -1,4 +1,4 @@
-import React, { Component, SyntheticEvent, FormEvent } from 'react';
+import React, { Component, FormEvent } from 'react';
 import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 import FontAwesome from 'react-fontawesome';
 

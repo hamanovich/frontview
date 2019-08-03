@@ -1,17 +1,5 @@
-import { shape, string, oneOfType, arrayOf } from 'prop-types';
-
-import QuestionType, { Question } from './QuestionType';
-import UserType, { User } from './UserType';
-
-export default shape({
-  _id: string.isRequired,
-  title: string.isRequired,
-  slug: string,
-  questions: oneOfType([arrayOf(string), arrayOf(QuestionType), QuestionType])
-    .isRequired,
-  author: oneOfType([string, UserType]).isRequired,
-  notes: string,
-});
+import { Question } from './QuestionType';
+import { User } from './UserType';
 
 export interface QList {
   _id: string;

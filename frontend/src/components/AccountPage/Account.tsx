@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import { func } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';

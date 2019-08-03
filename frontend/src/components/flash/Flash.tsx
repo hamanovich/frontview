@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FunctionComponent } from 'react';
 import FontAwesome from 'react-fontawesome';
 import MarkdownRenderer from 'react-markdown-renderer';
 
@@ -19,7 +19,7 @@ const enhance = compose<FlashProps, FlashProps>(
   }),
 );
 
-export const Flash: FC<FlashProps> = ({ close, message }) => {
+export const Flash: FunctionComponent<FlashProps> = ({ close, message }) => {
   const variant =
     message.type === 'error'
       ? 'danger'

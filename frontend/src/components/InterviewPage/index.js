@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { arrayOf, shape, func } from 'prop-types';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -22,8 +21,6 @@ import { addFlashMessage } from '../../actions/flash';
 import { getQLists } from '../../actions/qlists';
 
 import { PropsRoute } from '../../utils/helpers';
-
-import { UserType, QListType, CandidateType } from '../../propTypes';
 
 const InterviewPage = ({
   auth,
@@ -84,19 +81,6 @@ const InterviewPage = ({
     </Container>
   </Fragment>
 );
-
-InterviewPage.propTypes = {
-  candidateAdd: func.isRequired,
-  getCandidates: func.isRequired,
-  addFlashMessage: func.isRequired,
-  getQLists: func.isRequired,
-  provideFeedback: func.isRequired,
-  auth: shape({
-    user: UserType.isRequired,
-  }).isRequired,
-  candidates: arrayOf(CandidateType),
-  qlists: arrayOf(QListType),
-};
 
 InterviewPage.defaultProps = {
   candidates: [],

@@ -3,7 +3,6 @@ import { ThunkAction } from 'redux-thunk';
 
 import api from '../api';
 import { AppState } from '../reducers';
-import { QList } from '../propTypes/QListType';
 import { Question } from '../propTypes/QuestionType';
 import {
   QUESTIONS_ADD,

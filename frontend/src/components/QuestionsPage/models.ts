@@ -1,7 +1,6 @@
 import { Question } from '../../propTypes/QuestionType';
 import { QList, QListQuestions } from '../../propTypes/QListType';
 import { User, Auth } from '../../propTypes/UserType';
-import { Comment } from '../../propTypes/CommentType';
 
 export interface Tag {
   _id: string;
