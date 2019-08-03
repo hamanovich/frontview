@@ -14,7 +14,6 @@ exports[`<NotFound/> renders <NotFound /> component 1`] = `
     404: not Found
   </h1>
   <Link
-    replace={false}
     to="/"
   >
     <Button
