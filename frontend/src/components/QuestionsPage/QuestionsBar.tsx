@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
 
 import compose from 'recompose/compose';
@@ -95,9 +94,8 @@ const QuestionsBar: FunctionComponent<QuestionsBarProps> = ({
   <ButtonToolbar style={{ minHeight: 38 }}>
     {tags.map((tag: Tag) => (
       <Link
-        className={classNames('btn', `btn-${style}`, {
-          active: active === tag._id,
-        })}
+        className={`btn btn-${style}
+          ${active === tag._id ? 'active' : ''}`}
         key={tag._id}
         to={{ pathname: `/questions/${filter}/${tag._id}` }}>
         {tag._id} <Badge variant="warning">{tag.count}</Badge>

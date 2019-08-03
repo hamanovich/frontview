@@ -1,5 +1,3 @@
-import map from 'lodash/map';
-
 import QList from '../models/qlist';
 import User from '../models/user';
 
@@ -16,7 +14,7 @@ exports.addQlist = async (req, res) => {
 
 exports.addQuestion = async (req, res) => {
   const { qlist, question } = req.body;
-  const operator = map(qlist.questions, q => q._id).includes(question._id)
+  const operator = qlist.questions.map(q => q._id).includes(question._id)
     ? '$pull'
     : '$addToSet';
   const newQlist = await QList.findByIdAndUpdate(

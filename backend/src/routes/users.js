@@ -1,9 +1,7 @@
 import bcrypt from 'bcrypt';
-import isEmpty from 'lodash/isEmpty';
 
 import User from '../models/user';
 import send from '../handlers/mail';
-
 import validate from '../validations/signup';
 
 const validateUser = async (data, otherValidations) => {
@@ -23,7 +21,7 @@ const validateUser = async (data, otherValidations) => {
 
   return {
     errors,
-    isValid: isEmpty(errors),
+    isValid: Object.keys(errors).length === 0,
   };
 };
 
