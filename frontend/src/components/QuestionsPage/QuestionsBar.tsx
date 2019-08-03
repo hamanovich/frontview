@@ -1,5 +1,4 @@
-import React, { FC } from 'react';
-import map from 'lodash/map';
+import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
@@ -19,6 +18,7 @@ import {
   QuestionsBarState,
   QuestionsBarLifecycleProps,
   QuestionsBarsRouteProps,
+  Tag,
 } from './models';
 
 const enhance = compose<QuestionsBarProps, QuestionsBarsRouteProps>(
@@ -86,14 +86,14 @@ const enhance = compose<QuestionsBarProps, QuestionsBarsRouteProps>(
   }),
 );
 
-const QuestionsBar: FC<QuestionsBarProps> = ({
+const QuestionsBar: FunctionComponent<QuestionsBarProps> = ({
   active,
   filter,
   tags,
   style,
 }) => (
   <ButtonToolbar style={{ minHeight: 38 }}>
-    {map(tags, tag => (
+    {tags.map((tag: Tag) => (
       <Link
         className={classNames('btn', `btn-${style}`, {
           active: active === tag._id,

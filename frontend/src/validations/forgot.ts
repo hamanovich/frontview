@@ -1,6 +1,5 @@
 import { FormErrors } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
-import isEmpty from 'lodash/isEmpty';
 
 interface Values {
   email: string;
@@ -21,7 +20,7 @@ export default (values: Values): FormErrors => {
     errors.email = 'Email is invalid';
   }
 
-  errors.isValid = isEmpty(errors);
+  errors.isValid = Object.keys(errors).length === 0;
 
   return errors;
 };

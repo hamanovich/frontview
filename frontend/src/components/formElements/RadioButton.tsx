@@ -1,10 +1,9 @@
-import React, { FC } from 'react';
-import map from 'lodash/map';
+import React, { FunctionComponent } from 'react';
 
 import Form from 'react-bootstrap/Form';
 import { RadioButtonProps } from './models';
 
-const RadioButton: FC<RadioButtonProps> = ({
+const RadioButton: FunctionComponent<RadioButtonProps> = ({
   input,
   label,
   options,
@@ -13,7 +12,7 @@ const RadioButton: FC<RadioButtonProps> = ({
 }) => (
   <Form.Group>
     <Form.Label>{label}</Form.Label>
-    {map(options, o => (
+    {options.map(o => (
       <Form.Check
         {...input}
         id={o.value}

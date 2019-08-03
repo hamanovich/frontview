@@ -1,7 +1,6 @@
 import React, { Component, Fragment, createRef } from 'react';
 import { Link } from 'react-router-dom';
 import MarkdownRenderer from 'react-markdown-renderer';
-import map from 'lodash/map';
 import shortid from 'shortid';
 import FontAwesome from 'react-fontawesome';
 import format from 'date-fns/format';
@@ -91,7 +90,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
           <MarkdownRenderer markdown={question.question} />
         </h4>
         <div>
-          {map(question.level, level => (
+          {question.level.map((level: string) => (
             <Link to={`/questions/level/${level}`} key={level}>
               <BadgeStyled variant="primary">{level}</BadgeStyled>
             </Link>
@@ -104,7 +103,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
       <div className="justify-content-between d-flex align-items-center">
         <h6 className="mb-0">
           <strong>Skill</strong>:{' '}
-          {map(question.skill, skill => (
+          {question.skill.map((skill: string) => (
             <Link to={`/questions/skill/${skill}`} key={skill}>
               {skill}{' '}
             </Link>
@@ -155,13 +154,15 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
               <MarkdownRenderer markdown={question.answer} />
             </div>
             {question.answers.length > 0 && <hr />}
-            {map(question.answers, (question, index) => (
-              <em
-                key={shortid.generate()}
-                onClick={this.open(question, `answers.${index}`)}>
-                <MarkdownRenderer markdown={question.text} />
-              </em>
-            ))}
+            {question.answers.map(
+              (question: { text: string }, index: number) => (
+                <em
+                  key={shortid.generate()}
+                  onClick={this.open(question, `answers.${index}`)}>
+                  <MarkdownRenderer markdown={question.text} />
+                </em>
+              ),
+            )}
             <DropThumbs>
               {question.imgs.map(img => (
                 <DropThumb key={shortid.generate()}>

@@ -1,5 +1,4 @@
 import { FormErrors } from 'redux-form';
-import isEmpty from 'lodash/isEmpty';
 
 interface Values {
   username: string;
@@ -28,7 +27,7 @@ export default (values: Values): FormErrors => {
     errors.comment = 'Comment is required';
   }
 
-  errors.isValid = isEmpty(errors);
+  errors.isValid = Object.keys(errors).length === 0;
 
   return errors;
 };

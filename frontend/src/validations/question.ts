@@ -1,5 +1,4 @@
 import { FormErrors } from 'redux-form';
-import isEmpty from 'lodash/isEmpty';
 
 interface Answer {
   text: string;
@@ -65,7 +64,7 @@ export default (values: Values): FormErrors => {
     }
   }
 
-  errors.isValid = isEmpty(errors);
+  errors.isValid = Object.keys(errors).length === 0;
 
   return errors;
 };

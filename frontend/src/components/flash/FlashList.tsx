@@ -1,6 +1,5 @@
-import React, { FC, Fragment } from 'react';
+import React, { FunctionComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
-import map from 'lodash/map';
 
 import Flash from './Flash';
 import { deleteFlashMessage } from '../../actions/flash';
@@ -8,12 +7,12 @@ import { deleteFlashMessage } from '../../actions/flash';
 import { Message } from '../../propTypes/Message';
 import { FlashListProps } from './models';
 
-export const FlashList: FC<FlashListProps> = ({
+export const FlashList: FunctionComponent<FlashListProps> = ({
   messages,
   deleteFlashMessage,
 }) => (
   <Fragment>
-    {map(messages, (message: Message) => (
+    {messages.map((message: Message) => (
       <Flash
         key={message.id}
         message={message}

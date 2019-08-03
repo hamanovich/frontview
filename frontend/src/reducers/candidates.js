@@ -1,5 +1,3 @@
-import map from 'lodash/map';
-
 import {
   CANDIDATES_ADD,
   CANDIDATE_GET,
@@ -21,7 +19,7 @@ export default (state = [], action) => {
       );
 
       if (gotIndex > -1) {
-        return map(state, candidate => {
+        return state.map(candidate => {
           if (candidate._id === action.candidate._id) {
             return action.candidate;
           }

@@ -1,5 +1,4 @@
-import React, { FC, Fragment } from 'react';
-import map from 'lodash/map';
+import React, { FunctionComponent, Fragment } from 'react';
 import FontAwesome from 'react-fontawesome';
 import { Helmet } from 'react-helmet';
 
@@ -9,8 +8,9 @@ import Badge from 'react-bootstrap/Badge';
 import Loader from '../../utils/Loader';
 import { BadgeGroup, LabelVoted } from './style';
 import { QuestionsTopProps } from './models';
+import { Question } from '../../propTypes/QuestionType';
 
-const QuestionsTop: FC<QuestionsTopProps> = ({ questions }) => (
+const QuestionsTop: FunctionComponent<QuestionsTopProps> = ({ questions }) => (
   <Fragment>
     <Helmet>
       <title>Frontview: Top 10 Questions</title>
@@ -20,7 +20,7 @@ const QuestionsTop: FC<QuestionsTopProps> = ({ questions }) => (
     </h1>
 
     <ListGroup>
-      {map(questions, (question, index) => (
+      {questions.map((question: Question, index: number) => (
         <ListGroup.Item
           action
           href={`/questions/${question.slug}/one`}
@@ -34,7 +34,7 @@ const QuestionsTop: FC<QuestionsTopProps> = ({ questions }) => (
           {' | '}
           <BadgeGroup>
             {question.level &&
-              map(question.level, level => (
+              question.level.map((level: string) => (
                 <Badge variant="primary" key={level}>
                   {level}
                 </Badge>
@@ -43,7 +43,7 @@ const QuestionsTop: FC<QuestionsTopProps> = ({ questions }) => (
           {' | '}
           <BadgeGroup>
             {question.skill &&
-              map(question.skill, skill => (
+              question.skill.map((skill: string) => (
                 <Badge variant="primary" key={skill}>
                   {skill}
                 </Badge>

@@ -2,7 +2,6 @@ import { FormErrors } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 import isMobilePhone from 'validator/lib/isMobilePhone';
 import equals from 'validator/lib/equals';
-import isEmpty from 'lodash/isEmpty';
 
 interface Values {
   username: string;
@@ -55,7 +54,7 @@ export default (values: Values): FormErrors => {
     errors.passwordConfirmation = 'Passwords must match';
   }
 
-  errors.isValid = isEmpty(errors);
+  errors.isValid = Object.keys(errors).length === 0;
 
   return errors;
 };

@@ -1,5 +1,3 @@
-import isEmpty from 'lodash/isEmpty';
-
 export default values => {
   const errors = {};
 
@@ -7,7 +5,7 @@ export default values => {
     errors.result = 'Private notes must not be empty';
   }
 
-  errors.isValid = isEmpty(errors);
+  errors.isValid = Object.keys(errors).length === 0;
 
   return errors;
 };

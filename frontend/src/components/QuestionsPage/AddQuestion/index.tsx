@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { Field, FieldArray, reduxForm, InjectedFormProps } from 'redux-form';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
-import map from 'lodash/map';
 import shortid from 'shortid';
 import Dropzone from 'react-dropzone';
 
@@ -285,6 +284,12 @@ class AddQuestion extends Component<
     });
   };
 
+  private mapOptions = (options: string[]) =>
+    options.map((o: string) => ({
+      title: o,
+      value: o,
+    }));
+
   render() {
     const {
       isLoading,
@@ -396,7 +401,7 @@ class AddQuestion extends Component<
                       size={5}
                       type="select-multiple"
                       required
-                      options={map(skill, s => ({ title: s, value: s }))}
+                      options={this.mapOptions(skill)}
                     />
                   </Col>
 
@@ -410,7 +415,7 @@ class AddQuestion extends Component<
                       size={6}
                       type="select-multiple"
                       required
-                      options={map(level, s => ({ title: s, value: s }))}
+                      options={this.mapOptions(level)}
                     />
                   </Col>
                 </Row>
@@ -421,7 +426,7 @@ class AddQuestion extends Component<
                   label="Is it practical question?*"
                   required
                   inline
-                  options={map(practice, s => ({ title: s, value: s }))}
+                  options={this.mapOptions(practice)}
                 />
                 <hr />
                 <Field
@@ -554,7 +559,7 @@ export default connect(
   reduxForm<{}, any>({
     form: 'addQuestion',
     validate,
-    // As a workaround. Known issue: https://github.com/erikras/redux-form/issues/2971
+    // Known issue: https://github.com/erikras/redux-form/issues/2971
     // After submit the form won't be resetted :(
     // destroyOnUnmount: false,
   })(AddQuestion),

@@ -1,5 +1,3 @@
-import isEmpty from 'lodash/isEmpty';
-
 import { Auth } from '../propTypes/UserType';
 import {
   SET_CURRENT_USER,
@@ -19,7 +17,7 @@ export default (state = initialState, action: AuthActionTypes): Auth => {
     case CLEANUP_CURRENT_USER:
     case USER_GET:
       return {
-        isAuthenticated: !isEmpty(action.user),
+        isAuthenticated: Object.keys(action.user).length !== 0,
         user: action.user,
       };
 

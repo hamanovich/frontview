@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import map from 'lodash/map';
 
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -74,7 +73,7 @@ class InterviewCandidates extends Component {
   render() {
     const { isLoading } = this.state;
     const { candidates, handleSubmit } = this.props;
-    const chooseCandidates = map(candidates, candidate => (
+    const chooseCandidates = candidates.map(candidate => (
       <option value={candidate._id} key={candidate._id}>
         {candidate.firstName} {candidate.lastName} - {candidate.primarySkill} (
         {candidate.techLevel})
