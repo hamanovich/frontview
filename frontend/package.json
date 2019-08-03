@@ -5,7 +5,6 @@
   "author": "Siarhei Hamanovich <hamanovich@gmail.com> (http://github.com/hamanovich)",
   "license": "ISC",
   "scripts": {
-    "analyze": "yarn build && source-map-explorer build/static/js/*.*",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
@@ -58,11 +57,9 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "shortid": "^2.2.13",
-    "source-map-explorer": "^2.0.1",
     "styled-components": "^4.0.2",
     "typescript": "^3.5.3",
     "url-search-params-polyfill": "^7.0.0",
-    "utility-types": "^3.4.1",
     "validator": "^11.1.0"
   },
   "proxy": "http://localhost:3001",
