@@ -30,7 +30,6 @@ exports[`<Login/> renders <Login /> component 1`] = `
     />
     <FormGroup>
       <Link
-        replace={false}
         to="/login/forgot"
       >
         Forgot password?
@@ -90,7 +89,6 @@ exports[`<Login/> renders <Login /> component with error state 1`] = `
     />
     <FormGroup>
       <Link
-        replace={false}
         to="/login/forgot"
       >
         Forgot password?

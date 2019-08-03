@@ -8,7 +8,6 @@ exports[`<Header/> renders component with search Question renders <Header /> com
 >
   <NavbarBrand>
     <Link
-      replace={false}
       to="/"
     >
       Frontview /
@@ -46,11 +45,7 @@ exports[`<Header/> renders component with search Question renders <Header /> com
       <NavbarText>
         or
       </NavbarText>
-      <LinkContainer
-        activeClassName="active"
-        exact={false}
-        replace={false}
-        strict={false}
+      <withRouter(LinkContainer)
         to="/questions"
       >
         <NavLink
@@ -63,7 +58,7 @@ exports[`<Header/> renders component with search Question renders <Header /> com
             size="lg"
           />
         </NavLink>
-      </LinkContainer>
+      </withRouter(LinkContainer)>
     </Nav>
     <Nav
       fill={false}
@@ -73,11 +68,7 @@ exports[`<Header/> renders component with search Question renders <Header /> com
         id="menu-dropdown"
         title="Menu"
       >
-        <LinkContainer
-          activeClassName="active"
-          exact={false}
-          replace={false}
-          strict={false}
+        <withRouter(LinkContainer)
           to="/interview"
         >
           <DropdownItem
@@ -89,11 +80,11 @@ exports[`<Header/> renders component with search Question renders <Header /> com
             />
              Interview (in progress)
           </DropdownItem>
-        </LinkContainer>
+        </withRouter(LinkContainer)>
         <DropdownDivider
           role="separator"
         />
-        <IndexLinkContainer
+        <withRouter(IndexLinkContainer)
           to="/questions"
         >
           <DropdownItem
@@ -102,12 +93,8 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           >
             Show all questions
           </DropdownItem>
-        </IndexLinkContainer>
-        <LinkContainer
-          activeClassName="active"
-          exact={false}
-          replace={false}
-          strict={false}
+        </withRouter(IndexLinkContainer)>
+        <withRouter(LinkContainer)
           to="/questions/top"
         >
           <DropdownItem
@@ -119,12 +106,8 @@ exports[`<Header/> renders component with search Question renders <Header /> com
             />
              Top 10
           </DropdownItem>
-        </LinkContainer>
-        <LinkContainer
-          activeClassName="active"
-          exact={false}
-          replace={false}
-          strict={false}
+        </withRouter(LinkContainer)>
+        <withRouter(LinkContainer)
           to="/questions/internet"
         >
           <DropdownItem
@@ -136,15 +119,11 @@ exports[`<Header/> renders component with search Question renders <Header /> com
             />
              From Internet
           </DropdownItem>
-        </LinkContainer>
+        </withRouter(LinkContainer)>
         <DropdownDivider
           role="separator"
         />
-        <LinkContainer
-          activeClassName="active"
-          exact={false}
-          replace={false}
-          strict={false}
+        <withRouter(LinkContainer)
           to="/questions/level"
         >
           <DropdownItem
@@ -156,12 +135,8 @@ exports[`<Header/> renders component with search Question renders <Header /> com
             />
              By Levels
           </DropdownItem>
-        </LinkContainer>
-        <LinkContainer
-          activeClassName="active"
-          exact={false}
-          replace={false}
-          strict={false}
+        </withRouter(LinkContainer)>
+        <withRouter(LinkContainer)
           to="/questions/skill"
         >
           <DropdownItem
@@ -173,12 +148,8 @@ exports[`<Header/> renders component with search Question renders <Header /> com
             />
              By Skills
           </DropdownItem>
-        </LinkContainer>
-        <LinkContainer
-          activeClassName="active"
-          exact={false}
-          replace={false}
-          strict={false}
+        </withRouter(LinkContainer)>
+        <withRouter(LinkContainer)
           to="/questions/practice"
         >
           <DropdownItem
@@ -190,15 +161,11 @@ exports[`<Header/> renders component with search Question renders <Header /> com
             />
              By Type
           </DropdownItem>
-        </LinkContainer>
+        </withRouter(LinkContainer)>
         <DropdownDivider
           role="separator"
         />
-        <LinkContainer
-          activeClassName="active"
-          exact={false}
-          replace={false}
-          strict={false}
+        <withRouter(LinkContainer)
           to="/questions/add"
         >
           <DropdownItem
@@ -210,7 +177,7 @@ exports[`<Header/> renders component with search Question renders <Header /> com
             />
              Add new
           </DropdownItem>
-        </LinkContainer>
+        </withRouter(LinkContainer)>
       </NavDropdown>
       <NavDropdown
         id="account-dropdown"
@@ -223,7 +190,7 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           </React.Fragment>
         }
       >
-        <IndexLinkContainer
+        <withRouter(IndexLinkContainer)
           to="/me"
         >
           <DropdownItem
@@ -235,12 +202,8 @@ exports[`<Header/> renders component with search Question renders <Header /> com
             />
              Account
           </DropdownItem>
-        </IndexLinkContainer>
-        <LinkContainer
-          activeClassName="active"
-          exact={false}
-          replace={false}
-          strict={false}
+        </withRouter(IndexLinkContainer)>
+        <withRouter(LinkContainer)
           to="/me/edit"
         >
           <DropdownItem
@@ -252,7 +215,7 @@ exports[`<Header/> renders component with search Question renders <Header /> com
             />
              Edit profile
           </DropdownItem>
-        </LinkContainer>
+        </withRouter(LinkContainer)>
         <DropdownDivider
           role="separator"
         />

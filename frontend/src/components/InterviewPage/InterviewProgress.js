@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { shape, func, number } from 'prop-types';
 import { Link } from 'react-router-dom';
 import map from 'lodash/map';
 import MarkdownRenderer from 'react-markdown-renderer';
@@ -17,8 +16,6 @@ import Tab from 'react-bootstrap/Tab';
 import Badge from 'react-bootstrap/Badge';
 
 import InterviewNotesForm from './InterviewNotesForm';
-
-import { QListType, CandidateType } from '../../propTypes';
 
 const BadgeStyled = styled(Badge)`
   margin: 0 3px;
@@ -118,21 +115,6 @@ const InterviewProgress = ({
       />
     </Fragment>
   );
-};
-
-InterviewProgress.propTypes = {
-  location: shape({
-    state: shape({
-      candidate: CandidateType,
-      qlist: QListType,
-    }),
-  }).isRequired,
-  history: shape({
-    push: func.isRequired,
-  }).isRequired,
-  step: number.isRequired,
-  onSelectStep: func.isRequired,
-  provideFeedback: func.isRequired,
 };
 
 export default enhance(InterviewProgress);

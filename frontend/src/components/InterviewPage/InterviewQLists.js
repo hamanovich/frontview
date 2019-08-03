@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import { arrayOf, shape, string, func } from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import map from 'lodash/map';
 
@@ -9,22 +8,7 @@ import Form from 'react-bootstrap/Form';
 
 import QListForm from '../QList/QListForm';
 
-import { QListType, CandidateType } from '../../propTypes';
-
 class InterviewQLists extends Component {
-  static propTypes = {
-    userId: string,
-    qlists: arrayOf(QListType),
-    addFlashMessage: func.isRequired,
-    getQLists: func.isRequired,
-    history: shape({
-      push: func.isRequired,
-    }).isRequired,
-    location: shape({
-      state: CandidateType,
-    }).isRequired,
-  };
-
   static defaultProps = {
     userId: null,
     qlists: [],

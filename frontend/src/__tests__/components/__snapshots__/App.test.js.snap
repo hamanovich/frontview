@@ -10,7 +10,7 @@ exports[`<App/> renders <App /> component 1`] = `
       Frontview: Interview for Everyone
     </title>
   </HelmetWrapper>
-  <Connect(Header) />
+  <Connect(withRouter(Header)) />
   <main
     id="main"
   >
@@ -22,15 +22,39 @@ exports[`<App/> renders <App /> component 1`] = `
         path="/"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "displayName": "Connect(Authorization)",
+            "type": [Function],
+          }
+        }
         path="/login"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "displayName": "Connect(Authorization)",
+            "type": [Function],
+          }
+        }
         path="/signup"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "displayName": "Connect(Authorization)",
+            "type": [Function],
+          }
+        }
         path="/me"
       />
       <Route
@@ -38,11 +62,27 @@ exports[`<App/> renders <App /> component 1`] = `
         path="/questions"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "displayName": "Connect(Authorization)",
+            "type": [Function],
+          }
+        }
         path="/interview"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "displayName": "Connect(Authorization)",
+            "type": [Function],
+          }
+        }
         path="/comments/:username"
       />
       <Route

@@ -20,20 +20,20 @@
     "dotenv": "^8.0.0",
     "express": "^4.16.4",
     "helmet": "^3.15.0",
-    "html-to-text": "^4.0.0",
+    "html-to-text": "^5.1.1",
     "jsonwebtoken": "^8.3.0",
     "juice": "^5.0.0",
     "lodash": "^4.17.11",
     "md5": "^2.2.1",
-    "mongoose": "^5.3.6",
+    "mongoose": "^5.6.8",
     "mongoose-mongodb-errors": "0.0.2",
     "mongoose-unique-validator": "^2.0.2",
     "morgan": "^1.9.1",
-    "nodemailer": "^5.1.1",
+    "nodemailer": "^6.3.0",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "pug": "^2.0.3",
     "slug": "^1.1.0",
-    "validator": "^10.8.0"
+    "validator": "^11.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
@@ -51,10 +51,16 @@
       "@babel/plugin-transform-runtime"
     ]
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

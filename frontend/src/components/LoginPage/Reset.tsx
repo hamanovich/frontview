@@ -1,5 +1,4 @@
-import React, { FC, Fragment } from 'react';
-import { shape, func, string, bool } from 'prop-types';
+import React, { FunctionComponent, Fragment } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 import compose from 'recompose/compose';
@@ -88,7 +87,11 @@ const enhance = compose<ResetProps, {}>(
   }),
 );
 
-const Reset: FC<ResetProps> = ({ handleSubmit, onSubmit, state }) => (
+const Reset: FunctionComponent<ResetProps> = ({
+  handleSubmit,
+  onSubmit,
+  state,
+}) => (
   <Fragment>
     <h1>Reset my password</h1>
 

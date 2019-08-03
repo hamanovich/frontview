@@ -1,10 +1,8 @@
-import React, { FC } from 'react';
-import { shape, string, bool } from 'prop-types';
-
+import React, { FunctionComponent } from 'react';
 import Form from 'react-bootstrap/Form';
 import { TextFieldProps } from './models';
 
-const TextField: FC<TextFieldProps> = ({
+const TextField: FunctionComponent<TextFieldProps> = ({
   input,
   label,
   placeholder,

@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import { arrayOf, shape, string, func } from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import map from 'lodash/map';
 
@@ -14,22 +13,7 @@ import validate from '../../validations/candidate';
 import TextField from '../formElements/TextField';
 import TextareaField from '../formElements/TextareaField';
 
-import { CandidateType } from '../../propTypes';
-
 class InterviewCandidates extends Component {
-  static propTypes = {
-    userId: string,
-    candidates: arrayOf(CandidateType),
-    candidateAdd: func.isRequired,
-    getCandidates: func.isRequired,
-    addFlashMessage: func.isRequired,
-    handleSubmit: func.isRequired,
-    reset: func.isRequired,
-    history: shape({
-      push: func.isRequired,
-    }).isRequired,
-  };
-
   static defaultProps = {
     userId: null,
     candidates: [],

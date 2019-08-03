@@ -1,5 +1,4 @@
-import React, { FC, Fragment } from 'react';
-import { shape, func, string, bool } from 'prop-types';
+import React, { FunctionComponent, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import FontAwesome from 'react-fontawesome';
@@ -57,7 +56,11 @@ const enhance = compose<LoginProps, {}>(
   }),
 );
 
-export const Login: FC<LoginProps> = ({ handleSubmit, onSubmit, state }) => (
+export const Login: FunctionComponent<LoginProps> = ({
+  handleSubmit,
+  onSubmit,
+  state,
+}) => (
   <Fragment>
     <h1>
       <FontAwesome name="user-circle-o" /> Please, login

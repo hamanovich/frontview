@@ -55,7 +55,6 @@ exports[`<LoginPage/> renders <LoginPage /> component 1`] = `
               },
               "displayName": "ReduxForm",
               "render": [Function],
-              Symbol(Symbol.hasInstance): [Function],
             }
           }
           exact={true}
@@ -88,7 +87,6 @@ exports[`<LoginPage/> renders <LoginPage /> component 1`] = `
               },
               "displayName": "ReduxForm",
               "render": [Function],
-              Symbol(Symbol.hasInstance): [Function],
             }
           }
           exact={true}
@@ -121,7 +119,6 @@ exports[`<LoginPage/> renders <LoginPage /> component 1`] = `
               },
               "displayName": "ReduxForm",
               "render": [Function],
-              Symbol(Symbol.hasInstance): [Function],
             }
           }
           getReset={[MockFunction]}
@@ -129,7 +126,6 @@ exports[`<LoginPage/> renders <LoginPage /> component 1`] = `
           resetToken={[MockFunction]}
         />
         <Redirect
-          push={false}
           to="/login"
         />
       </Switch>

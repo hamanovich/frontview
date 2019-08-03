@@ -62,11 +62,7 @@ exports[`<Toolbar/> renders <Toolbar /> component 1`] = `
       <DropdownDivider
         role="separator"
       />
-      <LinkContainer
-        activeClassName="active"
-        exact={false}
-        replace={false}
-        strict={false}
+      <withRouter(LinkContainer)
         to="/me/qlist/create"
       >
         <DropdownItem
@@ -75,7 +71,7 @@ exports[`<Toolbar/> renders <Toolbar /> component 1`] = `
         >
           Create a new QList
         </DropdownItem>
-      </LinkContainer>
+      </withRouter(LinkContainer)>
     </DropdownButton>
   </ButtonGroup>
 </ButtonToolbar>

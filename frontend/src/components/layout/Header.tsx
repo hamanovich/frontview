@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { shape, func } from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
@@ -17,7 +16,7 @@ import { Auth } from '../../propTypes/UserType';
 
 import { Menu, MediaImage } from './style';
 
-type HeaderProps = {
+interface HeaderProps extends RouteComponentProps {
   getSearchedQuestions: (query: string) => Promise<any>;
   getUser: (identifier: string) => Promise<{}>;
   addFlashMessage: (payload: {
@@ -26,21 +25,13 @@ type HeaderProps = {
   }) => { type: string; payload: { type: string; text: string } };
   logout: () => void;
   auth: Auth;
-};
+}
 
 type searchValues = {
   search: string;
 };
 
 export class Header extends Component<HeaderProps, {}> {
-  static contextTypes = {
-    router: shape({
-      history: shape({
-        push: func.isRequired,
-      }).isRequired,
-    }).isRequired,
-  };
-
   componentDidMount() {
     const { getUser, auth, addFlashMessage } = this.props;
 
@@ -56,8 +47,7 @@ export class Header extends Component<HeaderProps, {}> {
   }
 
   private onSearch = (values: searchValues) => {
-    const { getSearchedQuestions, addFlashMessage } = this.props;
-    const { history } = this.context.router;
+    const { getSearchedQuestions, addFlashMessage, history } = this.props;
 
     if (!values.search) return;
 
@@ -205,4 +195,4 @@ export default connect(
   },
   null,
   { pure: false },
-)(Header);
+)(withRouter(Header));
