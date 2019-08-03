@@ -23,7 +23,7 @@
     "lint": "yarn lint:backend && yarn lint:frontend",
     "lint:backend": "eslint ./backend/src/**/*.js",
     "lint:frontend": "eslint \"./frontend/src/**/*.+(js|ts|tsx)\"",
-    "test:frontend": "cd frontend && yarn test"
+    "test": "cd frontend && yarn test"
   },
   "dependencies": {
     "concurrently": "^4.0.1"
