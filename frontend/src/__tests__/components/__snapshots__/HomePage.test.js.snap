@@ -21,7 +21,6 @@ exports[`<HomePage/> renders <HomePage /> component 1`] = `
       >
         You also able to add new questions, comment existing and review them. Check it on 
         <Link
-          replace={false}
           to="/about/pricing"
         >
           features
@@ -35,7 +34,6 @@ exports[`<HomePage/> renders <HomePage /> component 1`] = `
       </p>
       <p>
         <Link
-          replace={false}
           to="/about/faq"
         >
           <Button
@@ -75,7 +73,6 @@ exports[`<HomePage/> renders <HomePage /> component 1`] = `
         </p>
         <p>
           <Link
-            replace={false}
             to="/about/faq"
           >
             <Button
@@ -106,7 +103,6 @@ exports[`<HomePage/> renders <HomePage /> component 1`] = `
         </p>
         <p>
           <Link
-            replace={false}
             to="/about/faq"
           >
             <Button
@@ -144,7 +140,6 @@ exports[`<HomePage/> renders <HomePage /> component 1`] = `
         </p>
         <p>
           <Link
-            replace={false}
             to="/about/faq"
           >
             <Button
