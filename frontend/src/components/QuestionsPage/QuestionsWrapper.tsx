@@ -30,7 +30,7 @@ const WrappedComponent = <P extends object>(
       pagination: {
         activePage: 1,
         pages: 1,
-        count: 1,
+        count: 0,
       },
     };
 
