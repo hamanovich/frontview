@@ -29,11 +29,11 @@ export default (values: Values): FormErrors => {
     errors.question = 'Question field is required';
   }
 
-  if (!values.skill) {
+  if (!values.skill || values.skill.length === 0) {
     errors.skill = 'Skill of question is required';
   }
 
-  if (!values.level) {
+  if (!values.level || values.level.length === 0) {
     errors.level = 'Level of question is required';
   }
 
