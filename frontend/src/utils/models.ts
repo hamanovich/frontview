@@ -8,6 +8,7 @@ export interface ScrollToTopRouteProps {
 
 export interface LoaderState {
   isEmpty: boolean;
+  nothingFound: boolean;
   timeout: number;
 }
 
