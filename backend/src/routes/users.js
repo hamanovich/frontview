@@ -21,7 +21,7 @@ const validateUser = async (data, otherValidations) => {
 
   return {
     errors,
-    isValid: Object.keys(errors).length === 0,
+    isValid: !errors || Object.keys(errors).length === 0,
   };
 };
 

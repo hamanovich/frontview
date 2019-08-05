@@ -32,7 +32,7 @@ export default values => {
     errors.passwordConfirmation = 'Passwords must match';
   }
 
-  errors.isValid = Object.keys(errors).length === 0;
+  errors.isValid = !errors || Object.keys(errors).length === 0;
 
   return errors;
 };
