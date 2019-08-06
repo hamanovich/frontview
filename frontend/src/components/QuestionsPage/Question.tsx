@@ -63,15 +63,20 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
 
   private close = () => {
     const { history, editQuestionField, question } = this.props;
+    const { textField, answerField } = this.state;
 
     this.setState({
       showModal: false,
       answerField: '',
     });
 
+    if (answerField === this.textInput.current!.value) {
+      return;
+    }
+
     editQuestionField(
       question._id,
-      this.state.textField,
+      textField,
       this.textInput.current!.value,
     ).then((q: Question) => {
       if (history.push && question.slug !== q.slug) {
