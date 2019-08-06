@@ -38,7 +38,7 @@ const withAuthorization = (allowed?: string[]) => <P extends object>(
     }
 
     componentWillUpdate(nextProps: any) {
-      if (!nextProps.auth.isAuthenticated) {
+      if (!nextProps.auth.isAuthenticated && nextProps.match.url !== '/login') {
         this.props.history.push('/login');
       }
     }
