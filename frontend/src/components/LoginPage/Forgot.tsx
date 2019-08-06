@@ -28,7 +28,7 @@ const enhance = compose<ForgotProps, {}>(
 
   withHandlers({
     onSubmit: (props: ForgotHandlersProps) => (email: string) => {
-      const { forgot, setState } = props;
+      const { forgot, setState, reset } = props;
 
       setState({
         error: '',
@@ -36,12 +36,13 @@ const enhance = compose<ForgotProps, {}>(
       });
 
       forgot(email)
-        .then(res =>
+        .then(res => {
           setState({
             emailed: res.emailed,
             isLoading: false,
-          }),
-        )
+          });
+          reset();
+        })
         .catch((err: ForgotFormError) =>
           setState({
             error:
