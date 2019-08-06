@@ -9,6 +9,7 @@ const withLoading = (prop: string) => <P extends object>(
   class Loader extends Component<any, LoaderState> {
     state: LoaderState = {
       isEmpty: false,
+      nothingFound: false,
       timeout: 5000,
     };
 
@@ -21,8 +22,17 @@ const withLoading = (prop: string) => <P extends object>(
       this.startTimer = Date.now();
 
       setTimeout(() => {
-        if (this.mounted && Object.keys(this.props[prop]).length === 0) {
-          this.setState({ isEmpty: true });
+        if (this.mounted) {
+          if (
+            Array.isArray(this.props[prop]) &&
+            this.props[prop].length === 0
+          ) {
+            this.setState({ nothingFound: true });
+          }
+
+          if (Object.keys(this.props[prop]).length === 0) {
+            this.setState({ isEmpty: true });
+          }
         }
       }, this.state.timeout);
     }
@@ -38,6 +48,7 @@ const withLoading = (prop: string) => <P extends object>(
     }
 
     render() {
+      const { nothingFound, isEmpty } = this.state;
       const props = prop.split(' ');
       const filtered = props.filter(
         (propOne: string) => Object.keys(this.props[propOne]).length !== 0,
@@ -46,7 +57,30 @@ const withLoading = (prop: string) => <P extends object>(
         loadingTime: ((this.endTimer - this.startTimer) / 1000).toFixed(2),
       };
 
-      if (this.state.isEmpty) {
+      if (nothingFound) {
+        return (
+          <Fragment>
+            <h2 className="text-danger">
+              We spent <strong>5</strong> seconds and nothing found
+            </h2>
+            <p>
+              It may happen due to no data fetched by this request or some
+              server issue. If you are sure this page/request should return any
+              specific data, but it didn't, please{' '}
+              <a href="mailto:hamanovich@gmail.com">contact admin</a> or create
+              a ticket in{' '}
+              <a
+                href="https://github.com/hamanovich/frontview/issues"
+                target="_blank"
+                rel="noopener noreferrer">
+                Github page
+              </a>
+            </p>
+          </Fragment>
+        );
+      }
+
+      if (isEmpty) {
         return (
           <Fragment>
             <h2 className="text-danger">
