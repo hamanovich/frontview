@@ -30,7 +30,7 @@ const withLoading = (prop: string) => <P extends object>(
             this.setState({ nothingFound: true });
           }
 
-          if (Object.keys(this.props[prop]).length === 0) {
+          if (this.props[prop] && Object.keys(this.props[prop]).length === 0) {
             this.setState({ isEmpty: true });
           }
         }
@@ -38,7 +38,7 @@ const withLoading = (prop: string) => <P extends object>(
     }
 
     componentWillUpdate(nextProps: any) {
-      if (Object.keys(nextProps[prop]).length !== 0) {
+      if (nextProps[prop] && Object.keys(nextProps[prop]).length !== 0) {
         this.endTimer = Date.now();
       }
     }
@@ -51,7 +51,8 @@ const withLoading = (prop: string) => <P extends object>(
       const { nothingFound, isEmpty } = this.state;
       const props = prop.split(' ');
       const filtered = props.filter(
-        (propOne: string) => Object.keys(this.props[propOne]).length !== 0,
+        (propOne: string) =>
+          this.props[propOne] && Object.keys(this.props[propOne]).length !== 0,
       );
       const myProps = {
         loadingTime: ((this.endTimer - this.startTimer) / 1000).toFixed(2),
