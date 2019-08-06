@@ -1,6 +1,7 @@
 import { FormEvent } from 'react';
 import { Credentials } from '../../actions/auth';
 import { Message } from '../../propTypes/Message';
+import { InjectedFormProps } from 'redux-form';
 
 export interface onSubmitLoginProps {
   login: (credentials: Credentials) => Promise<any>;
@@ -8,7 +9,7 @@ export interface onSubmitLoginProps {
     push: (url: string) => void;
   };
   getUser: (identifier: string) => void;
-  setState: ({}) => void;
+  setState: () => void;
 }
 
 export interface LoginFormError {
@@ -22,9 +23,9 @@ export interface LoginFormError {
 
 export interface LoginProps {
   handleSubmit: (
-    onSubmit: ({}) => void,
+    onSubmit: () => void,
   ) => ((event: FormEvent<HTMLFormElement>) => void) | undefined;
-  onSubmit: ({}) => void;
+  onSubmit: () => void;
   state: {
     error: string;
     isLoading: boolean;
@@ -47,7 +48,7 @@ export interface ResetProps extends LoginProps {}
 export interface ResetFormError extends LoginFormError {}
 
 export interface ResetHandlersProps {
-  setState: ({}) => void;
+  setState: () => void;
   resetToken: (
     token: string,
     passwords: { password: string; passwordConfirmation: string },
@@ -83,7 +84,7 @@ export interface ForgotProps extends LoginProps {
 
 export interface ForgotFormError extends LoginFormError {}
 
-export interface ForgotHandlersProps {
-  setState: ({}) => void;
+export interface ForgotHandlersProps extends InjectedFormProps {
+  setState: () => void;
   forgot: (email: string) => Promise<any>;
 }
