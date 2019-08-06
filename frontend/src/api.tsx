@@ -44,6 +44,9 @@ export default {
 
     getByAuthor: (username: string) =>
       axios.get(`/api/comments/${username}`).then(res => res.data),
+
+    approve: (id: string) =>
+      axios.patch(`/api/comment/${id}/approve`).then(res => res.data),
   },
 
   qlists: {

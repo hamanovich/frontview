@@ -28,3 +28,19 @@ exports.getCommentsByAuthor = async (req, res) => {
 
   res.json(comments);
 };
+
+exports.approve = async (req, res) => {
+  const comment = await Comment.findById(req.params.id);
+
+  if (!comment) {
+    res.json({ errors: { form: `Comment by ${req.params.id} didn't find` } });
+    return;
+  }
+
+  comment.lastModified = new Date();
+  comment.isVerified = true;
+
+  await comment.save();
+
+  res.json(comment);
+};

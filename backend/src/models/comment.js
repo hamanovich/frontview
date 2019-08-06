@@ -26,6 +26,10 @@ const commentSchema = new mongoose.Schema(
       type: String,
       required: 'Your comment must have text!',
     },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     toJSON: { virtuals: true },

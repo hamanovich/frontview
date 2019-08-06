@@ -83,6 +83,11 @@ router.get(
   catchErrors(commentsController.getCommentsByAuthor),
 );
 router.post('/comments/add', authenticate, catchErrors(commentsController.add));
+router.patch(
+  '/comment/:id/approve',
+  authenticate,
+  catchErrors(commentsController.approve),
+);
 
 router.get('/qlists/:username', catchErrors(qlistController.getQLists));
 router.get(
