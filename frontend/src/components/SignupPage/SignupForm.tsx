@@ -25,7 +25,7 @@ export class SignupForm extends Component<
   };
 
   private onSubmit = (values: any) => {
-    const { addFlashMessage, signup } = this.props;
+    const { addFlashMessage, signup, reset } = this.props;
 
     this.setState({ errors: {}, isLoading: true });
 
@@ -35,6 +35,12 @@ export class SignupForm extends Component<
           type: 'warn',
           text: 'Verify your email to confirm',
         });
+
+        this.setState({
+          isLoading: false,
+        });
+
+        reset();
       })
       .catch((err: SignupFormError) =>
         this.setState({
