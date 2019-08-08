@@ -10,6 +10,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Alert from 'react-bootstrap/Alert';
 
 import { TextField, TextareaField } from '../formElements';
 import validate from '../../validations/comment';
@@ -37,12 +38,24 @@ const enhance = compose<CommentFormProps, CommentFormHandlersProps>(
 
   withHandlers<CommentFormHandlersInnerProps, {}>({
     onSubmit: props => (values: any) => {
-      const { addComment, reset, user, question, getQuestion, slug } = props;
+      const {
+        addComment,
+        reset,
+        user,
+        question,
+        getQuestion,
+        addFlashMessage,
+        slug,
+      } = props;
       const query = { ...values, userId: user._id, questionId: question._id };
 
       addComment(query).then(() => {
         reset();
         getQuestion(slug);
+        addFlashMessage({
+          type: 'warning',
+          text: 'Before publish comment should be verified',
+        });
       });
     },
   }),
@@ -56,6 +69,10 @@ const CommentForm: FC<CommentFormProps> = ({ handleSubmit, onSubmit }) => (
   <Row>
     <Col md={6} sm={8}>
       <Form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <Alert variant="info">
+          Please keep in mind, only <strong>verified</strong> comments are
+          visible for users.
+        </Alert>
         <Field
           label="Username:"
           component={TextField}

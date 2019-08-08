@@ -9,6 +9,7 @@ export const BadgeStyled = styled(Badge)`
 export const ApproveBar = styled('div')`
   display: flex;
   align-items: center;
+  margin-top: 1rem;
   margin-bottom: 1rem;
 
   h5 {

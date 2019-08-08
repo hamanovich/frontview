@@ -17,8 +17,10 @@ import { addComment } from '../../../actions/comments';
 import { getUser } from '../../../actions/auth';
 import { getQLists } from '../../../actions/qlists';
 import { addFlashMessage } from '../../../actions/flash';
+import { Comment } from '../../../propTypes/CommentType';
 import { QuestionOneProps } from './models';
 import { GetQuestionsError, QuestionsWrapperStateProps } from '../models';
+import { Question } from '../../../propTypes/QuestionType';
 
 class QuestionOne extends Component<QuestionOneProps> {
   static defaultProps = {
@@ -36,7 +38,7 @@ class QuestionOne extends Component<QuestionOneProps> {
     this.getQuestion(match.params.slug);
   }
 
-  getQuestion = (slug: string) => {
+  private getQuestion = (slug: string) => {
     const { getQuestionBySlug, addFlashMessage, history } = this.props;
 
     getQuestionBySlug(slug)
@@ -63,12 +65,16 @@ class QuestionOne extends Component<QuestionOneProps> {
       });
   };
 
+  private getVerifiedComments = (q: Question) =>
+    q!.comments.filter((comment: Comment) => comment.isVerified);
+
   render() {
     const {
       question,
       addComment,
       approveQuestion,
       editQuestionField,
+      addFlashMessage,
       user,
       qlists,
       match,
@@ -91,15 +97,17 @@ class QuestionOne extends Component<QuestionOneProps> {
 
         {question &&
           typeof question.comments === 'object' &&
-          question.comments.length > 0 && (
+          this.getVerifiedComments(question).length > 0 && (
             <Fragment>
               <h3>
                 <FontAwesome name="comments-o" /> Comments{' '}
-                <Badge variant="primary">{question.comments.length}</Badge>
+                <Badge variant="primary">
+                  {this.getVerifiedComments(question).length}
+                </Badge>
               </h3>
               <Card border="info">
                 <Card.Body>
-                  <Comments comments={question.comments} />
+                  <Comments comments={this.getVerifiedComments(question)} />
                 </Card.Body>
               </Card>
             </Fragment>
@@ -115,6 +123,7 @@ class QuestionOne extends Component<QuestionOneProps> {
                 <CommentForm
                   question={question}
                   addComment={addComment}
+                  addFlashMessage={addFlashMessage}
                   getQuestion={this.getQuestion}
                   user={user}
                   slug={match.params.slug}

@@ -23,7 +23,7 @@ const withAuthorization = (allowed?: string[]) => <P extends object>(
       } else if (!auth.isAuthenticated && allowed) {
         addFlashMessage({
           type: 'error',
-          text: 'To see this page you have to login',
+          text: 'To see this page you have to be logged in',
         });
 
         history.push('/login');

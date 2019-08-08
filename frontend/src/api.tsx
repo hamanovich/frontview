@@ -43,7 +43,10 @@ export default {
       axios.post('/api/comments/add', comment).then(res => res.data),
 
     getByAuthor: (username: string) =>
-      axios.get(`/api/comments/${username}`).then(res => res.data),
+      axios.get(`/api/comments/author/${username}`).then(res => res.data),
+
+    getNotVerified: () =>
+      axios.get('/api/comments/not-verified').then(res => res.data),
 
     approve: (id: string) =>
       axios.patch(`/api/comment/${id}/approve`).then(res => res.data),

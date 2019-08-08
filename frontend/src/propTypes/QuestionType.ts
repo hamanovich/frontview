@@ -17,6 +17,7 @@ export interface Question {
   imgs: string[];
   notes: string;
   author: string | { username: string };
-  comments: string[] | Comment[] | undefined;
+  // TODO: re-check the cases when comments not populated
+  comments: Comment[];
   lastModified: string;
 }

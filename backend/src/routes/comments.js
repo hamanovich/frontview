@@ -29,6 +29,15 @@ exports.getCommentsByAuthor = async (req, res) => {
   res.json(comments);
 };
 
+exports.getNotVerifiedComments = async (_, res) => {
+  const comments = await Comment.find({ isVerified: false }).populate({
+    path: 'question',
+    select: '-author',
+  });
+
+  res.json(comments);
+};
+
 exports.approve = async (req, res) => {
   const comment = await Comment.findById(req.params.id);
 

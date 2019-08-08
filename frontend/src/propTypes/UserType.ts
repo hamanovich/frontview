@@ -1,3 +1,9 @@
+export enum RoleEnum {
+  USER = 'user',
+  OWNER = 'owner',
+  ADMIN = 'admin',
+}
+
 export interface User {
   _id: string;
   username: string;
@@ -15,7 +21,7 @@ export interface User {
   phone: string;
   notes: string;
   gravatar: string;
-  role: 'user' | 'owner' | 'admin';
+  role: RoleEnum;
 }
 
 export interface Auth {

@@ -13,7 +13,7 @@ import Footer from './layout/Footer';
 import FlashList from './flash/FlashList';
 import FaqButton from './shared/FaqButton';
 
-import { isLoggedIn, Customer, Waiting } from '../utils/helpers';
+import { isLoggedIn, Customer, Admin, Waiting } from '../utils/helpers';
 import ScrollToTopRoute from '../utils/ScrollToTopRoute';
 
 const LoginPage = lazy(() =>
@@ -39,6 +39,11 @@ const CommentsAuthorPage = lazy(() =>
     './Comment/CommentsAuthorPage' /* webpackChunkName: "CommentsAuthor" */
   ),
 );
+const CommentsNotVerifiedPage = lazy(() =>
+  import(
+    './Comment/CommentsNotVerifiedPage' /* webpackChunkName: "CommentsNotVerified" */
+  ),
+);
 const ConfirmationPage = lazy(() =>
   import('./ConfirmationPage' /* webpackChunkName: "Confirmation" */),
 );
@@ -59,7 +64,12 @@ const App = () => (
         <Route path="/questions" component={Waiting(QuestionsPage)} />
         <Route path="/interview" component={Customer(Waiting(InterviewPage))} />
         <Route
-          path="/comments/:username"
+          exact
+          path="/comments/not-verified"
+          component={Admin(Waiting(CommentsNotVerifiedPage))}
+        />
+        <Route
+          path="/comments/author/:username"
           component={Customer(Waiting(CommentsAuthorPage))}
         />
         <Route

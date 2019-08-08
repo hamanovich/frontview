@@ -79,8 +79,12 @@ router.put('/question/:id/vote', catchErrors(questionsController.voteQuestion));
 router.delete('/question/:id', questionsController.remove);
 
 router.get(
-  '/comments/:username',
+  '/comments/author/:username',
   catchErrors(commentsController.getCommentsByAuthor),
+);
+router.get(
+  '/comments/not-verified',
+  catchErrors(commentsController.getNotVerifiedComments),
 );
 router.post('/comments/add', authenticate, catchErrors(commentsController.add));
 router.patch(

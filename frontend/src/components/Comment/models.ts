@@ -51,6 +51,10 @@ export interface CommentsAuthorPageLifecycleProps {
   auth: Auth;
 }
 
+export interface CommentsNotVerifiedPageType extends CommentsAuthorPageProps {
+  getNotVerifiedComments: () => void;
+}
+
 export interface CommentsByAuthorError {
   message?: string;
   response?: {
@@ -78,6 +82,10 @@ export interface CommentFormHandlersProps {
   question: Question;
   getQuestion: (slug: string) => void;
   slug: string;
+  addFlashMessage: (payload: {
+    type: string;
+    text: string;
+  }) => { type: string; payload: { type: string; text: string } };
 }
 export interface CommentFormHandlersInnerProps
   extends CommentFormHandlersProps {

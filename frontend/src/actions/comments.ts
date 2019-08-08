@@ -38,4 +38,14 @@ export const getCommentsByAuthor = (
     .getByAuthor(username)
     .then(comments => dispatch(addComments(comments)));
 
+export const getNotVerifiedComments = (): ThunkAction<
+  void,
+  AppState,
+  null,
+  Action<string>
+> => dispatch =>
+  api.comments
+    .getNotVerified()
+    .then(comments => dispatch(addComments(comments)));
+
 export type CommentsActionTypes = addCommentsAction | commentAddedAction;
