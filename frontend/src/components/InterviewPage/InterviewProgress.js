@@ -28,7 +28,7 @@ const enhance = compose(
   }),
 
   lifecycle({
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
       const { history, location, userId, addFlashMessage } = this.props;
 
       if (!userId) {
