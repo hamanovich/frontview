@@ -21,6 +21,8 @@ export const VOTE_DISLIKE = '[VOTE] DISLIKE';
 
 export const COMMENTS_ADD = '[COMMENTS] ADD';
 export const COMMENT_ADD = '[COMMENT] ADD';
+export const COMMENT_APPROVE = '[COMMENT] APPROVE';
+export const COMMENT_REMOVE = '[COMMENT] REMOVE';
 
 export const QLISTS_ADD = '[QLISTS] ADD';
 export const QLIST_ADD = '[QLIST] ADD';

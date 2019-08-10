@@ -50,6 +50,8 @@ export default {
 
     approve: (id: string) =>
       axios.patch(`/api/comment/${id}/approve`).then(res => res.data),
+    remove: (id: string) =>
+      axios.delete(`/api/comment/${id}`).then(res => res.data),
   },
 
   qlists: {

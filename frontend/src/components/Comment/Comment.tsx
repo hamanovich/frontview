@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
+import { connect } from 'react-redux';
 import MarkdownRenderer from 'react-markdown-renderer';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 
@@ -6,18 +7,42 @@ import Media from 'react-bootstrap/Media';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Modal from 'react-bootstrap/Modal';
 
 import Loader from '../../utils/Loader';
 
+import { addFlashMessage } from '../../actions/flash';
+import { approveComment, removeComment } from '../../actions/comments';
 import { ApproveBar } from '../../components/QuestionsPage/style';
 import { MediaImage, QuestionLink } from './style';
 import { CommentProps } from './models';
-import Modal from 'react-bootstrap/Modal';
+import { Comment as CommentType } from '../../propTypes/CommentType';
 
-const Comment: FunctionComponent<CommentProps> = ({ comment, match }) => {
+const Comment: FunctionComponent<CommentProps> = ({
+  comment,
+  match,
+  role,
+  approveComment,
+  removeComment,
+  addFlashMessage,
+}) => {
   const [modal, setModal] = useState(false);
-  const removeComment = () => {
-    // TODO: Add remove comment method
+  const remove = (id: string) => {
+    removeComment(id).then(() => {
+      addFlashMessage({
+        type: 'success',
+        text: `Comment with id=${id} was removed`,
+      });
+    });
+  };
+
+  const approve = (id: string) => {
+    approveComment(id).then(() => {
+      addFlashMessage({
+        type: 'success',
+        text: `Comment with id=${id} was approved`,
+      });
+    });
   };
 
   return (
@@ -40,17 +65,19 @@ const Comment: FunctionComponent<CommentProps> = ({ comment, match }) => {
           {distanceInWordsToNow(comment.created, { addSuffix: true })}
         </Badge>
 
-        {!comment.isVerified && (
+        {(!comment.isVerified ||
+          comment.author.username ===
+            (match && match.params && match.params.username)) && (
           <ApproveBar>
             <ButtonGroup>
-              <Button
-                variant="success"
-                size="sm"
-                // TODO: Add approve Question method/action
-                // onClick={() => approveQuestion(question._id)}
-              >
-                Approve
-              </Button>
+              {role === 'admin' && (
+                <Button
+                  variant="success"
+                  size="sm"
+                  onClick={() => approve(comment._id)}>
+                  Approve
+                </Button>
+              )}
               <Button variant="danger" size="sm" onClick={() => setModal(true)}>
                 Remove
               </Button>
@@ -71,7 +98,7 @@ const Comment: FunctionComponent<CommentProps> = ({ comment, match }) => {
                   <Button variant="secondary" onClick={() => setModal(false)}>
                     Cancel
                   </Button>
-                  <Button variant="danger" onClick={removeComment}>
+                  <Button variant="danger" onClick={() => remove(comment._id)}>
                     Remove
                   </Button>
                 </ButtonGroup>
@@ -88,4 +115,9 @@ Comment.defaultProps = {
   match: null,
 };
 
-export default Loader('comment')(Comment);
+export default Loader('comment')(
+  connect(
+    (state: { comments: CommentType[] }) => ({ comments: state.comments }),
+    { addFlashMessage, approveComment, removeComment },
+  )(Comment),
+);

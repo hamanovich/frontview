@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 
+// eslint-disable-next-line import/no-unresolved
 import QListForm from '../QList/QListForm';
 
 class InterviewQLists extends Component {

@@ -10,6 +10,13 @@ export interface CommentProps {
       username: string;
     };
   } | null;
+  role?: string;
+  approveComment: (id: string) => any;
+  removeComment: (id: string) => any;
+  addFlashMessage: (payload: {
+    type: string;
+    text: string;
+  }) => { type: string; payload: { type: string; text: string } };
 }
 
 export interface CommentsProps {
@@ -19,6 +26,7 @@ export interface CommentsProps {
       username: string;
     };
   } | null;
+  role?: string;
 }
 
 export interface CommentsAuthorPageProps {
@@ -53,6 +61,7 @@ export interface CommentsAuthorPageLifecycleProps {
 
 export interface CommentsNotVerifiedPageType extends CommentsAuthorPageProps {
   getNotVerifiedComments: () => void;
+  auth: Auth;
 }
 
 export interface CommentsByAuthorError {
