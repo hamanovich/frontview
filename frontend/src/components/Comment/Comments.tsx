@@ -2,8 +2,17 @@ import React, { FunctionComponent, Fragment } from 'react';
 
 import Comment from './Comment';
 import Loader from '../../utils/Loader';
-import { CommentsProps } from './models';
 import { CommentQuestion } from '../../propTypes/CommentType';
+
+type CommentsProps = {
+  comments: CommentQuestion[];
+  match: {
+    params: {
+      username: string;
+    };
+  } | null;
+  role?: string;
+};
 
 const Comments: FunctionComponent<CommentsProps> = ({
   comments,

@@ -9,7 +9,20 @@ import Badge from 'react-bootstrap/Badge';
 import Comments from './Comments';
 import { getNotVerifiedComments } from '../../actions/comments';
 import { getSizeOfComments } from '../../selectors/comments';
-import { CommentsNotVerifiedPageType, CommentsAuthorPageState } from './models';
+import { CommentQuestion, Auth } from '../../propTypes';
+import { CommentsAuthorPageState } from './CommentsAuthorPage';
+
+type CommentsNotVerifiedPageType = {
+  comments: CommentQuestion[];
+  match: {
+    params: {
+      username: string;
+    };
+  };
+  getNotVerifiedComments: () => void;
+  auth: Auth;
+  size: number;
+};
 
 const CommentsNotVerifiedPage: FunctionComponent<
   CommentsNotVerifiedPageType
@@ -37,10 +50,14 @@ const CommentsNotVerifiedPage: FunctionComponent<
   );
 };
 
+const mapStateToProps = (state: CommentsAuthorPageState) => ({
+  comments: state.comments,
+  size: getSizeOfComments(state),
+});
+
+const mapDispatchToProps = { getNotVerifiedComments };
+
 export default connect(
-  (state: CommentsAuthorPageState) => ({
-    comments: state.comments,
-    size: getSizeOfComments(state),
-  }),
-  { getNotVerifiedComments },
+  mapStateToProps,
+  mapDispatchToProps,
 )(CommentsNotVerifiedPage);

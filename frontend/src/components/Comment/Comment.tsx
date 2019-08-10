@@ -9,14 +9,27 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Modal from 'react-bootstrap/Modal';
 
-import Loader from '../../utils/Loader';
-
 import { addFlashMessage } from '../../actions/flash';
 import { approveComment, removeComment } from '../../actions/comments';
 import { ApproveBar } from '../../components/QuestionsPage/style';
 import { MediaImage, QuestionLink } from './style';
-import { CommentProps } from './models';
-import { Comment as CommentType } from '../../propTypes/CommentType';
+import { Comment as CommentType, CommentQuestion } from '../../propTypes';
+
+type CommentProps = {
+  comment: CommentQuestion;
+  match: {
+    params: {
+      username: string;
+    };
+  } | null;
+  role?: string;
+  approveComment: (id: string) => any;
+  removeComment: (id: string) => any;
+  addFlashMessage: (payload: {
+    type: string;
+    text: string;
+  }) => { type: string; payload: { type: string; text: string } };
+};
 
 const Comment: FunctionComponent<CommentProps> = ({
   comment,
@@ -26,12 +39,13 @@ const Comment: FunctionComponent<CommentProps> = ({
   removeComment,
   addFlashMessage,
 }) => {
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState<boolean>(false);
+
   const remove = (id: string) => {
     removeComment(id).then(() => {
       addFlashMessage({
         type: 'success',
-        text: `Comment with id=${id} was removed`,
+        text: `Comment with id=__${id}__ was removed`,
       });
     });
   };
@@ -40,7 +54,7 @@ const Comment: FunctionComponent<CommentProps> = ({
     approveComment(id).then(() => {
       addFlashMessage({
         type: 'success',
-        text: `Comment with id=${id} was approved`,
+        text: `Comment with id=__${id}__ was approved`,
       });
     });
   };
@@ -115,9 +129,13 @@ Comment.defaultProps = {
   match: null,
 };
 
-export default Loader('comment')(
-  connect(
-    (state: { comments: CommentType[] }) => ({ comments: state.comments }),
-    { addFlashMessage, approveComment, removeComment },
-  )(Comment),
-);
+const mapStateToProps = (state: { comments: CommentType[] }) => ({
+  comments: state.comments,
+});
+
+const mapDispatchToProps = { addFlashMessage, approveComment, removeComment };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Comment);

@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
 import { Comment } from '../propTypes/CommentType';
-import { CommentsAuthorPageState } from '../components/Comment/models';
+import { CommentsAuthorPageState } from '../components/Comment/CommentsAuthorPage';
 
 const commentsSelector = (state: CommentsAuthorPageState) => state.comments;
 
