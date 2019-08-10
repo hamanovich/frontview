@@ -53,7 +53,9 @@ describe('Comment actions', () => {
       await store.dispatch(actions.getCommentsByAuthor(username));
 
       expect(store.getActions()).toEqual([expectedAction]);
-      expect(mockAxios.get).toHaveBeenCalledWith(`/api/comments/${username}`);
+      expect(mockAxios.get).toHaveBeenCalledWith(
+        `/api/comments/author/${username}`,
+      );
     });
   });
 });

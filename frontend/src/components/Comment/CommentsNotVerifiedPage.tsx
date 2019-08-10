@@ -8,12 +8,12 @@ import Badge from 'react-bootstrap/Badge';
 
 import Comments from './Comments';
 import { getNotVerifiedComments } from '../../actions/comments';
+import { getSizeOfComments } from '../../selectors/comments';
 import { CommentsNotVerifiedPageType, CommentsAuthorPageState } from './models';
 
 const CommentsNotVerifiedPage: FunctionComponent<
   CommentsNotVerifiedPageType
-> = ({ getNotVerifiedComments, comments, match, auth }) => {
-  let size: number = comments.length;
+> = ({ getNotVerifiedComments, size, comments, match, auth }) => {
   useEffect(() => {
     getNotVerifiedComments();
   }, [getNotVerifiedComments]);
@@ -38,6 +38,9 @@ const CommentsNotVerifiedPage: FunctionComponent<
 };
 
 export default connect(
-  (state: CommentsAuthorPageState) => ({ comments: state.comments }),
+  (state: CommentsAuthorPageState) => ({
+    comments: state.comments,
+    size: getSizeOfComments(state),
+  }),
   { getNotVerifiedComments },
 )(CommentsNotVerifiedPage);

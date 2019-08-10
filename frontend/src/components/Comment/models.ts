@@ -62,6 +62,7 @@ export interface CommentsAuthorPageLifecycleProps {
 export interface CommentsNotVerifiedPageType extends CommentsAuthorPageProps {
   getNotVerifiedComments: () => void;
   auth: Auth;
+  size: number;
 }
 
 export interface CommentsByAuthorError {

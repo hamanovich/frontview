@@ -6,6 +6,7 @@ import lifecycle from 'recompose/lifecycle';
 import { Helmet } from 'react-helmet';
 
 import Container from 'react-bootstrap/Container';
+import Badge from 'react-bootstrap/Badge';
 
 import Comments from './Comments';
 import { addFlashMessage } from '../../actions/flash';
@@ -59,7 +60,8 @@ const CommentsAuthorPage: FC<CommentsAuthorPageProps> = ({
       <title>Frontview: All comments</title>
     </Helmet>
     <h1>
-      <FontAwesome name="comments-o" /> All Your Comments
+      <FontAwesome name="comments-o" /> All Your Comments{' '}
+      {comments.length > 0 && <Badge variant="dark">{comments.length}</Badge>}
     </h1>
 
     <Comments comments={comments} match={match} />

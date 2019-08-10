@@ -24,7 +24,7 @@ const QuestionsTop: FunctionComponent<QuestionsTopProps> = ({ questions }) => (
         <ListGroup.Item
           action
           href={`/questions/${question.slug}/one`}
-          key={question.slug}>
+          key={question._id}>
           <h4>
             {index + 1}. {question.question}
           </h4>
