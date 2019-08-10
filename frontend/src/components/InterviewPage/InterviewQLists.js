@@ -1,3 +1,6 @@
+/* eslint-disable camelcase */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable react/sort-comp */
 import React, { Component, Fragment } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
@@ -5,7 +8,6 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 
-// eslint-disable-next-line import/no-unresolved
 import QListForm from '../QList/QListForm';
 
 class InterviewQLists extends Component {
@@ -19,7 +21,7 @@ class InterviewQLists extends Component {
     isLoaded: false,
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { history, location, addFlashMessage, userId } = this.props;
 
     if (!userId) {
