@@ -9,11 +9,11 @@ import Badge from 'react-bootstrap/Badge';
 import Comments from './Comments';
 import { getNotVerifiedComments } from '../../actions/comments';
 import { getSizeOfComments } from '../../selectors/comments';
-import { CommentQuestion, Auth } from '../../propTypes';
-import { CommentsAuthorPageState } from './CommentsAuthorPage';
+import { Comment, Auth } from '../../propTypes';
+import { RootState } from '../../reducers';
 
 type CommentsNotVerifiedPageType = {
-  comments: CommentQuestion[];
+  comments: Comment[];
   match: {
     params: {
       username: string;
@@ -50,7 +50,7 @@ const CommentsNotVerifiedPage: FunctionComponent<
   );
 };
 
-const mapStateToProps = (state: CommentsAuthorPageState) => ({
+const mapStateToProps = (state: RootState) => ({
   comments: state.comments,
   size: getSizeOfComments(state),
 });

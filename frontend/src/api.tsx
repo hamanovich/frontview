@@ -1,9 +1,6 @@
 import axios from 'axios';
 import { Credentials } from './actions/auth';
-import { User } from './propTypes/UserType';
-import { Comment } from './propTypes/CommentType';
-import { QList } from './propTypes/QListType';
-import { Question } from './propTypes/QuestionType';
+import { User, Comment, QList, Question } from './propTypes';
 
 export default {
   user: {

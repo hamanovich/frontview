@@ -1,11 +1,8 @@
-import { User } from '../../propTypes/UserType';
+import { AddFlashMessageType, User } from './../../propTypes';
 
 export interface SignupProps {
   signup: (user: User) => Promise<any>;
-  addFlashMessage: (payload: {
-    type: string;
-    text: string;
-  }) => { type: string; payload: { type: string; text: string } };
+  addFlashMessage: AddFlashMessageType;
   isUserExists: (identifier: string) => Promise<any>;
 }
 

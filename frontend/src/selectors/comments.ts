@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
 
 import { Comment } from '../propTypes/CommentType';
-import { CommentsAuthorPageState } from '../components/Comment/CommentsAuthorPage';
+import { RootState } from '../reducers';
 
-const commentsSelector = (state: CommentsAuthorPageState) => state.comments;
+const commentsSelector = (state: RootState) => state.comments;
 
 export const getSizeOfComments = createSelector(
   [commentsSelector],

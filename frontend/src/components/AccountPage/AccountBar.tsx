@@ -43,6 +43,7 @@ const AccountBar: FunctionComponent<AccountBarProps> = ({ auth, logout }) => (
         <h4 className="text-danger">Admin only</h4>
 
         <ListGroup>
+          <ListGroup.Item>To verify</ListGroup.Item>
           <Link to="/comments/not-verified" className="list-group-item">
             <FontAwesome name="commenting-o" /> Unverified comments
           </Link>

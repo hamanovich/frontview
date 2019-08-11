@@ -1,5 +1,5 @@
 import { FormEvent } from 'react';
-import { QListQuestions, QList } from '../../propTypes/QListType';
+import { QListQuestions, QList, AddFlashMessageType } from '../../propTypes';
 
 export interface QListPageProps {
   userId: string;
@@ -30,9 +30,6 @@ export interface QListFormHandlersProps {
   qlistAdd: (qlist: QList) => Promise<void>;
   userId: string;
   reset: () => void;
-  addFlashMessage: (payload: {
-    type: string;
-    text: string;
-  }) => { type: string; payload: { type: string; text: string } };
+  addFlashMessage: AddFlashMessageType;
   setLoading: (value: boolean) => void;
 }

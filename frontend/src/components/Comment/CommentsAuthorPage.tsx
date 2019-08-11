@@ -9,7 +9,7 @@ import Badge from 'react-bootstrap/Badge';
 import Comments from './Comments';
 import { addFlashMessage } from '../../actions/flash';
 import { getCommentsByAuthor } from '../../actions/comments';
-import { Auth, CommentQuestion } from '../../propTypes';
+import { Auth, CommentQuestion, AddFlashMessageType } from '../../propTypes';
 
 type CommentsByAuthorError = {
   message?: string;
@@ -26,10 +26,7 @@ export type CommentsAuthorPageState = {
       username: string;
     };
   };
-  addFlashMessage: (payload: {
-    type: string;
-    text: string;
-  }) => { type: string; payload: { type: string; text: string } };
+  addFlashMessage: AddFlashMessageType;
   getCommentsByAuthor: (username: string) => any;
   history: {
     push: (url: string) => void;

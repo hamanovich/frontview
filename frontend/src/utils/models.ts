@@ -1,4 +1,4 @@
-import { Auth } from '../propTypes/UserType';
+import { Auth, AddFlashMessageType } from '../propTypes';
 
 export interface ScrollToTopRouteProps {
   history: {
@@ -14,10 +14,7 @@ export interface LoaderState {
 
 export interface AuthorizationProps {
   auth: Auth;
-  addFlashMessage: (payload: {
-    type: string;
-    text: string;
-  }) => { type: string; payload: { type: string; text: string } };
+  addFlashMessage: AddFlashMessageType;
   history: {
     push: (url: string) => void;
   };

@@ -10,13 +10,13 @@ import comments from './comments';
 import qlists from './qlists';
 import candidates from './candidates';
 
-import { Comment, Message, Auth, Question, QList } from '../propTypes';
+import { Comment, FlashMessageType, Auth, Question, QList } from '../propTypes';
 
 export type AppState = ReturnType<typeof rootReducer>;
 
 export interface RootState {
   router: RouterState;
-  flash: Message[];
+  flash: FlashMessageType[];
   auth: Auth;
   questions: Question[];
   comments: Comment[];

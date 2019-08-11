@@ -10,7 +10,7 @@ import Alert from 'react-bootstrap/Alert';
 import { TextField, TextareaField } from '../formElements';
 import validate from '../../validations/comment';
 import Loader from '../../utils/Loader';
-import { User, Question } from '../../propTypes';
+import { User, Question, AddFlashMessageType } from '../../propTypes';
 
 type CommentFormProps = {
   handleSubmit: (
@@ -23,10 +23,7 @@ type CommentFormProps = {
   question: Question;
   getQuestion: (slug: string) => void;
   slug: string;
-  addFlashMessage: (payload: {
-    type: string;
-    text: string;
-  }) => { type: string; payload: { type: string; text: string } };
+  addFlashMessage: AddFlashMessageType;
   reset: () => void;
 };
 

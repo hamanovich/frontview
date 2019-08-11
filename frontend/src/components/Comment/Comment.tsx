@@ -13,7 +13,11 @@ import { addFlashMessage } from '../../actions/flash';
 import { approveComment, removeComment } from '../../actions/comments';
 import { ApproveBar } from '../../components/QuestionsPage/style';
 import { MediaImage, QuestionLink } from './style';
-import { Comment as CommentType, CommentQuestion } from '../../propTypes';
+import {
+  Comment as CommentType,
+  CommentQuestion,
+  AddFlashMessageType,
+} from '../../propTypes';
 
 type CommentProps = {
   comment: CommentQuestion;
@@ -25,10 +29,7 @@ type CommentProps = {
   role?: string;
   approveComment: (id: string) => any;
   removeComment: (id: string) => any;
-  addFlashMessage: (payload: {
-    type: string;
-    text: string;
-  }) => { type: string; payload: { type: string; text: string } };
+  addFlashMessage: AddFlashMessageType;
 };
 
 const Comment: FunctionComponent<CommentProps> = ({

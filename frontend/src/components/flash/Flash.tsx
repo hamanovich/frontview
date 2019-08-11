@@ -1,31 +1,41 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, memo } from 'react';
 import FontAwesome from 'react-fontawesome';
 import MarkdownRenderer from 'react-markdown-renderer';
 
-import compose from 'recompose/compose';
-import lifecycle from 'recompose/lifecycle';
-
 import Button from 'react-bootstrap/Button';
 
-import { FlashProps } from './models';
-
 import { FlashItem } from './style';
+import { FlashMessageType } from '../../propTypes';
 
-const enhance = compose<FlashProps, FlashProps>(
-  lifecycle<FlashProps, {}>({
-    componentDidMount() {
-      setTimeout(this.props.close, 4000);
-    },
-  }),
-);
+enum VariantEnum {
+  DANGER = 'danger',
+  SUCCESS = 'success',
+  WARNING = 'warning',
+}
+
+type FlashProps = {
+  close: () => void;
+  message: FlashMessageType;
+};
 
 export const Flash: FunctionComponent<FlashProps> = ({ close, message }) => {
-  const variant =
-    message.type === 'error'
-      ? 'danger'
-      : message.type === 'success'
-      ? 'success'
-      : 'warning';
+  let variant: VariantEnum;
+
+  switch (message.type) {
+    case 'error':
+      variant = VariantEnum.DANGER;
+      break;
+    case 'success':
+      variant = VariantEnum.SUCCESS;
+      break;
+    default:
+      variant = VariantEnum.WARNING;
+  }
+
+  useEffect(() => {
+    setTimeout(close, 4000);
+  }, [close]);
+
   return (
     <FlashItem variant={variant}>
       <MarkdownRenderer markdown={message.text} />
@@ -36,4 +46,4 @@ export const Flash: FunctionComponent<FlashProps> = ({ close, message }) => {
   );
 };
 
-export default enhance(Flash);
+export default memo(Flash);
