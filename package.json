@@ -23,7 +23,6 @@
     "lint:backend": "eslint ./backend/src/**/*.js",
     "lint:frontend": "eslint \"./frontend/src/**/*.+(js|ts|tsx)\"",
     "test": "cd frontend && yarn test",
-    "precommit": "lint-staged",
     "test:staged": "cross-env CI=true yarn test --findRelatedTests"
   },
   "dependencies": {
@@ -49,7 +48,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "lint-staged"
     }
   },
   "lint-staged": {
