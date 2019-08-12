@@ -10,7 +10,11 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Modal from 'react-bootstrap/Modal';
 
 import { addFlashMessage } from '../../actions/flash';
-import { approveComment, removeComment } from '../../actions/comments';
+import {
+  approveComment,
+  removeComment,
+  CommentsActionTypes,
+} from '../../actions/comments';
 import { ApproveBar } from '../../components/QuestionsPage/style';
 import { MediaImage, QuestionLink } from './style';
 import {
@@ -27,8 +31,8 @@ type CommentProps = {
     };
   } | null;
   role?: string;
-  approveComment: (id: string) => any;
-  removeComment: (id: string) => any;
+  approveComment: (id: string) => Promise<CommentsActionTypes>;
+  removeComment: (id: string) => Promise<CommentsActionTypes>;
   addFlashMessage: AddFlashMessageType;
 };
 

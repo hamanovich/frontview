@@ -36,18 +36,18 @@ export default {
   },
 
   comments: {
-    add: (comment: Comment) =>
+    add: (comment: Comment): Promise<Comment> =>
       axios.post('/api/comments/add', comment).then(res => res.data),
 
-    getByAuthor: (username: string) =>
+    getByAuthor: (username: string): Promise<Comment[]> =>
       axios.get(`/api/comments/author/${username}`).then(res => res.data),
 
-    getNotVerified: () =>
+    getNotVerified: (): Promise<Comment[]> =>
       axios.get('/api/comments/not-verified').then(res => res.data),
 
-    approve: (id: string) =>
+    approve: (id: string): Promise<Comment> =>
       axios.patch(`/api/comment/${id}/approve`).then(res => res.data),
-    remove: (id: string) =>
+    remove: (id: string): Promise<Comment> =>
       axios.delete(`/api/comment/${id}`).then(res => res.data),
   },
 

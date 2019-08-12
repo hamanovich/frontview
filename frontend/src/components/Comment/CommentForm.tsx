@@ -11,6 +11,7 @@ import { TextField, TextareaField } from '../formElements';
 import validate from '../../validations/comment';
 import Loader from '../../utils/Loader';
 import { User, Question, AddFlashMessageType } from '../../propTypes';
+import { CommentsActionTypes } from '../../actions/comments';
 
 type CommentFormProps = {
   handleSubmit: (
@@ -19,7 +20,7 @@ type CommentFormProps = {
   onSubmit: () => void;
   initialize: (username: { username: string }) => void;
   user: User;
-  addComment: (query: any) => Promise<void>;
+  addComment: (query: object) => Promise<CommentsActionTypes>;
   question: Question;
   getQuestion: (slug: string) => void;
   slug: string;
@@ -44,7 +45,7 @@ const CommentForm: FunctionComponent<
     initialize({ username: user.username });
   }, [initialize, user.username]);
 
-  const onSubmit = (values: any) => {
+  const onSubmit = (values: object) => {
     const query = { ...values, userId: user._id, questionId: question._id };
 
     addComment(query).then(() => {
@@ -99,7 +100,7 @@ const CommentForm: FunctionComponent<
 };
 
 export default Loader('question')(
-  reduxForm<{}, any>({
+  reduxForm<{}, CommentFormProps>({
     form: 'CommentForm',
     validate,
   })(CommentForm),

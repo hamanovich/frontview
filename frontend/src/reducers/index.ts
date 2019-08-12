@@ -12,8 +12,6 @@ import candidates from './candidates';
 
 import { Comment, FlashMessageType, Auth, Question, QList } from '../propTypes';
 
-export type AppState = ReturnType<typeof rootReducer>;
-
 export interface RootState {
   router: RouterState;
   flash: FlashMessageType[];
@@ -36,5 +34,7 @@ const rootReducer = (history: History) =>
     candidates,
     form: formReducer,
   });
+
+export type AppState = ReturnType<typeof rootReducer>;
 
 export default rootReducer;

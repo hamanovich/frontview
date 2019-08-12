@@ -8,7 +8,10 @@ import Badge from 'react-bootstrap/Badge';
 
 import Comments from './Comments';
 import { addFlashMessage } from '../../actions/flash';
-import { getCommentsByAuthor } from '../../actions/comments';
+import {
+  getCommentsByAuthor,
+  CommentsActionTypes,
+} from '../../actions/comments';
 import { Auth, CommentQuestion, AddFlashMessageType } from '../../propTypes';
 
 type CommentsByAuthorError = {
@@ -20,14 +23,14 @@ type CommentsByAuthorError = {
   };
 };
 
-export type CommentsAuthorPageState = {
+type CommentsAuthorPageState = {
   match: {
     params: {
       username: string;
     };
   };
   addFlashMessage: AddFlashMessageType;
-  getCommentsByAuthor: (username: string) => any;
+  getCommentsByAuthor: (username: string) => Promise<CommentsActionTypes>;
   history: {
     push: (url: string) => void;
   };
