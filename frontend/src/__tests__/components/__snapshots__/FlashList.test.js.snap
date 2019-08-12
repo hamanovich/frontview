@@ -2,7 +2,7 @@
 
 exports[`<FlashList /> renders <FlashList /> component 1`] = `
 <Fragment>
-  <lifecycle(Flash)
+  <Memo(Flash)
     close={[Function]}
     key="ABC"
     message={
@@ -18,7 +18,7 @@ exports[`<FlashList /> renders <FlashList /> component 1`] = `
 
 exports[`<FlashList /> updates props correctly 1`] = `
 <Fragment>
-  <lifecycle(Flash)
+  <Memo(Flash)
     close={[Function]}
     key="ABC"
     message={
@@ -29,7 +29,7 @@ exports[`<FlashList /> updates props correctly 1`] = `
       }
     }
   />
-  <lifecycle(Flash)
+  <Memo(Flash)
     close={[Function]}
     key="DEF"
     message={
