@@ -2,7 +2,9 @@
 
 exports[`<HomePage/> renders <HomePage /> component 1`] = `
 <Fragment>
-  <Bootstrap(Jumbotron)>
+  <Jumbotron
+    fluid={false}
+  >
     <Container
       fluid={false}
     >
@@ -51,7 +53,7 @@ exports[`<HomePage/> renders <HomePage /> component 1`] = `
         </Link>
       </p>
     </Container>
-  </Bootstrap(Jumbotron)>
+  </Jumbotron>
   <Container
     className="py-5"
     fluid={false}

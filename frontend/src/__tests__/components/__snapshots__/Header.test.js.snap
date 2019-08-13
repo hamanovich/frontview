@@ -49,7 +49,13 @@ exports[`<Header/> renders component with search Question renders <Header /> com
         to="/questions"
       >
         <NavLink
-          as={[Function]}
+          as={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "displayName": "SafeAnchor",
+              "render": [Function],
+            }
+          }
           disabled={false}
         >
           Check All 
@@ -72,7 +78,13 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           to="/interview"
         >
           <DropdownItem
-            as={[Function]}
+            as={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "displayName": "SafeAnchor",
+                "render": [Function],
+              }
+            }
             disabled={false}
           >
             <FontAwesome
@@ -88,7 +100,13 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           to="/questions"
         >
           <DropdownItem
-            as={[Function]}
+            as={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "displayName": "SafeAnchor",
+                "render": [Function],
+              }
+            }
             disabled={false}
           >
             Show all questions
@@ -98,7 +116,13 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           to="/questions/top"
         >
           <DropdownItem
-            as={[Function]}
+            as={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "displayName": "SafeAnchor",
+                "render": [Function],
+              }
+            }
             disabled={false}
           >
             <FontAwesome
@@ -111,7 +135,13 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           to="/questions/internet"
         >
           <DropdownItem
-            as={[Function]}
+            as={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "displayName": "SafeAnchor",
+                "render": [Function],
+              }
+            }
             disabled={false}
           >
             <FontAwesome
@@ -127,7 +157,13 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           to="/questions/level"
         >
           <DropdownItem
-            as={[Function]}
+            as={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "displayName": "SafeAnchor",
+                "render": [Function],
+              }
+            }
             disabled={false}
           >
             <FontAwesome
@@ -140,7 +176,13 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           to="/questions/skill"
         >
           <DropdownItem
-            as={[Function]}
+            as={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "displayName": "SafeAnchor",
+                "render": [Function],
+              }
+            }
             disabled={false}
           >
             <FontAwesome
@@ -153,7 +195,13 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           to="/questions/practice"
         >
           <DropdownItem
-            as={[Function]}
+            as={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "displayName": "SafeAnchor",
+                "render": [Function],
+              }
+            }
             disabled={false}
           >
             <FontAwesome
@@ -169,7 +217,13 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           to="/questions/add"
         >
           <DropdownItem
-            as={[Function]}
+            as={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "displayName": "SafeAnchor",
+                "render": [Function],
+              }
+            }
             disabled={false}
           >
             <FontAwesome
@@ -194,7 +248,13 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           to="/me"
         >
           <DropdownItem
-            as={[Function]}
+            as={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "displayName": "SafeAnchor",
+                "render": [Function],
+              }
+            }
             disabled={false}
           >
             <FontAwesome
@@ -207,7 +267,13 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           to="/me/edit"
         >
           <DropdownItem
-            as={[Function]}
+            as={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "displayName": "SafeAnchor",
+                "render": [Function],
+              }
+            }
             disabled={false}
           >
             <FontAwesome
@@ -220,7 +286,13 @@ exports[`<Header/> renders component with search Question renders <Header /> com
           role="separator"
         />
         <DropdownItem
-          as={[Function]}
+          as={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "displayName": "SafeAnchor",
+              "render": [Function],
+            }
+          }
           disabled={false}
           onClick={[MockFunction]}
         >

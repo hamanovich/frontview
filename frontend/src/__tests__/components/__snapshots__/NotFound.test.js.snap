@@ -1,8 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<NotFound/> renders <NotFound /> component 1`] = `
-<Bootstrap(Jumbotron)
+<Jumbotron
   className="text-center text-danger"
+  fluid={false}
 >
   <h1
     className="display-3"
@@ -26,5 +27,5 @@ exports[`<NotFound/> renders <NotFound /> component 1`] = `
       Return to home page
     </Button>
   </Link>
-</Bootstrap(Jumbotron)>
+</Jumbotron>
 `;
