@@ -12,17 +12,14 @@ import { logout, getUser } from '../../actions/auth';
 import { getSearchedQuestions } from '../../actions/questions';
 import { addFlashMessage } from '../../actions/flash';
 import SearchForm from './SearchForm';
-import { Auth } from '../../propTypes/UserType';
+import { Auth, AddFlashMessageType } from '../../propTypes';
 
 import { Menu, MediaImage } from './style';
 
 interface HeaderProps extends RouteComponentProps {
   getSearchedQuestions: (query: string) => Promise<any>;
   getUser: (identifier: string) => Promise<{}>;
-  addFlashMessage: (payload: {
-    type: string;
-    text: string;
-  }) => { type: string; payload: { type: string; text: string } };
+  addFlashMessage: AddFlashMessageType;
   logout: () => void;
   auth: Auth;
 }

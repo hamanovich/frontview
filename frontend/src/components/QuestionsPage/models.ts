@@ -1,6 +1,11 @@
-import { Question } from '../../propTypes/QuestionType';
-import { QList, QListQuestions } from '../../propTypes/QListType';
-import { User, Auth } from '../../propTypes/UserType';
+import {
+  Question,
+  QList,
+  QListQuestions,
+  User,
+  Auth,
+  AddFlashMessageType,
+} from '../../propTypes';
 
 export interface Tag {
   _id: string;
@@ -118,10 +123,7 @@ export interface QuestionsBarLifecycleProps {
     active: string,
   ) => Promise<{ tags: Tag[]; questions: Question[] }>;
   getQLists: (username: string) => void;
-  addFlashMessage: (payload: {
-    type: string;
-    text: string;
-  }) => { type: string; payload: { type: string; text: string } };
+  addFlashMessage: AddFlashMessageType;
   history: {
     push: (url: string) => void;
   };

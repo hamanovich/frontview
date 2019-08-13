@@ -37,7 +37,7 @@ const withLoading = (prop: string) => <P extends object>(
       }, this.state.timeout);
     }
 
-    componentWillUpdate(nextProps: any) {
+    UNSAFE_componentWillUpdate(nextProps: any) {
       if (nextProps[prop] && Object.keys(nextProps[prop]).length !== 0) {
         this.endTimer = Date.now();
       }

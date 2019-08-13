@@ -1,6 +1,5 @@
 import { FormEvent } from 'react';
-import { Question } from '../../../propTypes/QuestionType';
-import { Auth } from '../../../propTypes/UserType';
+import { Question, Auth, AddFlashMessageType } from '../../../propTypes';
 
 export interface AnswerFieldsProps {
   fields: {
@@ -27,10 +26,7 @@ export interface AddQuestionProps {
     level: string[];
     practice: string[];
   }>;
-  addFlashMessage: (payload: {
-    type: string;
-    text: string;
-  }) => { type: string; payload: { type: string; text: string } };
+  addFlashMessage: AddFlashMessageType;
   removeQuestion: (id: string) => Promise<void>;
   getQuestionById: (_id: string) => Promise<any>;
   logout: any;

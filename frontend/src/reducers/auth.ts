@@ -1,4 +1,4 @@
-import { Auth } from '../propTypes/UserType';
+import { Auth, RoleEnum } from '../propTypes/UserType';
 import {
   SET_CURRENT_USER,
   CLEANUP_CURRENT_USER,
@@ -6,9 +6,20 @@ import {
 } from '../actions/types';
 import { AuthActionTypes } from '../actions/auth';
 
-const initialState: any = {
+const initialState: Auth = {
   isAuthenticated: false,
-  user: {},
+  user: {
+    _id: '',
+    username: '',
+    email: '',
+    questions: [],
+    votes: {
+      like: [],
+      dislike: [],
+    },
+    notes: '',
+    role: RoleEnum.USER,
+  },
 };
 
 export default (state = initialState, action: AuthActionTypes): Auth => {

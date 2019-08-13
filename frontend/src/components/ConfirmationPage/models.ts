@@ -1,3 +1,5 @@
+import { AddFlashMessageType } from './../../propTypes';
+
 export interface ConfirmationProps {
   success: boolean;
 }
@@ -5,10 +7,7 @@ export interface ConfirmationProps {
 export interface ConfirmLifecycleProps {
   confirm: (token: string) => Promise<void>;
   getUser: (username: string) => void;
-  addFlashMessage: (payload: {
-    type: string;
-    text: string;
-  }) => { type: string; payload: { type: string; text: string } };
+  addFlashMessage: AddFlashMessageType;
   match: {
     params: {
       token: string;

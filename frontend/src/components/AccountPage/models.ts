@@ -1,15 +1,12 @@
 import { FormEvent } from 'react';
-import { Auth, User } from '../../propTypes/UserType';
+import { Auth, User, AddFlashMessageType } from '../../propTypes';
 
 export interface AccountProps {
   user: User;
   getUser: (identifier: string) => Promise<void>;
   logout: () => void;
   removeUser: (username: string) => Promise<void>;
-  addFlashMessage: (payload: {
-    type: string;
-    text: string;
-  }) => { type: string; payload: { type: string; text: string } };
+  addFlashMessage: AddFlashMessageType;
 }
 
 export interface AccountState {

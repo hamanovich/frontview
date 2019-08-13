@@ -9,7 +9,7 @@ const withAuthorization = (allowed?: string[]) => <P extends object>(
   WrappedComponent: any,
 ) => {
   class Authorization extends Component<AuthorizationProps> {
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
       const { addFlashMessage, auth, history } = this.props;
       const include = allowed && allowed.includes(auth.user.role);
 
@@ -23,7 +23,7 @@ const withAuthorization = (allowed?: string[]) => <P extends object>(
       } else if (!auth.isAuthenticated && allowed) {
         addFlashMessage({
           type: 'error',
-          text: 'To see this page you have to login',
+          text: 'To see this page you have to be logged in',
         });
 
         history.push('/login');
@@ -37,7 +37,7 @@ const withAuthorization = (allowed?: string[]) => <P extends object>(
       }
     }
 
-    componentWillUpdate(nextProps: any) {
+    UNSAFE_componentWillUpdate(nextProps: any) {
       if (!nextProps.auth.isAuthenticated && nextProps.match.url !== '/login') {
         this.props.history.push('/login');
       }

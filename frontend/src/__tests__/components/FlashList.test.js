@@ -38,7 +38,7 @@ describe('<FlashList />', () => {
   describe('when user wants to close the Flash message', () => {
     beforeEach(() =>
       component
-        .find('lifecycle(Flash)')
+        .find('Memo(Flash)')
         .at(0)
         .props()
         .close(),

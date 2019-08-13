@@ -18,7 +18,7 @@ exports.getCommentsByAuthor = async (req, res) => {
   const user = await User.findOne({ username });
 
   if (!user) {
-    res.status(404).json({ error: `User @${username} didn't find` });
+    res.status(404).json({ error: `User @${username} wasn't found` });
     return;
   }
 
@@ -27,4 +27,54 @@ exports.getCommentsByAuthor = async (req, res) => {
     .populate({ path: 'question', select: '-author' });
 
   res.json(comments);
+};
+
+exports.getNotVerifiedComments = async (_, res) => {
+  const comments = await Comment.find({
+    $or: [{ isVerified: { $exists: false } }, { isVerified: false }],
+  }).populate({
+    path: 'question',
+    select: '-author',
+  });
+
+  res.json(comments);
+};
+
+exports.approve = async (req, res) => {
+  const comment = await Comment.findById(req.params.id)
+    .populate('question')
+    .populate({
+      path: 'author',
+      select: 'username email',
+    });
+
+  if (!comment) {
+    res.json({ errors: { form: `Comment by ${req.params.id} wasn't found` } });
+    return;
+  }
+
+  comment.lastModified = new Date();
+  comment.isVerified = true;
+
+  await comment.save();
+
+  res.json(comment);
+};
+
+exports.remove = async (req, res) => {
+  const comment = await Comment.findByIdAndRemove(req.params.id);
+  const user = await User.findByIdAndUpdate(comment.author, {
+    $pull: {
+      comments: comment._id,
+    },
+  });
+
+  await Comment.remove({ comment: req.params.id });
+
+  if (comment && user) {
+    res.json(comment);
+    return;
+  }
+
+  res.status(500).json({ error: "Comment wasn't removed" });
 };

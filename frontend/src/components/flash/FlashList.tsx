@@ -4,15 +4,19 @@ import { connect } from 'react-redux';
 import Flash from './Flash';
 import { deleteFlashMessage } from '../../actions/flash';
 
-import { Message } from '../../propTypes/Message';
-import { FlashListProps } from './models';
+import { FlashMessageType } from '../../propTypes';
+
+type FlashListProps = {
+  messages: FlashMessageType[];
+  deleteFlashMessage: (id: string | undefined) => void;
+};
 
 export const FlashList: FunctionComponent<FlashListProps> = ({
   messages,
   deleteFlashMessage,
 }) => (
   <Fragment>
-    {messages.map((message: Message) => (
+    {messages.map((message: FlashMessageType) => (
       <Flash
         key={message.id}
         message={message}
@@ -22,7 +26,7 @@ export const FlashList: FunctionComponent<FlashListProps> = ({
   </Fragment>
 );
 
-const mapStateToProps = (state: { flash: Message[] }) => ({
+const mapStateToProps = (state: { flash: FlashMessageType[] }) => ({
   messages: state.flash,
 });
 

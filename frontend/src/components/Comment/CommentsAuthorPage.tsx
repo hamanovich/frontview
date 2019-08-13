@@ -1,69 +1,95 @@
-import React, { FC } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
-import compose from 'recompose/compose';
-import lifecycle from 'recompose/lifecycle';
 import { Helmet } from 'react-helmet';
 
 import Container from 'react-bootstrap/Container';
+import Badge from 'react-bootstrap/Badge';
 
 import Comments from './Comments';
 import { addFlashMessage } from '../../actions/flash';
-import { getCommentsByAuthor } from '../../actions/comments';
 import {
-  CommentsAuthorPageProps,
-  CommentsAuthorPageLifecycleProps,
-  CommentsByAuthorError,
-  CommentsAuthorPageState,
-} from './models';
+  getCommentsByAuthor,
+  CommentsActionTypes,
+} from '../../actions/comments';
+import { Auth, CommentQuestion, AddFlashMessageType } from '../../propTypes';
 
-const enhance = compose<CommentsAuthorPageProps, {}>(
-  connect(
-    (state: CommentsAuthorPageState) => ({ comments: state.comments }),
-    { addFlashMessage, getCommentsByAuthor },
-  ),
+type CommentsByAuthorError = {
+  message?: string;
+  response?: {
+    data: {
+      error: string;
+    };
+  };
+};
 
-  lifecycle<CommentsAuthorPageLifecycleProps, {}>({
-    componentDidMount() {
-      const {
-        match,
-        addFlashMessage,
-        getCommentsByAuthor,
-        history,
-        auth,
-      } = this.props;
+type CommentsAuthorPageState = {
+  match: {
+    params: {
+      username: string;
+    };
+  };
+  addFlashMessage: AddFlashMessageType;
+  getCommentsByAuthor: (username: string) => Promise<CommentsActionTypes>;
+  history: {
+    push: (url: string) => void;
+  };
+  auth: Auth;
+  comments: CommentQuestion[];
+};
 
-      getCommentsByAuthor(match.params.username).catch(
-        (err: CommentsByAuthorError) => {
-          addFlashMessage({
-            type: 'error',
-            text:
-              err.response && err.response.data.error
-                ? err.response.data.error
-                : `${err.message}. Please check your internet connection`,
-          });
-
-          history.push(`/comments/${auth.user.username}`);
-        },
-      );
-    },
-  }),
-);
-
-const CommentsAuthorPage: FC<CommentsAuthorPageProps> = ({
+const CommentsAuthorPage: FunctionComponent<CommentsAuthorPageState> = ({
+  getCommentsByAuthor,
+  addFlashMessage,
   comments,
   match,
-}) => (
-  <Container>
-    <Helmet>
-      <title>Frontview: All comments</title>
-    </Helmet>
-    <h1>
-      <FontAwesome name="comments-o" /> All Your Comments
-    </h1>
+  history,
+  auth,
+}) => {
+  useEffect(() => {
+    getCommentsByAuthor(match.params.username).catch(
+      (err: CommentsByAuthorError) => {
+        addFlashMessage({
+          type: 'error',
+          text:
+            err.response && err.response.data.error
+              ? err.response.data.error
+              : `${err.message}. Please check your internet connection`,
+        });
 
-    <Comments comments={comments} match={match} />
-  </Container>
-);
+        history.push(`/comments/${auth.user.username}`);
+      },
+    );
+  }, [
+    getCommentsByAuthor,
+    addFlashMessage,
+    auth.user.username,
+    history,
+    match.params.username,
+  ]);
 
-export default enhance(CommentsAuthorPage);
+  return (
+    <Container>
+      <Helmet>
+        <title>Frontview: All comments</title>
+      </Helmet>
+      <h1>
+        <FontAwesome name="comments-o" /> All Your Comments{' '}
+        {comments.length > 0 && <Badge variant="dark">{comments.length}</Badge>}
+      </h1>
+
+      <Comments comments={comments} match={match} />
+    </Container>
+  );
+};
+
+const mapStateToPros = (state: CommentsAuthorPageState) => ({
+  comments: state.comments,
+});
+
+const mapDispatchToProps = { addFlashMessage, getCommentsByAuthor };
+
+export default connect(
+  mapStateToPros,
+  mapDispatchToProps,
+)(CommentsAuthorPage);

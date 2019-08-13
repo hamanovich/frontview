@@ -1,12 +1,12 @@
-import { Question } from '../../../propTypes/QuestionType';
-import { User } from '../../../propTypes/UserType';
-import { QList } from '../../../propTypes/QListType';
+import {
+  AddFlashMessageType,
+  Question,
+  User,
+  QList,
+} from './../../../propTypes';
 
 export interface QuestionOneProps {
-  addFlashMessage: (payload: {
-    type: string;
-    text: string;
-  }) => { type: string; payload: { type: string; text: string } };
+  addFlashMessage: AddFlashMessageType;
   getQuestionBySlug: (slug: string) => any;
   getUser: (identifier: string) => void;
   getQLists: (username: string) => void;

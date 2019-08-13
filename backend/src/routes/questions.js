@@ -259,7 +259,7 @@ exports.editField = async (req, res) => {
   const [field, index] = req.body.field.split('.');
 
   if (!question) {
-    res.json({ errors: { form: `Question by ${req.params.id} didn't find` } });
+    res.json({ errors: { form: `Question by ${req.params.id} wasn't found` } });
     return;
   }
 
@@ -294,7 +294,7 @@ exports.remove = async (req, res) => {
     return;
   }
 
-  res.status(500).json({ error: "Question didn't remove" });
+  res.status(500).json({ error: "Question wasn't removed" });
 };
 
 exports.getQuestionsByFilter = async (req, res) => {

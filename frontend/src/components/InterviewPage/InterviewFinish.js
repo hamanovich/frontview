@@ -8,7 +8,7 @@ import lifecycle from 'recompose/lifecycle';
 
 const enhance = compose(
   lifecycle({
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
       const { history, location } = this.props;
 
       if (!location.state) {

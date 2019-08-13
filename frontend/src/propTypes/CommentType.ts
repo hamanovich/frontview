@@ -8,6 +8,7 @@ export interface Comment {
   topic: string;
   text: string;
   created: string;
+  isVerified?: boolean;
 }
 
 export interface CommentQuestion extends Comment {

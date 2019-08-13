@@ -11,11 +11,13 @@ import * as candidatesController from './candidates';
 
 const router = express.Router();
 
+// ROUTES: USER
 router.post('/users', usersController.createUser);
 router.get('/users/:identifier', usersController.getUser);
 router.put('/user/:username', usersController.updateUser);
 router.delete('/user/:username', usersController.remove);
 
+// ROUTES: AUTH
 router.post('/auth', authController.auth);
 router.post('/auth/confirmation', authController.confirm);
 router.post('/auth/forgot', catchErrors(authController.forgot));
@@ -26,6 +28,7 @@ router.post(
   catchErrors(authController.update),
 );
 
+// ROUTES: QUESTIONS
 router.post(
   '/questions/add',
   authenticate,
@@ -78,12 +81,24 @@ router.get(
 router.put('/question/:id/vote', catchErrors(questionsController.voteQuestion));
 router.delete('/question/:id', questionsController.remove);
 
+// ROUTES: COMMENTS
 router.get(
-  '/comments/:username',
+  '/comments/author/:username',
   catchErrors(commentsController.getCommentsByAuthor),
 );
+router.get(
+  '/comments/not-verified',
+  catchErrors(commentsController.getNotVerifiedComments),
+);
 router.post('/comments/add', authenticate, catchErrors(commentsController.add));
+router.patch(
+  '/comment/:id/approve',
+  authenticate,
+  catchErrors(commentsController.approve),
+);
+router.delete('/comment/:id', commentsController.remove);
 
+// ROUTES: QUESTION LISTS
 router.get('/qlists/:username', catchErrors(qlistController.getQLists));
 router.get(
   '/qlists/:username/:slug',
@@ -97,6 +112,7 @@ router.post(
 );
 router.delete('/qlist/:_id', qlistController.remove);
 
+// ROUTES: CANDIDATES
 router.get('/candidates/:_id', catchErrors(candidatesController.getCandidates));
 router.post(
   '/candidates/add',
@@ -109,6 +125,7 @@ router.post(
 );
 router.get('/candidate/:_id', catchErrors(candidatesController.getCandidate));
 
+// ROUTES: SEARCH
 router.get('/search', questionsController.searchQuestions);
 
 module.exports = router;

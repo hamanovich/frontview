@@ -1,6 +1,6 @@
 import shortid from 'shortid';
 
-import { Message } from '../propTypes/Message';
+import { FlashMessageType } from '../propTypes';
 
 import {
   ADD_FLASH_MESSAGE,
@@ -9,9 +9,12 @@ import {
 } from '../actions/types';
 import { FlashActionTypes } from '../actions/flash';
 
-const initialState: Message[] = [];
+const initialState: FlashMessageType[] = [];
 
-export default (state = initialState, action: FlashActionTypes): Message[] => {
+export default (
+  state = initialState,
+  action: FlashActionTypes,
+): FlashMessageType[] => {
   switch (action.type) {
     case ADD_FLASH_MESSAGE: {
       const { type, text } = action.payload;
@@ -21,7 +24,7 @@ export default (state = initialState, action: FlashActionTypes): Message[] => {
 
     case DELETE_FLASH_MESSAGE: {
       const index: number = state.findIndex(
-        (msg: Message) => msg.id === action.id,
+        (msg: FlashMessageType) => msg.id === action.id,
       );
 
       if (index >= 0) {

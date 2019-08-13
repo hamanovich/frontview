@@ -19,7 +19,7 @@ class QuestionsFromInternet extends Component<
     source: '',
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { match, history } = this.props;
     const { prefixHistory, routes } = this.state;
 

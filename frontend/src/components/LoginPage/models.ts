@@ -1,6 +1,6 @@
 import { FormEvent } from 'react';
 import { Credentials } from '../../actions/auth';
-import { Message } from '../../propTypes/Message';
+import { AddFlashMessageType } from '../../propTypes';
 import { InjectedFormProps } from 'redux-form';
 
 export interface onSubmitLoginProps {
@@ -41,7 +41,7 @@ export interface LoginPageProps {
   ) => void;
   getReset: (token: string) => void;
   getUser: (identifier: string) => void;
-  addFlashMessage: (message: Message) => void;
+  addFlashMessage: AddFlashMessageType;
 }
 
 export interface ResetProps extends LoginProps {}
@@ -61,7 +61,7 @@ export interface ResetHandlersProps {
       token: string;
     };
   };
-  addFlashMessage: (message: Message) => void;
+  addFlashMessage: AddFlashMessageType;
 }
 
 export interface ResetLifecycleProps {
@@ -71,7 +71,7 @@ export interface ResetLifecycleProps {
       token: string;
     };
   };
-  addFlashMessage: (message: Message) => void;
+  addFlashMessage: AddFlashMessageType;
 }
 
 export interface ForgotProps extends LoginProps {

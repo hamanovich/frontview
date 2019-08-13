@@ -1,6 +1,7 @@
-import { combineReducers } from 'redux';
-import { connectRouter } from 'connected-react-router';
-import { reducer as formReducer } from 'redux-form';
+import { combineReducers, Reducer } from 'redux';
+import { History } from 'history';
+import { connectRouter, RouterState } from 'connected-react-router';
+import { reducer as formReducer, FormReducer } from 'redux-form';
 
 import flash from './flash';
 import auth from './auth';
@@ -9,8 +10,21 @@ import comments from './comments';
 import qlists from './qlists';
 import candidates from './candidates';
 
-const rootReducer = (history: any) =>
-  combineReducers({
+import { Comment, FlashMessageType, Auth, Question, QList } from '../propTypes';
+
+export interface RootState {
+  router: RouterState;
+  flash: FlashMessageType[];
+  auth: Auth;
+  questions: Question[];
+  comments: Comment[];
+  qlists: QList[];
+  candidates: any;
+  form: FormReducer;
+}
+
+const rootReducer = (history: History) =>
+  combineReducers<Reducer<RootState>>({
     router: connectRouter(history),
     flash,
     auth,

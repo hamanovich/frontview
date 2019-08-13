@@ -1,9 +1,6 @@
 import axios from 'axios';
 import { Credentials } from './actions/auth';
-import { User } from './propTypes/UserType';
-import { Comment } from './propTypes/CommentType';
-import { QList } from './propTypes/QListType';
-import { Question } from './propTypes/QuestionType';
+import { User, Comment, QList, Question } from './propTypes';
 
 export default {
   user: {
@@ -39,11 +36,19 @@ export default {
   },
 
   comments: {
-    add: (comment: Comment) =>
+    add: (comment: Comment): Promise<Comment> =>
       axios.post('/api/comments/add', comment).then(res => res.data),
 
-    getByAuthor: (username: string) =>
-      axios.get(`/api/comments/${username}`).then(res => res.data),
+    getByAuthor: (username: string): Promise<Comment[]> =>
+      axios.get(`/api/comments/author/${username}`).then(res => res.data),
+
+    getNotVerified: (): Promise<Comment[]> =>
+      axios.get('/api/comments/not-verified').then(res => res.data),
+
+    approve: (id: string): Promise<Comment> =>
+      axios.patch(`/api/comment/${id}/approve`).then(res => res.data),
+    remove: (id: string): Promise<Comment> =>
+      axios.delete(`/api/comment/${id}`).then(res => res.data),
   },
 
   qlists: {
