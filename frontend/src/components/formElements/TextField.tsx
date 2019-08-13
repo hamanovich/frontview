@@ -1,11 +1,11 @@
-import React, { FC, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FontAwesome from 'react-fontawesome';
 import { TextFieldProps } from './models';
 
-const TextField: FC<TextFieldProps> = ({
+const TextField: FunctionComponent<TextFieldProps> = ({
   input,
   label = '',
   placeholder = '',
@@ -20,12 +20,11 @@ const TextField: FC<TextFieldProps> = ({
 }) => {
   const [activeType, setType] = useState<string>(type);
 
-  const onTogglePasswordView = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setType(() => (activeType === type ? 'text' : type));
+  const onTogglePasswordView = () => {
+    setType(activeType === type ? 'text' : type);
   };
 
-  const FormControl = (controlType = type) => (
+  const FormControl = (controlType: string = type) => (
     <Form.Control
       {...input}
       placeholder={placeholder}
@@ -60,7 +59,7 @@ const TextField: FC<TextFieldProps> = ({
           </InputGroup.Append>
         </InputGroup>
       ) : (
-        <>{FormControl()}</>
+        FormControl()
       )}
       {feedback && <Form.Control.Feedback />}
       {errorsVisible && errorState && (
