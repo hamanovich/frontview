@@ -12,9 +12,8 @@
   "scripts": {
     "clean:all": "find . -name 'node_modules' -type d -exec rm -rf '{}' +",
     "build": "concurrently \"cd frontend && yarn build\" \"cd backend && yarn build\"",
-    "install": "(cd frontend && yarn) && (cd backend && yarn)",
-    "start": "concurrently \"cd frontend && yarn start\" \"cd backend && PORT=3001 && yarn start\"",
-    "start-pc": "concurrently \"cd frontend && yarn start\" \"cd backend && SET PORT=3001 && yarn start\"",
+    "install": "concurrently \"cd frontend && yarn\" \"cd backend && yarn\"",
+    "start": "concurrently \"cd frontend && yarn start\" \"cd backend && cross-env PORT=3001 && yarn start\"",
     "start:prod": "cd backend && yarn start:prod",
     "heroku-postbuild": "yarn build",
     "format": "yarn prettier -- --write",
@@ -23,13 +22,15 @@
     "lint": "yarn lint:backend && yarn lint:frontend",
     "lint:backend": "eslint ./backend/src/**/*.js",
     "lint:frontend": "eslint \"./frontend/src/**/*.+(js|ts|tsx)\"",
-    "test": "cd frontend && yarn test"
+    "test": "cd frontend && yarn test",
+    "test:staged": "cross-env CI=true yarn test --findRelatedTests"
   },
   "dependencies": {
     "concurrently": "^4.0.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
+    "cross-env": "^5.2.0",
     "eslint": "^6.1.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^6.0.0",
@@ -47,12 +48,17 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "lint-staged"
     }
   },
   "lint-staged": {
     "*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|graphql|mdx)": [
       "yarn format",
+      "git add"
+    ],
+    "frontend/src/**/*.+(ts|tsx)": [
+      "yarn test:staged",
       "git add"
     ]
   }
