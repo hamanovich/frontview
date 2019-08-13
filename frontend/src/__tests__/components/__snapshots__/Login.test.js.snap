@@ -67,7 +67,20 @@ exports[`<Login/> renders <Login /> component with error state 1`] = `
     <Alert
       closeLabel="Close alert"
       show={true}
-      transition={[Function]}
+      transition={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "defaultProps": Object {
+            "appear": false,
+            "in": false,
+            "mountOnEnter": false,
+            "timeout": 300,
+            "unmountOnExit": false,
+          },
+          "displayName": "Fade",
+          "render": [Function],
+        }
+      }
       variant="danger"
     >
       Test Error

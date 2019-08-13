@@ -52,7 +52,13 @@ exports[`<Toolbar/> renders <Toolbar /> component 1`] = `
       variant="info"
     >
       <DropdownItem
-        as={[Function]}
+        as={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "displayName": "SafeAnchor",
+            "render": [Function],
+          }
+        }
         disabled={false}
         eventKey={0}
         key="5bd6e86025ccd523e4595ad4"
@@ -66,7 +72,13 @@ exports[`<Toolbar/> renders <Toolbar /> component 1`] = `
         to="/me/qlist/create"
       >
         <DropdownItem
-          as={[Function]}
+          as={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "displayName": "SafeAnchor",
+              "render": [Function],
+            }
+          }
           disabled={false}
         >
           Create a new QList
