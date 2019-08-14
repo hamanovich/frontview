@@ -26,21 +26,21 @@
     "test:staged": "cross-env CI=true yarn test --findRelatedTests"
   },
   "dependencies": {
-    "concurrently": "^4.0.1"
+    "concurrently": "4.1.1"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "cross-env": "^5.2.0",
-    "eslint": "^6.1.0",
-    "eslint-config-airbnb": "^18.0.0",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-react": "^7.11.1",
-    "husky": "^3.0.2",
-    "lint-staged": "^9.2.1",
-    "prettier": "^1.15.2",
-    "prettier-eslint": "^9.0.0"
+    "babel-eslint": "10.0.2",
+    "cross-env": "5.2.0",
+    "eslint": "6.1.0",
+    "eslint-config-airbnb": "18.0.1",
+    "eslint-config-prettier": "6.0.0",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.14.3",
+    "husky": "3.0.3",
+    "lint-staged": "9.2.1",
+    "prettier": "1.18.2",
+    "prettier-eslint": "9.0.0"
   },
   "engines": {
     "node": ">=10.10.0 <12.x.x",
