@@ -43,7 +43,7 @@
     "prettier-eslint": "9.0.0"
   },
   "engines": {
-    "node": ">=10.10.0 <12.x.x",
+    "node": "10.x.x",
     "yarn": ">=1.16.x <=1.17.x"
   },
   "husky": {
