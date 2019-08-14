@@ -13,7 +13,7 @@
     "clean:all": "find . -name 'node_modules' -type d -exec rm -rf '{}' +",
     "build": "concurrently \"cd frontend && yarn build\" \"cd backend && yarn build\"",
     "install": "concurrently \"cd frontend && yarn\" \"cd backend && yarn\"",
-    "start": "concurrently \"cd frontend && yarn start\" \"cd backend && cross-env PORT=3001 && yarn start\"",
+    "start": "concurrently \"cd frontend && yarn start\" \"cd backend && cross-env && yarn start\"",
     "start:prod": "cd backend && yarn start:prod",
     "heroku-postbuild": "yarn build",
     "format": "yarn prettier -- --write",
