@@ -1,4 +1,6 @@
-import '@babel/polyfill';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
 import express from 'express';
 import morgan from 'morgan';
 import path from 'path';
