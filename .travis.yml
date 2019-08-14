@@ -11,5 +11,6 @@ branches:
 deploy:
   provider: heroku
   app: front-view
+  skip_cleanup: true
   api_key:
     secure: $HEROKU_SECURE
