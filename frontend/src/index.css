@@ -3,8 +3,11 @@ html {
 }
 
 body {
-  margin: 0;
+  display: flex;
+  flex-direction: column;
   position: relative;
+  min-height: 100vh;
+  margin: 0;
   font-family: 'PT Sans', sans-serif;
 }
 
@@ -94,4 +97,8 @@ input[type='submit'] {
 
 .form-label + .form-check-inline {
   margin-left: 1rem;
+}
+
+.frontview-wrapper {
+  flex: 1;
 }
