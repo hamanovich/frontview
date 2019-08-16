@@ -50,7 +50,7 @@ exports.getQuestionById = async (req, res) => {
     if (err) {
       res
         .status(500)
-        .json({ error: `Question with id='${req.params.id}' didn't find` });
+        .json({ error: `Question with id='${req.params.id}' wasn't found` });
     }
   });
 
@@ -69,7 +69,7 @@ exports.getQuestionBySlug = async (req, res) => {
 
   res
     .status(500)
-    .json({ error: `Question with slug='${req.params.slug}' didn't find` });
+    .json({ error: `Question with slug='${req.params.slug}' wasnt found` });
 };
 
 exports.add = async (req, res) => {
@@ -90,18 +90,23 @@ exports.add = async (req, res) => {
   if (imgs && imgs.length) {
     const logItem = item =>
       new Promise(resolve => {
-        process.nextTick(() => {
-          cloudinary.uploader.upload(
-            item,
-            result => {
-              imgsList.push(result.url);
-              resolve();
-            },
-            {
-              folder: process.env.CLOUDINARY_FOLDER,
-            },
-          );
-        });
+        cloudinary.v2.uploader.upload(
+          item,
+          {
+            folder: process.env.CLOUDINARY_FOLDER,
+          },
+          (err, result) => {
+            if (err) {
+              res.status(503).json({
+                error: `Something went wrong on cloudinary service side: ${err.message}`,
+              });
+              return;
+            }
+
+            imgsList.push(result.secure_url);
+            resolve();
+          },
+        );
       });
 
     await forEachPromise(imgs, logItem);
@@ -133,7 +138,7 @@ exports.add = async (req, res) => {
 
   res.status(500).json({
     error:
-      "Author of this question didn't find in database. Please relogin and try again",
+      "Author of this question wasn't found in database. Please relogin and try again",
   });
 };
 
@@ -197,7 +202,7 @@ exports.addFromFile = async (req, res) => {
 
   res.status(500).json({
     error:
-      "Author of this question didn't find in database. Please relogin and try again",
+      "Author of this question wasn't found in database. Please relogin and try again",
   });
 };
 
@@ -206,18 +211,23 @@ exports.edit = async (req, res) => {
 
   const logItem = item =>
     new Promise(resolve => {
-      process.nextTick(() => {
-        cloudinary.uploader.upload(
-          item,
-          result => {
-            imgsList.push(result.url);
-            resolve();
-          },
-          {
-            folder: process.env.CLOUDINARY_FOLDER,
-          },
-        );
-      });
+      cloudinary.v2.uploader.upload(
+        item,
+        {
+          folder: process.env.CLOUDINARY_FOLDER,
+        },
+        (err, result) => {
+          if (err) {
+            res.status(503).json({
+              error: `Something went wrong on cloudinary service side: ${err.message}`,
+            });
+            return;
+          }
+
+          imgsList.push(result.secure_url);
+          resolve();
+        },
+      );
     });
 
   await forEachPromise(req.body.imgs, logItem);
@@ -235,14 +245,14 @@ exports.edit = async (req, res) => {
     return;
   }
 
-  res.status(500).json({ error: "Question didn't update" });
+  res.status(500).json({ error: "Question wasn't updated" });
 };
 
 exports.approve = async (req, res) => {
   const question = await Question.findById(req.params.id);
 
   if (!question) {
-    res.json({ errors: { form: `Question by ${req.params.id} didn't find` } });
+    res.json({ errors: { form: `Question by ${req.params.id} wasn't found` } });
     return;
   }
 
@@ -312,7 +322,7 @@ exports.getQuestionsByAuthor = async (req, res) => {
   const user = await User.findOne({ username });
 
   if (!user) {
-    res.status(404).json({ error: "User didn't find" });
+    res.status(404).json({ error: "User wasn't found" });
     return;
   }
 
@@ -366,7 +376,7 @@ exports.voteQuestion = async (req, res) => {
   res.status(500).json({ error: 'You can not vote!' });
 };
 
-exports.getTopQuestions = async (req, res) => {
+exports.getTopQuestions = async (_, res) => {
   const questions = await Question.getTopQuestions();
 
   res.send(questions);
