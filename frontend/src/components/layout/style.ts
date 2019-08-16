@@ -22,6 +22,11 @@ export const SForm = styled(Form)`
     padding-right: 0.75rem;
   }
 
+  .form-group {
+    margin-bottom: 0;
+    padding-right: 1rem;
+  }
+
   @media (max-width: 767px) {
     display: flex;
     width: 100%;
