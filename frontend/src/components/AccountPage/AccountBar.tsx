@@ -47,6 +47,9 @@ const AccountBar: FunctionComponent<AccountBarProps> = ({ auth, logout }) => (
           <Link to="/comments/not-verified" className="list-group-item">
             <FontAwesome name="commenting-o" /> Unverified comments
           </Link>
+          <Link to="/users" className="list-group-item">
+            <FontAwesome name="user-o" /> All users
+          </Link>
         </ListGroup>
       </Fragment>
     )}

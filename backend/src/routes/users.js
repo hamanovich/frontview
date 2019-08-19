@@ -71,6 +71,18 @@ exports.createUser = async (req, res) => {
   res.send(user);
 };
 
+exports.getAllUsers = async (req, res) => {
+  const privateFields = { confirmationToken: 0, passwordDigest: 0 };
+  const users = await User.find({}, privateFields).sort({ role: 1 });
+
+  if (users) {
+    res.json(users);
+    return;
+  }
+
+  res.json({ error: 'No users registered' });
+};
+
 exports.getUser = async (req, res) => {
   const user = await User.findOne({
     $or: [
@@ -99,7 +111,7 @@ exports.getUser = async (req, res) => {
     return;
   }
 
-  res.json({ error: "User didn't find" });
+  res.json({ error: "User wasn't found" });
 };
 
 exports.updateUser = async (req, res) => {
@@ -118,11 +130,11 @@ exports.updateUser = async (req, res) => {
 
   await userOne.save();
 
-  res.json({ success: true });
+  res.json({ success: true, username: req.params.username });
 };
 
 exports.remove = async (req, res) => {
   await User.remove({ username: req.params.username });
 
-  res.json({ succes: true });
+  res.json({ succes: true, username: req.params.username });
 };
