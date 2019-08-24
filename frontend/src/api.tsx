@@ -36,6 +36,10 @@ export default {
       axios.delete(`/api/user/${username}`).then(res => res.data),
 
     update: (user: User) => axios.put(`/api/user/${user.username}`, user),
+    updateRole: (username: string, role: string) =>
+      axios
+        .patch(`/api/user/${username}`, { username, role })
+        .then(res => res.data),
   },
 
   comments: {

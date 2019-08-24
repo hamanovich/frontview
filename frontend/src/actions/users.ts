@@ -3,8 +3,8 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import api from '../api';
 import { AppState } from '../reducers';
-import { USERS_GET, USER_REMOVE } from './types';
-import { User } from '../propTypes/UserType';
+import { USERS_GET, USER_REMOVE, USER_UPDATE_ROLE } from './types';
+import { User, RoleEnum } from '../propTypes/UserType';
 
 interface usersGetAction {
   type: typeof USERS_GET;
@@ -16,7 +16,16 @@ interface userRemoveAction {
   username: string;
 }
 
-export type UserActionTypes = usersGetAction | userRemoveAction;
+interface userRoleUpdateAction {
+  type: typeof USER_UPDATE_ROLE;
+  username: string;
+  role: RoleEnum;
+}
+
+export type UserActionTypes =
+  | usersGetAction
+  | userRemoveAction
+  | userRoleUpdateAction;
 
 export const usersGet = (users: User[]): UserActionTypes => ({
   type: USERS_GET,
@@ -28,6 +37,12 @@ export const userRemoved = (username: string) => ({
   username,
 });
 
+export const userRoleUpdated = (username: string, role: string) => ({
+  type: USER_UPDATE_ROLE,
+  username,
+  role,
+});
+
 export const getAllUsers = (): ThunkAction<
   Promise<{}>,
   AppState,
@@ -35,6 +50,16 @@ export const getAllUsers = (): ThunkAction<
   Action<string>
 > => (dispatch: ThunkDispatch<{}, {}, Action<string>>) =>
   api.user.getAllUsers().then(users => dispatch(usersGet(users)));
+
+export const updateUserRole = (
+  username: string,
+  role: string,
+): ThunkAction<Promise<{}>, AppState, null, Action<string>> => (
+  dispatch: ThunkDispatch<{}, {}, Action<string>>,
+) =>
+  api.user
+    .updateRole(username, role)
+    .then(res => dispatch(userRoleUpdated(res.username, res.role)));
 
 export const removeUser = (
   username: string,

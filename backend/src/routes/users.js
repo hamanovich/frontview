@@ -133,6 +133,27 @@ exports.updateUser = async (req, res) => {
   res.json({ success: true, username: req.params.username });
 };
 
+exports.updateUserRole = async (req, res) => {
+  const user = await User.findOneAndUpdate(
+    { username: req.params.username },
+    { role: req.body.role },
+    { new: true },
+  );
+
+  if (!user) {
+    res.json({
+      errors: { form: `User by ${req.params.usernbame} wasn't found` },
+    });
+    return;
+  }
+
+  res.json({
+    success: true,
+    username: req.params.username,
+    role: req.body.role,
+  });
+};
+
 exports.remove = async (req, res) => {
   await User.remove({ username: req.params.username });
 
