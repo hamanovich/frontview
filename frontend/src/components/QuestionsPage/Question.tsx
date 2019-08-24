@@ -92,7 +92,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
     const panelHeader = (
       <div className="justify-content-between d-flex align-items-center">
         <h4 onClick={this.open(question.question, 'question')} className="mb-0">
-          <MarkdownRenderer markdown={question.question} />
+          {question.question}
         </h4>
         <div>
           {question.level.map((level: string) => (
