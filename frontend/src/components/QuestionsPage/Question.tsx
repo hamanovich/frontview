@@ -21,6 +21,7 @@ import { TextareaField } from '../formElements';
 import { BadgeStyled, ApproveBar } from './style';
 import { DropThumb, DropThumbs } from './AddQuestion/style';
 import { Question } from '../../propTypes/QuestionType';
+import MarkdownSupportedIcon from '../shared/MarkdownSupportedIcon';
 
 class QuestionSingle extends Component<QuestionProps, QuestionState> {
   static defaultProps = {
@@ -43,10 +44,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
     this.zoom.attach(image);
   };
 
-  private open = (
-    answerField: { text: string } | string,
-    field: string,
-  ) => () => {
+  private open = (answerField: string, field: string) => () => {
     const { user, question } = this.props;
 
     if (
@@ -163,7 +161,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
               (question: { text: string }, index: number) => (
                 <em
                   key={shortid.generate()}
-                  onClick={this.open(question, `answers.${index}`)}>
+                  onClick={this.open(question.text, `answers.${index}`)}>
                   <MarkdownRenderer markdown={question.text} />
                 </em>
               ),
@@ -242,20 +240,17 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
               <Modal.Body>
                 <form>
                   <Form.Group>
-                    <Form.Label htmlFor="formControlsTextarea">
+                    <Form.Label
+                      htmlFor="formControlsTextarea"
+                      className="justify-content-label">
                       Change Field and press Update button
+                      <MarkdownSupportedIcon />
                     </Form.Label>
                     <Form.Control
                       name={textField}
                       as="textarea"
                       ref={this.textInput}
-                      defaultValue={
-                        typeof answerField === 'object' &&
-                        answerField &&
-                        answerField.text
-                          ? answerField.text
-                          : answerField
-                      }
+                      defaultValue={answerField}
                       rows="10"
                     />
                   </Form.Group>

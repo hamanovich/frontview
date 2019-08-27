@@ -156,7 +156,7 @@ export interface QuestionProps {
 export interface QuestionState {
   showModal: boolean;
   textField: string;
-  answerField: { text: string } | string;
+  answerField: string;
 }
 
 export interface QuestionsWrapperProps {
