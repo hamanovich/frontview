@@ -68,9 +68,7 @@ const InterviewProgress = ({
   const questions = location.state ? location.state.qlist.questions : [];
   const tab = questions.map((question, index) => (
     <Tab eventKey={index + 1} key={question._id} title={index + 1}>
-      <h3>
-        <MarkdownRenderer markdown={question.question} />
-      </h3>
+      <h3>{question.question}</h3>
       <MarkdownRenderer markdown={question.answer} />
       {question.answers.map(question => (
         <MarkdownRenderer markdown={question.text} key={shortid.generate()} />

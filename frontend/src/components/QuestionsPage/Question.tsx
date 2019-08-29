@@ -13,6 +13,7 @@ import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 
+import MarkdownSupportedIcon from '../shared/MarkdownSupportedIcon';
 import Toolbar from '../shared/Toolbar';
 import ZoomImage from '../shared/ZoomImage';
 import Loader from '../../utils/Loader';
@@ -20,8 +21,7 @@ import { QuestionProps, QuestionState } from './models';
 import { TextareaField } from '../formElements';
 import { BadgeStyled, ApproveBar } from './style';
 import { DropThumb, DropThumbs } from './AddQuestion/style';
-import { Question } from '../../propTypes/QuestionType';
-import { RoleEnum } from 'propTypes';
+import { Question, RoleEnum } from '../../propTypes';
 
 class QuestionSingle extends Component<QuestionProps, QuestionState> {
   static defaultProps = {
@@ -44,10 +44,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
     this.zoom.attach(image);
   };
 
-  private open = (
-    answerField: { text: string } | string,
-    field: string,
-  ) => () => {
+  private open = (answerField: string, field: string) => () => {
     const { user, question } = this.props;
 
     if (
@@ -92,9 +89,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
 
     const panelHeader = (
       <div className="justify-content-between d-flex align-items-center">
-        <h4 onClick={this.open(question.question, 'question')} className="mb-0">
-          <MarkdownRenderer markdown={question.question} />
-        </h4>
+        <h4 className="mb-0">{question.question}</h4>
         <div>
           {question.level.map((level: string) => (
             <Link to={`/questions/level/${level}`} key={level}>
@@ -166,7 +161,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
               (question: { text: string }, index: number) => (
                 <em
                   key={shortid.generate()}
-                  onClick={this.open(question, `answers.${index}`)}>
+                  onClick={this.open(question.text, `answers.${index}`)}>
                   <MarkdownRenderer markdown={question.text} />
                 </em>
               ),
@@ -246,20 +241,17 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
               <Modal.Body>
                 <Form>
                   <Form.Group>
-                    <Form.Label htmlFor="formControlsTextarea">
+                    <Form.Label
+                      htmlFor="formControlsTextarea"
+                      className="justify-content-label">
                       Change Field and press Update button
+                      <MarkdownSupportedIcon />
                     </Form.Label>
                     <Form.Control
                       name={textField}
                       as="textarea"
                       ref={this.textInput}
-                      defaultValue={
-                        typeof answerField === 'object' &&
-                        answerField &&
-                        answerField.text
-                          ? answerField.text
-                          : answerField
-                      }
+                      defaultValue={answerField}
                       rows="10"
                     />
                   </Form.Group>
