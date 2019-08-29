@@ -192,22 +192,6 @@ const AccountEdit: FC<AccountEditProps> = ({
         placeholder="Add some notes, if needed"
       />
 
-      <Field
-        label="Password*:"
-        component={TextField}
-        type="password"
-        name="password"
-        placeholder="Come up with a password"
-      />
-
-      <Field
-        label="Confirm your Password*:"
-        component={TextField}
-        type="password"
-        name="passwordConfirmation"
-        placeholder="Repeat your password"
-      />
-
       <Button type="submit" variant="primary" size="lg" disabled={isLoading}>
         Update profile
       </Button>
