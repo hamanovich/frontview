@@ -96,6 +96,19 @@ exports[`<App/> renders <App /> component 1`] = `
             "type": [Function],
           }
         }
+        exact={true}
+        path="/users"
+      />
+      <Route
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "displayName": "Connect(Authorization)",
+            "type": [Function],
+          }
+        }
         path="/comments/author/:username"
       />
       <Route
