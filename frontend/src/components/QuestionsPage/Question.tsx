@@ -89,9 +89,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
 
     const panelHeader = (
       <div className="justify-content-between d-flex align-items-center">
-        <h4 onClick={this.open(question.question, 'question')} className="mb-0">
-          {question.question}
-        </h4>
+        <h4 className="mb-0">{question.question}</h4>
         <div>
           {question.level.map((level: string) => (
             <Link to={`/questions/level/${level}`} key={level}>
