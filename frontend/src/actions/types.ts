@@ -6,6 +6,9 @@ export const USER_SIGNUP = '[USER] SIGNUP';
 export const SET_CURRENT_USER = '[USER] SET';
 export const CLEANUP_CURRENT_USER = '[USER] CLEAN';
 export const USER_GET = '[USER] GET';
+export const USERS_GET = '[USERS] GET ALL';
+export const USER_UPDATE_ROLE = '[USER] UPDATE_ROLE';
+export const USER_REMOVE = '[USER] REMOVE';
 
 export const QUESTIONS_ADD = '[QUESTIONS] ADD';
 export const QUESTIONS_FROM_FILE_ADD = '[QUESTIONS] ADD FROM FILE';

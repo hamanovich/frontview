@@ -25,11 +25,16 @@ const initialState: Auth = {
 export default (state = initialState, action: AuthActionTypes): Auth => {
   switch (action.type) {
     case SET_CURRENT_USER:
-    case CLEANUP_CURRENT_USER:
     case USER_GET:
       return {
         isAuthenticated: Object.keys(action.user).length !== 0,
         user: action.user,
+      };
+
+    case CLEANUP_CURRENT_USER:
+      return {
+        isAuthenticated: false,
+        user: {} as any,
       };
 
     default:

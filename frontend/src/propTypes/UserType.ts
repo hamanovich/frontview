@@ -2,6 +2,7 @@ export enum RoleEnum {
   USER = 'user',
   OWNER = 'owner',
   ADMIN = 'admin',
+  SUPERADMIN = 'superadmin',
 }
 
 export interface User {

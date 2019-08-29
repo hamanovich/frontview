@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import { ThunkAction } from 'redux-thunk';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import jwtDecode from 'jwt-decode';
 
 import api from '../api';
@@ -15,7 +15,6 @@ interface setCurrentUserActon {
 
 interface logoutUserActon {
   type: typeof CLEANUP_CURRENT_USER;
-  user: User;
 }
 
 interface userGetAction {
@@ -28,24 +27,30 @@ export interface Credentials {
   password: string;
 }
 
-export const userGet = (user: User) => ({
+export type AuthActionTypes =
+  | setCurrentUserActon
+  | logoutUserActon
+  | userGetAction;
+
+export const userGet = (user: User): AuthActionTypes => ({
   type: USER_GET,
   user,
 });
 
-export const setCurrentUser = (user: User | {}) => ({
+export const setCurrentUser = (user: User): AuthActionTypes => ({
   type: SET_CURRENT_USER,
   user,
 });
 
-export const logoutUser = () => ({
+export const logoutUser = (): AuthActionTypes => ({
   type: CLEANUP_CURRENT_USER,
-  user: {},
 });
 
 export const login = (
   credentials: Credentials,
-): ThunkAction<void, AppState, null, Action<string>> => dispatch =>
+): ThunkAction<void, AppState, null, Action<string>> => (
+  dispatch: ThunkDispatch<{}, {}, Action<string>>,
+) =>
   api.user.login(credentials).then(token => {
     const decoded: any = jwtDecode(token);
 
@@ -92,8 +97,3 @@ export const getUser = (
   identifier: string,
 ): ThunkAction<Promise<{}>, AppState, null, Action<string>> => dispatch =>
   api.user.getUser(identifier).then(user => dispatch(userGet(user)));
-
-export type AuthActionTypes =
-  | setCurrentUserActon
-  | logoutUserActon
-  | userGetAction;
