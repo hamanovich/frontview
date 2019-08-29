@@ -22,6 +22,9 @@ const LoginPage = lazy(() =>
 const SignupPage = lazy(() =>
   import('./SignupPage' /* webpackChunkName: "Signup" */),
 );
+const UsersPage = lazy(() =>
+  import('./UsersPage' /* webpackChunkName: "Users" */),
+);
 const AccountPage = lazy(() =>
   import('./AccountPage' /* webpackChunkName: "AccountPage" */),
 );
@@ -68,6 +71,7 @@ const App = () => (
           path="/comments/not-verified"
           component={Admin(Waiting(CommentsNotVerifiedPage))}
         />
+        <Route exact path="/users" component={Admin(Waiting(UsersPage))} />
         <Route
           path="/comments/author/:username"
           component={Customer(Waiting(CommentsAuthorPage))}

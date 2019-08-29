@@ -6,9 +6,10 @@ import IconLoader from '../components/shared/IconLoader';
 import Authorization from './Authorization';
 
 export const isLoggedIn = Authorization();
-export const Customer = Authorization(['user', 'owner', 'admin']);
-export const Owner = Authorization(['owner', 'admin']);
-export const Admin = Authorization(['admin']);
+export const Customer = Authorization(['user', 'owner', 'admin', 'superadmin']);
+export const Owner = Authorization(['owner', 'admin', 'superadmin']);
+export const Admin = Authorization(['admin', 'superadmin']);
+export const Superadmin = Authorization(['superadmin']);
 
 export const PropsRoute = ({ component, ...rest }: any) => (
   <Route

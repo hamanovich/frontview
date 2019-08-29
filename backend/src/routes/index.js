@@ -13,8 +13,14 @@ const router = express.Router();
 
 // ROUTES: USER
 router.post('/users', usersController.createUser);
+router.get('/users', usersController.getAllUsers);
 router.get('/users/:identifier', usersController.getUser);
 router.put('/user/:username', usersController.updateUser);
+router.patch(
+  '/user/:username',
+  authenticate,
+  catchErrors(usersController.updateUserRole),
+);
 router.delete('/user/:username', usersController.remove);
 
 // ROUTES: AUTH
