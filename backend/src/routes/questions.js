@@ -23,10 +23,10 @@ exports.getQuestionInterface = (req, res) => {
 
 exports.getQuestions = async (req, res) => {
   const page = req.params.page || 1;
-  const limit = 5;
+  const limit = 10;
   const skip = page * limit - limit;
-  const countPromise = Question.countDocuments();
-  const questionsPromise = Question.find()
+  const countPromise = Question.countDocuments({ isVerified: true });
+  const questionsPromise = Question.find({ isVerified: true })
     .skip(skip)
     .limit(limit);
   const [questions, count] = await Promise.all([
@@ -380,4 +380,12 @@ exports.getTopQuestions = async (_, res) => {
   const questions = await Question.getTopQuestions();
 
   res.send(questions);
+};
+
+exports.getNotVerifiedQuestions = async (_, res) => {
+  const questions = await Question.find({
+    $or: [{ isVerified: { $exists: false } }, { isVerified: false }],
+  });
+
+  res.json(questions);
 };

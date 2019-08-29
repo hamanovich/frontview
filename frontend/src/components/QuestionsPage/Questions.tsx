@@ -1,4 +1,4 @@
-import React, { FunctionComponent, Fragment } from 'react';
+import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import compose from 'recompose/compose';
@@ -8,6 +8,8 @@ import Loader from '../../utils/Loader';
 import { approveQuestion, editQuestionField } from '../../actions/questions';
 import { QuestionsProps, QuestionsState } from './models';
 import { Question } from '../../propTypes/QuestionType';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 const enhance = compose<
   QuestionsProps,
@@ -35,17 +37,18 @@ const Questions: FunctionComponent<QuestionsProps> = ({
   approveQuestion,
   editQuestionField,
 }) => (
-  <Fragment>
+  <Row>
     {questions.length ? (
       questions.map((question: Question) => (
-        <QuestionOne
-          question={question}
-          approveQuestion={approveQuestion}
-          editQuestionField={editQuestionField}
-          key={question._id}
-          user={user}
-          qlists={qlists}
-        />
+        <Col sm={6} xs={12} key={question._id}>
+          <QuestionOne
+            question={question}
+            approveQuestion={approveQuestion}
+            editQuestionField={editQuestionField}
+            user={user}
+            qlists={qlists}
+          />
+        </Col>
       ))
     ) : (
       <span>
@@ -53,7 +56,7 @@ const Questions: FunctionComponent<QuestionsProps> = ({
         <Link to="/questions/add">Try it now</Link>
       </span>
     )}
-  </Fragment>
+  </Row>
 );
 
 export default enhance(Questions);

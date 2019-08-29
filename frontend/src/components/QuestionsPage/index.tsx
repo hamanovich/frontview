@@ -12,7 +12,7 @@ import QuestionsSearch from './QuestionsSearch';
 import QuestionOne from './QuestionOne';
 import QuestionsWrapper from './QuestionsWrapper';
 
-import { Customer, Waiting } from '../../utils/helpers';
+import { Customer, Admin, Waiting } from '../../utils/helpers';
 import ErrorBoundary from '../../utils/ErrorBoundary';
 
 const AddQuestion = lazy(() =>
@@ -46,6 +46,11 @@ const QuestionsPage = () => (
           exact
           path="/questions/search"
           component={QuestionsWrapper(QuestionsSearch)}
+        />
+        <Route
+          exact
+          path="/questions/not-verified"
+          component={Admin(QuestionsWrapper(QuestionsAll))}
         />
         <Route
           exact

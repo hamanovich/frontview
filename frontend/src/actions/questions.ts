@@ -133,6 +133,16 @@ export const getTopQuestions = (): ThunkAction<
 > => dispatch =>
   api.questions.getTop().then(questions => dispatch(addQuestions(questions)));
 
+export const getNotVerifiedQuestions = (): ThunkAction<
+  void,
+  AppState,
+  null,
+  Action<string>
+> => dispatch =>
+  api.questions
+    .getNotVerified()
+    .then(questions => dispatch(addQuestions(questions)));
+
 export const getQuestionsByFilter = (
   filter: string,
   tag: string = '',

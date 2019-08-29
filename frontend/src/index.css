@@ -78,10 +78,6 @@ input[type='submit'] {
   margin-bottom: 20px;
 }
 
-.question {
-  margin-bottom: 50px;
-}
-
 .media + .media {
   margin-top: 32px;
 }

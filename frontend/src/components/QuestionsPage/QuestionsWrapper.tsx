@@ -6,6 +6,7 @@ import { addFlashMessage } from '../../actions/flash';
 import {
   getQuestions,
   getTopQuestions,
+  getNotVerifiedQuestions,
   getSearchedQuestions,
   getQuestionsByAuthor,
 } from '../../actions/questions';
@@ -39,6 +40,7 @@ const WrappedComponent = <P extends object>(
         match,
         location,
         getTopQuestions,
+        getNotVerifiedQuestions,
         getQListQuestions,
       } = this.props;
       const { page = 1, username, slug } = match.params;
@@ -48,6 +50,8 @@ const WrappedComponent = <P extends object>(
         this.getQueryQuestions(searchQuery);
       } else if (match.path === '/questions/top') {
         getTopQuestions();
+      } else if (match.path === '/questions/not-verified') {
+        getNotVerifiedQuestions();
       } else if (username && !slug) {
         this.getAuthorsQuestions(username);
       } else if (username && slug) {
@@ -165,6 +169,7 @@ const WrappedComponent = <P extends object>(
       getQLists,
       getQuestions,
       getTopQuestions,
+      getNotVerifiedQuestions,
       getQListQuestions,
       getQuestionsByAuthor,
       getSearchedQuestions,

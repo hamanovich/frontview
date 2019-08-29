@@ -155,6 +155,7 @@ export interface QuestionProps {
 
 export interface QuestionState {
   showModal: boolean;
+  showAnswer: boolean;
   textField: string;
   answerField: { text: string } | string;
 }
@@ -164,6 +165,7 @@ export interface QuestionsWrapperProps {
   getQuestions: any;
   getQLists: any;
   getTopQuestions: any;
+  getNotVerifiedQuestions: any;
   getQuestionsByAuthor: (author: string) => Promise<void>;
   getSearchedQuestions: any;
   getQListQuestions: any;

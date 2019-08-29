@@ -103,6 +103,9 @@ export default {
     getQuestions: (page: number) =>
       axios.get(`/api/questions/page/${page}`).then(res => res.data),
 
+    getNotVerified: () =>
+      axios.get('/api/questions/not-verified').then(res => res.data),
+
     getTop: () => axios.get('/api/questions/top/').then(res => res.data),
 
     getByFilter: (filter: string, tag: string) =>
