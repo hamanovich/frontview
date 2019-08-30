@@ -16,16 +16,18 @@ exports[`<Login/> renders <Login /> component 1`] = `
     <Field
       component={[Function]}
       htmlFor="identifier"
-      label="Username / Email*:"
+      label="Username / Email"
       name="identifier"
       placeholder="Type your Username or Email"
+      required={true}
       type="text"
     />
     <Field
       component={[Function]}
-      label="Password*:"
+      label="Password"
       name="password"
       placeholder="Come up with a password"
+      required={true}
       type="password"
     />
     <FormGroup>
@@ -88,16 +90,18 @@ exports[`<Login/> renders <Login /> component with error state 1`] = `
     <Field
       component={[Function]}
       htmlFor="identifier"
-      label="Username / Email*:"
+      label="Username / Email"
       name="identifier"
       placeholder="Type your Username or Email"
+      required={true}
       type="text"
     />
     <Field
       component={[Function]}
-      label="Password*:"
+      label="Password"
       name="password"
       placeholder="Come up with a password"
+      required={true}
       type="password"
     />
     <FormGroup>
