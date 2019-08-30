@@ -106,3 +106,17 @@ input[type='submit'] {
   display: flex;
   justify-content: space-between;
 }
+
+.required-field {
+  position: relative;
+}
+
+.required-field::after {
+  position: absolute;
+  content: '*';
+  top: -0.1rem;
+  right: -0.5rem;
+  color: #dc3545;
+  font-size: 1.2rem;
+  font-weight: bold;
+}

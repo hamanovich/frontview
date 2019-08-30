@@ -384,11 +384,12 @@ class AddQuestion extends Component<
             ) : (
               <Fragment>
                 <Field
-                  label="Question*"
+                  label="Question"
                   component={TextField}
                   type="text"
                   name="question"
                   placeholder="Type new question"
+                  required
                 />
                 <Row>
                   <Col sm={6}>
@@ -396,7 +397,7 @@ class AddQuestion extends Component<
                       component={SelectField}
                       name="skill"
                       id="skill"
-                      label="Choose skill* (multiple)"
+                      label="Choose skill (multiple)"
                       multiple
                       size={5}
                       type="select-multiple"
@@ -410,7 +411,7 @@ class AddQuestion extends Component<
                       component={SelectField}
                       name="level"
                       id="level"
-                      label="Choose level* (multiple)"
+                      label="Choose level (multiple)"
                       multiple
                       size={6}
                       type="select-multiple"
@@ -423,18 +424,19 @@ class AddQuestion extends Component<
                   component={RadioButton}
                   name="practice"
                   id="practice"
-                  label="Is it practical question?*"
+                  label="Is it practical question?"
                   required
                   inline
                   options={this.mapOptions(practice)}
                 />
                 <hr />
                 <Field
-                  label="Answer*"
+                  label="Answer"
                   name="answer"
                   rows={10}
                   component={TextareaField}
                   placeholder="Write down the answer"
+                  required
                 />
                 <FieldArray name="answers" component={AnswerFields as any} />
                 <hr />
