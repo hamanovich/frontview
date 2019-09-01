@@ -10,9 +10,15 @@ const SelectField: FunctionComponent<SelectFieldProps> = ({
   multiple,
   options,
   meta: { touched, error, warning },
+  required = false,
 }) => (
   <Form.Group>
-    <Form.Label htmlFor={id}>{label}</Form.Label>
+    <Form.Label
+      htmlFor={id}
+      className={required ? 'required-field' : ''}
+      title={required ? 'Required field' : ''}>
+      {label}
+    </Form.Label>
     <Form.Control
       as="select"
       {...input}

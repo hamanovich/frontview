@@ -13,14 +13,14 @@ import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 
+import MarkdownSupportedIcon from '../shared/MarkdownSupportedIcon';
 import Toolbar from '../shared/Toolbar';
 import ZoomImage from '../shared/ZoomImage';
 import Loader from '../../utils/Loader';
 import { QuestionProps, QuestionState } from './models';
 import { TextareaField } from '../formElements';
 import { DropThumb, DropThumbs } from './AddQuestion/style';
-import { Question } from '../../propTypes/QuestionType';
-import { User } from 'propTypes';
+import { Question, User } from 'propTypes';
 import { isAdmin } from '../../utils/helpers';
 import { BadgeStyled } from './style';
 
@@ -43,10 +43,11 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
 
   private textInput = createRef<TextareaField>();
 
-  private open = (
-    answerField: { text: string } | string,
-    field: string,
-  ) => () => {
+  private attachZoom = (image: string) => {
+    this.zoom.attach(image);
+  };
+
+  private open = (answerField: string, field: string) => () => {
     const { user, question } = this.props;
 
     if (
@@ -169,7 +170,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
                 (question: { text: string }, index: number) => (
                   <em
                     key={shortid.generate()}
-                    onClick={this.open(question, `answers.${index}`)}>
+                    onClick={this.open(question.text, `answers.${index}`)}>
                     <MarkdownRenderer markdown={question.text} />
                   </em>
                 ),
@@ -206,9 +207,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
               </Button>
             </p>
           )}
-
           <small>
-            <strong>Author</strong>:{' '}
             {typeof question.author === 'object' &&
             question.author &&
             question.author.username ? (
@@ -274,20 +273,17 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
             <Modal.Body>
               <Form>
                 <Form.Group>
-                  <Form.Label htmlFor="formControlsTextarea">
+                  <Form.Label
+                    htmlFor="formControlsTextarea"
+                    className="justify-content-label">
                     Change Field and press Update button
+                    <MarkdownSupportedIcon />
                   </Form.Label>
                   <Form.Control
                     name={textField}
                     as="textarea"
                     ref={this.textInput}
-                    defaultValue={
-                      typeof answerField === 'object' &&
-                      answerField &&
-                      answerField.text
-                        ? answerField.text
-                        : answerField
-                    }
+                    defaultValue={answerField}
                     rows="10"
                   />
                 </Form.Group>

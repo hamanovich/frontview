@@ -15,7 +15,7 @@ const router = express.Router();
 router.post('/users', usersController.createUser);
 router.get('/users', usersController.getAllUsers);
 router.get('/users/:identifier', usersController.getUser);
-router.put('/user/:username', usersController.updateUser);
+router.put('/user/:username', authenticate, usersController.updateUser);
 router.patch(
   '/user/:username',
   authenticate,

@@ -9,33 +9,37 @@ exports[`<SignupForm/> renders <SignupForm /> component 1`] = `
   <Field
     component={[Function]}
     errorState=""
-    label="Username*:"
+    label="Username"
     name="username"
     onBlur={[Function]}
     placeholder="Type your nickname"
+    required={true}
     type="text"
   />
   <Field
     component={[Function]}
     errorState=""
-    label="Email*:"
+    label="Email"
     name="email"
     onBlur={[Function]}
     placeholder="Type your email"
+    required={true}
     type="email"
   />
   <Field
     component={[Function]}
-    label="Password*:"
+    label="Password"
     name="password"
     placeholder="Come up with a password"
+    required={true}
     type="password"
   />
   <Field
     component={[Function]}
-    label="Confirm your Password*:"
+    label="Confirm your Password"
     name="passwordConfirmation"
     placeholder="Repeat your password"
+    required={true}
     type="password"
   />
   <Button

@@ -116,7 +116,6 @@ exports.getUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   const { errors, isValid } = await validateUser(req.body, validate);
-  const passwordDigest = bcrypt.hashSync(req.body.password, 10);
 
   if (!isValid) {
     res.status(400).json(errors);
@@ -124,7 +123,7 @@ exports.updateUser = async (req, res) => {
 
   const userOne = await User.findOneAndUpdate(
     { username: req.params.username },
-    { ...req.body, passwordDigest },
+    { ...req.body },
     { new: true },
   );
 

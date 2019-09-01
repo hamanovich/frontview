@@ -1,9 +1,10 @@
-import React, { FC } from 'react';
+import React, { FunctionComponent } from 'react';
 
 import Form from 'react-bootstrap/Form';
+import MarkdownSupportedIcon from '../shared/MarkdownSupportedIcon';
 import { TextareaFieldProps } from './models';
 
-const TextareaField: FC<TextareaFieldProps> = ({
+const TextareaField: FunctionComponent<TextareaFieldProps> = ({
   input,
   label,
   placeholder,
@@ -14,9 +15,21 @@ const TextareaField: FC<TextareaFieldProps> = ({
   defaultValue,
   errorsVisible,
   meta: { touched, error, warning },
+  required,
 }) => (
   <Form.Group>
-    <Form.Label htmlFor={`label-${input.name}`}>{label}</Form.Label>
+    <Form.Label
+      htmlFor={`label-${input.name}`}
+      className="justify-content-label">
+      {required ? (
+        <span className="required-field" title="Required field">
+          {label}
+        </span>
+      ) : (
+        label
+      )}
+      <MarkdownSupportedIcon />
+    </Form.Label>
     <Form.Control
       {...input}
       as="textarea"
@@ -51,6 +64,7 @@ TextareaField.defaultProps = {
   className: '',
   defaultValue: '',
   placeholder: '',
+  required: false,
 };
 
 export default TextareaField;

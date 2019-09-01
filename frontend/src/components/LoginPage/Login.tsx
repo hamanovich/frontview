@@ -69,19 +69,21 @@ export const Login: FunctionComponent<LoginProps> = ({
     <Form onSubmit={handleSubmit(onSubmit)} noValidate>
       {state.error && <Alert variant="danger">{state.error}</Alert>}
       <Field
-        label="Username / Email*:"
+        label="Username / Email"
         component={TextField}
         type="text"
         htmlFor="identifier"
         name="identifier"
         placeholder="Type your Username or Email"
+        required
       />
       <Field
-        label="Password*:"
+        label="Password"
         component={TextField}
         type="password"
         name="password"
         placeholder="Come up with a password"
+        required
       />
       <Form.Group>
         <Link to="/login/forgot">Forgot password?</Link>

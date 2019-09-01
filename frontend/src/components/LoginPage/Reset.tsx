@@ -99,19 +99,21 @@ const Reset: FunctionComponent<ResetProps> = ({
       {state.error && <Alert variant="danger">{state.error}</Alert>}
 
       <Field
-        label="Password*:"
+        label="Password"
         component={TextField}
         type="password"
         name="password"
         placeholder="Enter a new password"
+        required
       />
 
       <Field
-        label="Confirm your Password*:"
+        label="Confirm your Password"
         component={TextField}
         type="password"
         name="passwordConfirmation"
         placeholder="Repeat your mad password"
+        required
       />
 
       <Button

@@ -160,7 +160,7 @@ export interface QuestionState {
   showRemoveModal: boolean;
   showAnswer: boolean;
   textField: string;
-  answerField: { text: string } | string;
+  answerField: string;
 }
 
 export interface QuestionsWrapperProps {

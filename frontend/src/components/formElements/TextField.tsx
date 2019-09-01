@@ -17,6 +17,7 @@ const TextField: FunctionComponent<TextFieldProps> = ({
   errorsVisible = true,
   className = '',
   meta: { touched, error, warning },
+  required = false,
 }) => {
   const [activeType, setType] = useState<string>(type);
 
@@ -42,7 +43,11 @@ const TextField: FunctionComponent<TextFieldProps> = ({
   return (
     <Form.Group>
       {label && (
-        <Form.Label htmlFor={`label-${input.name}`} column={false}>
+        <Form.Label
+          htmlFor={`label-${input.name}`}
+          column={false}
+          className={required ? 'required-field' : ''}
+          title={required ? 'Required field' : ''}>
           {label}
         </Form.Label>
       )}
