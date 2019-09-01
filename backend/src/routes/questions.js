@@ -27,7 +27,7 @@ exports.getQuestions = async (req, res) => {
     req.headers.authorization && req.headers.authorization.split(' ')[1];
   const authorId = token && jwt.verify(token, process.env.SECRET)._id;
   const page = req.params.page || 1;
-  const limit = 10;
+  const limit = 20;
   const skip = page * limit - limit;
   const countPromise = Question.countDocuments({
     $or: [{ author: authorId }, { isVerified: true }],

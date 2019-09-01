@@ -3,7 +3,7 @@ import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 
 export const BadgeStyled = styled(Badge)`
-  margin: 0 3px;
+  margin-left: 6px;
 `;
 
 export const ApproveBar = styled('div')`

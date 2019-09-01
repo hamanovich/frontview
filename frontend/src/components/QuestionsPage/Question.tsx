@@ -22,6 +22,7 @@ import { DropThumb, DropThumbs } from './AddQuestion/style';
 import { Question } from '../../propTypes/QuestionType';
 import { User } from 'propTypes';
 import { isAdmin } from '../../utils/helpers';
+import { BadgeStyled } from './style';
 
 class QuestionSingle extends Component<QuestionProps, QuestionState> {
   static defaultProps = {
@@ -142,10 +143,10 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
           <Link to={`/questions/practice/${question.practice}`}>
             <Badge variant="warning">{question.practice}</Badge>
           </Link>
-          {' | '}
+          {' |'}
           {question.level.map((level: string) => (
             <Link to={`/questions/level/${level}`} key={level}>
-              <Badge variant="primary">{level}</Badge>
+              <BadgeStyled variant="primary">{level}</BadgeStyled>
             </Link>
           ))}
         </div>
