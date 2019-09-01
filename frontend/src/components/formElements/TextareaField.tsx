@@ -15,12 +15,19 @@ const TextareaField: FunctionComponent<TextareaFieldProps> = ({
   defaultValue,
   errorsVisible,
   meta: { touched, error, warning },
+  required,
 }) => (
   <Form.Group>
     <Form.Label
       htmlFor={`label-${input.name}`}
       className="justify-content-label">
-      {label}
+      {required ? (
+        <span className="required-field" title="Required field">
+          {label}
+        </span>
+      ) : (
+        label
+      )}
       <MarkdownSupportedIcon />
     </Form.Label>
     <Form.Control
@@ -57,6 +64,7 @@ TextareaField.defaultProps = {
   className: '',
   defaultValue: '',
   placeholder: '',
+  required: false,
 };
 
 export default TextareaField;

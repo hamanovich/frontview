@@ -9,9 +9,14 @@ const RadioButton: FunctionComponent<RadioButtonProps> = ({
   options,
   inline,
   meta: { touched, error, warning },
+  required,
 }) => (
   <Form.Group>
-    <Form.Label>{label}</Form.Label>
+    <Form.Label
+      className={required ? 'required-field' : ''}
+      title={required ? 'Required field' : ''}>
+      {label}
+    </Form.Label>
     {options.map(o => (
       <Form.Check
         {...input}
@@ -40,6 +45,7 @@ const RadioButton: FunctionComponent<RadioButtonProps> = ({
 
 RadioButton.defaultProps = {
   inline: false,
+  required: false,
 };
 
 export default RadioButton;

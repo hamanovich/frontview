@@ -62,10 +62,11 @@ const QListForm: FC<QListFormProps> = ({
 }) => (
   <Form onSubmit={handleSubmit(onSubmit)} noValidate>
     <Field
-      label="Title*:"
+      label="Title"
       component={TextField}
       type="text"
       name="title"
+      required
       placeholder="Come up with a list title"
     />
 

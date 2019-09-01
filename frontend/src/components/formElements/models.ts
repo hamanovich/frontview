@@ -6,6 +6,7 @@ export interface RadioButtonProps {
   };
   label: string;
   inline: boolean;
+  required: boolean;
   meta: {
     touched: boolean;
     error: string;
@@ -28,6 +29,7 @@ export interface TextFieldProps {
   type: string;
   errorState: string | null;
   errorsVisible: boolean;
+  required: boolean;
   meta: {
     touched: boolean;
     error: string;
@@ -53,6 +55,7 @@ export interface TextareaFieldProps {
     warning: string;
   };
   rows: number | null;
+  required: boolean;
 }
 
 export interface SelectFieldProps {
@@ -72,4 +75,5 @@ export interface SelectFieldProps {
     error: string;
     warning: string;
   };
+  required: boolean;
 }

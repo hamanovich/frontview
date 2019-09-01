@@ -75,19 +75,21 @@ const CommentForm: FunctionComponent<
           />
 
           <Field
-            label="Topic*:"
+            label="Topic"
             component={TextField}
             type="text"
             name="topic"
             placeholder="Put the title/theme of comment"
+            required
           />
 
           <Field
-            label="Comment*:"
+            label="Comment"
             name="comment"
             component={TextareaField}
             rows={6}
             placeholder="Put your comment about this question"
+            required
           />
 
           <Button type="submit" variant="info" size="lg">

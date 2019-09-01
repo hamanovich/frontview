@@ -90,36 +90,40 @@ export class SignupForm extends Component<
       <Form onSubmit={handleSubmit(this.onSubmit)} noValidate>
         {errors.errorMsg && <Alert variant="danger">{errors.errorMsg}</Alert>}
         <Field
-          label="Username*:"
+          label="Username"
           component={TextField}
           type="text"
           name="username"
           placeholder="Type your nickname"
           onBlur={this.checkUserExists}
           errorState={errors.username}
+          required
         />
         <Field
-          label="Email*:"
+          label="Email"
           component={TextField}
           type="email"
           name="email"
           placeholder="Type your email"
           onBlur={this.checkUserExists}
           errorState={errors.email}
+          required
         />
         <Field
-          label="Password*:"
+          label="Password"
           component={TextField}
           type="password"
           name="password"
           placeholder="Come up with a password"
+          required
         />
         <Field
-          label="Confirm your Password*:"
+          label="Confirm your Password"
           component={TextField}
           type="password"
           name="passwordConfirmation"
           placeholder="Repeat your password"
+          required
         />
         <Button
           type="submit"

@@ -27,6 +27,7 @@ const AnswerFields: FC<AnswerFieldsProps> = ({
               name={`${answer}.text`}
               component={TextareaField}
               rows={6}
+              required
               placeholder="Add more answers"
             />
           </Form.Group>

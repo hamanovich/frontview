@@ -69,11 +69,12 @@ const Forgot: FC<ForgotProps> = ({ handleSubmit, onSubmit, state }) => (
       {state.error && <Alert variant="danger">{state.error}</Alert>}
 
       <Field
-        label="Email*:"
+        label="Email"
         component={TextField}
         type="email"
         name="email"
         placeholder="Type your email"
+        required
       />
 
       <Button
