@@ -20,7 +20,7 @@ import Loader from '../../utils/Loader';
 import { QuestionProps, QuestionState } from './models';
 import { TextareaField } from '../formElements';
 import { DropThumb, DropThumbs } from './AddQuestion/style';
-import { Question, User } from 'propTypes';
+import { Question, User, Comment } from 'propTypes';
 import { isAdmin } from '../../utils/helpers';
 import { BadgeStyled } from './style';
 
@@ -113,6 +113,9 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
       }
     });
   };
+
+  private getVerifiedCommentsByQuestion = (q: Question) =>
+    q.comments && q.comments.filter((c: Comment) => c.isVerified);
 
   render() {
     const { question, approveQuestion, user, qlists, match } = this.props;
@@ -218,9 +221,10 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
               'Unknown (deactivated)'
             )}
           </small>
-          {question.comments && question.comments.length > 0 ? (
+          {this.getVerifiedCommentsByQuestion(question).length > 0 ? (
             <Link to={`/questions/${question.slug}/one`} className="pull-right">
-              <FontAwesome name="comments-o" /> {question.comments.length}
+              <FontAwesome name="comments-o" />{' '}
+              {this.getVerifiedCommentsByQuestion(question).length}
             </Link>
           ) : (
             <span className="pull-right">
