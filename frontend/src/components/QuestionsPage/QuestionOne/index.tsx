@@ -12,6 +12,7 @@ import Comments from '../../Comment/Comments';
 import {
   getQuestionBySlug,
   approveQuestion,
+  removeQuestion,
   editQuestionField,
 } from '../../../actions/questions';
 import { addComment } from '../../../actions/comments';
@@ -37,6 +38,7 @@ type QuestionOneProps = {
   user: User;
   qlists: QList[];
   approveQuestion: (id: string) => void;
+  removeQuestion: (id: string) => void;
   editQuestionField: (id: string, field: string, value: string) => void;
   history: {
     push: (url: string) => void;
@@ -94,6 +96,7 @@ class QuestionOne extends Component<QuestionOneProps> {
       question,
       addComment,
       approveQuestion,
+      removeQuestion,
       editQuestionField,
       addFlashMessage,
       user,
@@ -116,6 +119,7 @@ class QuestionOne extends Component<QuestionOneProps> {
           history={history}
           question={question}
           approveQuestion={approveQuestion}
+          removeQuestion={removeQuestion}
           editQuestionField={editQuestionField}
           user={user}
           qlists={qlists}
@@ -179,15 +183,18 @@ const mapStateToProps = (
   };
 };
 
+const mapDispatchToProps = {
+  getQuestionBySlug,
+  getUser,
+  getQLists,
+  approveQuestion,
+  removeQuestion,
+  editQuestionField,
+  addComment,
+  addFlashMessage,
+};
+
 export default connect(
   mapStateToProps,
-  {
-    getQuestionBySlug,
-    getUser,
-    getQLists,
-    approveQuestion,
-    editQuestionField,
-    addComment,
-    addFlashMessage,
-  },
+  mapDispatchToProps,
 )(QuestionOne);

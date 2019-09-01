@@ -87,7 +87,7 @@ const App = () => (
     <Footer />
     <FlashList />
     <FaqButton />
-    <ScrollToTop showUnder={160} style={{ bottom: 16, right: 16 }}>
+    <ScrollToTop showUnder={160} style={{ bottom: 16, right: 16, zIndex: 5 }}>
       <Button variant="warning">
         <FontAwesome name="chevron-up" />
       </Button>

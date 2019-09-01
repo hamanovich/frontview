@@ -5,7 +5,11 @@ import compose from 'recompose/compose';
 
 import QuestionOne from './Question';
 import Loader from '../../utils/Loader';
-import { approveQuestion, editQuestionField } from '../../actions/questions';
+import {
+  approveQuestion,
+  removeQuestion,
+  editQuestionField,
+} from '../../actions/questions';
 import { QuestionsProps, QuestionsState } from './models';
 import { Question } from '../../propTypes/QuestionType';
 import Col from 'react-bootstrap/Col';
@@ -23,6 +27,7 @@ const enhance = compose<
     }),
     {
       approveQuestion,
+      removeQuestion,
       editQuestionField,
     },
   ),
@@ -35,6 +40,7 @@ const Questions: FunctionComponent<QuestionsProps> = ({
   qlists,
   questions,
   approveQuestion,
+  removeQuestion,
   editQuestionField,
 }) => (
   <Row>
@@ -44,6 +50,7 @@ const Questions: FunctionComponent<QuestionsProps> = ({
           <QuestionOne
             question={question}
             approveQuestion={approveQuestion}
+            removeQuestion={removeQuestion}
             editQuestionField={editQuestionField}
             user={user}
             qlists={qlists}

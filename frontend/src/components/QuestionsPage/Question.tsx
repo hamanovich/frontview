@@ -18,7 +18,6 @@ import ZoomImage from '../shared/ZoomImage';
 import Loader from '../../utils/Loader';
 import { QuestionProps, QuestionState } from './models';
 import { TextareaField } from '../formElements';
-import { BadgeStyled } from './style';
 import { DropThumb, DropThumbs } from './AddQuestion/style';
 import { Question } from '../../propTypes/QuestionType';
 import { User } from 'propTypes';
@@ -36,6 +35,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
     textField: '',
     answerField: '',
     showAnswer: false,
+    showRemoveModal: false,
   };
 
   private zoom = mediumZoom();
@@ -67,6 +67,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
 
     this.setState({
       showModal: false,
+      showRemoveModal: false,
       answerField: '',
     });
 
@@ -91,14 +92,29 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
     });
   };
 
+  private toggleRemoveModal = () =>
+    this.setState(prevState => ({
+      showRemoveModal: !prevState.showRemoveModal,
+    }));
+
   private isAuthor = (user: User, question: Question) =>
     typeof question.author === 'object' &&
     question.author &&
     user.username === question.author.username;
 
+  private remove = (id: string) => {
+    const { removeQuestion, match, history } = this.props;
+
+    removeQuestion(id).then(() => {
+      if (match) {
+        history.push('/questions');
+      }
+    });
+  };
+
   render() {
     const { question, approveQuestion, user, qlists, match } = this.props;
-    const { answerField, textField, showAnswer } = this.state;
+    const { answerField, textField, showAnswer, showRemoveModal } = this.state;
 
     const panelHeader = (
       <h5 onClick={this.open(question.question, 'question')} className="mb-0">
@@ -237,6 +253,9 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
                     className="btn btn-warning">
                     Edit
                   </Link>
+                  <Button variant="danger" onClick={this.toggleRemoveModal}>
+                    Remove
+                  </Button>
                 </ButtonGroup>
               )}
               {user.username && (
@@ -276,6 +295,29 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
                 </Button>
               </Form>
             </Modal.Body>
+          </Modal>
+          <Modal
+            size="sm"
+            show={showRemoveModal}
+            onHide={this.toggleRemoveModal}>
+            <Modal.Header closeButton>
+              <Modal.Title>Are you sure?</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <p>If so, you will not be able to restore this question.</p>
+            </Modal.Body>
+            <Modal.Footer>
+              <ButtonGroup>
+                <Button variant="secondary" onClick={this.toggleRemoveModal}>
+                  Cancel
+                </Button>
+                <Button
+                  variant="danger"
+                  onClick={() => this.remove(question._id)}>
+                  Remove
+                </Button>
+              </ButtonGroup>
+            </Modal.Footer>
           </Modal>
         </Card.Body>
         <Card.Footer>{panelFooter}</Card.Footer>
