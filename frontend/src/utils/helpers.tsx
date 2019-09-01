@@ -4,12 +4,16 @@ import axios from 'axios';
 
 import IconLoader from '../components/shared/IconLoader';
 import Authorization from './Authorization';
+import { RoleEnum } from '../propTypes';
 
 export const isLoggedIn = Authorization();
 export const Customer = Authorization(['user', 'owner', 'admin', 'superadmin']);
 export const Owner = Authorization(['owner', 'admin', 'superadmin']);
 export const Admin = Authorization(['admin', 'superadmin']);
 export const Superadmin = Authorization(['superadmin']);
+
+export const isAdmin = (role: string = 'user') =>
+  role === RoleEnum.ADMIN || role === RoleEnum.SUPERADMIN;
 
 export const PropsRoute = ({ component, ...rest }: any) => (
   <Route

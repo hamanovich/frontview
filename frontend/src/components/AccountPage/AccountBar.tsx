@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 
 import { logout } from '../../actions/auth';
 import { AccountBarProps } from './models';
-import { RoleEnum } from '../../propTypes';
+import { isAdmin } from 'utils/helpers';
 
 const AccountBar: FunctionComponent<AccountBarProps> = ({ auth, logout }) => (
   <Fragment>
@@ -37,8 +37,7 @@ const AccountBar: FunctionComponent<AccountBarProps> = ({ auth, logout }) => (
       </Button>
     </ListGroup>
 
-    {(auth.user.role === RoleEnum.ADMIN ||
-      auth.user.role === RoleEnum.SUPERADMIN) && (
+    {isAdmin(auth.user.role) && (
       <Fragment>
         <hr />
 

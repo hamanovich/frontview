@@ -21,8 +21,8 @@ import {
   Comment as CommentType,
   CommentQuestion,
   AddFlashMessageType,
-  RoleEnum,
 } from '../../propTypes';
+import { isAdmin } from 'utils/helpers';
 
 type CommentProps = {
   comment: CommentQuestion;
@@ -90,7 +90,7 @@ const Comment: FunctionComponent<CommentProps> = ({
             (match && match.params && match.params.username)) && (
           <ApproveBar>
             <ButtonGroup>
-              {(role === RoleEnum.ADMIN || role === RoleEnum.SUPERADMIN) && (
+              {isAdmin(role) && (
                 <Button
                   variant="success"
                   size="sm"

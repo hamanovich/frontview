@@ -42,6 +42,7 @@ export const DropThumbs = styled.aside`
   flex-direction: row;
   flex-wrap: wrap;
   margin-top: 1rem;
+  margin-bottom: -0.5rem;
 `;
 
 export const DropThumb = styled.div`

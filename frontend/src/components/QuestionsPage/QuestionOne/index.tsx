@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 
@@ -18,9 +19,29 @@ import { getUser } from '../../../actions/auth';
 import { getQLists } from '../../../actions/qlists';
 import { addFlashMessage } from '../../../actions/flash';
 import { Comment } from '../../../propTypes/CommentType';
-import { QuestionOneProps } from './models';
 import { GetQuestionsError, QuestionsWrapperStateProps } from '../models';
-import { Question } from '../../../propTypes/QuestionType';
+import { AddFlashMessageType, Question, User, QList } from 'propTypes';
+
+type QuestionOneProps = {
+  addFlashMessage: AddFlashMessageType;
+  getQuestionBySlug: (slug: string) => any;
+  getUser: (identifier: string) => void;
+  getQLists: (username: string) => void;
+  addComment: (comment: any) => any;
+  match: {
+    params: {
+      slug: string;
+    };
+  };
+  question: Question | undefined;
+  user: User;
+  qlists: QList[];
+  approveQuestion: (id: string) => void;
+  editQuestionField: (id: string, field: string, value: string) => void;
+  history: {
+    push: (url: string) => void;
+  };
+};
 
 class QuestionOne extends Component<QuestionOneProps> {
   static defaultProps = {
@@ -83,7 +104,13 @@ class QuestionOne extends Component<QuestionOneProps> {
 
     return (
       <Fragment>
-        <h1>The Question page</h1>
+        <Helmet>
+          <title>
+            Frontview: {question ? question.question : 'The Question page '}
+          </title>
+        </Helmet>
+
+        <h1>{question ? question.question : 'The Question page '}</h1>
 
         <QuestionSingle
           history={history}

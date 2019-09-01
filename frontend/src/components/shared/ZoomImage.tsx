@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 
-import { ZoomImageProps } from './models';
+type ZoomImageProps = {
+  zoom: {
+    clone: (background: any) => any;
+  };
+  background: string;
+  src: string;
+  alt: string;
+};
 
 class ZoomImage extends Component<ZoomImageProps> {
   private zoom = this.props.zoom.clone({

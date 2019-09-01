@@ -1,4 +1,4 @@
-import React, { Component, createRef } from 'react';
+import React, { Component, Fragment, createRef } from 'react';
 import { Link } from 'react-router-dom';
 import MarkdownRenderer from 'react-markdown-renderer';
 import shortid from 'shortid';
@@ -21,7 +21,8 @@ import { TextareaField } from '../formElements';
 import { BadgeStyled } from './style';
 import { DropThumb, DropThumbs } from './AddQuestion/style';
 import { Question } from '../../propTypes/QuestionType';
-import { RoleEnum } from 'propTypes';
+import { User } from 'propTypes';
+import { isAdmin } from '../../utils/helpers';
 
 class QuestionSingle extends Component<QuestionProps, QuestionState> {
   static defaultProps = {
@@ -49,6 +50,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
 
     if (
       typeof question.author === 'object' &&
+      question.author &&
       user.username === question.author.username
     ) {
       this.setState({
@@ -89,29 +91,25 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
     });
   };
 
+  private isAuthor = (user: User, question: Question) =>
+    typeof question.author === 'object' &&
+    question.author &&
+    user.username === question.author.username;
+
   render() {
     const { question, approveQuestion, user, qlists, match } = this.props;
     const { answerField, textField, showAnswer } = this.state;
 
     const panelHeader = (
-      <div className="justify-content-between d-flex align-items-center">
-        <h4 onClick={this.open(question.question, 'question')} className="mb-0">
-          {match ? (
-            question.question
-          ) : (
-            <Link to={`/questions/${question.slug}/one`}>
-              {question.question}
-            </Link>
-          )}
-        </h4>
-        <div>
-          {question.level.map((level: string) => (
-            <Link to={`/questions/level/${level}`} key={level}>
-              <BadgeStyled variant="primary">{level}</BadgeStyled>
-            </Link>
-          ))}
-        </div>
-      </div>
+      <h5 onClick={this.open(question.question, 'question')} className="mb-0">
+        {match ? (
+          question.question
+        ) : (
+          <Link to={`/questions/${question.slug}/one`}>
+            {question.question}
+          </Link>
+        )}
+      </h5>
     );
 
     const panelFooter = (
@@ -124,21 +122,26 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
             </Link>
           ))}
         </h6>
-        <Link to={`/questions/practice/${question.practice}`}>
-          <Badge variant="warning">{question.practice}</Badge>
-        </Link>
+        <div>
+          <Link to={`/questions/practice/${question.practice}`}>
+            <Badge variant="warning">{question.practice}</Badge>
+          </Link>
+          {' | '}
+          {question.level.map((level: string) => (
+            <Link to={`/questions/level/${level}`} key={level}>
+              <Badge variant="primary">{level}</Badge>
+            </Link>
+          ))}
+        </div>
       </div>
     );
 
     return (
-      <Card className="question">
-        <Card.Header>{panelHeader}</Card.Header>
+      <Card
+        className="question"
+        border={!question.isVerified ? 'danger' : undefined}>
+        {!match && <Card.Header>{panelHeader}</Card.Header>}
         <Card.Body>
-          <p>
-            <Button variant="outline-success" onClick={this.toggleAnswer}>
-              {showAnswer ? 'Hide' : 'Show'} Answer
-            </Button>
-          </p>
           {(showAnswer || match) && (
             <div>
               <div onClick={this.open(question.answer, 'answer')}>
@@ -154,20 +157,22 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
                   </em>
                 ),
               )}
-              <DropThumbs>
-                {question.imgs.map(img => (
-                  <DropThumb key={shortid.generate()}>
-                    <div className="dropthumb__inner">
-                      <ZoomImage
-                        src={img}
-                        alt=""
-                        zoom={this.zoom}
-                        background="rgba(100, 100, 100, .5)"
-                      />
-                    </div>
-                  </DropThumb>
-                ))}
-              </DropThumbs>
+              {question.imgs && (
+                <DropThumbs>
+                  {question.imgs.map(img => (
+                    <DropThumb key={shortid.generate()}>
+                      <div className="dropthumb__inner">
+                        <ZoomImage
+                          src={img}
+                          alt=""
+                          zoom={this.zoom}
+                          background="rgba(100, 100, 100, .5)"
+                        />
+                      </div>
+                    </DropThumb>
+                  ))}
+                </DropThumbs>
+              )}
               {question.notes && (
                 <MarkdownRenderer
                   markdown={question.notes}
@@ -177,16 +182,26 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
               <hr />
             </div>
           )}
-          {typeof question.author === 'object' &&
+          {!match && (
+            <p>
+              <Button variant="outline-success" onClick={this.toggleAnswer}>
+                {showAnswer ? 'Hide' : 'Show'} Answer
+              </Button>
+            </p>
+          )}
+
+          <small>
+            <strong>Author</strong>:{' '}
+            {typeof question.author === 'object' &&
             question.author &&
-            question.author.username && (
-              <small>
-                <strong>Author</strong>:{' '}
-                <Link to={`/questions/author/${question.author.username}`}>
-                  {question.author.username}
-                </Link>
-              </small>
+            question.author.username ? (
+              <Link to={`/questions/author/${question.author.username}`}>
+                {question.author.username}
+              </Link>
+            ) : (
+              'Unknown (deactivated)'
             )}
+          </small>
           {question.comments && question.comments.length > 0 ? (
             <Link to={`/questions/${question.slug}/one`} className="pull-right">
               <FontAwesome name="comments-o" /> {question.comments.length}
@@ -204,27 +219,30 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
               </small>
             </p>
           )}
-          <hr />
-          {typeof question.author === 'object' &&
-            question.author &&
-            (user.username === question.author.username ||
-              (user.role === RoleEnum.ADMIN ||
-                user.role === RoleEnum.SUPERADMIN)) && (
-              <ButtonGroup size="sm" className="pull-right">
-                <Button
-                  variant="success"
-                  onClick={() => approveQuestion(question._id)}>
-                  Approve
-                </Button>
-                <Link
-                  to={`/questions/${question._id}/edit`}
-                  className="btn btn-warning">
-                  Edit
-                </Link>
-              </ButtonGroup>
-            )}
           {user.username && (
-            <Toolbar question={question} user={user} qlists={qlists} />
+            <Fragment>
+              <hr />
+
+              {(isAdmin(user.role) || this.isAuthor(user, question)) && (
+                <ButtonGroup size="sm" className="pull-right">
+                  {!question.isVerified && isAdmin(user.role) && (
+                    <Button
+                      variant="success"
+                      onClick={() => approveQuestion(question._id)}>
+                      Approve
+                    </Button>
+                  )}
+                  <Link
+                    to={`/questions/${question._id}/edit`}
+                    className="btn btn-warning">
+                    Edit
+                  </Link>
+                </ButtonGroup>
+              )}
+              {user.username && (
+                <Toolbar question={question} user={user} qlists={qlists} />
+              )}
+            </Fragment>
           )}
 
           <Modal show={this.state.showModal} onHide={this.close} centered>

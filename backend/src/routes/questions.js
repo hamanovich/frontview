@@ -1,4 +1,5 @@
 import cloudinary from 'cloudinary';
+import jwt from 'jsonwebtoken';
 
 import Question from '../models/question';
 import User from '../models/user';
@@ -22,11 +23,18 @@ exports.getQuestionInterface = (req, res) => {
 };
 
 exports.getQuestions = async (req, res) => {
+  const token =
+    req.headers.authorization && req.headers.authorization.split(' ')[1];
+  const authorId = token && jwt.verify(token, process.env.SECRET)._id;
   const page = req.params.page || 1;
   const limit = 10;
   const skip = page * limit - limit;
-  const countPromise = Question.countDocuments({ isVerified: true });
-  const questionsPromise = Question.find({ isVerified: true })
+  const countPromise = Question.countDocuments({
+    $or: [{ author: authorId }, { isVerified: true }],
+  });
+  const questionsPromise = Question.find({
+    $or: [{ author: authorId }, { isVerified: true }],
+  })
     .skip(skip)
     .limit(limit);
   const [questions, count] = await Promise.all([

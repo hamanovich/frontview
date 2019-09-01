@@ -67,13 +67,13 @@ class Account extends Component<AccountProps, AccountState> {
               <span>
                 <FontAwesome name="user" /> {user.firstName} {user.lastName}
               </span>{' '}
-              <Badge pill variant="info">
-                {user.role}
-              </Badge>
             </Fragment>
           ) : (
-            'Your account'
+            'Your account '
           )}
+          <Badge pill variant="info">
+            {user.role}
+          </Badge>
         </h1>
 
         <Image src={user.gravatar} thumbnail />

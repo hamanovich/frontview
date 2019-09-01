@@ -15,6 +15,7 @@ import Form from 'react-bootstrap/Form';
 
 import { User, Auth, RoleEnum } from '../../propTypes';
 import { getAllUsers, removeUser, updateUserRole } from '../../actions/users';
+import { isAdmin } from 'utils/helpers';
 
 type UserPageOwnProps = {
   auth: Auth;
@@ -62,7 +63,7 @@ export const UsersPage: FunctionComponent<UsersPageProps> = ({
       : user.username;
 
   const showButtonGroup = (user: User) => {
-    if (auth.user.role === RoleEnum.ADMIN || RoleEnum.SUPERADMIN) {
+    if (isAdmin(auth.user.role)) {
       if (user.role === auth.user.role || user.role === RoleEnum.SUPERADMIN) {
         return false;
       }
@@ -99,13 +100,7 @@ export const UsersPage: FunctionComponent<UsersPageProps> = ({
               <Media.Body>
                 <h5>
                   {getName(user)}{' '}
-                  <Badge
-                    variant={
-                      user.role === RoleEnum.ADMIN ||
-                      user.role === RoleEnum.SUPERADMIN
-                        ? 'success'
-                        : 'dark'
-                    }>
+                  <Badge variant={isAdmin(user.role) ? 'success' : 'dark'}>
                     {user.role}
                   </Badge>
                 </h5>

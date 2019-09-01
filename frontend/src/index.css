@@ -51,6 +51,7 @@ input[type='submit'] {
 
 #main {
   padding-bottom: 60px;
+  min-height: 400px;
 }
 
 #main > .container:first-child {

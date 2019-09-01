@@ -82,6 +82,34 @@ exports[`<Toolbar/> renders <Toolbar /> component 1`] = `
           disabled={false}
         >
           Create a new QList
+           
+          <OverlayTrigger
+            defaultOverlayShown={false}
+            overlay={
+              <ForwardRef
+                id="qlist-tooltip"
+                placement="right"
+              >
+                <strong>
+                  QList
+                </strong>
+                 - a unique list of starred questions
+              </ForwardRef>
+            }
+            placement="top"
+            trigger={
+              Array [
+                "hover",
+                "focus",
+              ]
+            }
+          >
+            <abbr
+              title="What is QList?"
+            >
+              (?)
+            </abbr>
+          </OverlayTrigger>
         </DropdownItem>
       </withRouter(LinkContainer)>
     </DropdownButton>
