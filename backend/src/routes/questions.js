@@ -215,7 +215,7 @@ exports.addFromFile = async (req, res) => {
 };
 
 exports.edit = async (req, res) => {
-  const imgsList = [];
+  const imgsList = req.body.imgs.filter(img => img.startsWith('http'));
 
   const logItem = item =>
     new Promise(resolve => {
@@ -238,7 +238,10 @@ exports.edit = async (req, res) => {
       );
     });
 
-  await forEachPromise(req.body.imgs, logItem);
+  await forEachPromise(
+    req.body.imgs.filter(img => img.startsWith('data')),
+    logItem,
+  );
 
   const question = await Question.findByIdAndUpdate(
     req.params.id,
