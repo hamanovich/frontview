@@ -115,7 +115,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
   };
 
   private getVerifiedCommentsByQuestion = (q: Question) =>
-    q.comments && q.comments.filter((c: Comment) => c.isVerified);
+    q.comments && q.comments.filter((c: Comment) => c.isVerified).length;
 
   render() {
     const { question, approveQuestion, user, qlists, match } = this.props;
@@ -221,10 +221,10 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
               'Unknown (deactivated)'
             )}
           </small>
-          {this.getVerifiedCommentsByQuestion(question).length > 0 ? (
+          {this.getVerifiedCommentsByQuestion(question) > 0 ? (
             <Link to={`/questions/${question.slug}/one`} className="pull-right">
               <FontAwesome name="comments-o" />{' '}
-              {this.getVerifiedCommentsByQuestion(question).length}
+              {this.getVerifiedCommentsByQuestion(question)}
             </Link>
           ) : (
             <span className="pull-right">
