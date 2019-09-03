@@ -1,5 +1,6 @@
 import express from 'express';
 import authenticate from '../middlewares/authenticate';
+import { validateExistingUser, validateNewUser } from '../middlewares/validate';
 import { catchErrors } from '../handlers/errors';
 
 import * as authController from './auth';
@@ -12,10 +13,15 @@ import * as candidatesController from './candidates';
 const router = express.Router();
 
 // ROUTES: USER
-router.post('/users', usersController.createUser);
+router.post('/users', validateNewUser, usersController.createUser);
 router.get('/users', usersController.getAllUsers);
 router.get('/users/:identifier', usersController.getUser);
-router.put('/user/:username', authenticate, usersController.updateUser);
+router.put(
+  '/user/:username',
+  authenticate,
+  validateExistingUser,
+  usersController.updateUser,
+);
 router.patch(
   '/user/:username',
   authenticate,

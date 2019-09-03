@@ -2,41 +2,14 @@ import bcrypt from 'bcrypt';
 
 import User from '../models/user';
 import send from '../handlers/mail';
-import validate from '../validations/signup';
-
-const validateUser = async (data, otherValidations) => {
-  const { username, email } = data;
-  const { errors } = await otherValidations(data);
-  const user = await User.find({ $or: [{ username }, { email }] });
-
-  if (user) {
-    if (user.username === data.username) {
-      errors.username = 'There is a user with such username';
-    }
-
-    if (user.email === data.email) {
-      errors.email = 'There is a user with such email';
-    }
-  }
-
-  return {
-    errors,
-    isValid: !errors || Object.keys(errors).length === 0,
-  };
-};
 
 exports.createUser = async (req, res) => {
-  const { errors, isValid } = await validateUser(req.body, validate);
   const { username, email, password } = req.body;
   const passwordDigest = bcrypt.hashSync(password, 10);
   const host =
     process.env.NODE_ENV === 'production'
       ? req.get('host')
       : req.headers['x-forwarded-host'];
-
-  if (!isValid) {
-    res.status(409).json(errors);
-  }
 
   const user = new User({
     username,
@@ -115,21 +88,20 @@ exports.getUser = async (req, res) => {
 };
 
 exports.updateUser = async (req, res) => {
-  const { errors, isValid } = await validateUser(req.body, validate);
-
-  if (!isValid) {
-    res.status(400).json(errors);
-  }
-
-  const userOne = await User.findOneAndUpdate(
-    { username: req.params.username },
+  const updatedUser = await User.findOneAndUpdate(
+    { username: req.body.username },
     { ...req.body },
     { new: true },
   );
 
-  await userOne.save();
+  try {
+    await updatedUser.save();
+  } catch (error) {
+    res.json({ success: false });
+    return;
+  }
 
-  res.json({ success: true, username: req.params.username });
+  res.json({ success: true, ...updatedUser._doc });
 };
 
 exports.updateUserRole = async (req, res) => {
@@ -154,7 +126,12 @@ exports.updateUserRole = async (req, res) => {
 };
 
 exports.remove = async (req, res) => {
-  await User.remove({ username: req.params.username });
+  try {
+    await User.remove({ username: req.params.username });
+  } catch (error) {
+    res.json({ succes: false });
+    return;
+  }
 
   res.json({ succes: true, username: req.params.username });
 };
