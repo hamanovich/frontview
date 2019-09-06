@@ -35,18 +35,18 @@ const QuestionsTop: FunctionComponent<QuestionsTopProps> = ({ questions }) => (
           <BadgeGroup>
             {question.level &&
               question.level.map((level: string) => (
-                <Badge variant="primary" key={level}>
-                  {level}
-                </Badge>
+                <Fragment key={level}>
+                  <Badge variant="primary">{level}</Badge>{' '}
+                </Fragment>
               ))}
           </BadgeGroup>
           {' | '}
           <BadgeGroup>
             {question.skill &&
               question.skill.map((skill: string) => (
-                <Badge variant="primary" key={skill}>
-                  {skill}
-                </Badge>
+                <Fragment key={skill}>
+                  <Badge variant="primary">{skill}</Badge>{' '}
+                </Fragment>
               ))}
           </BadgeGroup>
           <LabelVoted>

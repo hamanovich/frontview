@@ -21,8 +21,8 @@ import {
   Comment as CommentType,
   CommentQuestion,
   AddFlashMessageType,
-  RoleEnum,
 } from '../../propTypes';
+import { isAdmin } from 'utils/helpers';
 
 type CommentProps = {
   comment: CommentQuestion;
@@ -68,8 +68,12 @@ const Comment: FunctionComponent<CommentProps> = ({
   return (
     <Media>
       <MediaImage
-        src={comment.author.gravatar}
-        alt={comment.author.username}
+        src={
+          comment.author
+            ? comment.author.gravatar
+            : 'https://www.gravatar.com/avatar/HASH'
+        }
+        alt={comment.author ? comment.author.username : 'Avatar'}
         rounded
       />
       <Media.Body>
@@ -80,17 +84,20 @@ const Comment: FunctionComponent<CommentProps> = ({
         )}
         <h5>{comment.topic}</h5>
         <MarkdownRenderer markdown={comment.text} className="mb-2" />
-        <Badge variant="info">{comment.author.username}</Badge>
+        <Badge variant="info">
+          {comment.author ? comment.author.username : 'Unknown (deactivated)'}
+        </Badge>
         <Badge className="pull-right">
           {distanceInWordsToNow(comment.created, { addSuffix: true })}
         </Badge>
 
         {(!comment.isVerified ||
-          comment.author.username ===
-            (match && match.params && match.params.username)) && (
+          (comment.author &&
+            comment.author.username ===
+              (match && match.params && match.params.username))) && (
           <ApproveBar>
             <ButtonGroup>
-              {(role === RoleEnum.ADMIN || role === RoleEnum.SUPERADMIN) && (
+              {isAdmin(role) && (
                 <Button
                   variant="success"
                   size="sm"

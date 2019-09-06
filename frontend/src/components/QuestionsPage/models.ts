@@ -85,6 +85,7 @@ export interface QuestionsProps {
   qlists: QListQuestions[];
   questions: Question[];
   approveQuestion: (_id: string) => void;
+  removeQuestion: (_id: string) => void;
   editQuestionField: (
     _id: string,
     field: string,
@@ -138,6 +139,7 @@ export interface QuestionProps {
   user: User;
   qlists: QListQuestions[];
   approveQuestion: (_id: string) => void;
+  removeQuestion: (_id: string) => Promise<void>;
   editQuestionField: (
     _id: string,
     field: string,
@@ -155,6 +157,8 @@ export interface QuestionProps {
 
 export interface QuestionState {
   showModal: boolean;
+  showRemoveModal: boolean;
+  showAnswer: boolean;
   textField: string;
   answerField: string;
 }
@@ -164,6 +168,7 @@ export interface QuestionsWrapperProps {
   getQuestions: any;
   getQLists: any;
   getTopQuestions: any;
+  getNotVerifiedQuestions: any;
   getQuestionsByAuthor: (author: string) => Promise<void>;
   getSearchedQuestions: any;
   getQListQuestions: any;

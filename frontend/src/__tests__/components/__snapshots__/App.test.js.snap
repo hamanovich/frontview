@@ -135,6 +135,7 @@ exports[`<App/> renders <App /> component 1`] = `
       Object {
         "bottom": 16,
         "right": 16,
+        "zIndex": 5,
       }
     }
     topPosition={0}

@@ -69,6 +69,10 @@ router.get(
 router.get('/questions', catchErrors(questionsController.getQuestions));
 router.get('/questions/top', catchErrors(questionsController.getTopQuestions));
 router.get(
+  '/questions/not-verified',
+  catchErrors(questionsController.getNotVerifiedQuestions),
+);
+router.get(
   '/questions/author/:username',
   catchErrors(questionsController.getQuestionsByAuthor),
 );

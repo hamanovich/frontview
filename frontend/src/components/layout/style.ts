@@ -24,7 +24,6 @@ export const SForm = styled(Form)`
 
   .form-group {
     margin-bottom: 0;
-    padding-right: 1rem;
   }
 
   @media (max-width: 767px) {
@@ -34,6 +33,7 @@ export const SForm = styled(Form)`
 
     .form-group {
       flex-grow: 1;
+      padding-right: 0.75rem;
 
       input {
         width: 100%;

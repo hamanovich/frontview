@@ -8,13 +8,21 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
+import Tooltip from 'react-bootstrap/Tooltip';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
 import { voteQuestion } from '../../actions/questions';
 import { qlistAddQuestion } from '../../actions/qlists';
 
-import { Question } from '../../propTypes/QuestionType';
-import { QList } from '../../propTypes/QListType';
-import { ToolbarProps } from './models';
+import { User, Question, QList } from 'propTypes';
+
+type ToolbarProps = {
+  user: User;
+  question: Question;
+  voteQuestion: (question: any, action: any, userId: string) => any;
+  qlistAddQuestion: (qlist: any, question: any) => any;
+  qlists: Array<QList>;
+};
 
 export const Toolbar: FunctionComponent<ToolbarProps> = ({
   user,
@@ -59,7 +67,18 @@ export const Toolbar: FunctionComponent<ToolbarProps> = ({
         ))}
         {qlists.length > 0 && <Dropdown.Divider />}
         <LinkContainer to="/me/qlist/create">
-          <Dropdown.Item>Create a new QList</Dropdown.Item>
+          <Dropdown.Item>
+            Create a new QList{' '}
+            <OverlayTrigger
+              placement="top"
+              overlay={
+                <Tooltip id="qlist-tooltip">
+                  <strong>QList</strong> - a unique list of starred questions
+                </Tooltip>
+              }>
+              <abbr title="What is QList?">(?)</abbr>
+            </OverlayTrigger>
+          </Dropdown.Item>
         </LinkContainer>
       </DropdownButton>
     </ButtonGroup>

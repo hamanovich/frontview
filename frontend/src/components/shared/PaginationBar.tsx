@@ -2,7 +2,11 @@ import React, { FC } from 'react';
 
 import Pagination from 'react-bootstrap/Pagination';
 
-import { PaginationBarProps } from './models';
+type PaginationBarProps = {
+  activePage: number;
+  pages: number;
+  onSelect: (page: number) => void;
+};
 
 const PaginationBar: FC<PaginationBarProps> = ({
   activePage,

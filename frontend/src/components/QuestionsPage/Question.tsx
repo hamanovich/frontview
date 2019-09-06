@@ -19,9 +19,10 @@ import ZoomImage from '../shared/ZoomImage';
 import Loader from '../../utils/Loader';
 import { QuestionProps, QuestionState } from './models';
 import { TextareaField } from '../formElements';
-import { BadgeStyled, ApproveBar } from './style';
 import { DropThumb, DropThumbs } from './AddQuestion/style';
-import { Question, RoleEnum } from '../../propTypes';
+import { Question, User, Comment } from 'propTypes';
+import { isAdmin } from '../../utils/helpers';
+import { BadgeStyled } from './style';
 
 class QuestionSingle extends Component<QuestionProps, QuestionState> {
   static defaultProps = {
@@ -34,6 +35,8 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
     showModal: false,
     textField: '',
     answerField: '',
+    showAnswer: false,
+    showRemoveModal: false,
   };
 
   private zoom = mediumZoom();
@@ -49,6 +52,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
 
     if (
       typeof question.author === 'object' &&
+      question.author &&
       user.username === question.author.username
     ) {
       this.setState({
@@ -65,6 +69,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
 
     this.setState({
       showModal: false,
+      showRemoveModal: false,
       answerField: '',
     });
 
@@ -83,21 +88,49 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
     });
   };
 
+  private toggleAnswer = () => {
+    this.setState({
+      showAnswer: !this.state.showAnswer,
+    });
+  };
+
+  private toggleRemoveModal = () =>
+    this.setState(prevState => ({
+      showRemoveModal: !prevState.showRemoveModal,
+    }));
+
+  private isAuthor = (user: User, question: Question) =>
+    typeof question.author === 'object' &&
+    question.author &&
+    user.username === question.author.username;
+
+  private remove = (id: string) => {
+    const { removeQuestion, match, history } = this.props;
+
+    removeQuestion(id).then(() => {
+      if (match) {
+        history.push('/questions');
+      }
+    });
+  };
+
+  private getVerifiedCommentsByQuestion = (q: Question) =>
+    q.comments && q.comments.filter((c: Comment) => c.isVerified).length;
+
   render() {
     const { question, approveQuestion, user, qlists, match } = this.props;
-    const { answerField, textField } = this.state;
+    const { answerField, textField, showAnswer, showRemoveModal } = this.state;
 
     const panelHeader = (
-      <div className="justify-content-between d-flex align-items-center">
-        <h4 className="mb-0">{question.question}</h4>
-        <div>
-          {question.level.map((level: string) => (
-            <Link to={`/questions/level/${level}`} key={level}>
-              <BadgeStyled variant="primary">{level}</BadgeStyled>
-            </Link>
-          ))}
-        </div>
-      </div>
+      <h5 onClick={this.open(question.question, 'question')} className="mb-0">
+        {match ? (
+          question.question
+        ) : (
+          <Link to={`/questions/${question.slug}/one`}>
+            {question.question}
+          </Link>
+        )}
+      </h5>
     );
 
     const panelFooter = (
@@ -110,161 +143,186 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
             </Link>
           ))}
         </h6>
-        <Link to={`/questions/practice/${question.practice}`}>
-          <Badge variant="warning">{question.practice}</Badge>
-        </Link>
+        <div>
+          <Link to={`/questions/practice/${question.practice}`}>
+            <Badge variant="warning">{question.practice}</Badge>
+          </Link>
+          {' |'}
+          {question.level.map((level: string) => (
+            <Link to={`/questions/level/${level}`} key={level}>
+              <BadgeStyled variant="primary">{level}</BadgeStyled>
+            </Link>
+          ))}
+        </div>
       </div>
     );
 
     return (
-      <Fragment>
-        <h2>
-          {match ? (
-            question.question
-          ) : (
-            <Link to={`/questions/${question.slug}/one`}>
-              {question.question}
-            </Link>
-          )}
-        </h2>
-        <ApproveBar>
-          <h5>
-            Verified:{' '}
-            {question.isVerified ? (
-              <strong style={{ color: '#4cae4c' }}>Yes</strong>
-            ) : (
-              <strong style={{ color: '#d43f3a' }}>No</strong>
-            )}
-          </h5>
-          {!question.isVerified &&
-            (user.role === RoleEnum.ADMIN ||
-              user.role === RoleEnum.SUPERADMIN) && (
-              <Button
-                variant="success"
-                size="sm"
-                onClick={() => approveQuestion(question._id)}>
-                Approve
-              </Button>
-            )}
-        </ApproveBar>
-
-        <Card
-          border={question.isVerified ? 'success' : 'danger'}
-          className="question">
-          <Card.Header>{panelHeader}</Card.Header>
-          <Card.Body>
-            <div onClick={this.open(question.answer, 'answer')}>
-              <MarkdownRenderer markdown={question.answer} />
-            </div>
-            {question.answers.length > 0 && <hr />}
-            {question.answers.map(
-              (question: { text: string }, index: number) => (
-                <em
-                  key={shortid.generate()}
-                  onClick={this.open(question.text, `answers.${index}`)}>
-                  <MarkdownRenderer markdown={question.text} />
-                </em>
-              ),
-            )}
-            <DropThumbs>
-              {question.imgs.map(img => (
-                <DropThumb key={shortid.generate()}>
-                  <div className="dropthumb__inner">
-                    <ZoomImage
-                      src={img}
-                      alt=""
-                      zoom={this.zoom}
-                      background="rgba(100, 100, 100, .5)"
-                    />
-                  </div>
-                </DropThumb>
-              ))}
-            </DropThumbs>
-            <hr />
-            {question.notes && (
-              <MarkdownRenderer
-                markdown={question.notes}
-                onClick={this.open(question.notes, 'notes')}
-              />
-            )}
-            {typeof question.author === 'object' &&
-              question.author &&
-              question.author.username && (
-                <small>
-                  <strong>Author</strong>:{' '}
-                  <Link to={`/questions/author/${question.author.username}`}>
-                    {question.author.username}
-                  </Link>
-                </small>
+      <Card
+        className="question"
+        border={!question.isVerified ? 'danger' : undefined}>
+        {!match && <Card.Header>{panelHeader}</Card.Header>}
+        <Card.Body>
+          {(showAnswer || match) && (
+            <div>
+              <div onClick={this.open(question.answer, 'answer')}>
+                <MarkdownRenderer markdown={question.answer} />
+              </div>
+              {question.answers.length > 0 && <hr />}
+              {question.answers.map(
+                (question: { text: string }, index: number) => (
+                  <em
+                    key={shortid.generate()}
+                    onClick={this.open(question.text, `answers.${index}`)}>
+                    <MarkdownRenderer markdown={question.text} />
+                  </em>
+                ),
               )}
-            {question.comments && question.comments.length > 0 ? (
-              <Link
-                to={`/questions/${question.slug}/one`}
-                className="pull-right">
-                <FontAwesome name="comments-o" /> {question.comments.length}
+              {question.imgs && (
+                <DropThumbs>
+                  {question.imgs.map(img => (
+                    <DropThumb key={shortid.generate()}>
+                      <div className="dropthumb__inner">
+                        <ZoomImage
+                          src={img}
+                          alt=""
+                          zoom={this.zoom}
+                          background="rgba(100, 100, 100, .5)"
+                        />
+                      </div>
+                    </DropThumb>
+                  ))}
+                </DropThumbs>
+              )}
+              {question.notes && (
+                <MarkdownRenderer
+                  markdown={question.notes}
+                  onClick={this.open(question.notes, 'notes')}
+                />
+              )}
+              <hr />
+            </div>
+          )}
+          {!match && (
+            <p>
+              <Button variant="outline-success" onClick={this.toggleAnswer}>
+                {showAnswer ? 'Hide' : 'Show'} Answer
+              </Button>
+            </p>
+          )}
+          <small>
+            {typeof question.author === 'object' &&
+            question.author &&
+            question.author.username ? (
+              <Link to={`/questions/author/${question.author.username}`}>
+                {question.author.username}
               </Link>
             ) : (
-              <span className="pull-right">
-                <FontAwesome name="comments-o" /> 0
-              </span>
+              'Unknown (deactivated)'
             )}
+          </small>
+          {this.getVerifiedCommentsByQuestion(question) > 0 ? (
+            <Link to={`/questions/${question.slug}/one`} className="pull-right">
+              <FontAwesome name="comments-o" />{' '}
+              {this.getVerifiedCommentsByQuestion(question)}
+            </Link>
+          ) : (
+            <span className="pull-right">
+              <FontAwesome name="comments-o" /> 0
+            </span>
+          )}
+          {match && (
             <p>
               <small>
                 Last modified:{' '}
                 {format(question.lastModified, 'DD/MM/YYYY HH:mm:ss')}
               </small>
             </p>
-            <hr />
-            {typeof question.author === 'object' &&
-              question.author &&
-              (user.username === question.author.username ||
-                (user.role === RoleEnum.ADMIN ||
-                  user.role === RoleEnum.SUPERADMIN)) && (
+          )}
+          {user.username && (
+            <Fragment>
+              <hr />
+
+              {(isAdmin(user.role) || this.isAuthor(user, question)) && (
                 <ButtonGroup size="sm" className="pull-right">
+                  {!question.isVerified && isAdmin(user.role) && (
+                    <Button
+                      variant="success"
+                      onClick={() => approveQuestion(question._id)}>
+                      Approve
+                    </Button>
+                  )}
                   <Link
                     to={`/questions/${question._id}/edit`}
                     className="btn btn-warning">
                     Edit
                   </Link>
+                  <Button variant="danger" onClick={this.toggleRemoveModal}>
+                    Remove
+                  </Button>
                 </ButtonGroup>
               )}
-            {user.username && (
-              <Toolbar question={question} user={user} qlists={qlists} />
-            )}
+              {user.username && (
+                <Toolbar question={question} user={user} qlists={qlists} />
+              )}
+            </Fragment>
+          )}
 
-            <Modal show={this.state.showModal} onHide={this.close} centered>
-              <Modal.Header closeButton>
-                <Modal.Title>
-                  Change value: <strong>{textField}</strong>
-                </Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <Form>
-                  <Form.Group>
-                    <Form.Label
-                      htmlFor="formControlsTextarea"
-                      className="justify-content-label">
-                      Change Field and press Update button
-                      <MarkdownSupportedIcon />
-                    </Form.Label>
-                    <Form.Control
-                      name={textField}
-                      as="textarea"
-                      ref={this.textInput}
-                      defaultValue={answerField}
-                      rows="10"
-                    />
-                  </Form.Group>
-                  <Button variant="primary" onClick={this.close}>
-                    Update
-                  </Button>
-                </Form>
-              </Modal.Body>
-            </Modal>
-          </Card.Body>
-          <Card.Footer>{panelFooter}</Card.Footer>
-        </Card>
-      </Fragment>
+          <Modal show={this.state.showModal} onHide={this.close} centered>
+            <Modal.Header closeButton>
+              <Modal.Title>
+                Change value: <strong>{textField}</strong>
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form>
+                <Form.Group>
+                  <Form.Label
+                    htmlFor="formControlsTextarea"
+                    className="justify-content-label">
+                    Change Field and press Update button
+                    <MarkdownSupportedIcon />
+                  </Form.Label>
+                  <Form.Control
+                    name={textField}
+                    as="textarea"
+                    ref={this.textInput}
+                    defaultValue={answerField}
+                    rows="10"
+                  />
+                </Form.Group>
+                <Button variant="primary" onClick={this.close}>
+                  Update
+                </Button>
+              </Form>
+            </Modal.Body>
+          </Modal>
+          <Modal
+            size="sm"
+            show={showRemoveModal}
+            onHide={this.toggleRemoveModal}>
+            <Modal.Header closeButton>
+              <Modal.Title>Are you sure?</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <p>If so, you will not be able to restore this question.</p>
+            </Modal.Body>
+            <Modal.Footer>
+              <ButtonGroup>
+                <Button variant="secondary" onClick={this.toggleRemoveModal}>
+                  Cancel
+                </Button>
+                <Button
+                  variant="danger"
+                  onClick={() => this.remove(question._id)}>
+                  Remove
+                </Button>
+              </ButtonGroup>
+            </Modal.Footer>
+          </Modal>
+        </Card.Body>
+        <Card.Footer>{panelFooter}</Card.Footer>
+      </Card>
     );
   }
 }

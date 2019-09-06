@@ -119,29 +119,9 @@ questionSchema.statics.getListByType = function qSchema2(type) {
 questionSchema.statics.getTopQuestions = function qSchema3() {
   return this.aggregate([
     {
-      $lookup: {
-        from: 'users',
-        localField: '_id',
-        foreignField: 'votes.like',
-        as: 'favourite',
-      },
-    },
-    {
-      $project: {
-        favourite: {
-          passwordDigest: 0,
-          confirmationToken: 0,
-          questions: 0,
-          votes: 0,
-          confirmed: 0,
-          role: 0,
-        },
-      },
-    },
-    {
       $addFields: {
         size: {
-          $size: { $ifNull: ['$favourite', []] },
+          $size: { $ifNull: ['$votes.like', []] },
         },
       },
     },

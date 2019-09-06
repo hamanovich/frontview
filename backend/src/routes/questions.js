@@ -1,4 +1,5 @@
 import cloudinary from 'cloudinary';
+import jwt from 'jsonwebtoken';
 
 import Question from '../models/question';
 import User from '../models/user';
@@ -22,11 +23,18 @@ exports.getQuestionInterface = (req, res) => {
 };
 
 exports.getQuestions = async (req, res) => {
+  const token =
+    req.headers.authorization && req.headers.authorization.split(' ')[1];
+  const authorId = token && jwt.verify(token, process.env.SECRET)._id;
   const page = req.params.page || 1;
-  const limit = 5;
+  const limit = 20;
   const skip = page * limit - limit;
-  const countPromise = Question.countDocuments();
-  const questionsPromise = Question.find()
+  const countPromise = Question.countDocuments({
+    $or: [{ author: authorId }, { isVerified: true }],
+  });
+  const questionsPromise = Question.find({
+    $or: [{ author: authorId }, { isVerified: true }],
+  })
     .skip(skip)
     .limit(limit);
   const [questions, count] = await Promise.all([
@@ -207,7 +215,7 @@ exports.addFromFile = async (req, res) => {
 };
 
 exports.edit = async (req, res) => {
-  const imgsList = [];
+  const imgsList = req.body.imgs.filter(img => img.startsWith('http'));
 
   const logItem = item =>
     new Promise(resolve => {
@@ -230,7 +238,10 @@ exports.edit = async (req, res) => {
       );
     });
 
-  await forEachPromise(req.body.imgs, logItem);
+  await forEachPromise(
+    req.body.imgs.filter(img => img.startsWith('data')),
+    logItem,
+  );
 
   const question = await Question.findByIdAndUpdate(
     req.params.id,
@@ -380,4 +391,12 @@ exports.getTopQuestions = async (_, res) => {
   const questions = await Question.getTopQuestions();
 
   res.send(questions);
+};
+
+exports.getNotVerifiedQuestions = async (_, res) => {
+  const questions = await Question.find({
+    $or: [{ isVerified: { $exists: false } }, { isVerified: false }],
+  });
+
+  res.json(questions);
 };

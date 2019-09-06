@@ -51,6 +51,7 @@ input[type='submit'] {
 
 #main {
   padding-bottom: 60px;
+  min-height: 400px;
 }
 
 #main > .container:first-child {
@@ -76,10 +77,6 @@ input[type='submit'] {
 
 .card {
   margin-bottom: 20px;
-}
-
-.question {
-  margin-bottom: 50px;
 }
 
 .media + .media {
