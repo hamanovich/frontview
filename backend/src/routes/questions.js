@@ -338,6 +338,7 @@ exports.getQuestionsByAuthor = async (req, res) => {
 exports.searchQuestions = async (req, res) => {
   const questions = await Question.find(
     {
+      isVerified: true,
       $text: {
         $search: req.query.q,
       },
