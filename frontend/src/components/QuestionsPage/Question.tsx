@@ -211,6 +211,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
             </p>
           )}
           <small>
+            Author:{' '}
             {typeof question.author === 'object' &&
             question.author &&
             question.author.username ? (
