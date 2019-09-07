@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { forbidden } from '../handlers/errors';
 
 import User from '../models/user';
 
@@ -27,8 +28,6 @@ export default (req, res, next) => {
       }
     });
   } else {
-    res.status(403).json({
-      error: 'No token provided',
-    });
+    forbidden(req, res, next, 'No token provided');
   }
 };

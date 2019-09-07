@@ -92,7 +92,10 @@ export const signup = (user: User) => () => api.user.signup(user);
 export const isUserExists = (identifier: string) => () =>
   api.user.isUserExists(identifier);
 export const removeUser = (username: string) => () => api.user.remove(username);
-export const updateUser = (user: User) => () => api.user.update(user);
+export const updateUser = (
+  user: User,
+): ThunkAction<Promise<{}>, AppState, null, Action<string>> => dispatch =>
+  api.user.update(user).then(user => dispatch(setCurrentUser(user)));
 export const getUser = (
   identifier: string,
 ): ThunkAction<Promise<{}>, AppState, null, Action<string>> => dispatch =>
