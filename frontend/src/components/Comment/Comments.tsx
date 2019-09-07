@@ -2,7 +2,7 @@ import React, { FunctionComponent, Fragment } from 'react';
 
 import Comment from './Comment';
 import Loader from '../../utils/Loader';
-import { CommentQuestion } from '../../propTypes/CommentType';
+import { User, CommentQuestion } from 'propTypes';
 
 type CommentsProps = {
   comments: CommentQuestion[];
@@ -11,17 +11,17 @@ type CommentsProps = {
       username: string;
     };
   } | null;
-  role?: string;
+  user: User;
 };
 
 const Comments: FunctionComponent<CommentsProps> = ({
   comments,
   match,
-  role,
+  user,
 }) => (
   <Fragment>
     {comments.map((comment: CommentQuestion) => (
-      <Comment comment={comment} match={match} key={comment._id} role={role} />
+      <Comment comment={comment} match={match} key={comment._id} user={user} />
     ))}
   </Fragment>
 );

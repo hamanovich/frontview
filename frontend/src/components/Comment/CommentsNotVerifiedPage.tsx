@@ -42,7 +42,7 @@ const CommentsNotVerifiedPage: FunctionComponent<
       </h1>
 
       {size > 0 ? (
-        <Comments comments={comments} match={match} role={auth.user.role} />
+        <Comments comments={comments} match={match} user={auth.user} />
       ) : (
         'No unreviewed comments found'
       )}
