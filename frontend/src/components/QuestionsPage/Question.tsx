@@ -181,10 +181,11 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
         {!match && <Card.Header>{panelHeader}</Card.Header>}
         <Card.Body>
           {(showAnswer || match) && (
-            <div>
-              <div onClick={this.open(question.answer, 'answer')}>
-                <MarkdownRenderer markdown={question.answer} />
-              </div>
+            <Fragment>
+              <MarkdownRenderer
+                markdown={question.answer}
+                onClick={this.open(question.answer, 'answer')}
+              />
               {question.answers.length > 0 && <hr />}
               {question.answers.map(
                 (question: { text: string }, index: number) => (
@@ -195,7 +196,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
                   </em>
                 ),
               )}
-              {question.imgs && (
+              {question.imgs && question.imgs.length > 0 && (
                 <DropThumbs>
                   {question.imgs.map(img => (
                     <DropThumb key={shortid.generate()}>
@@ -218,7 +219,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
                 />
               )}
               <hr />
-            </div>
+            </Fragment>
           )}
           {!match && (
             <p>

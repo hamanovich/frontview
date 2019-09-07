@@ -69,7 +69,7 @@ exports.remove = async (req, res) => {
     },
   });
 
-  await Comment.remove({ comment: req.params.id });
+  await Comment.deleteOne({ comment: req.params.id });
 
   if (comment && user) {
     res.json(comment);
