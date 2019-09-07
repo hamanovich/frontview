@@ -21,7 +21,7 @@ import { QuestionProps, QuestionState } from './models';
 import { TextareaField } from '../formElements';
 import { DropThumb, DropThumbs } from './AddQuestion/style';
 import { Question, User, Comment } from 'propTypes';
-import { isAdmin } from '../../utils/helpers';
+import { isAdmin, isSuperAdmin } from '../../utils/helpers';
 import { BadgeStyled } from './style';
 
 class QuestionSingle extends Component<QuestionProps, QuestionState> {
@@ -117,6 +117,23 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
   private getVerifiedCommentsByQuestion = (q: Question) =>
     q.comments && q.comments.filter((c: Comment) => c.isVerified).length;
 
+  private isAllowedToApprove = (user: User, question: Question) => {
+    if (isSuperAdmin(user.role)) {
+      return true;
+    }
+
+    if (isAdmin(user.role)) {
+      if (
+        question.author === null ||
+        user.username !== question.author.username
+      ) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
   render() {
     const { question, approveQuestion, user, qlists, match } = this.props;
     const { answerField, textField, showAnswer, showRemoveModal } = this.state;
@@ -139,7 +156,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
           <strong>Skill</strong>:{' '}
           {question.skill.map((skill: string) => (
             <Link to={`/questions/skill/${skill}`} key={skill}>
-              {skill}{' '}
+              <Badge variant="info">{skill}</Badge>{' '}
             </Link>
           ))}
         </h6>
@@ -246,13 +263,14 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
 
               {(isAdmin(user.role) || this.isAuthor(user, question)) && (
                 <ButtonGroup size="sm" className="pull-right">
-                  {!question.isVerified && isAdmin(user.role) && (
-                    <Button
-                      variant="success"
-                      onClick={() => approveQuestion(question._id)}>
-                      Approve
-                    </Button>
-                  )}
+                  {!question.isVerified &&
+                    this.isAllowedToApprove(user, question) && (
+                      <Button
+                        variant="success"
+                        onClick={() => approveQuestion(question._id)}>
+                        Approve
+                      </Button>
+                    )}
                   <Link
                     to={`/questions/${question._id}/edit`}
                     className="btn btn-warning">

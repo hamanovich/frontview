@@ -1,4 +1,4 @@
-import { Comment } from './CommentType';
+import { User, Comment } from 'propTypes';
 
 export interface Question {
   _id: string;
@@ -16,8 +16,7 @@ export interface Question {
   };
   imgs: string[];
   notes: string;
-  author: string | { username: string };
-  // TODO: re-check the cases when comments not populated
+  author: Partial<User>;
   comments: Comment[];
   lastModified: string;
 }

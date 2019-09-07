@@ -12,6 +12,9 @@ export const Owner = Authorization(['owner', 'admin', 'superadmin']);
 export const Admin = Authorization(['admin', 'superadmin']);
 export const Superadmin = Authorization(['superadmin']);
 
+export const isSuperAdmin = (role: string = 'user') =>
+  role === RoleEnum.SUPERADMIN;
+
 export const isAdmin = (role: string = 'user') =>
   role === RoleEnum.ADMIN || role === RoleEnum.SUPERADMIN;
 
