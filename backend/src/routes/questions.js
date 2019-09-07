@@ -293,7 +293,8 @@ exports.editField = async (req, res) => {
 
 exports.remove = async (req, res) => {
   const question = await Question.findByIdAndRemove(req.params.id);
-  const user = await User.findByIdAndUpdate(question.author, {
+
+  await User.findByIdAndUpdate(question.author, {
     $pull: {
       questions: question._id,
       'votes.like': question._id,
@@ -301,9 +302,9 @@ exports.remove = async (req, res) => {
     },
   });
 
-  await Comment.remove({ question: req.params.id });
+  await Comment.deleteOne({ question: req.params.id });
 
-  if (question && user) {
+  if (question) {
     res.json(question);
     return;
   }

@@ -154,7 +154,7 @@ exports.updateUserRole = async (req, res) => {
 };
 
 exports.remove = async (req, res) => {
-  await User.remove({ username: req.params.username });
+  await User.deleteOne({ username: req.params.username });
 
   res.json({ succes: true, username: req.params.username });
 };
