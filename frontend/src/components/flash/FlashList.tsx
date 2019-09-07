@@ -6,7 +6,7 @@ import { deleteFlashMessage } from '../../actions/flash';
 
 import { FlashMessageType } from '../../propTypes';
 
-type FlashListProps = {
+export type FlashListProps = {
   messages: FlashMessageType[];
   deleteFlashMessage: (id: string | undefined) => void;
 };

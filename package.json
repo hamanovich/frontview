@@ -16,6 +16,8 @@
     "start": "concurrently \"cd frontend && yarn start\" \"cd backend && cross-env PORT=3001 && yarn start\"",
     "start:prod": "cd backend && yarn start:prod",
     "heroku-postbuild": "yarn build",
+    "storybook": "cd frontend && yarn storybook",
+    "storybook:build": "cd frontend && yarn build-storybook",
     "format": "yarn prettier -- --write",
     "prettier": "prettier \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|graphql|mdx)\"",
     "validate": "yarn lint && yarn format --list-different",
