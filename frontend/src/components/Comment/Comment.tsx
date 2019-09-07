@@ -21,8 +21,9 @@ import {
   Comment as CommentType,
   CommentQuestion,
   AddFlashMessageType,
-} from '../../propTypes';
-import { isAdmin } from 'utils/helpers';
+  User,
+} from 'propTypes';
+import { isAdmin, isSuperAdmin } from 'utils/helpers';
 
 type CommentProps = {
   comment: CommentQuestion;
@@ -31,7 +32,7 @@ type CommentProps = {
       username: string;
     };
   } | null;
-  role?: string;
+  user: User;
   approveComment: (id: string) => Promise<CommentsActionTypes>;
   removeComment: (id: string) => Promise<CommentsActionTypes>;
   addFlashMessage: AddFlashMessageType;
@@ -40,7 +41,7 @@ type CommentProps = {
 const Comment: FunctionComponent<CommentProps> = ({
   comment,
   match,
-  role,
+  user,
   approveComment,
   removeComment,
   addFlashMessage,
@@ -63,6 +64,22 @@ const Comment: FunctionComponent<CommentProps> = ({
         text: `Comment with id=__${id}__ was approved`,
       });
     });
+  };
+
+  const isAllowedToApprove = (user: User, comment: CommentType) => {
+    if (!user) return false;
+
+    if (isSuperAdmin(user.role)) {
+      return true;
+    }
+
+    if (isAdmin(user.role)) {
+      if (comment.author && comment.author.username !== user.username) {
+        return true;
+      }
+    }
+
+    return false;
   };
 
   return (
@@ -93,11 +110,11 @@ const Comment: FunctionComponent<CommentProps> = ({
 
         {(!comment.isVerified ||
           (comment.author &&
-            comment.author.username ===
-              (match && match.params && match.params.username))) && (
+            user &&
+            comment.author.username === user.username)) && (
           <ApproveBar>
             <ButtonGroup>
-              {isAdmin(role) && (
+              {isAllowedToApprove(user, comment) && (
                 <Button
                   variant="success"
                   size="sm"
