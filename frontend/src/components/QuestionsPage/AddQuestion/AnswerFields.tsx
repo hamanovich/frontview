@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from 'react';
+import React, { FunctionComponent, Fragment } from 'react';
 import { Field } from 'redux-form';
 import FontAwesome from 'react-fontawesome';
 
@@ -9,9 +9,21 @@ import Form from 'react-bootstrap/Form';
 
 import { TextareaField } from '../../formElements';
 import { Remove } from '../style';
-import { AnswerFieldsProps } from './models';
 
-const AnswerFields: FC<AnswerFieldsProps> = ({
+type AnswerFieldsProps = {
+  fields: {
+    map: any;
+    push: (answer?: any) => void;
+    remove: any;
+  };
+  meta: {
+    touched: boolean;
+    error: string;
+    submitFailed: boolean;
+  };
+};
+
+const AnswerFields: FunctionComponent<AnswerFieldsProps> = ({
   fields,
   meta: { touched, error, submitFailed },
 }) => (

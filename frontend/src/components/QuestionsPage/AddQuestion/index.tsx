@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, FormEvent } from 'react';
 import { Field, FieldArray, reduxForm, InjectedFormProps } from 'redux-form';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
@@ -31,20 +31,68 @@ import {
   getQuestionInterface,
 } from '../../../actions/questions';
 import { DropMe, DropThumb, DropThumbs } from './style';
-import {
-  AddQuestionProps,
-  AddQuestionState,
-  AddQuestionMapState,
-  AddQuestionMapProps,
-} from './models';
 import { GetQuestionsError } from '../models';
+import { isAdmin } from 'utils/helpers';
+import { AddFlashMessageType, User, Question, Auth } from 'propTypes';
+import DropzoneJSON from './DropzoneJSON';
+
+type AddQuestionProps = {
+  handleSubmit: (
+    onSubmit: (value: any) => void,
+  ) => ((event: FormEvent<HTMLFormElement>) => void) | undefined;
+  addQuestion: any;
+  addQuestionsFromFile: (query: any) => any;
+  editQuestion: (data: any) => Promise<void>;
+  getQuestionInterface: () => Promise<{
+    skill: string[];
+    level: string[];
+    practice: string[];
+  }>;
+  addFlashMessage: AddFlashMessageType;
+  removeQuestion: (id: string) => Promise<void>;
+  getQuestionById: (_id: string) => Promise<any>;
+  logout: any;
+  match: {
+    params: {
+      _id: string;
+    };
+  };
+  user: User;
+  history: {
+    push: (url: string) => void;
+  };
+  initialValues: any;
+};
+
+type AddQuestionState = {
+  isLoading: boolean;
+  showRemoveModal: boolean;
+  level: string[];
+  practice: string[];
+  skill: string[];
+  dropzone: boolean;
+  fileName: string;
+  imgs: any[];
+};
+
+type AddQuestionMapState = {
+  questions: Question[];
+  auth: Auth;
+};
+
+type AddQuestionMapProps = {
+  match: {
+    params: {
+      _id: string;
+    };
+  };
+};
 
 class AddQuestion extends Component<
   AddQuestionProps & InjectedFormProps<{}, AddQuestionProps>,
   AddQuestionState
 > {
   static defaultProps = {
-    userId: '',
     match: undefined,
     initialValues: {},
   };
@@ -126,7 +174,7 @@ class AddQuestion extends Component<
 
   private onSubmit = (values: any) => {
     const {
-      userId,
+      user,
       match,
       logout,
       addQuestion,
@@ -138,7 +186,7 @@ class AddQuestion extends Component<
       ...values,
       imgs: this.state.imgs,
       isVerified: false,
-      userId,
+      userId: user._id,
       lastModified: new Date(),
     };
 
@@ -215,7 +263,7 @@ class AddQuestion extends Component<
       });
       const query = {
         questions: JSON.parse(e.target.result),
-        userId: this.props.userId,
+        userId: this.props.user._id,
         lastModified: new Date(),
       };
 
@@ -271,13 +319,13 @@ class AddQuestion extends Component<
       showRemoveModal: !prevState.showRemoveModal,
     }));
 
-  private remove = (id: string) => () => {
+  private remove = (id: string) => {
     const { removeQuestion, addFlashMessage, history } = this.props;
 
     removeQuestion(id).then(() => {
       addFlashMessage({
         type: 'success',
-        text: `Question with id=${id} was successfully removed`,
+        text: `Question with __id=${id}__ was successfully removed`,
       });
 
       history.push('/questions');
@@ -301,7 +349,7 @@ class AddQuestion extends Component<
       dropzone,
       imgs,
     } = this.state;
-    const { match, handleSubmit } = this.props;
+    const { match, handleSubmit, user } = this.props;
     const { _id } = match.params;
 
     return (
@@ -313,7 +361,7 @@ class AddQuestion extends Component<
               {_id ? 'Edit question' : 'Add a new question'}
             </h1>
 
-            {!_id && (
+            {!_id && isAdmin(user.role) && (
               <Fragment>
                 <p>
                   <Button variant="info" onClick={this.toggleDropzone}>
@@ -327,60 +375,11 @@ class AddQuestion extends Component<
             )}
 
             {dropzone === true ? (
-              <Dropzone
-                accept="application/json"
-                multiple={false}
-                onDropAccepted={this.handleDropAccepted}
-                onDropRejected={this.handleDropRejected}>
-                {({ getRootProps, getInputProps }) => (
-                  <DropMe {...getRootProps()}>
-                    <input {...getInputProps()} />
-                    <h3>Want to upload JSON?</h3>
-                    <p>
-                      Click or drag&amp;drop file here. Only *.json file is
-                      accepted.
-                    </p>
-                    <p>
-                      JSON should be in the following format (array of objects):
-                    </p>
-                    <pre style={{ fontSize: '11px' }}>
-                      {JSON.stringify(
-                        [
-                          {
-                            question: 'The question',
-                            skill: ['JS'],
-                            level: ['Junior', 'Middle'],
-                            answer: 'The main answer',
-                            answers: [
-                              {
-                                text: 'Additional answer #1',
-                              },
-                              {
-                                text: 'Additional answer #2',
-                              },
-                            ],
-                            practice: 'practice',
-                            notes: 'Some notes',
-                          },
-                        ],
-                        null,
-                        2,
-                      )}
-                    </pre>
-                    <p>
-                      <small>
-                        <em>
-                          P.S. In case wrong JSON format you should fix it by
-                          yourself or contact admin
-                        </em>
-                      </small>
-                    </p>
-                    <p>
-                      {fileName !== '' ? `You have added - ${fileName}` : ''}
-                    </p>
-                  </DropMe>
-                )}
-              </Dropzone>
+              <DropzoneJSON
+                handleDropAccepted={this.handleDropAccepted}
+                handleDropRejected={this.handleDropRejected}
+                fileName={fileName}
+              />
             ) : (
               <Fragment>
                 <Field
@@ -518,7 +517,9 @@ class AddQuestion extends Component<
                             onClick={this.toggleRemoveModal}>
                             Cancel
                           </Button>
-                          <Button variant="danger" onClick={this.remove(_id)}>
+                          <Button
+                            variant="danger"
+                            onClick={() => this.remove(_id)}>
                             Remove
                           </Button>
                         </ButtonGroup>
@@ -542,7 +543,7 @@ const mapStateToProps = (
   initialValues: props.match.params._id
     ? state.questions.find(q => q._id === props.match.params._id)
     : null,
-  userId: state.auth.user._id,
+  user: state.auth.user,
 });
 
 export default connect(

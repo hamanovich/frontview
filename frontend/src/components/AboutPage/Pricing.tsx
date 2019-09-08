@@ -35,7 +35,7 @@ const PricingPage = () => (
           </Card.Header>
           <Card.Body>
             <Card.Title>
-              $0 <small className="text-muted">/ mo</small>
+              $0 <small className="text-muted">/ year</small>
             </Card.Title>
             <ul className="list-unstyled">
               <li>Read only mode</li>
@@ -56,7 +56,7 @@ const PricingPage = () => (
           </Card.Header>
           <Card.Body>
             <Card.Title>
-              $0 <small className="text-muted">/ mo</small>
+              $0 <small className="text-muted">/ year</small>
             </Card.Title>
             <ul className="list-unstyled">
               <li>Adding question</li>
@@ -77,12 +77,12 @@ const PricingPage = () => (
           </Card.Header>
           <Card.Body>
             <Card.Title>
-              $0 <small className="text-muted">/ mo</small>
+              $0 <small className="text-muted">/ year</small>
             </Card.Title>
             <ul className="list-unstyled">
               <li>As Registered</li>
               <li>Moderate questions</li>
-              <li>Create question lists</li>
+              <li>Add multiple questions</li>
               <li>Hidden extra features</li>
             </ul>
             <Link to="/questions">
