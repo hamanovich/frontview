@@ -14,6 +14,7 @@ export const mockDataWithMarkdown: FlashProps = {
   ...mockDataSuccess,
   message: {
     ...mockDataSuccess.message,
+    id: '4',
     text: 'The `Question` with id=__123__ was removed. _Good job_!',
   },
 };
@@ -21,7 +22,7 @@ export const mockDataWithMarkdown: FlashProps = {
 export const mockDataWarning: FlashProps = {
   ...mockDataSuccess,
   message: {
-    ...mockDataSuccess.message,
+    id: '2',
     type: 'warning',
     text: 'Watch out!',
   },
@@ -30,7 +31,7 @@ export const mockDataWarning: FlashProps = {
 export const mockDataDanger: FlashProps = {
   ...mockDataSuccess,
   message: {
-    ...mockDataSuccess.message,
+    id: '3',
     type: 'error',
     text: 'Be careful!',
   },

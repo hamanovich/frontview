@@ -4,39 +4,34 @@ exports[`<FlashList /> renders <FlashList /> component 1`] = `
 <Fragment>
   <Memo(Flash)
     close={[Function]}
-    key="ABC"
+    key="1"
     message={
       Object {
-        "id": "ABC",
-        "text": "Very negative text",
-        "type": "error",
-      }
-    }
-  />
-</Fragment>
-`;
-
-exports[`<FlashList /> updates props correctly 1`] = `
-<Fragment>
-  <Memo(Flash)
-    close={[Function]}
-    key="ABC"
-    message={
-      Object {
-        "id": "ABC",
-        "text": "Very negative text",
-        "type": "error",
-      }
-    }
-  />
-  <Memo(Flash)
-    close={[Function]}
-    key="DEF"
-    message={
-      Object {
-        "id": "DEF",
-        "text": "Very positive text",
+        "id": "1",
+        "text": "Well Done!",
         "type": "success",
+      }
+    }
+  />
+  <Memo(Flash)
+    close={[Function]}
+    key="2"
+    message={
+      Object {
+        "id": "2",
+        "text": "Watch out!",
+        "type": "warning",
+      }
+    }
+  />
+  <Memo(Flash)
+    close={[Function]}
+    key="3"
+    message={
+      Object {
+        "id": "3",
+        "text": "Be careful!",
+        "type": "error",
       }
     }
   />
