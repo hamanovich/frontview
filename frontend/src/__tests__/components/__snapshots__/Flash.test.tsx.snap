@@ -5,29 +5,7 @@ exports[`<Flash/> renders <Flash /> component 1`] = `
   variant="danger"
 >
   <MarkdownRenderer
-    markdown="Error"
-  />
-  <Button
-    active={false}
-    className="close"
-    disabled={false}
-    onClick={[MockFunction]}
-    type="button"
-    variant="primary"
-  >
-    <FontAwesome
-      name="times"
-    />
-  </Button>
-</Styled(Alert)>
-`;
-
-exports[`<Flash/> updates via props 1`] = `
-<Styled(Alert)
-  variant="success"
->
-  <MarkdownRenderer
-    markdown="Success"
+    markdown="Be careful!"
   />
   <Button
     active={false}

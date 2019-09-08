@@ -13,7 +13,7 @@ enum VariantEnum {
   WARNING = 'warning',
 }
 
-type FlashProps = {
+export type FlashProps = {
   close: () => void;
   message: FlashMessageType;
 };
