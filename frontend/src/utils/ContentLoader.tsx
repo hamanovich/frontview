@@ -1,16 +1,18 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, FunctionComponent, useEffect, useState } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 import ContentPlaceholder from './ContentPlaceholder';
 
-// @ts-ignore
-const WithContentLoader = (WrappedComponent, propName, count = 10) => props => {
-  // @ts-ignore
-  const WithLoaderComponent = () => {
+const WithContentLoader = (
+  WrappedComponent: any,
+  propName: string,
+  count: number = 1,
+) => (props: any) => {
+  const WithLoaderComponent: FunctionComponent = () => {
     const [isEmpty, setIsEmpty] = useState(false);
     const [nothingFound, setNothingFound] = useState(false);
 
     useEffect(() => {
-      const timer = setInterval(() => {
+      const timer = setTimeout(() => {
         if (Array.isArray(props[propName]) && props[propName].length === 0) {
           setNothingFound(true);
         }
@@ -21,10 +23,9 @@ const WithContentLoader = (WrappedComponent, propName, count = 10) => props => {
       }, 5000);
       return () => clearTimeout(timer);
       // eslint-disable-next-line
-    }, [JSON.stringify(props[propName])]);
+    }, [props[propName]]);
 
     const _props = propName.split(' ');
-    // @ts-ignore
     const filtered = _props.filter(
       propOne => props[propOne] && Object.keys(props[propOne]).length !== 0,
     );
