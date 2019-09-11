@@ -18,10 +18,13 @@ import ErrorBoundary from '../../utils/ErrorBoundary';
 const AddQuestion = lazy(() =>
   import('./AddQuestion' /* webpackChunkName: "AddQuestion" */),
 );
+
 const QuestionsTop = lazy(() =>
+  // @ts-ignore
   import('./QuestionsTop' /* webpackChunkName: "QuestionsTop" */),
 );
 const QuestionsFromInternet = lazy(() =>
+  // @ts-ignore
   import(
     './QuestionsFromInternet' /* webpackChunkName: "QuestionsFromInternet" */
   ),

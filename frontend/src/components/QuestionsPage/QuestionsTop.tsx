@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Badge from 'react-bootstrap/Badge';
 
-import Loader from '../../utils/Loader';
+import WithContentLoader from '../../utils/ContentLoader';
 import { BadgeGroup, LabelVoted } from './style';
 import { QuestionsTopProps } from './models';
 import { Question } from '../../propTypes/QuestionType';
@@ -58,4 +58,4 @@ const QuestionsTop: FunctionComponent<QuestionsTopProps> = ({ questions }) => (
   </Fragment>
 );
 
-export default Loader('questions')(QuestionsTop);
+export default WithContentLoader(QuestionsTop, 'questions');
