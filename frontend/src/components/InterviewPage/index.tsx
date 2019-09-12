@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, FunctionComponent } from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -22,7 +22,7 @@ import { getQLists } from '../../actions/qlists';
 
 import { PropsRoute } from '../../utils/helpers';
 
-const InterviewPage = ({
+const InterviewPage: FunctionComponent<any> = ({
   auth,
   addFlashMessage,
   candidates,
@@ -87,7 +87,7 @@ InterviewPage.defaultProps = {
   qlists: [],
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
   candidates: state.candidates,
   qlists: state.qlists,
 });

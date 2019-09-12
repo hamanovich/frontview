@@ -1,5 +1,5 @@
-import { FlashProps } from './Flash';
 import { action } from '@storybook/addon-actions';
+import { FlashProps } from './Flash';
 
 export const mockDataSuccess: FlashProps = {
   close: action('close'),

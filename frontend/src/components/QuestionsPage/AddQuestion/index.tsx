@@ -32,9 +32,9 @@ import {
 } from '../../../actions/questions';
 import { DropMe, DropThumb, DropThumbs } from './style';
 import { GetQuestionsError } from '../models';
-import { isAdmin } from 'utils/helpers';
-import { AddFlashMessageType, User, Question, Auth } from 'propTypes';
 import DropzoneJSON from './DropzoneJSON';
+import { AddFlashMessageType, User, Question, Auth } from '../../../propTypes';
+import { isAdmin } from '../../../utils/helpers';
 
 type AddQuestionProps = {
   handleSubmit: (
@@ -199,36 +199,34 @@ class AddQuestion extends Component<
 
         history.push('/questions');
       });
+    } else if (Object.keys(values).length > 4) {
+      addQuestion(query).then(
+        () => {
+          addFlashMessage({
+            type: 'success',
+            text: 'New question created successfully.',
+          });
+
+          history.push('/questions');
+        },
+        (err: GetQuestionsError) => {
+          addFlashMessage({
+            type: 'error',
+            text:
+              err.response && err.response.data.error
+                ? err.response.data.error
+                : `${err.message}. Please check your internet connection`,
+          });
+
+          logout();
+          history.push('/');
+        },
+      );
     } else {
-      if (Object.keys(values).length > 4) {
-        addQuestion(query).then(
-          () => {
-            addFlashMessage({
-              type: 'success',
-              text: 'New question created successfully.',
-            });
-
-            history.push('/questions');
-          },
-          (err: GetQuestionsError) => {
-            addFlashMessage({
-              type: 'error',
-              text:
-                err.response && err.response.data.error
-                  ? err.response.data.error
-                  : `${err.message}. Please check your internet connection`,
-            });
-
-            logout();
-            history.push('/');
-          },
-        );
-      } else {
-        addFlashMessage({
-          type: 'warn',
-          text: 'Not all required fields are filled properly',
-        });
-      }
+      addFlashMessage({
+        type: 'warn',
+        text: 'Not all required fields are filled properly',
+      });
     }
   };
 

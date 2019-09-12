@@ -13,9 +13,11 @@ const withLoading = (prop: string) => <P extends object>(
       timeout: 5000,
     };
 
-    private mounted: boolean = false;
-    private startTimer: number = 0;
-    private endTimer: number = 0;
+    private mounted = false;
+
+    private startTimer = 0;
+
+    private endTimer = 0;
 
     componentDidMount() {
       this.mounted = true;
@@ -67,7 +69,7 @@ const withLoading = (prop: string) => <P extends object>(
             <p>
               It may happen due to no data fetched by this request or some
               server issue. If you are sure this page/request should return any
-              specific data, but it didn't, please{' '}
+              specific data, but it didn&apos;t, please{' '}
               <a href="mailto:hamanovich@gmail.com">contact admin</a> or create
               a ticket in{' '}
               <a

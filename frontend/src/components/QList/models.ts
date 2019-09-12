@@ -21,9 +21,9 @@ export interface QListFormProps {
   isLoading: boolean;
   userId: string;
   handleSubmit: (
-    onSubmit: ({}) => void,
+    onSubmit: (value: any) => void,
   ) => ((event: FormEvent<HTMLFormElement>) => void) | undefined;
-  onSubmit: ({}) => void;
+  onSubmit: (value: any) => void;
 }
 
 export interface QListFormHandlersProps {

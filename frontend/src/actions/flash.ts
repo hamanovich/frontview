@@ -5,17 +5,17 @@ import {
   DELETE_FLASH_MESSAGES,
 } from './types';
 
-interface addFlashMessageAction {
+interface AddFlashMessageAction {
   type: typeof ADD_FLASH_MESSAGE;
   payload: FlashMessageType;
 }
 
-interface deleteFlashMessageAction {
+interface DeleteFlashMessageAction {
   type: typeof DELETE_FLASH_MESSAGE;
   id: string;
 }
 
-interface deleteFlashMessagesAction {
+interface DeleteFlashMessagesAction {
   type: typeof DELETE_FLASH_MESSAGES;
 }
 
@@ -34,6 +34,6 @@ export const deleteFlashMessages = () => ({
 });
 
 export type FlashActionTypes =
-  | addFlashMessageAction
-  | deleteFlashMessageAction
-  | deleteFlashMessagesAction;
+  | AddFlashMessageAction
+  | DeleteFlashMessageAction
+  | DeleteFlashMessagesAction;

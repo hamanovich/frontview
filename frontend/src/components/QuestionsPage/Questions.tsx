@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import compose from 'recompose/compose';
 
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import QuestionOne from './Question';
 import Loader from '../../utils/Loader';
 import {
@@ -12,8 +14,6 @@ import {
 } from '../../actions/questions';
 import { QuestionsProps, QuestionsState } from './models';
 import { Question } from '../../propTypes/QuestionType';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 
 const enhance = compose<
   QuestionsProps,

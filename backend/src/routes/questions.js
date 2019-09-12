@@ -1,5 +1,4 @@
 import cloudinary from 'cloudinary';
-import jwt from 'jsonwebtoken';
 
 import Question from '../models/question';
 import User from '../models/user';

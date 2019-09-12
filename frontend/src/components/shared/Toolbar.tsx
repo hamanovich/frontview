@@ -13,8 +13,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
 import { voteQuestion } from '../../actions/questions';
 import { qlistAddQuestion } from '../../actions/qlists';
-
-import { User, Question, QList } from 'propTypes';
+import { User, Question, QList } from '../../propTypes';
 
 type ToolbarProps = {
   user: User;

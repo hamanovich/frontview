@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import MarkdownRenderer from 'react-markdown-renderer';
 import shortid from 'shortid';
@@ -14,7 +14,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Badge from 'react-bootstrap/Badge';
 
-import InterviewNotesForm from './InterviewNotesForm';
+// import InterviewNotesForm from './InterviewNotesForm';
 
 const BadgeStyled = styled(Badge)`
   margin: 0 3px;
@@ -23,13 +23,13 @@ const BadgeStyled = styled(Badge)`
 const enhance = compose(
   withState('step', 'setStep', 1),
 
-  withHandlers({
-    onSelectStep: ({ setStep }) => step => setStep(step),
+  withHandlers<any, any>({
+    onSelectStep: (props: any) => (step: any) => props.setStep(step),
   }),
 
   lifecycle({
     UNSAFE_componentWillMount() {
-      const { history, location, userId, addFlashMessage } = this.props;
+      const { history, location, userId, addFlashMessage } = this.props as any;
 
       if (!userId) {
         history.push('/');
@@ -57,20 +57,20 @@ const enhance = compose(
   }),
 );
 
-const InterviewProgress = ({
+const InterviewProgress: FunctionComponent<any> = ({
   step,
-  provideFeedback,
+  // provideFeedback,
   location,
-  history,
+  // history,
   onSelectStep,
 }) => {
-  const candidate = location.state ? location.state.candidate : '';
+  // const candidate = location.state ? location.state.candidate : '';
   const questions = location.state ? location.state.qlist.questions : [];
-  const tab = questions.map((question, index) => (
+  const tab = questions.map((question: any, index: number) => (
     <Tab eventKey={index + 1} key={question._id} title={index + 1}>
       <h3>{question.question}</h3>
       <MarkdownRenderer markdown={question.answer} />
-      {question.answers.map(question => (
+      {question.answers.map((question: any) => (
         <MarkdownRenderer markdown={question.text} key={shortid.generate()} />
       ))}
       {question.notes && <MarkdownRenderer markdown={question.notes} />}
@@ -78,12 +78,12 @@ const InterviewProgress = ({
       <hr />
 
       <p>
-        {question.skill.map(skill => (
+        {question.skill.map((skill: any) => (
           <BadgeStyled variant="warning" key={skill}>
             {skill}
           </BadgeStyled>
         ))}
-        {question.level.map(level => (
+        {question.level.map((level: any) => (
           <BadgeStyled variant="primary" key={level}>
             {level}
           </BadgeStyled>
@@ -105,11 +105,11 @@ const InterviewProgress = ({
 
       <hr />
 
-      <InterviewNotesForm
+      {/* <InterviewNotesForm
         provideFeedback={provideFeedback}
         candidate={candidate}
         push={history.push}
-      />
+      /> */}
     </Fragment>
   );
 };

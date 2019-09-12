@@ -1,14 +1,14 @@
-/* eslint-disable camelcase */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable react/sort-comp */
 import React, { Component, Fragment } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import {
+  // Field,
+  reduxForm,
+} from 'redux-form';
 
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import Form from 'react-bootstrap/Form';
+// import Card from 'react-bootstrap/Card';
+// import Form from 'react-bootstrap/Form';
 
-import QListForm from '../QList/QListForm';
+// import QListForm from '../QList/QListForm';
 
 class InterviewQLists extends Component {
   static defaultProps = {
@@ -22,7 +22,7 @@ class InterviewQLists extends Component {
   };
 
   UNSAFE_componentWillMount() {
-    const { history, location, addFlashMessage, userId } = this.props;
+    const { history, location, addFlashMessage, userId } = this.props as any;
 
     if (!userId) {
       history.push('/');
@@ -40,19 +40,24 @@ class InterviewQLists extends Component {
   }
 
   chooseOne = () => {
-    const { history, qlists, location } = this.props;
-    const qlist = qlists.find(qlist => qlist._id === this.qlistOne.value);
-    const candidate = location.state;
-
-    history.push({
-      pathname: '/interview/progress',
-      state: { qlist, candidate },
-    });
+    // const {
+    //   // history,
+    //   // qlists,
+    //   location,
+    // } = this.props as any;
+    // const qlist = qlists.find(
+    //   (qlist: any) => qlist._id === this.qlistOne.value,
+    // );
+    // const candidate = location.state;
+    // history.push({
+    //   pathname: '/interview/progress',
+    //   state: { qlist, candidate },
+    // });
   };
 
   chooseFromList = () => {
     const { panel, isLoaded } = this.state;
-    const { getQLists, userId } = this.props;
+    const { getQLists, userId } = this.props as any;
 
     this.setState({ panel: !panel });
 
@@ -62,12 +67,12 @@ class InterviewQLists extends Component {
   };
 
   render() {
-    const { qlists, userId } = this.props;
-    const chooseQLists = qlists.map(qlist => (
-      <option value={qlist._id} key={qlist._id}>
-        {qlist.title}
-      </option>
-    ));
+    // const { qlists, userId } = this.props as any;
+    // const chooseQLists = qlists.map((qlist: any) => (
+    //   <option value={qlist._id} key={qlist._id}>
+    //     {qlist.title}
+    //   </option>
+    // ));
 
     return (
       <Fragment>
@@ -84,7 +89,7 @@ class InterviewQLists extends Component {
           </Button>
         </p>
 
-        <Card
+        {/* <Card
           id="collapsible-panel-1"
           expanded={this.state.panel}
           onToggle={() => {}}>
@@ -111,10 +116,10 @@ class InterviewQLists extends Component {
           expanded={!this.state.panel}
           onToggle={() => {}}>
           <QListForm userId={userId} />
-        </Card>
+        </Card> */}
       </Fragment>
     );
   }
 }
 
-export default reduxForm({ form: 'InterviewQLists' })(InterviewQLists);
+export default reduxForm<{}, any>({ form: 'InterviewQLists' })(InterviewQLists);

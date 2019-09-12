@@ -31,7 +31,7 @@ class QLists extends Component<QListsProps, QListsState> {
     getQLists(username);
   }
 
-  private toggleModal = (id: string = '') =>
+  private toggleModal = (id = '') =>
     this.setState(prevState => ({ showModal: !prevState.showModal, id }));
 
   private remove = () => {

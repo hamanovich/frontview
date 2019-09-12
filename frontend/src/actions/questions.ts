@@ -16,58 +16,54 @@ import {
   VOTE_DISLIKE,
 } from './types';
 
-interface addQuestionsAction {
+interface AddQuestionsAction {
   type: typeof QUESTIONS_ADD;
   questions: Question[];
   count: number;
   pages: number;
 }
 
-interface questionGotAction {
+interface QuestionGotAction {
   type: typeof QUESTION_GET;
   question: Question;
 }
 
-interface questionAddedAction {
+interface QuestionAddedAction {
   type: typeof QUESTION_ADD;
   question: Question;
 }
 
-interface questionsFromFileAddedAction {
+interface QuestionsFromFileAddedAction {
   type: typeof QUESTIONS_FROM_FILE_ADD;
   questions: Question[];
 }
 
-interface questionApprovedAction {
+interface QuestionApprovedAction {
   type: typeof QUESTION_APPROVE;
   question: Question;
 }
 
-interface questionEditedAction {
+interface QuestionEditedAction {
   type: typeof QUESTION_EDIT;
   question: Question;
 }
 
-interface questionRemovedAction {
+interface QuestionRemovedAction {
   type: typeof QUESTION_REMOVE;
   question: Question;
 }
 
-interface voteLikeAction {
+interface VoteLikeAction {
   type: typeof VOTE_LIKE;
   question: Question;
 }
 
-interface voteDislikeAction {
+interface VoteDislikeAction {
   type: typeof VOTE_DISLIKE;
   question: Question;
 }
 
-export const addQuestions = (
-  questions: Question[],
-  count: number = 0,
-  pages: number = 0,
-) => ({
+export const addQuestions = (questions: Question[], count = 0, pages = 0) => ({
   type: QUESTIONS_ADD,
   questions,
   count,
@@ -145,7 +141,7 @@ export const getNotVerifiedQuestions = (): ThunkAction<
 
 export const getQuestionsByFilter = (
   filter: string,
-  tag: string = '',
+  tag = '',
 ): ThunkAction<void, AppState, null, Action<string>> => dispatch =>
   api.questions.getByFilter(filter, tag).then(({ tags, questions }) => {
     dispatch(addQuestions(questions));
@@ -248,12 +244,12 @@ export const voteQuestion = (
     );
 
 export type QuestionsActionTypes =
-  | addQuestionsAction
-  | questionGotAction
-  | questionAddedAction
-  | questionsFromFileAddedAction
-  | questionApprovedAction
-  | questionEditedAction
-  | questionRemovedAction
-  | voteLikeAction
-  | voteDislikeAction;
+  | AddQuestionsAction
+  | QuestionGotAction
+  | QuestionAddedAction
+  | QuestionsFromFileAddedAction
+  | QuestionApprovedAction
+  | QuestionEditedAction
+  | QuestionRemovedAction
+  | VoteLikeAction
+  | VoteDislikeAction;

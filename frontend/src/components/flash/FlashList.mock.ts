@@ -1,5 +1,5 @@
-import { FlashListProps } from './FlashList';
 import { action } from '@storybook/addon-actions';
+import { FlashListProps } from './FlashList';
 
 import { mockDataSuccess, mockDataWarning, mockDataDanger } from './Flash.mock';
 

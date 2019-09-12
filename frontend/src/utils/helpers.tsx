@@ -12,10 +12,9 @@ export const Owner = Authorization(['owner', 'admin', 'superadmin']);
 export const Admin = Authorization(['admin', 'superadmin']);
 export const Superadmin = Authorization(['superadmin']);
 
-export const isSuperAdmin = (role: string = 'user') =>
-  role === RoleEnum.SUPERADMIN;
+export const isSuperAdmin = (role = 'user') => role === RoleEnum.SUPERADMIN;
 
-export const isAdmin = (role: string = 'user') =>
+export const isAdmin = (role = 'user') =>
   role === RoleEnum.ADMIN || role === RoleEnum.SUPERADMIN;
 
 export const PropsRoute = ({ component, ...rest }: any) => (
@@ -35,8 +34,11 @@ export const setAuthorizationToken = (token: boolean) => {
   }
 };
 
-export const Waiting = (Component: any) => (props: any) => (
-  <Suspense fallback={<IconLoader />}>
-    <Component {...(props as any)} />
-  </Suspense>
-);
+export const Waiting = (Component: any) =>
+  function WaitFor(props: any) {
+    return (
+      <Suspense fallback={<IconLoader />}>
+        <Component {...(props as any)} />
+      </Suspense>
+    );
+  };

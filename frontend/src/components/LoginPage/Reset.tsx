@@ -14,13 +14,13 @@ import { TextField } from '../formElements';
 
 import validate from '../../validations/reset';
 import {
-  ResetProps,
-  ResetFormError,
+  LoginProps,
+  LoginFormError,
   ResetHandlersProps,
   ResetLifecycleProps,
 } from './models';
 
-const enhance = compose<ResetProps, {}>(
+const enhance = compose<LoginProps, {}>(
   reduxForm({
     form: 'Reset',
     validate,
@@ -35,7 +35,7 @@ const enhance = compose<ResetProps, {}>(
     componentDidMount() {
       const { getReset, addFlashMessage, match } = this.props;
 
-      getReset(match.params.token).catch((err: ResetFormError) =>
+      getReset(match.params.token).catch((err: LoginFormError) =>
         addFlashMessage({
           type: 'error',
           text:
@@ -74,7 +74,7 @@ const enhance = compose<ResetProps, {}>(
 
           history.push('/');
         })
-        .catch((err: ResetFormError) =>
+        .catch((err: LoginFormError) =>
           setState({
             error:
               err.response && err.response.data.error
@@ -87,7 +87,7 @@ const enhance = compose<ResetProps, {}>(
   }),
 );
 
-const Reset: FunctionComponent<ResetProps> = ({
+const Reset: FunctionComponent<LoginProps> = ({
   handleSubmit,
   onSubmit,
   state,
