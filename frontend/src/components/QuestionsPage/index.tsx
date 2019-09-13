@@ -20,11 +20,9 @@ const AddQuestion = lazy(() =>
 );
 
 const QuestionsTop = lazy(() =>
-  // @ts-ignore
   import('./QuestionsTop' /* webpackChunkName: "QuestionsTop" */),
 );
 const QuestionsFromInternet = lazy(() =>
-  // @ts-ignore
   import(
     './QuestionsFromInternet' /* webpackChunkName: "QuestionsFromInternet" */
   ),
@@ -58,7 +56,7 @@ const QuestionsPage = () => (
         <Route
           exact
           path="/questions/top"
-          component={Waiting(QuestionsWrapper(QuestionsTop))}
+          component={QuestionsWrapper(QuestionsTop)}
         />
         <Route
           exact

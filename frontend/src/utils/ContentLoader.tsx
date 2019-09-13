@@ -1,6 +1,7 @@
 import React, { Fragment, FunctionComponent, useEffect, useState } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 import ContentPlaceholder from './ContentPlaceholder';
+import shortid from 'shortid';
 
 const WithContentLoader = (
   WrappedComponent: any,
@@ -66,8 +67,8 @@ const WithContentLoader = (
 
     return filtered.length !== _props.length ? (
       <ListGroup>
-        {[...Array(count)].map((_, index: number) => (
-          <ListGroup.Item key={index}>
+        {[...Array(count)].map(() => (
+          <ListGroup.Item key={shortid.generate()}>
             <ContentPlaceholder />
           </ListGroup.Item>
         ))}
