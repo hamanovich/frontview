@@ -1,18 +1,21 @@
 import React, { Component, Fragment } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import {
+  // Field,
+  reduxForm,
+} from 'redux-form';
 
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+// import Card from 'react-bootstrap/Card';
+// import Form from 'react-bootstrap/Form';
+// import Row from 'react-bootstrap/Row';
+// import Col from 'react-bootstrap/Col';
 
 import validate from '../../validations/candidate';
 
-import TextField from '../formElements/TextField';
-import TextareaField from '../formElements/TextareaField';
+// import TextField from '../formElements/TextField';
+// import TextareaField from '../formElements/TextareaField';
 
-class InterviewCandidates extends Component {
+class InterviewCandidates extends Component<any, any> {
   static defaultProps = {
     userId: null,
     candidates: [],
@@ -24,7 +27,7 @@ class InterviewCandidates extends Component {
     isLoading: false,
   };
 
-  onSubmit = values => {
+  onSubmit = (values: any) => {
     const { candidateAdd, addFlashMessage, userId, reset } = this.props;
     const query = { ...values, userId };
 
@@ -39,7 +42,7 @@ class InterviewCandidates extends Component {
           text: `Candidate ${values.firstName} ${values.lastName} has created`,
         });
 
-        this.setState(prevState => ({
+        this.setState((prevState: any) => ({
           isLoading: false,
           panel: !prevState.panel,
         }));
@@ -48,15 +51,14 @@ class InterviewCandidates extends Component {
   };
 
   chooseOne = () => {
-    const { history, candidates } = this.props;
-    const candidate = candidates.find(
-      candidate => candidate._id === this.candidateOne.value,
-    );
-
-    history.push({
-      pathname: '/interview/qlists',
-      state: candidate,
-    });
+    // const { history, candidates } = this.props;
+    // const candidate = candidates.find(
+    //   (candidate: any) => candidate._id === this.candidateOne.value,
+    // );
+    // history.push({
+    //   pathname: '/interview/qlists',
+    //   state: candidate,
+    // });
   };
 
   chooseFromList = () => {
@@ -71,14 +73,14 @@ class InterviewCandidates extends Component {
   };
 
   render() {
-    const { isLoading } = this.state;
-    const { candidates, handleSubmit } = this.props;
-    const chooseCandidates = candidates.map(candidate => (
-      <option value={candidate._id} key={candidate._id}>
-        {candidate.firstName} {candidate.lastName} - {candidate.primarySkill} (
-        {candidate.techLevel})
-      </option>
-    ));
+    // const { isLoading } = this.state;
+    // const { candidates, handleSubmit } = this.props;
+    // const chooseCandidates = candidates.map((candidate: any) => (
+    //   <option value={candidate._id} key={candidate._id}>
+    //     {candidate.firstName} {candidate.lastName} - {candidate.primarySkill} (
+    //     {candidate.techLevel})
+    //   </option>
+    // ));
 
     return (
       <Fragment>
@@ -89,7 +91,7 @@ class InterviewCandidates extends Component {
           </Button>
         </p>
 
-        <Card
+        {/* <Card
           id="collapsible-panel-1"
           expanded={this.state.panel}
           onToggle={() => {}}>
@@ -193,13 +195,13 @@ class InterviewCandidates extends Component {
               </Form>
             </Card.Body>
           </Card.Collapse>
-        </Card>
+        </Card> */}
       </Fragment>
     );
   }
 }
 
-export default reduxForm({
+export default reduxForm<{}, any>({
   form: 'InterviewCandidates',
   validate,
 })(InterviewCandidates);

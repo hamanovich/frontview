@@ -19,9 +19,9 @@ export interface AccountPageProps {
 
 export interface AccountEditProps {
   handleSubmit: (
-    onSubmit: ({}) => void,
+    onSubmit: (value: any) => void,
   ) => ((event: FormEvent<HTMLFormElement>) => void) | undefined;
-  onSubmit: ({}) => void;
+  onSubmit: (value: any) => void;
   isLoading: boolean;
   user: {
     username: string;

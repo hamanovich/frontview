@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import MarkdownRenderer from 'react-markdown-renderer';
 import FontAwesome from 'react-fontawesome';
@@ -9,7 +9,7 @@ import lifecycle from 'recompose/lifecycle';
 const enhance = compose(
   lifecycle({
     UNSAFE_componentWillMount() {
-      const { history, location } = this.props;
+      const { history, location } = this.props as any;
 
       if (!location.state) {
         history.push('/');
@@ -18,7 +18,7 @@ const enhance = compose(
   }),
 );
 
-const InterviewFinish = ({ location }) => (
+const InterviewFinish: FunctionComponent<any> = ({ location }) => (
   <Fragment>
     {location.state && (
       <div>

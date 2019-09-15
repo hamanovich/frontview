@@ -1,4 +1,4 @@
-import { User, Comment } from 'propTypes';
+import { User, Comment } from '.';
 
 export interface Question {
   _id: string;

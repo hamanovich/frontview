@@ -18,11 +18,10 @@ import Toolbar from '../shared/Toolbar';
 import ZoomImage from '../shared/ZoomImage';
 import Loader from '../../utils/Loader';
 import { QuestionProps, QuestionState } from './models';
-import { TextareaField } from '../formElements';
 import { DropThumb, DropThumbs } from './AddQuestion/style';
-import { Question, User, Comment } from 'propTypes';
 import { isAdmin, isSuperAdmin } from '../../utils/helpers';
 import { BadgeStyled } from './style';
+import { Question, User, Comment } from '../../propTypes';
 
 class QuestionSingle extends Component<QuestionProps, QuestionState> {
   static defaultProps = {
@@ -41,7 +40,7 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
 
   private zoom = mediumZoom();
 
-  private textInput = createRef<TextareaField>();
+  private textInput = createRef<any>();
 
   private attachZoom = (image: string) => {
     this.zoom.attach(image);
@@ -73,14 +72,17 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
       answerField: '',
     });
 
-    if (answerField === this.textInput.current!.value) {
+    if (
+      this.textInput.current &&
+      answerField === this.textInput.current.value
+    ) {
       return;
     }
 
     editQuestionField(
       question._id,
       textField,
-      this.textInput.current!.value,
+      (this.textInput.current && this.textInput.current.value) || null,
     ).then((q: Question) => {
       if (history.push && question.slug !== q.slug) {
         history.push('/questions');
@@ -89,9 +91,9 @@ class QuestionSingle extends Component<QuestionProps, QuestionState> {
   };
 
   private toggleAnswer = () => {
-    this.setState({
-      showAnswer: !this.state.showAnswer,
-    });
+    this.setState(prevState => ({
+      showAnswer: !prevState.showAnswer,
+    }));
   };
 
   private toggleRemoveModal = () =>

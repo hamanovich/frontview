@@ -3,5 +3,3 @@ export const forEachPromise = (items, fn) =>
     (promise, item) => promise.then(() => fn(item)),
     Promise.resolve(),
   );
-
-export default null;

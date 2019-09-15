@@ -1,15 +1,15 @@
 import { FormEvent } from 'react';
+import { InjectedFormProps } from 'redux-form';
 import { Credentials } from '../../actions/auth';
 import { AddFlashMessageType } from '../../propTypes';
-import { InjectedFormProps } from 'redux-form';
 
-export interface onSubmitLoginProps {
+export interface OnSubmitLoginProps {
   login: (credentials: Credentials) => Promise<any>;
   history: {
     push: (url: string) => void;
   };
   getUser: (identifier: string) => void;
-  setState: ({}) => void;
+  setState: (value: any) => void;
 }
 
 export interface LoginFormError {
@@ -23,9 +23,9 @@ export interface LoginFormError {
 
 export interface LoginProps {
   handleSubmit: (
-    onSubmit: ({}) => void,
+    onSubmit: (value: any) => void,
   ) => ((event: FormEvent<HTMLFormElement>) => void) | undefined;
-  onSubmit: ({}) => void;
+  onSubmit: (value: any) => void;
   state: {
     error: string;
     isLoading: boolean;
@@ -44,11 +44,8 @@ export interface LoginPageProps {
   addFlashMessage: AddFlashMessageType;
 }
 
-export interface ResetProps extends LoginProps {}
-export interface ResetFormError extends LoginFormError {}
-
 export interface ResetHandlersProps {
-  setState: ({}) => void;
+  setState: (value: any) => void;
   resetToken: (
     token: string,
     passwords: { password: string; passwordConfirmation: string },
@@ -82,9 +79,7 @@ export interface ForgotProps extends LoginProps {
   };
 }
 
-export interface ForgotFormError extends LoginFormError {}
-
 export interface ForgotHandlersProps extends InjectedFormProps {
-  setState: ({}) => void;
+  setState: (value: any) => void;
   forgot: (email: string) => Promise<any>;
 }

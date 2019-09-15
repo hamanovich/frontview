@@ -6,26 +6,26 @@ import { AppState } from '../reducers';
 import { USERS_GET, USER_REMOVE, USER_UPDATE_ROLE } from './types';
 import { User, RoleEnum } from '../propTypes/UserType';
 
-interface usersGetAction {
+interface UsersGetAction {
   type: typeof USERS_GET;
   users: User[];
 }
 
-interface userRemoveAction {
+interface UserRemoveAction {
   type: typeof USER_REMOVE;
   username: string;
 }
 
-interface userRoleUpdateAction {
+interface UserRoleUpdateAction {
   type: typeof USER_UPDATE_ROLE;
   username: string;
   role: RoleEnum;
 }
 
 export type UserActionTypes =
-  | usersGetAction
-  | userRemoveAction
-  | userRoleUpdateAction;
+  | UsersGetAction
+  | UserRemoveAction
+  | UserRoleUpdateAction;
 
 export const usersGet = (users: User[]): UserActionTypes => ({
   type: USERS_GET,

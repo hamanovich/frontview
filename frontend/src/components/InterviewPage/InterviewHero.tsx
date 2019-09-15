@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router-dom';
 
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 
-const InterviewHero = () => (
+const InterviewHero: FunctionComponent = () => (
   <Jumbotron className="text-center">
     <h2 className="text-danger">
       This flow is in progress. <br />

@@ -14,27 +14,27 @@ import {
   QLIST_REMOVE,
 } from './types';
 
-interface addQlistsAction {
+interface AddQlistsAction {
   type: typeof QLISTS_ADD;
   qlists: QList[];
 }
 
-interface qlistAddedAction {
+interface QlistAddedAction {
   type: typeof QLIST_ADD;
   qlist: QList;
 }
 
-interface qlistGotAction {
+interface QlistGotAction {
   type: typeof QLIST_GET;
   qlist: QList;
 }
 
-interface qlistQuestionAddedAction {
+interface QlistQuestionAddedAction {
   type: typeof QLIST_ADD_QUESTION;
   qlist: QList;
 }
 
-interface qlistRemovedAction {
+interface QlistRemovedAction {
   type: typeof QLIST_REMOVE;
   qlist: QList;
 }
@@ -97,8 +97,8 @@ export const removeQList = (
   api.qlists.remove(_id).then(qlist => dispatch(qlistRemoved(qlist)));
 
 export type QListActionTypes =
-  | addQlistsAction
-  | qlistAddedAction
-  | qlistGotAction
-  | qlistQuestionAddedAction
-  | qlistRemovedAction;
+  | AddQlistsAction
+  | QlistAddedAction
+  | QlistGotAction
+  | QlistQuestionAddedAction
+  | QlistRemovedAction;

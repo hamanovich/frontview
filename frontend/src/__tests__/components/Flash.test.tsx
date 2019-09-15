@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
 
-import { Flash, FlashProps } from 'components/flash/Flash';
-import { mockDataDanger } from 'components/flash/Flash.mock';
+import { Flash, FlashProps } from '../../components/flash/Flash';
+import { mockDataDanger } from '../../components/flash/Flash.mock';
 
 describe('<Flash/>', () => {
   const mockData = {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 import compose from 'recompose/compose';
@@ -12,14 +12,14 @@ import { TextareaField } from '../formElements';
 import validate from '../../validations/interviewNotes';
 
 const enhance = compose(
-  reduxForm({
+  reduxForm<{}, any>({
     form: 'InterviewNotesForm',
     validate,
   }),
 
   withHandlers({
-    onSubmit: props => feedback => {
-      const { provideFeedback, candidate, push } = props;
+    onSubmit: props => (feedback: any) => {
+      const { provideFeedback, candidate, push } = props as any;
 
       provideFeedback(candidate._id, feedback);
 
@@ -31,7 +31,10 @@ const enhance = compose(
   }),
 );
 
-const InterviewNotesForm = ({ handleSubmit, onSubmit }) => (
+const InterviewNotesForm: FunctionComponent<any> = ({
+  handleSubmit,
+  onSubmit,
+}) => (
   <Form onSubmit={handleSubmit(onSubmit)} noValidate>
     <Field
       label="Private notes:"

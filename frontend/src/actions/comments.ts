@@ -11,31 +11,31 @@ import {
   COMMENT_REMOVE,
 } from './types';
 
-interface addCommentsAction {
+interface AddCommentsAction {
   type: typeof COMMENTS_ADD;
   comments: Comment[];
 }
 
-interface commentAddedAction {
+interface CommentAddedAction {
   type: typeof COMMENT_ADD;
   comment: Comment;
 }
 
-interface commentApproveAction {
+interface CommentApproveAction {
   type: typeof COMMENT_APPROVE;
   comment: Comment;
 }
 
-interface commentRemovedAction {
+interface CommentRemovedAction {
   type: typeof COMMENT_REMOVE;
   comment: Comment;
 }
 
 export type CommentsActionTypes =
-  | addCommentsAction
-  | commentAddedAction
-  | commentApproveAction
-  | commentRemovedAction;
+  | AddCommentsAction
+  | CommentAddedAction
+  | CommentApproveAction
+  | CommentRemovedAction;
 
 export const addComments = (comments: Comment[]): CommentsActionTypes => ({
   type: COMMENTS_ADD,

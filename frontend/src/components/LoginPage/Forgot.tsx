@@ -12,7 +12,7 @@ import Alert from 'react-bootstrap/Alert';
 import { TextField } from '../formElements';
 
 import validate from '../../validations/forgot';
-import { ForgotProps, ForgotFormError, ForgotHandlersProps } from './models';
+import { ForgotProps, LoginFormError, ForgotHandlersProps } from './models';
 
 const enhance = compose<ForgotProps, {}>(
   reduxForm({
@@ -43,7 +43,7 @@ const enhance = compose<ForgotProps, {}>(
           });
           reset();
         })
-        .catch((err: ForgotFormError) =>
+        .catch((err: LoginFormError) =>
           setState({
             error:
               err.response && err.response.data.error

@@ -21,7 +21,7 @@ import { getQLists } from '../../../actions/qlists';
 import { addFlashMessage } from '../../../actions/flash';
 import { Comment } from '../../../propTypes/CommentType';
 import { GetQuestionsError, QuestionsWrapperStateProps } from '../models';
-import { AddFlashMessageType, Question, User, QList } from 'propTypes';
+import { AddFlashMessageType, Question, User, QList } from '../../../propTypes';
 
 type QuestionOneProps = {
   addFlashMessage: AddFlashMessageType;
@@ -89,7 +89,7 @@ class QuestionOne extends Component<QuestionOneProps> {
   };
 
   private getVerifiedComments = (q: Question) =>
-    q!.comments.filter((comment: Comment) => comment.isVerified);
+    q && q.comments.filter((comment: Comment) => comment.isVerified);
 
   render() {
     const {

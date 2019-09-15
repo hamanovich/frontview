@@ -9,21 +9,21 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Modal from 'react-bootstrap/Modal';
 
+import {
+  Comment as CommentType,
+  CommentQuestion,
+  AddFlashMessageType,
+  User,
+} from '../../propTypes';
 import { addFlashMessage } from '../../actions/flash';
 import {
   approveComment,
   removeComment,
   CommentsActionTypes,
 } from '../../actions/comments';
-import { ApproveBar } from '../../components/QuestionsPage/style';
+import { ApproveBar } from '../QuestionsPage/style';
 import { MediaImage, QuestionLink } from './style';
-import {
-  Comment as CommentType,
-  CommentQuestion,
-  AddFlashMessageType,
-  User,
-} from 'propTypes';
-import { isAdmin, isSuperAdmin } from 'utils/helpers';
+import { isSuperAdmin, isAdmin } from '../../utils/helpers';
 
 type CommentProps = {
   comment: CommentQuestion;

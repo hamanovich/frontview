@@ -15,7 +15,7 @@ import Form from 'react-bootstrap/Form';
 
 import { User, Auth, RoleEnum } from '../../propTypes';
 import { getAllUsers, removeUser, updateUserRole } from '../../actions/users';
-import { isAdmin } from 'utils/helpers';
+import { isAdmin } from '../../utils/helpers';
 
 type UserPageOwnProps = {
   auth: Auth;
@@ -134,8 +134,8 @@ export const UsersPage: FunctionComponent<UsersPageProps> = ({
         </Modal.Header>
         <Modal.Body>
           <p>
-            Please remove User ONLY if you are pretty sure, this action can't be
-            cancelled.
+            Please remove User ONLY if you are pretty sure, this action
+            can&apos;t be cancelled.
           </p>
         </Modal.Body>
         <Modal.Footer>
@@ -163,8 +163,8 @@ export const UsersPage: FunctionComponent<UsersPageProps> = ({
           <Form>
             <p>
               If you change role to{' '}
-              <strong className="text-danger">admin</strong>, this action can't
-              be undone
+              <strong className="text-danger">admin</strong>, this action
+              can&apos;t be undone
             </p>
             <Form.Group>
               <Form.Label htmlFor="formControlsTextarea">

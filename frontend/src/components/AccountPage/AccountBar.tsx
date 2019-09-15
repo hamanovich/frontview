@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 
 import { logout } from '../../actions/auth';
 import { AccountBarProps } from './models';
-import { isAdmin } from 'utils/helpers';
+import { isAdmin } from '../../utils/helpers';
 
 const AccountBar: FunctionComponent<AccountBarProps> = ({ auth, logout }) => (
   <Fragment>

@@ -2,7 +2,7 @@ import React, { FunctionComponent, Fragment } from 'react';
 
 import Comment from './Comment';
 import Loader from '../../utils/Loader';
-import { User, CommentQuestion } from 'propTypes';
+import { CommentQuestion, User } from '../../propTypes';
 
 type CommentsProps = {
   comments: CommentQuestion[];
