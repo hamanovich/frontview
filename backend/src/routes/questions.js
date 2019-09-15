@@ -315,7 +315,10 @@ exports.getQuestionsByFilter = async (req, res) => {
   const { type, tag } = req.params;
   const tagQuery = tag || { $exists: true };
   const typePromise = Question.getListByType(type);
-  const questionsPromise = Question.find({ [type]: tagQuery });
+  const questionsPromise = Question.find({
+    [type]: tagQuery,
+    isVerified: true,
+  });
   const [tags, questions] = await Promise.all([typePromise, questionsPromise]);
 
   res.json({ tags, questions });
