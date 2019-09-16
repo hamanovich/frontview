@@ -1,7 +1,7 @@
 import React, { Fragment, FunctionComponent, useEffect, useState } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
-import ContentPlaceholder from './ContentPlaceholder';
 import shortid from 'shortid';
+import ContentPlaceholder from './ContentPlaceholder';
 
 const WithContentLoader = (
   WrappedComponent: any,
@@ -74,7 +74,6 @@ const WithContentLoader = (
         ))}
       </ListGroup>
     ) : (
-      // eslint-disable-next-line react/jsx-props-no-spreading
       <WrappedComponent {...props} />
     );
   };
