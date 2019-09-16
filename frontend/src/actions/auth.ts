@@ -8,16 +8,16 @@ import { setAuthorizationToken } from '../utils/helpers';
 import { USER_GET, SET_CURRENT_USER, CLEANUP_CURRENT_USER } from './types';
 import { User } from '../propTypes/UserType';
 
-interface setCurrentUserActon {
+interface SetCurrentUserActon {
   type: typeof SET_CURRENT_USER;
   user: User;
 }
 
-interface logoutUserActon {
+interface LogoutUserActon {
   type: typeof CLEANUP_CURRENT_USER;
 }
 
-interface userGetAction {
+interface UserGetAction {
   type: typeof USER_GET;
   user: User;
 }
@@ -28,9 +28,9 @@ export interface Credentials {
 }
 
 export type AuthActionTypes =
-  | setCurrentUserActon
-  | logoutUserActon
-  | userGetAction;
+  | SetCurrentUserActon
+  | LogoutUserActon
+  | UserGetAction;
 
 export const userGet = (user: User): AuthActionTypes => ({
   type: USER_GET,

@@ -1,4 +1,4 @@
-import { AddFlashMessageType } from './../../propTypes';
+import { AddFlashMessageType } from '../../propTypes';
 
 export interface ConfirmationProps {
   success: boolean;

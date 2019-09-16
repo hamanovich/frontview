@@ -19,11 +19,11 @@
     "storybook": "cd frontend && yarn storybook",
     "storybook:build": "cd frontend && yarn build-storybook",
     "format": "yarn prettier -- --write",
-    "prettier": "prettier \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|graphql|mdx)\"",
+    "prettier": "prettier \"**/*.+(js|jsx|json|yml|css|scss|ts|tsx|md)\"",
     "validate": "yarn lint && yarn format --list-different",
     "lint": "yarn lint:backend && yarn lint:frontend",
     "lint:backend": "eslint ./backend/src/**/*.js",
-    "lint:frontend": "eslint \"./frontend/src/**/*.+(js|ts|tsx)\"",
+    "lint:frontend": "cd frontend && yarn lint",
     "test": "cd frontend && yarn test",
     "test:staged": "cross-env CI=true yarn test --findRelatedTests"
   },
@@ -34,11 +34,7 @@
     "babel-eslint": "10.0.3",
     "cross-env": "5.2.1",
     "eslint": "6.3.0",
-    "eslint-config-airbnb": "18.0.1",
     "eslint-config-prettier": "6.1.0",
-    "eslint-plugin-import": "2.18.2",
-    "eslint-plugin-jsx-a11y": "6.2.3",
-    "eslint-plugin-react": "7.14.3",
     "husky": "3.0.5",
     "lint-staged": "9.2.5",
     "prettier": "1.18.2",
@@ -55,8 +51,9 @@
     }
   },
   "lint-staged": {
-    "*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|graphql|mdx)": [
+    "*.+(js|jsx|yml|yaml|css|less|scss|ts|tsx|md|graphql|mdx)": [
       "yarn format",
+      "yarn lint",
       "git add"
     ],
     "frontend/src/**/*.+(ts|tsx)": [

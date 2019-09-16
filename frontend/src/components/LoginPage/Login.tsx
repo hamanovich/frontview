@@ -14,9 +14,9 @@ import Form from 'react-bootstrap/Form';
 import { TextField } from '../formElements';
 
 import validate from '../../validations/login';
-import { onSubmitLoginProps, LoginFormError, LoginProps } from './models';
+import { OnSubmitLoginProps, LoginFormError, LoginProps } from './models';
 
-export const onSubmit = (props: onSubmitLoginProps) => (values: any) => {
+export const onSubmit = (props: OnSubmitLoginProps) => (values: any) => {
   const { login, history, getUser, setState } = props;
 
   setState({

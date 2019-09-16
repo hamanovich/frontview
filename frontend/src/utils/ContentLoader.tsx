@@ -6,7 +6,8 @@ import ContentPlaceholder from './ContentPlaceholder';
 const WithContentLoader = (
   WrappedComponent: any,
   propName: string,
-  count: number = 1,
+  count: number,
+  // eslint-disable-next-line react/display-name
 ) => (props: any) => {
   const WithLoaderComponent: FunctionComponent = () => {
     const [isEmpty, setIsEmpty] = useState(false);
@@ -79,6 +80,10 @@ const WithContentLoader = (
   };
 
   return <WithLoaderComponent />;
+};
+
+WithContentLoader.defaultProps = {
+  count: 1,
 };
 
 export default WithContentLoader;

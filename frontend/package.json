@@ -10,7 +10,8 @@
     "test": "react-scripts test --env=jsdom",
     "coverage": "yarn test --coverage",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "lint": "eslint './src/**/*.{ts,tsx}'"
   },
   "dependencies": {
     "@types/enzyme": "3.10.3",
@@ -92,7 +93,13 @@
     "@types/storybook__addon-options": "4.0.2",
     "@types/storybook__addon-viewport": "4.1.1",
     "@types/storybook__react": "4.0.2",
+    "@typescript-eslint/eslint-plugin": "2.2.0",
+    "@typescript-eslint/parser": "2.2.0",
     "enzyme-to-json": "3.4.0",
+    "eslint": "^6.3.0",
+    "eslint-config-prettier": "6.3.0",
+    "eslint-config-react": "1.1.7",
+    "prettier": "1.18.2",
     "react-test-renderer": "16.9.0",
     "redux-mock-store": "1.5.3"
   },
