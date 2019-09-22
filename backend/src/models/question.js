@@ -106,6 +106,7 @@ questionSchema.pre('save', async function qSchema1(next) {
 
 questionSchema.statics.getListByType = function qSchema2(type) {
   return this.aggregate([
+    { $match: { isVerified: true } },
     { $unwind: `$${type}` },
     {
       $group: {
