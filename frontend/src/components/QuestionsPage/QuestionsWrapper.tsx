@@ -18,7 +18,7 @@ import {
   GetQuestionsError,
   QuestionsWrapperStateProps,
 } from './models';
-import { Question } from '../../propTypes/QuestionType';
+import { Question } from '../../propTypes';
 
 const WrappedComponent = <P extends object>(
   Component: React.ComponentType<P>,

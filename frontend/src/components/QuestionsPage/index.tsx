@@ -18,6 +18,7 @@ import ErrorBoundary from '../../utils/ErrorBoundary';
 const AddQuestion = lazy(() =>
   import('./AddQuestion' /* webpackChunkName: "AddQuestion" */),
 );
+
 const QuestionsTop = lazy(() =>
   import('./QuestionsTop' /* webpackChunkName: "QuestionsTop" */),
 );
@@ -55,7 +56,7 @@ const QuestionsPage = () => (
         <Route
           exact
           path="/questions/top"
-          component={Waiting(QuestionsWrapper(QuestionsTop))}
+          component={QuestionsWrapper(QuestionsTop)}
         />
         <Route
           exact
